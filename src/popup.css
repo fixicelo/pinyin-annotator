@@ -1,0 +1,36 @@
+html {
+  border-radius: 10px;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 24px;
+  text-align: center;
+}
+
+.button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.status {
+  font-size: 1.2em;
+}
+
+.annotated {
+  color: green;
+}
+
+.not-annotated {
+  color: gray;
+}
