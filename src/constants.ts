@@ -51,6 +51,7 @@ export const IGNORED_NODES = [
   "STYLE",
   "CODE",
   "PRE",
+  "KBD",
   "INPUT",
   "TEXTAREA"
 ]
