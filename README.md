@@ -21,6 +21,10 @@ To install Pinyin Annotator for your browser:
 - **Transparent and Open-Source**: Unlike many browser extensions that do not disclose their code, leaving you uncertain about their operations, this extension allows you to review every line of code. Furthermore, you can build it yourself or contribute to it on GitHub.
 - **Flexible Display Options**: Choose to display or hide pinyin tone marks as per your preference.
 
+## Known Issues (Pull Requests are Welcome)
+
+- When transitioning between pages on YouTube, the video titles may be displayed incorrectly.
+
 ## Making production build
 
 Apart from obtaining the extension from your browser's dedicated extension store, you can clone this repository and build it yourself.
