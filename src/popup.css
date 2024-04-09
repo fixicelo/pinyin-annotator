@@ -1,5 +1,7 @@
-html {
-  border-radius: 10px;
+@import 'lxgw-wenkai-webfont/lxgwwenkaimono-regular.css';
+
+body {
+  font-family: "LXGW WenKai Mono", sans-serif;
 }
 
 .popup {

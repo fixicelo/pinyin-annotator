@@ -22,6 +22,7 @@ const AppTitle = memo(({ toneType }: { toneType: ToneType }) => {
       variant="h4"
       gutterBottom
       textAlign={'center'}
+      style={{ fontFamily: "LXGW WenKai Mono" }}
     >
       {/* 
       <ruby>漢<rp>(</rp><rt>{withTones ? 'hàn' : 'han'}</rt><rp>)</rp></ruby>
@@ -170,15 +171,16 @@ function Popup() {
       />
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="body1">Tone marks (ā á ǎ à)</Typography>
+        <Typography variant="body1" style={{ fontFamily: "LXGW WenKai Mono" }}>Tone marks (ā á ǎ à)</Typography>
         <Switch checked={toneType === ToneType.Symbol} onChange={e => handleToneTypeChange(e.target.checked)} />
       </Stack>
       <Tooltip
         title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili."
         placement="bottom"
+        style={{ fontFamily: "LXGW WenKai Mono" }}
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="body1">Monitor mode</Typography>
+          <Typography variant="body1" style={{ fontFamily: "LXGW WenKai Mono" }}>Monitor mode</Typography>
           <Switch checked={observerEnabled} onChange={e => handleObserverEnabledChange(e.target.checked)} /></Stack>
       </Tooltip>
 

@@ -29,6 +29,9 @@ dependencies:
   html-react-parser:
     specifier: ^5.1.10
     version: 5.1.10(@types/react@18.2.48)(react@18.2.0)
+  lxgw-wenkai-webfont:
+    specifier: ^1.7.0
+    version: 1.7.0
   pinyin-pro:
     specifier: ^3.19.6
     version: 3.19.6
@@ -4851,6 +4854,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /lxgw-wenkai-webfont@1.7.0:
+    resolution: {integrity: sha512-kVJmT4xMAyOLhG6q0w63wJkVU7RP8UMQRGoAWj9tnpzL7sWFFYiEHBdUQyW9myqBQFa5SQfWfa2VLYF4IJBL5g==}
+    dev: false
 
   /magic-string@0.30.8:
     resolution: {integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==}
