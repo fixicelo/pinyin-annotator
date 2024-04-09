@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
-import FormGroup from '@mui/material/FormGroup';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
@@ -43,44 +42,6 @@ const AnnotationStatus = memo(({ isAnnotated }: { isAnnotated: boolean }) => (
     Status: {isAnnotated ? 'Annotated' : 'Not annotated / Not applicable'}
   </p>
 ));
-
-const SettingsPanel = memo(({
-  updateToneType,
-  updateObserverEnabled
-}: { updateToneType: (newToneType: ToneType) => void, updateObserverEnabled: (isChecked: boolean) => void }) => {
-  const [observerEnabled, setObserverEnabled] = useStorage<boolean>(StorageKey.observerEnabled, true);
-  const [toneType, setToneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
-
-  const handleToneTypeChange = useCallback((isChecked: boolean) => {
-    const newToneType = isChecked ? ToneType.Symbol : ToneType.None;
-    setToneType(newToneType);
-    updateToneType(newToneType);
-  }, [setToneType, updateToneType]);
-
-  const handleObserverEnabledChange = useCallback((isChecked: boolean) => {
-    setObserverEnabled(isChecked);
-    updateObserverEnabled(isChecked);
-  }, [setObserverEnabled, updateObserverEnabled]);
-
-  return (
-    <>
-      <FormGroup>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="body1">Tone marks (ā á ǎ à)</Typography>
-          <Switch checked={toneType === ToneType.Symbol} onChange={e => handleToneTypeChange(e.target.checked)} />
-        </Stack>
-        <Tooltip
-          title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili."
-          placement="bottom"
-        >
-          <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <Typography variant="body1">Monitor mode</Typography>
-            <Switch checked={observerEnabled} onChange={e => handleObserverEnabledChange(e.target.checked)} /></Stack>
-        </Tooltip>
-      </FormGroup>
-    </>
-  )
-});
 
 function getSelectionText(removeAnnotations: boolean = true) {
   const selection = window.getSelection();
@@ -148,7 +109,8 @@ const HighlightedTextDisplay = memo(({ toneType }: { toneType: ToneType }) => {
 
 function Popup() {
   const [isAnnotated, setIsAnnotated] = useState(false);
-  const [toneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
+  const [toneType, setToneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
+  const [observerEnabled, setObserverEnabled] = useStorage<boolean>(StorageKey.observerEnabled, true);
 
   const communicateWithContentScript = useCallback(async (action: UserAction, data: UserPreferences = {}) => {
     try {
@@ -180,14 +142,18 @@ function Popup() {
     }
   }, []);
 
-  const updateToneTypeSetting = (newToneType: ToneType) => {
+  const handleToneTypeChange = useCallback((isChecked: boolean) => {
+    const newToneType = isChecked ? ToneType.Symbol : ToneType.None;
+    setToneType(newToneType);
     communicateWithContentScript(UserAction.UpdateOptions, { toneType: newToneType });
-  };
-  const toggleMonitoringMode = (isChecked: boolean) => {
-    communicateWithContentScript(UserAction.UpdateOptions, { observerEnabled: isChecked });
-  };
+  }, [setToneType, communicateWithContentScript]);
 
-  const performAnnotation = useCallback(() => communicateWithContentScript(UserAction.Annotate), [communicateWithContentScript]);
+  const handleObserverEnabledChange = useCallback((isChecked: boolean) => {
+    setObserverEnabled(isChecked);
+    communicateWithContentScript(UserAction.UpdateOptions, { observerEnabled: isChecked });
+  }, [setObserverEnabled, communicateWithContentScript]);
+
+  const performAnnotation = useCallback(() => communicateWithContentScript(UserAction.Annotate, { toneType, observerEnabled }), [communicateWithContentScript]);
   const removeAnnotations = useCallback(() => communicateWithContentScript(UserAction.Clear), [communicateWithContentScript]);
 
 
@@ -202,7 +168,19 @@ function Popup() {
       <AnnotationStatus
         isAnnotated={isAnnotated}
       />
-      <SettingsPanel updateToneType={updateToneTypeSetting} updateObserverEnabled={toggleMonitoringMode} />
+
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Typography variant="body1">Tone marks (ā á ǎ à)</Typography>
+        <Switch checked={toneType === ToneType.Symbol} onChange={e => handleToneTypeChange(e.target.checked)} />
+      </Stack>
+      <Tooltip
+        title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili."
+        placement="bottom"
+      >
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Typography variant="body1">Monitor mode</Typography>
+          <Switch checked={observerEnabled} onChange={e => handleObserverEnabledChange(e.target.checked)} /></Stack>
+      </Tooltip>
 
       <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2} >
         <Button sx={{ textTransform: 'none' }} onClick={removeAnnotations} variant={"outlined"} disabled={!isAnnotated}>Clear</Button>

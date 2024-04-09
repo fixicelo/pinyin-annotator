@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig } from "plasmo"
 
 export const config: PlasmoCSConfig = {
-  matches: ["*://www.youtube.com/watch*"],
+  matches: ["*://www.youtube.com/*"],
   all_frames: true
 }
 

@@ -1,5 +1,3 @@
-import type { PlasmoGetStyle } from "plasmo"
-
 import { Storage } from "@plasmohq/storage"
 
 import {
@@ -55,7 +53,9 @@ export class Annotator {
 
     if (this.isObserverEnabled) {
       this.mutationObserver.disconnect()
-      this.observerOptions = options
+    }
+    this.observerOptions = options
+    if (this.isObserverEnabled) {
       this.mutationObserver.observe(
         this.getObservationTarget(),
         this.observerOptions
@@ -140,16 +140,19 @@ export class Annotator {
 
   private actionHandlers: ActionHandlers = {
     [UserAction.Check]: () => this.syncUserPreferences(),
-    [UserAction.UpdateOptions]: (data) => this.syncUserPreferences(data),
-    [UserAction.Annotate]: () => {
+    [UserAction.UpdateOptions]: (options: UserPreferences) =>
+      this.syncUserPreferences(options),
+    [UserAction.Annotate]: (options: UserPreferences) => {
       if (this.isObserverEnabled) {
         this.mutationObserver.disconnect()
       }
-
+      this.isObserverEnabled = options.observerEnabled
       clearAnnotation(this.getObservationTarget())
-      processNodes(this.getObservationTarget(), this.htmlOptions)
-
-      if (this.isObserverEnabled) {
+      processNodes(this.getObservationTarget(), {
+        ...this.htmlOptions,
+        toneType: options.toneType
+      })
+      if (options.observerEnabled) {
         this.mutationObserver.observe(
           this.getObservationTarget(),
           this.observerOptions
@@ -180,12 +183,4 @@ export class Annotator {
   }
 }
 
-let annotator: Annotator | null = null
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (!annotator) {
-    annotator = new Annotator()
-    annotator.handleUserAction(message, sender, sendResponse)
-    return
-  }
-})
+const annotator = new Annotator()
