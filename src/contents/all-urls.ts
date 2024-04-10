@@ -18,7 +18,7 @@ type ActionHandlers = {
 export class Annotator {
   private storage = new Storage()
   private mutationObserver: MutationObserver
-  private isObserverEnabled = false
+  private isObserverEnabled = true
   private htmlOptions: HtmlOptions = {
     wrapNonChinese: true,
     toneType: ToneType.Symbol
@@ -139,20 +139,20 @@ export class Annotator {
   }
 
   private actionHandlers: ActionHandlers = {
-    [UserAction.Check]: () => this.syncUserPreferences(),
-    [UserAction.UpdateOptions]: (options: UserPreferences) =>
-      this.syncUserPreferences(options),
-    [UserAction.Annotate]: (options: UserPreferences) => {
+    [UserAction.Check]: async () => await this.syncUserPreferences(),
+    [UserAction.UpdateOptions]: async (options: UserPreferences) =>
+      await this.syncUserPreferences(options),
+    [UserAction.Annotate]: async () => {
+      await this.syncUserPreferences()
+
       if (this.isObserverEnabled) {
         this.mutationObserver.disconnect()
       }
-      this.isObserverEnabled = options.observerEnabled
+
       clearAnnotation(this.getObservationTarget())
-      processNodes(this.getObservationTarget(), {
-        ...this.htmlOptions,
-        toneType: options.toneType
-      })
-      if (options.observerEnabled) {
+      processNodes(this.getObservationTarget(), this.htmlOptions)
+
+      if (this.isObserverEnabled) {
         this.mutationObserver.observe(
           this.getObservationTarget(),
           this.observerOptions
@@ -168,17 +168,19 @@ export class Annotator {
   }
 
   public handleUserAction(message, sender, sendResponse) {
-    const actionHandler = this.actionHandlers[message.action]
-    if (actionHandler) {
-      actionHandler(message.data)
-    }
+    ;(async () => {
+      const actionHandler = this.actionHandlers[message.action]
+      if (actionHandler) {
+        await actionHandler(message.data)
+      }
 
-    const response = {
-      status: isAnnotated(this.getObservationTarget())
-        ? ResponseStatus.Annotated
-        : ResponseStatus.NotAnnotated
-    }
-    sendResponse(response)
+      const response = {
+        status: isAnnotated(this.getObservationTarget())
+          ? ResponseStatus.Annotated
+          : ResponseStatus.NotAnnotated
+      }
+      sendResponse(response)
+    })()
     return true
   }
 }

@@ -154,7 +154,7 @@ function Popup() {
     communicateWithContentScript(UserAction.UpdateOptions, { observerEnabled: isChecked });
   }, [setObserverEnabled, communicateWithContentScript]);
 
-  const performAnnotation = useCallback(() => communicateWithContentScript(UserAction.Annotate, { toneType, observerEnabled }), [communicateWithContentScript]);
+  const performAnnotation = useCallback(() => communicateWithContentScript(UserAction.Annotate), [communicateWithContentScript]);
   const removeAnnotations = useCallback(() => communicateWithContentScript(UserAction.Clear), [communicateWithContentScript]);
 
 
