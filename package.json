@@ -1,7 +1,7 @@
 {
   "name": "pinyin-annotator",
   "displayName": "Pinyin Annotator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A browser extension that annotates Chinese characters with Hanyu Pinyin.",
   "author": "fixicelo <fixicelo@gmail.com>",
   "scripts": {
