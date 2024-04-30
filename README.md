@@ -1,6 +1,6 @@
 # Pinyin Annotator
 
-Pinyin Annotator is a browser extension that seamlessly overlays Hanyu Pinyin annotations on Chinese characters throughout web pages and video subtitles, thereby augmenting your online Chinese learning experience.
+Pinyin Annotator is a browser extension that seamlessly overlays Hanyu Pinyin annotations over Chinese characters present in web pages and video closed captions, thereby enhancing your online Chinese language learning journey.
 
 ## Quick Start
 
@@ -8,18 +8,26 @@ To install Pinyin Annotator for your browser:
 
 1. Navigate to your browser's extension store.
 
-2. Enter `Pinyin Annotator` in the search bar.
+- [Chrome](https://chromewebstore.google.com/detail/pinyin-annotator/ajacnabcdcbcdoijcakhgglokndlnpak)
+- [Edge](https://microsoftedge.microsoft.com/addons/detail/pinyin-annotator/gigdgpgkjekfbafagikeghoflcachldl)
+- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/pinyin-annotator/)
 
-3. Click on `Add to Chrome`, `Add to Firefox`, or the equivalent for your browser.
+2. Click on `Add to Chrome`, `Add to Firefox`, or the equivalent for your browser.
 
 ## Key Features
 
-- **Enhanced Video Streaming**: Integrate pinyin into Chinese subtitles (closed captions) on video streaming platforms such as Netflix, Disney+, YouTube, Bilibili, and more for an enriched viewing experience.
-- **Cross-Browser Compatibility**: Works smoothly on on Firefox and Chromium-based browsers (Chrome, Edge, Opera, Brave, and so forth), with forthcoming support for Safari.
-- **Support for Simplified and Traditional Chinese**: Accommodates both Simplified (汉) and Traditional (漢) Chinese.
-- **Easy Accessibility**: If you wish to view the pinyin of a few words only, simply highlight them and click the extension icon. This allows you to view the pinyin of the selected text without disrupting the entire page.
-- **Transparent and Open-Source**: Unlike many browser extensions that do not disclose their code, leaving you uncertain about their operations, this extension allows you to review every line of code. Furthermore, you can build it yourself or contribute to it on GitHub.
-- **Flexible Display Options**: Choose to display or hide pinyin tone marks as per your preference.
+- 🎦 **Enhanced Video Streaming**: Integrate pinyin into Chinese subtitles (closed captions) on video streaming platforms such as Netflix, Disney+, YouTube, Bilibili, and more for an enriched viewing experience.
+- 🌐 **Cross-Browser Compatibility**: Works smoothly on Firefox and Chromium-based browsers (Chrome, Edge, Opera, Brave, and so forth), with forthcoming support for Safari.
+- 🀄 **Support for Simplified and Traditional Chinese**: Accommodates both Simplified (汉) and Traditional (漢) Chinese.
+- ✌️ **Easy Accessibility**: If you wish to view the pinyin of a few words only, simply highlight them and click the extension icon. This allows you to view the pinyin of the selected text without disrupting the entire page.
+- 📃 **Transparent and Open-Source**: Unlike many browser extensions that do not disclose their code, leaving you uncertain about their operations, this extension allows you to review every line of code. Furthermore, you can build it yourself or contribute to it on GitHub.
+- ⚙️ **Flexible Display Options**: Choose to display or hide pinyin tone marks as per your preference.
+
+## Planned Features (Pull Requests are Welcome)
+
+- Support for the Safari browser
+- Keyboard shortcuts
+- Ability to customize unprocessed tags
 
 ## Known Issues (Pull Requests are Welcome)
 
