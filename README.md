@@ -22,11 +22,11 @@ To install Pinyin Annotator for your browser:
 - ✌️ **Easy Accessibility**: If you wish to view the pinyin of a few words only, simply highlight them and click the extension icon. This allows you to view the pinyin of the selected text without disrupting the entire page.
 - 📃 **Transparent and Open-Source**: Unlike many browser extensions that do not disclose their code, leaving you uncertain about their operations, this extension allows you to review every line of code. Furthermore, you can build it yourself or contribute to it on GitHub.
 - ⚙️ **Flexible Display Options**: Choose to display or hide pinyin tone marks as per your preference.
+- ⌨️ **Keyboard shortcut**: (experimental) Use default keyboard shortcut `Alt`(`Option` on macOS) + `Shift` + `P` to toggle annotation, or customize the shortcut to your liking.
 
 ## Planned Features (Pull Requests are Welcome)
 
 - Support for the Safari browser
-- Keyboard shortcuts
 - Ability to customize unprocessed tags
 
 ## Known Issues (Pull Requests are Welcome)
