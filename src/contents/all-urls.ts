@@ -192,6 +192,11 @@ export class Annotator {
         this.mutationObserver.disconnect()
       }
       clearAnnotation(this.getObservationTarget())
+    },
+    [UserAction.Toggle]: async () => {
+      const root = this.getObservationTarget()
+      const action = isAnnotated(root) ? UserAction.Clear : UserAction.Annotate
+      await this.actionHandlers[action]()
     }
   }
 

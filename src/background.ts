@@ -1,3 +1,4 @@
+import { UserAction } from "~constants"
 import { convertTextContentToHtml } from "~util"
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -6,4 +7,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({ action: "receiveAnnotation", html })
   }
   return true
+})
+
+chrome.commands.onCommand.addListener((command) => {
+  if (command === "toggle-annotation") {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { action: UserAction.Toggle })
+    })
+  }
 })

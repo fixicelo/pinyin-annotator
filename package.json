@@ -44,6 +44,15 @@
       "gecko": {
         "id": "pinyin-annotator@fixicelo.ext"
       }
+    },
+    "commands": {
+      "toggle-annotation": {
+        "suggested_key": {
+          "default": "Alt+Shift+P",
+          "mac": "Alt+Shift+P"
+        },
+        "description": "Toggle Pinyin annotations"
+      }
     }
   }
 }

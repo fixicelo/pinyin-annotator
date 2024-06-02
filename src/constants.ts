@@ -8,7 +8,8 @@ export enum UserAction {
   Annotate = "annotate",
   Clear = "clear",
   Check = "check",
-  UpdateOptions = "update_options"
+  UpdateOptions = "update_options",
+  Toggle = "toggle"
 }
 
 export enum ResponseStatus {
