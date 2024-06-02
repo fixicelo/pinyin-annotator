@@ -9,7 +9,13 @@ import {
   type HtmlOptions,
   type UserPreferences
 } from "~constants"
-import { clearAnnotation, isAnnotated, processNodes } from "~util"
+import {
+  clearAnnotation,
+  convertHtmlToDocument,
+  findTextNodesWithContent,
+  isAnnotated,
+  replaceNode
+} from "~util"
 
 type ActionHandlers = {
   [action in UserAction]?: (data?: any) => void
@@ -78,14 +84,14 @@ export class Annotator {
             if (IGNORED_NODES.includes(node.nodeName)) {
               continue
             }
-            processNodes(node, this.htmlOptions)
+            this.processNodes(node, this.htmlOptions)
           }
           break
         case "characterData":
-          processNodes(mutation.target.parentElement, this.htmlOptions)
+          this.processNodes(mutation.target.parentElement, this.htmlOptions)
           break
         case "attributes":
-          processNodes(mutation.target, this.htmlOptions)
+          this.processNodes(mutation.target, this.htmlOptions)
           break
       }
     }
@@ -138,19 +144,41 @@ export class Annotator {
     this.isObserverEnabled = updatedPreferences.observerEnabled
   }
 
+  private async requestAnnotation(text: string, htmlOptions: HtmlOptions) {
+    return chrome.runtime.sendMessage({
+      action: "requestAnnotation",
+      text,
+      htmlOptions
+    })
+  }
+
+  private async processNodes(root: Node, htmlOptions: HtmlOptions) {
+    const nodes = findTextNodesWithContent(root)
+
+    for (const node of nodes) {
+      if (!node.isConnected) {
+        return
+      }
+
+      const response = await this.requestAnnotation(
+        node.textContent,
+        htmlOptions
+      )
+      const doc = convertHtmlToDocument(response.html)
+
+      replaceNode(node, doc, false)
+    }
+  }
+
   private actionHandlers: ActionHandlers = {
     [UserAction.Check]: async () => await this.syncUserPreferences(),
     [UserAction.UpdateOptions]: async (options: UserPreferences) =>
       await this.syncUserPreferences(options),
     [UserAction.Annotate]: async () => {
       await this.syncUserPreferences()
+      this.actionHandlers[UserAction.Clear]()
 
-      if (this.isObserverEnabled) {
-        this.mutationObserver.disconnect()
-      }
-
-      clearAnnotation(this.getObservationTarget())
-      processNodes(this.getObservationTarget(), this.htmlOptions)
+      await this.processNodes(this.getObservationTarget(), this.htmlOptions)
 
       if (this.isObserverEnabled) {
         this.mutationObserver.observe(

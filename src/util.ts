@@ -97,7 +97,7 @@ export const findTextNodesWithContent = (root: Node): Node[] => {
 export function convertTextContentToHtmlPinyinPro(
   text: string,
   htmlOptions: HtmlOptions
-): Document {
+): string {
   /* Example: Result of `convertToPinyinHtml('A,漢，汉', {wrapNonChinese: true, toneType: 'symbol'})`
   ```html
   <span class="py-non-chinese-item">A</span>
@@ -116,40 +116,15 @@ export function convertTextContentToHtmlPinyinPro(
     </ruby>
   </span>
   ```
+
+  // Next steps:
+  // const parsedHtml = convertHtmlToDocument(markup)
+  // convertTag(parsedHtml, CHINESE_CLASS)
+  // convertTag(parsedHtml, NON_CHINESE_CLASS)
+  // convertTag(parsedHtml, RESULT_CLASS, true)
   */
   const markup = convertToPinyinHtml(text, htmlOptions)
-  const parser = new DOMParser()
-  return parser.parseFromString(markup, "text/html")
-}
-
-export function convertTextContentToHtml(
-  text: string,
-  htmlOptions: HtmlOptions
-): Document {
-  // Convert to Simplified Chinese first,
-  // as the library may struggle with Traditional Chinese phrases
-  // Ref: https://github.com/zh-lx/pinyin-pro/issues/212
-  const simplifiedText = cnchar.convert.tradToSimple(text)
-  const pinyinArray = pinyinConverter(simplifiedText, {
-    type: "array",
-    toneType: htmlOptions.toneType
-  })
-  const words = [...text]
-  const lookup = words.map((word, index) => {
-    const pinyin = pinyinArray[index]
-    return word === pinyin ? [word, null] : [word, pinyin]
-  })
-  const markup = lookup
-    .map(([word, pinyin]) => {
-      if (pinyin) {
-        return `<${TAG_NAME} class="${RESULT_CLASS}" ${IS_ANNOTATED_ATTR}="true"><ruby><${TAG_NAME} class="${CHINESE_CLASS}">${word}</${TAG_NAME}><rp>(</rp><rt class="${PINYIN_CLASS}">${pinyin}</rt><rp>)</rp></ruby></${TAG_NAME}>`
-      }
-      return `<${TAG_NAME} class="${NON_CHINESE_CLASS}">${word}</${TAG_NAME}>`
-    })
-    .join("")
-
-  const parser = new DOMParser()
-  return parser.parseFromString(markup, "text/html")
+  return markup
 }
 
 function convertTag(
@@ -174,6 +149,40 @@ function convertTag(
   })
 }
 
+export function convertTextContentToHtml(
+  text: string,
+  htmlOptions: HtmlOptions
+): string {
+  // Convert to Simplified Chinese first,
+  // as the library may struggle with Traditional Chinese phrases
+  // Ref: https://github.com/zh-lx/pinyin-pro/issues/212
+  const simplifiedText = cnchar.convert.tradToSimple(text)
+  const pinyinArray = pinyinConverter(simplifiedText, {
+    type: "array",
+    toneType: htmlOptions.toneType
+  })
+  const words = [...text]
+  const lookup = words.map((word, index) => {
+    const pinyin = pinyinArray[index]
+    return word === pinyin ? [word, null] : [word, pinyin]
+  })
+  const markup = lookup
+    .map(([word, pinyin]) => {
+      if (pinyin) {
+        return `<${TAG_NAME} class="${RESULT_CLASS}" ${IS_ANNOTATED_ATTR}="true"><ruby><${TAG_NAME} class="${CHINESE_CLASS}">${word}</${TAG_NAME}><rp>(</rp><rt class="${PINYIN_CLASS}">${pinyin}</rt><rp>)</rp></ruby></${TAG_NAME}>`
+      }
+      return `<${TAG_NAME} class="${NON_CHINESE_CLASS}">${word}</${TAG_NAME}>`
+    })
+    .join("")
+
+  return markup
+}
+
+export function convertHtmlToDocument(html: string) {
+  const parser = new DOMParser()
+  return parser.parseFromString(html, "text/html")
+}
+
 export function replaceNode(
   node: Node,
   parsedHtml: Document,
@@ -190,25 +199,6 @@ export function replaceNode(
   }
 
   node.parentNode.replaceChild(frag, node)
-}
-
-export function processNodes(root: Node, htmlOptions: HtmlOptions) {
-  const nodes = findTextNodesWithContent(root)
-
-  for (const node of nodes) {
-    if (!node.isConnected) {
-      return
-    }
-
-    // const parsedHtml = convertTextContentToHtmlPinyinPro(node.textContent, htmlOptions)
-    // convertTag(parsedHtml, CHINESE_CLASS)
-    // convertTag(parsedHtml, NON_CHINESE_CLASS)
-    // convertTag(parsedHtml, RESULT_CLASS, true)
-
-    const parsedHtml = convertTextContentToHtml(node.textContent, htmlOptions)
-
-    replaceNode(node, parsedHtml, false)
-  }
 }
 
 export function clearAnnotation(root: Element) {

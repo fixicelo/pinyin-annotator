@@ -90,8 +90,7 @@ const retrieveHighlightedText = (setSelectedText) => {
 
 const HighlightedTextDisplay = memo(({ toneType }: { toneType: ToneType }) => {
   const [selectedText, setSelectedText] = useState("");
-  const doc = convertTextContentToHtml(selectedText, { toneType })
-  let htmlString = doc.body.innerHTML
+  const htmlString = convertTextContentToHtml(selectedText, { toneType })
   const fontSizePx = 40
   const lineHeightPx = fontSizePx + 30
 
