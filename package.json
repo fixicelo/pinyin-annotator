@@ -9,6 +9,10 @@
     "build": "plasmo build",
     "package": "plasmo package"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fixicelo/pinyin-annotator.git"
+  },
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
