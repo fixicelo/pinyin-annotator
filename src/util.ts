@@ -6,13 +6,16 @@ import {
   pinyin as pinyinConverter
 } from "pinyin-pro"
 
+import { Storage } from "@plasmohq/storage"
+
 import {
   CHINESE_CLASS,
-  IGNORED_NODES,
+  DEFAULT_IGNORED_NODES,
   IS_ANNOTATED_ATTR,
   NON_CHINESE_CLASS,
   PINYIN_CLASS,
   RESULT_CLASS,
+  StorageKey,
   TAG_NAME,
   type HtmlOptions
 } from "~constants"
@@ -53,27 +56,37 @@ export function containsChinese(text: string): boolean {
   return /[\u4e00-\u9fff]/.test(text)
 }
 
-export const shouldAcceptNode = (node: Node): boolean => {
-  if (!node.textContent || !containsChinese(node.textContent)) {
-    return false
+export async function getIgnoredNodes(): Promise<string[]> {
+  const storage = new Storage()
+  const userDefinedIgnoredNodes = await storage.get<string[]>(
+    StorageKey.ignoredNodes
+  )
+
+  if (!userDefinedIgnoredNodes) {
+    return DEFAULT_IGNORED_NODES
   }
-
-  let parent = node.parentNode
-
-  if (IGNORED_NODES.includes(parent.nodeName)) {
-    return false
-  }
-
-  //   if (!isElementVisible(parent)) {
-  //     return false
-  //   }
-
-  return true
+  return userDefinedIgnoredNodes
 }
 
-export const findTextNodesWithContent = (root: Node): Node[] => {
+export const findTextNodesWithContent = async (root: Node): Promise<Node[]> => {
   if (!root) {
     return []
+  }
+
+  const ignoredNodes = await getIgnoredNodes()
+
+  const shouldAcceptNode = (node: Node): boolean => {
+    if (!node.textContent || !containsChinese(node.textContent)) {
+      return false
+    }
+
+    let parent = node.parentNode
+
+    if (ignoredNodes.includes(parent.nodeName)) {
+      return false
+    }
+
+    return true
   }
 
   const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {

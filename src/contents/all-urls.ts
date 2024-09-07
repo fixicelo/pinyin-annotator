@@ -1,7 +1,6 @@
 import { Storage } from "@plasmohq/storage"
 
 import {
-  IGNORED_NODES,
   ResponseStatus,
   StorageKey,
   ToneType,
@@ -81,9 +80,6 @@ export class Annotator {
       switch (mutation.type) {
         case "childList":
           for (let node of mutation.addedNodes) {
-            if (IGNORED_NODES.includes(node.nodeName)) {
-              continue
-            }
             this.processNodes(node, this.htmlOptions)
           }
           break
@@ -153,7 +149,7 @@ export class Annotator {
   }
 
   private async processNodes(root: Node, htmlOptions: HtmlOptions) {
-    const nodes = findTextNodesWithContent(root)
+    const nodes = await findTextNodesWithContent(root)
 
     for (const node of nodes) {
       if (!node.isConnected) {

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Elements</title>
+  <style>
+    body {
+      margin: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    .element-container {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .element-container label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, textarea {
+      width: 95%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    code, pre, kbd, mark {
+      background-color: #f9f9f9;
+      padding: 5px;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+    pre {
+      overflow: auto;
+    }
+    kbd {
+      font-family: monospace;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 2px 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="element-container">
+    <label for="input-element">INPUT</label>
+    <input id="input-element" type="text" placeholder="沒有影響吧">
+  </div>
+
+  <div class="element-container">
+    <label for="textarea-element">TEXTAREA</label>
+    <textarea id="textarea-element" rows="4" cols="40">會消失的句子！</textarea>
+  </div>
+
+  <div class="element-container">
+    <label>CODE</label>
+    <code>const example = '你好，世界！';</code>
+  </div>
+
+  <div class="element-container">
+    <label>PRE</label>
+    <pre>
+function greet() {
+  console.log('你好，世界！');
+}
+    </pre>
+  </div>
+
+  <div class="element-container">
+    <label>KBD</label>
+    <kbd>Ctrl鍵 + C鍵</kbd>
+  </div>
+
+  <div class="element-container">
+    <label>LABEL</label>
+    <label>標籤</label>
+  </div>
+
+  <div class="element-container">
+    <label>MARK</label>
+    <mark>標記</mark>
+  </div>
+
+</body>
+</html>
