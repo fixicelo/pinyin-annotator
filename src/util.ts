@@ -58,9 +58,8 @@ export function containsChinese(text: string): boolean {
 
 export async function getIgnoredNodes(): Promise<string[]> {
   const storage = new Storage()
-  const userDefinedIgnoredNodes = await storage.get<string[]>(
-    StorageKey.ignoredNodes
-  )
+  const userDefinedIgnoredNodes =
+    (await storage.get<string[]>(StorageKey.ignoredNodes)) || []
 
   return userDefinedIgnoredNodes.length === 0
     ? DEFAULT_IGNORED_NODES
