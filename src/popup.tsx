@@ -156,18 +156,18 @@ function Popup() {
   const performAnnotation = useCallback(() => communicateWithContentScript(UserAction.Annotate), [communicateWithContentScript]);
   const removeAnnotations = useCallback(() => communicateWithContentScript(UserAction.Clear), [communicateWithContentScript]);
 
+  const openOptionsPage = () => {
+    chrome.runtime.openOptionsPage();
+  };
 
   useEffect(() => {
     communicateWithContentScript(UserAction.Check, {});
   }, [communicateWithContentScript]);
 
-
   return (
     <Box className="popup">
       <AppTitle toneType={toneType} />
-      <AnnotationStatus
-        isAnnotated={isAnnotated}
-      />
+      <AnnotationStatus isAnnotated={isAnnotated} />
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="body1" style={{ fontFamily: "LXGW WenKai Mono" }}>Tone marks (ā á ǎ à)</Typography>
@@ -180,15 +180,20 @@ function Popup() {
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="body1" style={{ fontFamily: "LXGW WenKai Mono" }}>Monitor mode</Typography>
-          <Switch checked={observerEnabled} onChange={e => handleObserverEnabledChange(e.target.checked)} /></Stack>
+          <Switch checked={observerEnabled} onChange={e => handleObserverEnabledChange(e.target.checked)} />
+        </Stack>
       </Tooltip>
 
-      <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2} >
+      <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
+        <Button sx={{ textTransform: 'none' }} onClick={openOptionsPage} variant={"text"}>Options</Button>
         <Button sx={{ textTransform: 'none' }} onClick={removeAnnotations} variant={"outlined"} disabled={!isAnnotated}>Clear</Button>
         <Button sx={{ textTransform: 'none' }} onClick={performAnnotation} variant={"contained"}>Annotate</Button>
       </Stack>
+
       <HighlightedTextDisplay toneType={toneType} />
+
     </Box>
   );
 }
-export default Popup
+
+export default Popup;
