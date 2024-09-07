@@ -3,6 +3,7 @@ import { Storage } from "@plasmohq/storage"
 import {
   ResponseStatus,
   StorageKey,
+  TAG_NAME,
   ToneType,
   UserAction,
   type HtmlOptions,
@@ -80,6 +81,9 @@ export class Annotator {
       switch (mutation.type) {
         case "childList":
           for (let node of mutation.addedNodes) {
+            if (TAG_NAME.toUpperCase() === node.nodeName) {
+              continue
+            }
             this.processNodes(node, this.htmlOptions)
           }
           break

@@ -62,10 +62,9 @@ export async function getIgnoredNodes(): Promise<string[]> {
     StorageKey.ignoredNodes
   )
 
-  if (!userDefinedIgnoredNodes) {
-    return DEFAULT_IGNORED_NODES
-  }
-  return userDefinedIgnoredNodes
+  return userDefinedIgnoredNodes.length === 0
+    ? DEFAULT_IGNORED_NODES
+    : [...userDefinedIgnoredNodes, TAG_NAME.toUpperCase()]
 }
 
 export const findTextNodesWithContent = async (root: Node): Promise<Node[]> => {
@@ -75,23 +74,12 @@ export const findTextNodesWithContent = async (root: Node): Promise<Node[]> => {
 
   const ignoredNodes = await getIgnoredNodes()
 
-  const shouldAcceptNode = (node: Node): boolean => {
-    if (!node.textContent || !containsChinese(node.textContent)) {
-      return false
-    }
-
-    let parent = node.parentNode
-
-    if (ignoredNodes.includes(parent.nodeName)) {
-      return false
-    }
-
-    return true
-  }
-
   const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) => {
-      return shouldAcceptNode(node)
+      if (ignoredNodes.includes(node.parentElement.nodeName)) {
+        return NodeFilter.FILTER_REJECT
+      }
+      return containsChinese(node.textContent)
         ? NodeFilter.FILTER_ACCEPT
         : NodeFilter.FILTER_REJECT
     }
@@ -211,7 +199,9 @@ export function replaceNode(
     frag.append(...Array.from(newElement.childNodes))
   }
 
-  node.parentNode.replaceChild(frag, node)
+  if (node.parentNode) {
+    node.parentNode.replaceChild(frag, node)
+  }
 }
 
 export function clearAnnotation(root: Element) {
