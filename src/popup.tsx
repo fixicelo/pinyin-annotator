@@ -109,7 +109,7 @@ const HighlightedTextDisplay = memo(({ toneType }: { toneType: ToneType }) => {
 
 function Popup() {
   const [isAnnotated, setIsAnnotated] = useState(false);
-  const [toneType, setToneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
+  const [toneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
   const [observerEnabled, setObserverEnabled] = useStorage<boolean>(StorageKey.observerEnabled, true);
 
   const communicateWithContentScript = useCallback(async (action: UserAction, data: UserPreferences = {}) => {
@@ -142,12 +142,6 @@ function Popup() {
     }
   }, []);
 
-  const handleToneTypeChange = useCallback((isChecked: boolean) => {
-    const newToneType = isChecked ? ToneType.Symbol : ToneType.None;
-    setToneType(newToneType);
-    communicateWithContentScript(UserAction.UpdateOptions, { toneType: newToneType });
-  }, [setToneType, communicateWithContentScript]);
-
   const handleObserverEnabledChange = useCallback((isChecked: boolean) => {
     setObserverEnabled(isChecked);
     communicateWithContentScript(UserAction.UpdateOptions, { observerEnabled: isChecked });
@@ -169,10 +163,6 @@ function Popup() {
       <AppTitle toneType={toneType} />
       <AnnotationStatus isAnnotated={isAnnotated} />
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="body1" style={{ fontFamily: "LXGW WenKai Mono" }}>Tone marks (ā á ǎ à)</Typography>
-        <Switch checked={toneType === ToneType.Symbol} onChange={e => handleToneTypeChange(e.target.checked)} />
-      </Stack>
       <Tooltip
         title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili."
         placement="bottom"
