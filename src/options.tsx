@@ -54,14 +54,14 @@ function Options() {
         </Typography>
         <Box mt={2}>
           <FormControlLabel
-            control={<Switch checked={toneType === ToneType.Symbol} onChange={handleToneTypeChange} />}
-            label="Tone marks (ā á ǎ à)"
+            control={<Switch checked={observerEnabled} onChange={handleObserverEnabledChange} />}
+            label="Monitor mode"
           />
         </Box>
         <Box mt={2}>
           <FormControlLabel
-            control={<Switch checked={observerEnabled} onChange={handleObserverEnabledChange} />}
-            label="Monitor mode"
+            control={<Switch checked={toneType === ToneType.Symbol} onChange={handleToneTypeChange} />}
+            label="Tone marks (ā á ǎ à)"
           />
         </Box>
         <Box mt={2}>
