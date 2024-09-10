@@ -1,3 +1,4 @@
+import { sendToBackground } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 
 import {
@@ -145,10 +146,12 @@ export class Annotator {
   }
 
   private async requestAnnotation(text: string, htmlOptions: HtmlOptions) {
-    return chrome.runtime.sendMessage({
-      action: "requestAnnotation",
-      text,
-      htmlOptions
+    return await sendToBackground({
+      name: "request-annotation",
+      body: {
+        text,
+        htmlOptions
+      }
     })
   }
 
