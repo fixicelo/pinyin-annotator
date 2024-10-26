@@ -17,13 +17,16 @@ Pinyin Annotator is a browser extension that overlays Hanyu Pinyin annotations o
 - 🎦 **Enhanced Video Streaming**: Integrate pinyin into Chinese subtitles (closed captions) on platforms like Netflix, Disney+, YouTube, Bilibili, and more for an enriched viewing experience.
 - 🌐 **Cross-Browser**: Works on Firefox and Chromium-based browsers (Chrome, Edge, Opera, Brave). Safari support coming soon.
 - 🀄 **Simplified and Traditional Chinese**: Support both Simplified (简体) and Traditional (繁體) Chinese.
-- ✌️ **Easy Accessibility**: Highlight text and click the extension icon to view the pinyin of the selected text without disrupting the entire page.
+- ✌️ **Easy Accessibility**: Highlight text and click the extension icon to view the pinyin of the selected text without disrupting the entire page. Click to look up the word in a dictionary.
 - 📃 **Open-Source**: You can review and contribute to the code on GitHub.
 - ⌨️ **Keyboard shortcut**: Use `Alt`(`Option` on macOS) + `Shift` + `P` to toggle annotation (customizable).
 
 ## Planned Features (Pull Requests are Welcome)
 
 - Safari Support
+- Bopomofo (注音) / Jyutping (粵拼)
+- Right click to toggle annotation
+- Automatic annotation
 
 ## Known Issues (Pull Requests are Welcome)
 
