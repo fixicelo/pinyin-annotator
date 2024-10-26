@@ -73,10 +73,16 @@ function Options() {
           Pinyin Annotator Options
         </Typography>
         <Box mt={2}>
-          <FormControlLabel
-            control={<Switch checked={observerEnabled} onChange={handleObserverEnabledChange} />}
-            label="Monitor mode"
-          />
+          <Tooltip
+            title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili."
+            placement="right"
+            style={{ fontFamily: "LXGW WenKai Mono" }}
+          >
+            <FormControlLabel
+              control={<Switch checked={observerEnabled} onChange={handleObserverEnabledChange} />}
+              label="Monitor mode"
+            />
+          </Tooltip>
         </Box>
 
         <Box mt={2}>
@@ -86,19 +92,19 @@ function Options() {
           />
         </Box>
 
-          <Box mt={2} mb={2}>
+        <Box mt={2} mb={2}>
 
-        <Tooltip
-          title="Add a link to an online dictionary for each word in `Selected Text` area."
-          placement="right"
-          style={{ fontFamily: "LXGW WenKai Mono" }}
-        >
+          <Tooltip
+            title="Add a link to an online dictionary for each word in `Selected Text` area."
+            placement="right"
+            style={{ fontFamily: "LXGW WenKai Mono" }}
+          >
             <FormControlLabel
               control={<Switch checked={dictLinkEnabled} onChange={handleDictLinkToggle} />}
               label="Dictionary Link"
             />
-        </Tooltip>
-          </Box>
+          </Tooltip>
+        </Box>
         {dictLinkEnabled && (
           <FormControl fullWidth>
             <InputLabel id="options-select-dict">Select Dictionary</InputLabel>
