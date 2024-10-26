@@ -36,3 +36,12 @@ body {
 .not-annotated {
   color: gray;
 }
+
+.py-chinese-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.py-chinese-item a:hover {
+  background-color: antiquewhite;
+}

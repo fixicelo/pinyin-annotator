@@ -169,6 +169,9 @@ export function convertTextContentToHtml(
   const markup = lookup
     .map(([word, pinyin]) => {
       if (pinyin) {
+        if (htmlOptions.dictLink && htmlOptions.dictLink != "") {
+          return `<${TAG_NAME} class="${RESULT_CLASS}" ${IS_ANNOTATED_ATTR}="true"><ruby><${TAG_NAME} class="${CHINESE_CLASS}"><a href="${htmlOptions.dictLink.replace("{word}", word)}" target="_blank">${word}</a></${TAG_NAME}><rp>(</rp><rt class="${PINYIN_CLASS}">${pinyin}</rt><rp>)</rp></ruby></${TAG_NAME}>`
+        }
         return `<${TAG_NAME} class="${RESULT_CLASS}" ${IS_ANNOTATED_ATTR}="true"><ruby><${TAG_NAME} class="${CHINESE_CLASS}">${word}</${TAG_NAME}><rp>(</rp><rt class="${PINYIN_CLASS}">${pinyin}</rt><rp>)</rp></ruby></${TAG_NAME}>`
       }
       return `<${TAG_NAME} class="${NON_CHINESE_CLASS}">${word}</${TAG_NAME}>`
