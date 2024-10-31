@@ -1,3 +1,6 @@
+import CompleteDict from "@pinyin-pro/data/complete"
+import { addDict } from "pinyin-pro"
+
 import { UserAction } from "~constants"
 
 chrome.commands.onCommand.addListener((command) => {
@@ -7,3 +10,5 @@ chrome.commands.onCommand.addListener((command) => {
     })
   }
 })
+
+addDict(CompleteDict)
