@@ -1,17 +1,16 @@
-import Typography from "@mui/material/Typography";
 import { useStorage } from "@plasmohq/storage/hook";
+import { Typography } from "antd";
 import { StorageKey, ToneType } from '~constants';
+
+const { Title } = Typography;
 
 const AppTitle = () => {
   const [toneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol);
   const withTones = toneType === ToneType.Symbol;
 
   return (
-    <Typography
-      variant="h4"
-      gutterBottom
-      textAlign={'center'}
-      style={{ fontFamily: "LXGW WenKai Mono" }}
+    <Title
+      style={{ fontFamily: "LXGW WenKai Mono", textAlign: "center"}}
     >
       {/* 
       <ruby>漢<rp>(</rp><rt>{withTones ? 'hàn' : 'han'}</rt><rp>)</rp></ruby>
@@ -23,7 +22,7 @@ const AppTitle = () => {
       <ruby>註<rp>(</rp><rt>{withTones ? 'zhù' : 'zhu'}</rt><rp>)</rp></ruby>
       <ruby>工<rp>(</rp><rt>{withTones ? 'gōng' : 'gong'}</rt><rp>)</rp></ruby>
       <ruby>具<rp>(</rp><rt>{withTones ? 'jù' : 'ju'}</rt><rp>)</rp></ruby>
-    </Typography>
+    </Title>
   )
 }
 

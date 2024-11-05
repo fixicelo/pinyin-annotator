@@ -1,10 +1,9 @@
-import Chip from "@mui/material/Chip"
-import Divider from "@mui/material/Divider"
-import { useStorage } from "@plasmohq/storage/hook"
-import parse from "html-react-parser"
-import { useEffect, useState } from "react"
-import { PREDEFINED_DICT_LINK, StorageKey, ToneType, type HtmlOptions } from "~constants"
-import { convertTextContentToHtml } from "~util"
+import { useStorage } from "@plasmohq/storage/hook";
+import { Divider } from 'antd';
+import parse from "html-react-parser";
+import { useEffect, useState } from "react";
+import { PREDEFINED_DICT_LINK, StorageKey, ToneType, type HtmlOptions } from "~constants";
+import { convertTextContentToHtml } from "~util";
 
 function getSelectionText(removeAnnotations: boolean = true) {
   const selection = window.getSelection()
@@ -81,8 +80,8 @@ const HighlightedTextDisplay = () => {
   return (
     selectedText && (
       <>
-        <Divider>
-          <Chip label="Selected Text" size="medium" />
+        <Divider plain>
+          Selected Text
         </Divider>
         <span
           style={{

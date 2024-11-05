@@ -1,20 +1,11 @@
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Paper from '@mui/material/Paper';
-import Select, { type SelectChangeEvent } from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
-import TextField from '@mui/material/TextField';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from "@mui/material/Typography";
 import { useStorage } from "@plasmohq/storage/hook";
+import { Alert, Card, Col, Form, Input, Row, Select, Switch, Tooltip, Typography } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react';
 import { PREDEFINED_DICT_LINK, StorageKey, ToneType } from '~constants';
 import { debounce } from './util';
+
+const { Option } = Select;
+const { Title, Text } = Typography;
 
 function Options() {
   const [toneType, setToneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol);
@@ -26,12 +17,12 @@ function Options() {
   const [selectedDict, setSelectedDict] = useStorage<string>(StorageKey.selectedDict, PREDEFINED_DICT_LINK[0].site);
   const [customDictUrl, setCustomDictUrl] = useStorage<string>(StorageKey.customDictUrl, "");
 
-  const handleToneTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setToneType(event.target.checked ? ToneType.Symbol : ToneType.None);
+  const handleToneTypeChange = (checked: boolean) => {
+    setToneType(checked ? ToneType.Symbol : ToneType.None);
   };
 
-  const handleObserverEnabledChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setObserverEnabled(event.target.checked);
+  const handleObserverEnabledChange = (checked: boolean) => {
+    setObserverEnabled(checked);
   };
 
   const debouncedSetIgnoredNodes = useCallback(
@@ -39,7 +30,7 @@ function Options() {
       const newIgnoredNodes = newIgnoredNodesInput.split(',').map(node => node.trim()).filter(Boolean);
       setIgnoredNodes(newIgnoredNodes);
       setNotification('Auto-saved');
-      setTimeout(() => setNotification(null), 2000); // Clear notification after 2 seconds
+      setTimeout(() => setNotification(null), 2000);
     }, 1000),
     []
   );
@@ -50,12 +41,12 @@ function Options() {
     debouncedSetIgnoredNodes(newIgnoredNodesInput);
   };
 
-  const handleDictLinkToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDictLinkEnabled(event.target.checked);
+  const handleDictLinkToggle = (checked: boolean) => {
+    setDictLinkEnabled(checked);
   };
 
-  const handleDictChange = (event: SelectChangeEvent<string>) => {
-    setSelectedDict(event.target.value);
+  const handleDictChange = (value: string) => {
+    setSelectedDict(value);
   };
 
   const handleCustomDictUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,93 +58,91 @@ function Options() {
   }, [ignoredNodes]);
 
   return (
-    <Container maxWidth="md" sx={{ padding: 4 }}>
-      <Paper elevation={3} sx={{ padding: 4 }}>
-        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', marginBottom: 2 }}>
+    <div style={{ padding: '5% 7%' }}>
+      <Card>
+        <Title level={3} style={{ marginBottom: 30 }}>
           Pinyin Annotator Options
-        </Typography>
-        <Box mt={2}>
-          <Tooltip
-            title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili."
-            placement="right"
-            style={{ fontFamily: "LXGW WenKai Mono" }}
-          >
-            <FormControlLabel
-              control={<Switch checked={observerEnabled} onChange={handleObserverEnabledChange} />}
-              label="Monitor mode"
-            />
-          </Tooltip>
-        </Box>
+        </Title>
+        <Form layout="vertical">
+          <Form.Item>
+            <Tooltip title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.">
+              <Row gutter={16}>
+                <Col className="gutter-row" span={3}>
+                  <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Monitor mode</Text>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                  <Switch checked={observerEnabled} onChange={(checked) => handleObserverEnabledChange(checked)} />
+                </Col>
+              </Row>
+            </Tooltip>
+          </Form.Item>
 
-        <Box mt={2}>
-          <FormControlLabel
-            control={<Switch checked={toneType === ToneType.Symbol} onChange={handleToneTypeChange} />}
-            label="Tone marks (ā á ǎ à)"
-          />
-        </Box>
+          <Form.Item>
 
-        <Box mt={2} mb={2}>
+            <Tooltip title="tone marks (ā á ǎ à) v.s. no tone mark (a a a a)">
+              <Row gutter={16}>
+                <Col className="gutter-row" span={3}>
+                  <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Tone marks (ā á ǎ à)</Text>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                  <Switch checked={toneType === ToneType.Symbol} onChange={(checked) => handleToneTypeChange(checked)} />
+                </Col>
+              </Row>
+            </Tooltip>
+          </Form.Item>
 
-          <Tooltip
-            title="Add a link to an online dictionary for each word in `Selected Text` area."
-            placement="right"
-            style={{ fontFamily: "LXGW WenKai Mono" }}
-          >
-            <FormControlLabel
-              control={<Switch checked={dictLinkEnabled} onChange={handleDictLinkToggle} />}
-              label="Dictionary Link"
-            />
-          </Tooltip>
-        </Box>
-        {dictLinkEnabled && (
-          <FormControl fullWidth>
-            <InputLabel id="options-select-dict">Select Dictionary</InputLabel>
-            <Select
-              labelId="options-select-dict"
-              label="Select Dictionary"
-              value={selectedDict}
-              onChange={handleDictChange}
-            >
-              {PREDEFINED_DICT_LINK.map((dict) => (
-                <MenuItem key={dict.site} value={dict.site}>
-                  {dict.desc}
-                </MenuItem>
-              ))}
-            </Select>
-            {selectedDict === "custom" && (
-              <TextField
-                label="Custom Dictionary URL"
-                value={customDictUrl}
-                onChange={handleCustomDictUrlChange}
-                helperText="Use {word} as a placeholder for the selected word"
-                fullWidth
-                margin="normal"
-              />
-            )}
-          </FormControl>
-        )}
+          <Form.Item>
+            <Tooltip title="Add a link to an online dictionary for each word in `Selected Text` area.">
+              <Row gutter={16}>
+                <Col className="gutter-row" span={3}>
+                  <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Dictionary Link</Text>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                  <Switch checked={dictLinkEnabled} onChange={(checked) => handleDictLinkToggle(checked)} />
+                </Col>
+              </Row>
+            </Tooltip>
+          </Form.Item>
 
-
-        <Typography variant="h6" gutterBottom sx={{ marginTop: 6 }} color={'dimgray'}>
-          Advanced options
-        </Typography>
-        <Box>
-          <TextField
-            label="Enter the tag names of nodes to ignore (separated by commas)"
-            value={ignoredNodesInput}
-            onChange={handleIgnoredNodesChange}
-            helperText="Leave blank to use the default: TEXTAREA,CODE,PRE,KBD,INPUT,RP,RT,RUBY,SCRIPT,STYLE"
-            fullWidth
-            margin="normal"
-          />
-          {notification && (
-            <Alert severity="success" sx={{ mt: 2 }}>
-              {notification}
-            </Alert>
+          {dictLinkEnabled && (
+            <>
+              <Form.Item label="Select Dictionary">
+                <Select value={selectedDict} onChange={handleDictChange}>
+                  {PREDEFINED_DICT_LINK.map((dict) => (
+                    <Option key={dict.site} value={dict.site}>
+                      {dict.desc}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              {selectedDict === "custom" && (
+                <Form.Item label="Custom Dictionary URL">
+                  <Input
+                    value={customDictUrl}
+                    onChange={handleCustomDictUrlChange}
+                    placeholder="Use {word} as a placeholder for the selected word"
+                  />
+                </Form.Item>
+              )}
+            </>
           )}
-        </Box>
-      </Paper>
-    </Container>
+
+          <Title level={5} style={{ marginTop: 48 }} type="secondary">
+            Advanced options
+          </Title>
+          <Form.Item label="Enter the tag names of nodes to ignore (separated by commas)">
+            <Input
+              value={ignoredNodesInput}
+              onChange={handleIgnoredNodesChange}
+              placeholder="Leave blank to use the default: TEXTAREA,CODE,PRE,KBD,INPUT,RP,RT,RUBY,SCRIPT,STYLE"
+            />
+            {notification && (
+              <Alert message={notification} type="success" showIcon style={{ marginTop: 16 }} />
+            )}
+          </Form.Item>
+        </Form>
+      </Card>
+    </div>
   );
 }
 

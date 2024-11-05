@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box"
 import { useEffect, useState } from "react"
 import { ResponseStatus, UserAction, type Response } from "~constants"
 import AnnotationStatus from "./AnnotationStatus"
@@ -25,7 +24,7 @@ function Popup() {
   }, [])
 
   return (
-    <Box className="popup">
+    <div className="popup">
       <AppTitle />
       <AnnotationStatus isAnnotated={isAnnotated} />
       <MonitorModeOption />
@@ -34,7 +33,7 @@ function Popup() {
         communicateWithContentScript={communicateWithContentScript}
       />
       <HighlightedTextDisplay />
-    </Box>
+    </div>
   )
 }
 

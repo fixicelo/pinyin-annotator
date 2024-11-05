@@ -1,5 +1,4 @@
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import { Button, Flex } from "antd";
 import React, { useCallback } from 'react';
 import { UserAction } from '~constants';
 
@@ -17,11 +16,11 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ isAnnotated, communicateWithC
   };
 
   return (
-    <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
-      <Button sx={{ textTransform: 'none' }} onClick={openOptionsPage} variant={"text"}>Options</Button>
-      <Button sx={{ textTransform: 'none' }} onClick={removeAnnotations} variant={"outlined"} disabled={!isAnnotated}>Clear</Button>
-      <Button sx={{ textTransform: 'none' }} onClick={performAnnotation} variant={"contained"}>Annotate</Button>
-    </Stack>
+    <Flex gap="middle" justify="flex-end">
+      <Button onClick={openOptionsPage} variant={"text"} color={"primary"}>Options</Button>
+      <Button onClick={removeAnnotations} variant={"outlined"} disabled={!isAnnotated}>Clear</Button>
+      <Button onClick={performAnnotation} type={"primary"}  >Annotate</Button>
+    </Flex>
   );
 };
 

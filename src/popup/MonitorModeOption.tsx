@@ -1,11 +1,10 @@
-import Stack from '@mui/material/Stack';
-import Switch from '@mui/material/Switch';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import { useStorage } from "@plasmohq/storage/hook";
+import { Flex, Switch, Tooltip, Typography } from 'antd';
 import React from 'react';
 import { StorageKey, UserAction } from '~constants';
 import useCommunicateWithContentScript from './useCommunicateWithContentScript';
+
+const { Text } = Typography;
 
 const MonitorModeOption: React.FC = () => {
   const [observerEnabled, setObserverEnabled] = useStorage<boolean>(StorageKey.observerEnabled, true);
@@ -23,10 +22,10 @@ const MonitorModeOption: React.FC = () => {
       placement="bottom"
       style={{ fontFamily: "LXGW WenKai Mono" }}
     >
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="body1" style={{ fontFamily: "LXGW WenKai Mono" }}>Monitor mode</Typography>
-        <Switch checked={observerEnabled} onChange={e => handleObserverEnabledChange(e.target.checked)} />
-      </Stack>
+      <Flex align="center" justify="space-between">
+        <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Monitor mode</Text>
+        <Switch checked={observerEnabled} onChange={(checked) => handleObserverEnabledChange(checked)} />
+      </Flex>
     </Tooltip>
   );
 };
