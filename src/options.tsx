@@ -115,15 +115,21 @@ function Options() {
                   ))}
                 </Select>
               </Form.Item>
-              {selectedDict === "custom" && (
-                <Form.Item label="Custom Dictionary URL">
-                  <Input
-                    value={customDictUrl}
-                    onChange={handleCustomDictUrlChange}
-                    placeholder="Use {word} as a placeholder for the selected word"
-                  />
-                </Form.Item>
-              )}
+              {selectedDict === "custom"
+                ? (
+                  <Form.Item label="Custom Dictionary URL">
+                    <Input
+                      value={customDictUrl}
+                      onChange={handleCustomDictUrlChange}
+                      placeholder="Use {word} as a placeholder for the selected word"
+                    />
+                  </Form.Item>
+                )
+                : (
+                  <Text type="secondary">
+                    Dictionary URL: {PREDEFINED_DICT_LINK.find(dict => dict.site === selectedDict)?.url}
+                  </Text>
+                )}
             </>
           )}
 
