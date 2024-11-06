@@ -1,5 +1,5 @@
 import { useStorage } from "@plasmohq/storage/hook";
-import { Alert, Card, Col, Form, Input, Row, Select, Switch, Tooltip, Typography } from 'antd';
+import { Alert, Card, Col, Divider, Form, Input, Row, Select, Switch, Tooltip, Typography } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react';
 import { PREDEFINED_DICT_LINK, StorageKey, ToneType } from '~constants';
 import { debounce } from './util';
@@ -133,7 +133,7 @@ function Options() {
             </>
           )}
 
-          <Title level={5} style={{ marginTop: 48 }} type="secondary">
+          <Title level={5} type="secondary">
             Advanced options
           </Title>
           <Form.Item label="Enter the tag names of nodes to ignore (separated by commas)">
@@ -147,8 +147,24 @@ function Options() {
             )}
           </Form.Item>
 
+          <Divider />
 
-          <Title level={5} style={{ marginTop: 48 }} type="secondary">
+          <Title level={5} type="secondary">
+            Shortcut
+          </Title>
+          <Text>
+            To override the default keyboard shortcut (`Alt/Option` + `Shift` + `P`) for toggling annotations, visit your browser's extension shortcuts settings page:
+          </Text>
+          <ul>
+            <li>
+              For Chromium-based browsers (Chrome, Edge): visit <kbd>chrome://extensions/shortcuts</kbd>
+            </li>
+            <li>
+              For Firefox: visit <kbd>about:addons</kbd>, click the gear button ⚙️, then select <strong>Manage Extension Shortcuts</strong>.
+            </li>
+          </ul>
+
+          <Title level={5} type="secondary">
             Support
           </Title>
           <Text>
