@@ -58,7 +58,7 @@ function Options() {
   }, [ignoredNodes]);
 
   return (
-    <div style={{ padding: '5% 7%' }}>
+    <div style={{ padding: '5% 25%' }}>
       <Card>
         <Title level={3} style={{ marginBottom: 30 }}>
           Pinyin Annotator Options
@@ -67,7 +67,7 @@ function Options() {
           <Form.Item>
             <Tooltip title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.">
               <Row gutter={16}>
-                <Col className="gutter-row" span={3}>
+                <Col className="gutter-row" span={6}>
                   <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Monitor mode</Text>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -81,7 +81,7 @@ function Options() {
 
             <Tooltip title="tone marks (ā á ǎ à) v.s. no tone mark (a a a a)">
               <Row gutter={16}>
-                <Col className="gutter-row" span={3}>
+                <Col className="gutter-row" span={6}>
                   <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Tone marks (ā á ǎ à)</Text>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -94,7 +94,7 @@ function Options() {
           <Form.Item>
             <Tooltip title="Add a link to an online dictionary for each word in `Selected Text` area.">
               <Row gutter={16}>
-                <Col className="gutter-row" span={3}>
+                <Col className="gutter-row" span={6}>
                   <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Dictionary Link</Text>
                 </Col>
                 <Col className="gutter-row" span={2}>
