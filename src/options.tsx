@@ -146,6 +146,14 @@ function Options() {
               <Alert message={notification} type="success" showIcon style={{ marginTop: 16 }} />
             )}
           </Form.Item>
+
+
+          <Title level={5} style={{ marginTop: 48 }} type="secondary">
+            Support
+          </Title>
+          <Text>
+            If you have any feature requests or bug reports, please visit our <a href="https://github.com/fixicelo/pinyin-annotator/issues" target="_blank" rel="noreferrer">GitHub repository</a>.
+          </Text>
         </Form>
       </Card>
     </div>
