@@ -1,92 +1,172 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Elements</title>
-  <style>
-    body {
-      margin: 20px;
-      background-color: #f4f4f9;
-      color: #333;
-    }
-    .element-container {
-      margin-bottom: 20px;
-      padding: 10px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .element-container label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 5px;
-    }
-    input, textarea {
-      width: 95%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-    }
-    code, pre, kbd, mark {
-      background-color: #f9f9f9;
-      padding: 5px;
-      border-radius: 3px;
-      font-size: 16px;
-    }
-    pre {
-      overflow: auto;
-    }
-    kbd {
-      font-family: monospace;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 2px 4px;
-    }
-  </style>
-</head>
-<body>
-  <div class="element-container">
-    <label for="input-element">INPUT</label>
-    <input id="input-element" type="text" placeholder="沒有影響吧">
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Elements</title>
+    <style>
+      body {
+        margin: 20px;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+      .element-container {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .element-container label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+      input,
+      textarea {
+        width: 95%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+      code,
+      pre,
+      kbd,
+      mark {
+        background-color: #f9f9f9;
+        padding: 5px;
+        border-radius: 3px;
+        font-size: 16px;
+      }
+      pre {
+        overflow: auto;
+      }
+      kbd {
+        font-family: monospace;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 2px 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Test Elements</h1>
+    <div class="element-container">
+      <label for="input-element">INPUT</label>
+      <input id="input-element" type="text" placeholder="沒有影響吧" />
+    </div>
 
-  <div class="element-container">
-    <label for="textarea-element">TEXTAREA</label>
-    <textarea id="textarea-element" rows="4" cols="40">會消失的句子！</textarea>
-  </div>
+    <div class="element-container">
+      <label for="textarea-element">TEXTAREA</label>
+      <textarea id="textarea-element" rows="4" cols="40">
+加了拼音就會消失的句子！</textarea
+      >
+    </div>
 
-  <div class="element-container">
-    <label>CODE</label>
-    <code>const example = '你好，世界！';</code>
-  </div>
+    <div class="element-container">
+      <label>CODE</label>
+      <code>const example = '你好，世界！';</code>
+    </div>
 
-  <div class="element-container">
-    <label>PRE</label>
-    <pre>
+    <div class="element-container">
+      <label>PRE</label>
+      <pre>
 function greet() {
   console.log('你好，世界！');
 }
-    </pre>
-  </div>
+      </pre>
+    </div>
 
-  <div class="element-container">
-    <label>KBD</label>
-    <kbd>Ctrl鍵 + C鍵</kbd>
-  </div>
+    <div class="element-container">
+      <label>KBD</label>
+      <kbd>Ctrl鍵 + C鍵</kbd>
+    </div>
 
-  <div class="element-container">
-    <label>LABEL</label>
-    <label>標籤</label>
-  </div>
+    <div class="element-container">
+      <label>LABEL</label>
+      <label>標籤</label>
+    </div>
 
-  <div class="element-container">
-    <label>MARK</label>
-    <mark>標記</mark>
-  </div>
+    <div class="element-container">
+      <label>MARK</label>
+      <mark>標記</mark>
+    </div>
 
-</body>
+    <div class="element-container">
+      <label>BUTTON</label>
+      <button>按鈕</button>
+    </div>
+
+    <div class="element-container">
+      <label>SVG TEXT</label>
+      <svg width="200" height="20">
+        <text x="0" y="15">這是 SVG 中的文本。</text>
+      </svg>
+    </div>
+
+    <div class="element-container">
+      <label>CONTENTEDITABLE ELEMENT</label>
+      <div contenteditable="true">這裡可以編輯文本。</div>
+    </div>
+
+    <div class="element-container">
+      <label>SPECIAL CHARACTERS</label>
+      <p>使用特殊字符，如表情符號😊和其他符號~!@#$%^&*()_+</p>
+    </div>
+
+    <div class="element-container">
+      <label>CUSTOM ELEMENT</label>
+      <my-custom-element>自定義元素中的中文。</my-custom-element>
+    </div>
+
+    <div class="element-container">
+      <label>CUSTOM ELEMENT (pya)</label>
+      <pya>PYA 內的中文。(使用了 `pya` 會導致 Status 錯誤顯示為`Annotated`)</pya>
+    </div>
+
+    <div class="element-container">
+      <label>SHADOW DOM CONTENT</label>
+      <div id="shadow-host"></div>
+      <script>
+        const host = document.getElementById('shadow-host')
+        const shadowRoot = host.attachShadow({ mode: 'open' })
+        const shadowContent = document.createElement('p')
+        shadowContent.textContent = '這是在 Shadow DOM 中的文字。'
+        shadowRoot.appendChild(shadowContent)
+      </script>
+    </div>
+
+    <div class="element-container">
+      <label>DYNAMIC CONTENT</label>
+      <button id="loadContent">加載內容</button>
+      <div id="dynamicContent"></div>
+      <script>
+        document.getElementById('loadContent').addEventListener('click', () => {
+          const newDiv = document.createElement('div')
+          newDiv.textContent = '這是動態添加的內容。'
+          document.getElementById('dynamicContent').appendChild(newDiv)
+        })
+      </script>
+    </div>
+
+    <div class="element-container">
+      <label>CSS PSEUDO-ELEMENT</label>
+      <p id="pseudo-element"></p>
+      <style>
+        #pseudo-element::after {
+          content: "這是否也應該被忽略？";
+        }
+      </style>
+    </div>
+
+    <div class="element-container">
+      <label>SCRIPT</label>
+      <script>
+        const message = "這是一段應被忽略的中文文字。"
+      </script>
+    </div>
+  </body>
 </html>
