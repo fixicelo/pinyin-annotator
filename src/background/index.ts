@@ -1,5 +1,5 @@
-import CompleteDict from "@pinyin-pro/data/complete"
 import { addDict } from "pinyin-pro"
+import ModernDictPath from "raw:@pinyin-pro/data/json/modern.json"
 
 import { UserAction } from "~constants"
 
@@ -11,4 +11,11 @@ chrome.commands.onCommand.addListener((command) => {
   }
 })
 
-addDict(CompleteDict)
+fetch(ModernDictPath)
+  .then((response) => response.json())
+  .then((dict) => {
+    addDict(dict)
+  })
+  .catch((error) => {
+    console.error("Failed to load ModernDict", error)
+  })
