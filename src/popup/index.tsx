@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { ResponseStatus, UserAction, type Response } from "~constants"
 import AnnotationStatus from "./AnnotationStatus"
 import AppTitle from "./AppTitle"
+import AutoAnnotateOption from "./AutoAnnotateOption"
 import ButtonGroup from "./ButtonGroup"
 import HighlightedTextDisplay from "./HighlightedTextDisplay"
 import MonitorModeOption from "./MonitorModeOption"
@@ -28,6 +29,7 @@ function Popup() {
       <AppTitle />
       <AnnotationStatus isAnnotated={isAnnotated} />
       <MonitorModeOption />
+      <AutoAnnotateOption />
       <ButtonGroup
         isAnnotated={isAnnotated}
         communicateWithContentScript={communicateWithContentScript}
