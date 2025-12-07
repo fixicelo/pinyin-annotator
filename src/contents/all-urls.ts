@@ -27,6 +27,7 @@ export class Annotator {
   private storage = new Storage()
   private mutationObserver: MutationObserver
   private isObserverEnabled = true
+  private autoAnnotate = false
   private styleTag: HTMLStyleElement
 
   private htmlOptions: HtmlOptions = {
@@ -48,6 +49,14 @@ export class Annotator {
     chrome.runtime.onMessage.addListener(this.handleUserAction.bind(this))
     this.styleTag = document.createElement("style")
     document.head.appendChild(this.styleTag)
+    this.init()
+  }
+
+  private async init() {
+    await this.syncUserPreferences()
+    if (this.autoAnnotate) {
+      this.actionHandlers[UserAction.Annotate]()
+    }
   }
 
   private getObservationTarget(): HTMLElement {
@@ -104,17 +113,23 @@ export class Annotator {
   }
 
   private async getUserPreferencesFromStorage(): Promise<UserPreferences> {
-    const [toneTypeResult, observerEnabledResult, rubyPositionResult] =
-      await Promise.all([
-        this.storage.get(StorageKey.toneType),
-        this.storage.get(StorageKey.observerEnabled),
-        this.storage.get(StorageKey.rubyPosition)
-      ])
+    const [
+      toneTypeResult,
+      observerEnabledResult,
+      rubyPositionResult,
+      autoAnnotateResult
+    ] = await Promise.all([
+      this.storage.get(StorageKey.toneType),
+      this.storage.get(StorageKey.observerEnabled),
+      this.storage.get(StorageKey.rubyPosition),
+      this.storage.get(StorageKey.autoAnnotate)
+    ])
 
     return {
       toneType: toneTypeResult as ToneType,
       observerEnabled: observerEnabledResult as unknown as boolean,
-      rubyPosition: rubyPositionResult as RubyPosition
+      rubyPosition: rubyPositionResult as RubyPosition,
+      autoAnnotate: autoAnnotateResult as unknown as boolean
     }
   }
 
@@ -127,6 +142,9 @@ export class Annotator {
         StorageKey.observerEnabled,
         options.observerEnabled
       )
+    }
+    if (options?.autoAnnotate !== undefined) {
+      await this.storage.set(StorageKey.autoAnnotate, options.autoAnnotate)
     }
   }
 
@@ -145,7 +163,13 @@ export class Annotator {
       rubyPosition:
         options.rubyPosition ||
         storedPreferences.rubyPosition ||
-        RubyPosition.OVER
+        RubyPosition.OVER,
+      autoAnnotate:
+        options.autoAnnotate !== undefined
+          ? options.autoAnnotate
+          : storedPreferences.autoAnnotate !== undefined
+            ? storedPreferences.autoAnnotate
+            : false
     }
 
     await this.updateUserPreferencesInStorage(updatedPreferences)
@@ -156,6 +180,7 @@ export class Annotator {
       toneType: updatedPreferences.toneType
     }
     this.isObserverEnabled = updatedPreferences.observerEnabled
+    this.autoAnnotate = updatedPreferences.autoAnnotate
   }
 
   private updateStyle(rubyPosition: RubyPosition) {
@@ -202,23 +227,31 @@ export class Annotator {
       await this.syncUserPreferences()
       this.actionHandlers[UserAction.Clear]()
 
-      await this.processNodes(this.getObservationTarget(), this.htmlOptions)
+      const target = this.getObservationTarget()
+      if (!target) {
+        return
+      }
+
+      await this.processNodes(target, this.htmlOptions)
 
       if (this.isObserverEnabled) {
-        this.mutationObserver.observe(
-          this.getObservationTarget(),
-          this.observerOptions
-        )
+        this.mutationObserver.observe(target, this.observerOptions)
       }
     },
     [UserAction.Clear]: () => {
       if (this.isObserverEnabled) {
         this.mutationObserver.disconnect()
       }
-      clearAnnotation(this.getObservationTarget())
+      const target = this.getObservationTarget()
+      if (target) {
+        clearAnnotation(target)
+      }
     },
     [UserAction.Toggle]: async () => {
       const root = this.getObservationTarget()
+      if (!root) {
+        return
+      }
       const action = isAnnotated(root) ? UserAction.Clear : UserAction.Annotate
       await this.actionHandlers[action]()
     }
@@ -231,10 +264,12 @@ export class Annotator {
         await actionHandler(message.data)
       }
 
+      const target = this.getObservationTarget()
       const response = {
-        status: isAnnotated(this.getObservationTarget())
-          ? ResponseStatus.Annotated
-          : ResponseStatus.NotAnnotated
+        status:
+          target && isAnnotated(target)
+            ? ResponseStatus.Annotated
+            : ResponseStatus.NotAnnotated
       }
       sendResponse(response)
     })()

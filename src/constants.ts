@@ -29,13 +29,15 @@ export enum StorageKey {
   dictLinkEnabled = "dictLinkEnabled",
   selectedDict = "selectedDict",
   customDictUrl = "customDictUrl",
-  rubyPosition = "rubyPosition"
+  rubyPosition = "rubyPosition",
+  autoAnnotate = "autoAnnotate"
 }
 
 export interface UserPreferences {
   toneType?: ToneType
   observerEnabled?: boolean
   rubyPosition?: RubyPosition
+  autoAnnotate?: boolean
 }
 
 export interface Response {
