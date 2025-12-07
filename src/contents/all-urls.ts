@@ -3,6 +3,7 @@ import { Storage } from "@plasmohq/storage"
 
 import {
   ResponseStatus,
+  RubyPosition,
   StorageKey,
   TAG_NAME,
   ToneType,
@@ -26,6 +27,8 @@ export class Annotator {
   private storage = new Storage()
   private mutationObserver: MutationObserver
   private isObserverEnabled = true
+  private styleTag: HTMLStyleElement
+
   private htmlOptions: HtmlOptions = {
     wrapNonChinese: true,
     toneType: ToneType.Symbol
@@ -43,6 +46,8 @@ export class Annotator {
       this.processDOMMutations.bind(this)
     )
     chrome.runtime.onMessage.addListener(this.handleUserAction.bind(this))
+    this.styleTag = document.createElement("style")
+    document.head.appendChild(this.styleTag)
   }
 
   private getObservationTarget(): HTMLElement {
@@ -99,14 +104,17 @@ export class Annotator {
   }
 
   private async getUserPreferencesFromStorage(): Promise<UserPreferences> {
-    const [toneTypeResult, observerEnabledResult] = await Promise.all([
-      this.storage.get(StorageKey.toneType),
-      this.storage.get(StorageKey.observerEnabled)
-    ])
+    const [toneTypeResult, observerEnabledResult, rubyPositionResult] =
+      await Promise.all([
+        this.storage.get(StorageKey.toneType),
+        this.storage.get(StorageKey.observerEnabled),
+        this.storage.get(StorageKey.rubyPosition)
+      ])
 
     return {
       toneType: toneTypeResult as ToneType,
-      observerEnabled: observerEnabledResult as unknown as boolean
+      observerEnabled: observerEnabledResult as unknown as boolean,
+      rubyPosition: rubyPositionResult as RubyPosition
     }
   }
 
@@ -133,16 +141,29 @@ export class Annotator {
           ? options.observerEnabled
           : storedPreferences.observerEnabled !== undefined
             ? storedPreferences.observerEnabled
-            : true
+            : true,
+      rubyPosition:
+        options.rubyPosition ||
+        storedPreferences.rubyPosition ||
+        RubyPosition.OVER
     }
 
     await this.updateUserPreferencesInStorage(updatedPreferences)
+    this.updateStyle(updatedPreferences.rubyPosition)
 
     this.htmlOptions = {
       ...this.htmlOptions,
       toneType: updatedPreferences.toneType
     }
     this.isObserverEnabled = updatedPreferences.observerEnabled
+  }
+
+  private updateStyle(rubyPosition: RubyPosition) {
+    this.styleTag.innerHTML = `
+      ${TAG_NAME} {
+        ruby-position: ${rubyPosition};
+      }
+    `
   }
 
   private async requestAnnotation(text: string, htmlOptions: HtmlOptions) {

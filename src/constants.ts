@@ -4,6 +4,11 @@ export enum ToneType {
   None = "none"
 }
 
+export enum RubyPosition {
+  OVER = "over",
+  UNDER = "under"
+}
+
 export enum UserAction {
   Annotate = "annotate",
   Clear = "clear",
@@ -23,12 +28,14 @@ export enum StorageKey {
   ignoredNodes = "ignoredNodes",
   dictLinkEnabled = "dictLinkEnabled",
   selectedDict = "selectedDict",
-  customDictUrl = "customDictUrl"
+  customDictUrl = "customDictUrl",
+  rubyPosition = "rubyPosition"
 }
 
 export interface UserPreferences {
   toneType?: ToneType
   observerEnabled?: boolean
+  rubyPosition?: RubyPosition
 }
 
 export interface Response {
