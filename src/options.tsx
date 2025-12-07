@@ -1,7 +1,7 @@
 import { useStorage } from "@plasmohq/storage/hook";
 import { Alert, Card, Col, Divider, Form, Input, Row, Select, Switch, Tooltip, Typography } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react';
-import { PREDEFINED_DICT_LINK, StorageKey, ToneType } from '~constants';
+import { PREDEFINED_DICT_LINK, RubyPosition, StorageKey, ToneType } from '~constants';
 import { debounce } from './util';
 
 const { Option } = Select;
@@ -16,6 +16,7 @@ function Options() {
   const [dictLinkEnabled, setDictLinkEnabled] = useStorage<boolean>(StorageKey.dictLinkEnabled, true);
   const [selectedDict, setSelectedDict] = useStorage<string>(StorageKey.selectedDict, PREDEFINED_DICT_LINK[0].site);
   const [customDictUrl, setCustomDictUrl] = useStorage<string>(StorageKey.customDictUrl, "");
+  const [rubyPosition, setRubyPosition] = useStorage<RubyPosition>(StorageKey.rubyPosition, RubyPosition.OVER);
 
   const handleToneTypeChange = (checked: boolean) => {
     setToneType(checked ? ToneType.Symbol : ToneType.None);
@@ -51,6 +52,10 @@ function Options() {
 
   const handleCustomDictUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCustomDictUrl(event.target.value);
+  };
+
+  const handleRubyPositionChange = (value: RubyPosition) => {
+    setRubyPosition(value);
   };
 
   useEffect(() => {
@@ -102,6 +107,13 @@ function Options() {
                 </Col>
               </Row>
             </Tooltip>
+          </Form.Item>
+
+          <Form.Item label="Annotation Position">
+            <Select value={rubyPosition} onChange={handleRubyPositionChange}>
+              <Option value={RubyPosition.OVER}>Top</Option>
+              <Option value={RubyPosition.UNDER}>Bottom</Option>
+            </Select>
           </Form.Item>
 
           {dictLinkEnabled && (

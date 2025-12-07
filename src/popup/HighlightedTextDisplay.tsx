@@ -2,7 +2,7 @@ import { useStorage } from "@plasmohq/storage/hook";
 import { Divider } from 'antd';
 import parse from "html-react-parser";
 import { useEffect, useState } from "react";
-import { PREDEFINED_DICT_LINK, StorageKey, ToneType, type HtmlOptions } from "~constants";
+import { PREDEFINED_DICT_LINK, RubyPosition, StorageKey, ToneType, type HtmlOptions } from "~constants";
 import { convertTextContentToHtml } from "~util";
 
 function getSelectionText(removeAnnotations: boolean = true) {
@@ -58,6 +58,7 @@ const HighlightedTextDisplay = () => {
   const [dictLinkEnabled] = useStorage<boolean>(StorageKey.dictLinkEnabled, true);
   const [selectedDict] = useStorage<string>(StorageKey.selectedDict, PREDEFINED_DICT_LINK[0].site);
   const [customDictUrl] = useStorage<string>(StorageKey.customDictUrl, "");
+  const [rubyPosition] = useStorage<RubyPosition>(StorageKey.rubyPosition, RubyPosition.OVER);
 
   let dictLink = "";
   if (dictLinkEnabled) {
@@ -86,7 +87,8 @@ const HighlightedTextDisplay = () => {
         <span
           style={{
             fontSize: `${fontSizePx}px`,
-            lineHeight: `${lineHeightPx}px`
+            lineHeight: `${lineHeightPx}px`,
+            rubyPosition: rubyPosition
           }}
         >
           {parse(htmlString)}
