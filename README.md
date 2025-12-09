@@ -37,12 +37,13 @@ Apart from obtaining the extension from your browser's dedicated extension store
 
 ```bash
 pnpm install
-pnpm build
 
-# or
+pnpm build --target=chrome-mv3
+pnpm package --target=chrome-mv3
 
-npm install
-npm run build
+pnpm build --target=firefox-mv3
+pnpm package --target=firefox-mv3
+# about:debugging#/runtime/this-firefox
 ```
 
 This should create a production bundle for your extension, and ready to be loaded into your browser. For further reference, you may consult the [Plasmo documentation](https://docs.plasmo.com/framework).
