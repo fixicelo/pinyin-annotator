@@ -5,6 +5,48 @@ import { useEffect, useState } from "react";
 import { PREDEFINED_DICT_LINK, RubyPosition, StorageKey, ToneType, type HtmlOptions } from "~constants";
 import { convertTextContentToHtml } from "~util";
 
+function getTextFromRange(range: Range): string {
+  const container = range.commonAncestorContainer
+
+  if (container.nodeType === Node.TEXT_NODE) {
+    return container.textContent.substring(range.startOffset, range.endOffset)
+  }
+
+  const walker = document.createTreeWalker(
+    container,
+    NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+    {
+      acceptNode: (node) => {
+        if (!range.intersectsNode(node)) return NodeFilter.FILTER_REJECT
+
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const tagName = node.nodeName.toUpperCase()
+          if (tagName === "RP" || tagName === "RT") return NodeFilter.FILTER_REJECT
+          return NodeFilter.FILTER_SKIP
+        }
+        return NodeFilter.FILTER_ACCEPT
+      }
+    }
+  )
+
+  let text = ""
+  let currentNode = walker.nextNode()
+  while (currentNode) {
+    if (currentNode.nodeType === Node.TEXT_NODE) {
+      let val = currentNode.textContent
+      if (currentNode === range.endContainer) {
+        val = val.substring(0, range.endOffset)
+      }
+      if (currentNode === range.startContainer) {
+        val = val.substring(range.startOffset)
+      }
+      text += val
+    }
+    currentNode = walker.nextNode()
+  }
+  return text
+}
+
 function getSelectionText(removeAnnotations: boolean = true) {
   const selection = window.getSelection()
   if (!selection || selection.rangeCount === 0) {
@@ -15,19 +57,11 @@ function getSelectionText(removeAnnotations: boolean = true) {
     return selection.toString()
   }
 
-  const range = selection.getRangeAt(0)
-  const clonedSelection = range.cloneContents()
-  const div = document.createElement("div")
-  div.appendChild(clonedSelection)
-  const rps = div.getElementsByTagName("rp")
-  const rts = div.getElementsByTagName("rt")
-  while (rps.length) {
-    rps[0].parentNode.removeChild(rps[0])
+  let text = ""
+  for (let i = 0; i < selection.rangeCount; i++) {
+    text += getTextFromRange(selection.getRangeAt(i))
   }
-  while (rts.length) {
-    rts[0].parentNode.removeChild(rts[0])
-  }
-  return div.textContent
+  return text
 }
 
 const retrieveHighlightedText = (setSelectedText) => {
