@@ -10,7 +10,7 @@ const AppTitle = () => {
 
   return (
     <Title
-      style={{ fontFamily: "LXGW WenKai Mono", textAlign: "center"}}
+      style={{textAlign: "center"}}
     >
       {/* 
       <ruby>漢<rp>(</rp><rt>{withTones ? 'hàn' : 'han'}</rt><rp>)</rp></ruby>

@@ -27,9 +27,9 @@ const AutoAnnotateOption: React.FC = () => {
     <Tooltip
       title="Automatically annotate pinyin on every page load."
       placement="bottom"
-      style={{ fontFamily: "LXGW WenKai Mono" }}>
+     >
       <Flex align="center" justify="space-between">
-        <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Auto-Annotate</Text>
+        <Text>Auto-Annotate</Text>
         <Switch
           checked={autoAnnotate}
           onChange={(checked) => handleAutoAnnotateChange(checked)}

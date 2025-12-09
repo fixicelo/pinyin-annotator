@@ -73,7 +73,7 @@ function Options() {
             <Tooltip title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.">
               <Row gutter={16}>
                 <Col className="gutter-row" span={6}>
-                  <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Monitor mode</Text>
+                  <Text>Monitor mode</Text>
                 </Col>
                 <Col className="gutter-row" span={2}>
                   <Switch checked={observerEnabled} onChange={(checked) => handleObserverEnabledChange(checked)} />
@@ -87,7 +87,7 @@ function Options() {
             <Tooltip title="tone marks (ā á ǎ à) v.s. no tone mark (a a a a)">
               <Row gutter={16}>
                 <Col className="gutter-row" span={6}>
-                  <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Tone marks (ā á ǎ à)</Text>
+                  <Text>Tone marks (ā á ǎ à)</Text>
                 </Col>
                 <Col className="gutter-row" span={2}>
                   <Switch checked={toneType === ToneType.Symbol} onChange={(checked) => handleToneTypeChange(checked)} />
@@ -100,7 +100,7 @@ function Options() {
             <Tooltip title="Add a link to an online dictionary for each word in `Selected Text` area.">
               <Row gutter={16}>
                 <Col className="gutter-row" span={6}>
-                  <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Dictionary Link</Text>
+                  <Text>Dictionary Link</Text>
                 </Col>
                 <Col className="gutter-row" span={2}>
                   <Switch checked={dictLinkEnabled} onChange={(checked) => handleDictLinkToggle(checked)} />

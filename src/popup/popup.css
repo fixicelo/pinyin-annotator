@@ -1,7 +1,5 @@
-@import "lxgw-wenkai-webfont/lxgwwenkaimono-regular.css";
-
 body {
-  font-family: "LXGW WenKai Mono", sans-serif;
+  font-family: sans-serif;
 }
 
 .popup {

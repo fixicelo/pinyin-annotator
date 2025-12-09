@@ -20,10 +20,10 @@ const MonitorModeOption: React.FC = () => {
     <Tooltip
       title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili."
       placement="bottom"
-      style={{ fontFamily: "LXGW WenKai Mono" }}
+     
     >
       <Flex align="center" justify="space-between">
-        <Text style={{ fontFamily: "LXGW WenKai Mono" }}>Monitor mode</Text>
+        <Text>Monitor mode</Text>
         <Switch checked={observerEnabled} onChange={(checked) => handleObserverEnabledChange(checked)} />
       </Flex>
     </Tooltip>
