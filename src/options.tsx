@@ -10,6 +10,7 @@ const { Title, Text } = Typography;
 function Options() {
   const [toneType, setToneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol);
   const [observerEnabled, setObserverEnabled] = useStorage<boolean>(StorageKey.observerEnabled, true);
+  const [autoAnnotate, setAutoAnnotate] = useStorage<boolean>(StorageKey.autoAnnotate, false);
   const [ignoredNodes, setIgnoredNodes] = useStorage<string[]>(StorageKey.ignoredNodes, []);
   const [ignoredNodesInput, setIgnoredNodesInput] = useState(ignoredNodes.join(','));
   const [notification, setNotification] = useState<string | null>(null);
@@ -24,6 +25,10 @@ function Options() {
 
   const handleObserverEnabledChange = (checked: boolean) => {
     setObserverEnabled(checked);
+  };
+
+  const handleAutoAnnotateChange = (checked: boolean) => {
+    setAutoAnnotate(checked);
   };
 
   const debouncedSetIgnoredNodes = useCallback(
@@ -77,6 +82,19 @@ function Options() {
                 </Col>
                 <Col className="gutter-row" span={2}>
                   <Switch checked={observerEnabled} onChange={(checked) => handleObserverEnabledChange(checked)} />
+                </Col>
+              </Row>
+            </Tooltip>
+          </Form.Item>
+
+          <Form.Item>
+            <Tooltip title="Automatically annotate pinyin on every page load.">
+              <Row gutter={16}>
+                <Col className="gutter-row" span={6}>
+                  <Text>Auto-Annotate</Text>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                  <Switch checked={autoAnnotate} onChange={(checked) => handleAutoAnnotateChange(checked)} />
                 </Col>
               </Row>
             </Tooltip>
