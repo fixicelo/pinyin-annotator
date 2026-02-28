@@ -11,6 +11,20 @@ chrome.commands.onCommand.addListener((command) => {
   }
 })
 
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: "toggle-annotation-context-menu",
+    title: "Toggle Annotation",
+    contexts: ["all"]
+  })
+})
+
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId === "toggle-annotation-context-menu") {
+    chrome.tabs.sendMessage(tab.id, { action: UserAction.Toggle })
+  }
+})
+
 fetch(ModernDictPath)
   .then((response) => response.json())
   .then((dict) => {

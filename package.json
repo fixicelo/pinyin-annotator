@@ -42,7 +42,8 @@
     "permissions": [
       "activeTab",
       "scripting",
-      "storage"
+      "storage",
+      "contextMenus"
     ],
     "browser_specific_settings": {
       "gecko": {
