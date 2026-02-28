@@ -29,6 +29,8 @@ export class Annotator {
   private isObserverEnabled = true
   private autoAnnotate = false
   private styleTag: HTMLStyleElement
+  private annotationVersion = 0
+  private isProcessing = false
 
   private htmlOptions: HtmlOptions = {
     wrapNonChinese: true,
@@ -201,10 +203,14 @@ export class Annotator {
     })
   }
 
-  private async processNodes(root: Node, htmlOptions: HtmlOptions) {
+  private async processNodes(root: Node, htmlOptions: HtmlOptions, version: number) {
     const nodes = await findTextNodesWithContent(root)
 
     for (const node of nodes) {
+      if (version !== this.annotationVersion) {
+        return
+      }
+
       if (!node.isConnected) {
         return
       }
@@ -213,6 +219,11 @@ export class Annotator {
         node.textContent,
         htmlOptions
       )
+
+      if (version !== this.annotationVersion) {
+        return
+      }
+
       const doc = convertHtmlToDocument(response.html)
 
       replaceNode(node, doc, false)
@@ -232,13 +243,20 @@ export class Annotator {
         return
       }
 
-      await this.processNodes(target, this.htmlOptions)
+      const version = ++this.annotationVersion
+      this.isProcessing = true
+      await this.processNodes(target, this.htmlOptions, version)
+      if (version === this.annotationVersion) {
+        this.isProcessing = false
+      }
 
-      if (this.isObserverEnabled) {
+      if (this.isObserverEnabled && version === this.annotationVersion) {
         this.mutationObserver.observe(target, this.observerOptions)
       }
     },
     [UserAction.Clear]: () => {
+      this.annotationVersion++
+      this.isProcessing = false
       if (this.isObserverEnabled) {
         this.mutationObserver.disconnect()
       }
@@ -252,7 +270,7 @@ export class Annotator {
       if (!root) {
         return
       }
-      const action = isAnnotated(root) ? UserAction.Clear : UserAction.Annotate
+      const action = (isAnnotated(root) || this.isProcessing) ? UserAction.Clear : UserAction.Annotate
       await this.actionHandlers[action]()
     }
   }
