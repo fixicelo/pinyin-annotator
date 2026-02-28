@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { ResponseStatus, TabStatus, UserAction, type Response } from "~constants"
 import AnnotationStatus from "./AnnotationStatus"
 import AppTitle from "./AppTitle"
@@ -24,14 +24,25 @@ function Popup() {
 
   const isAvailable = tabStatus === TabStatus.Available
 
-  useEffect(() => {
+  const checkStatus = useCallback(() => {
     communicateWithContentScript(UserAction.Check, {})
+  }, [communicateWithContentScript])
+
+  useEffect(() => {
+    checkStatus()
+  }, [])
+
+  const handleRefresh = useCallback(async () => {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+    if (!tab) return
+    chrome.tabs.reload(tab.id)
+    window.close()
   }, [])
 
   return (
     <div className="popup">
       <AppTitle />
-      <AnnotationStatus isAnnotated={isAnnotated} tabStatus={tabStatus} />
+      <AnnotationStatus isAnnotated={isAnnotated} tabStatus={tabStatus} onRefresh={handleRefresh} />
       {isAvailable && (
         <>
           <MonitorModeOption />

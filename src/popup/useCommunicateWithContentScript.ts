@@ -6,8 +6,8 @@ import {
   type UserPreferences
 } from "~constants"
 
-export function isRestrictedUrl(url: string): boolean {
-  if (!url) return true
+export function isRestrictedUrl(url: string | undefined): boolean {
+  if (!url) return false
   return RESTRICTED_URL_PATTERNS.some((pattern) => pattern.test(url))
 }
 

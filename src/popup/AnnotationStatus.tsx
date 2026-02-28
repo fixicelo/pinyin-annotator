@@ -5,9 +5,10 @@ import { TabStatus } from '~constants';
 interface AnnotationStatusProps {
   isAnnotated: boolean;
   tabStatus: TabStatus;
+  onRefresh?: () => void;
 }
 
-const AnnotationStatus = memo(({ isAnnotated, tabStatus }: AnnotationStatusProps) => {
+const AnnotationStatus = memo(({ isAnnotated, tabStatus, onRefresh }: AnnotationStatusProps) => {
   if (tabStatus === TabStatus.RestrictedPage) {
     return (
       <Alert
@@ -28,7 +29,7 @@ const AnnotationStatus = memo(({ isAnnotated, tabStatus }: AnnotationStatusProps
         showIcon
         action={
           <a
-            onClick={() => chrome.tabs.reload()}
+            onClick={onRefresh}
             className="refresh-link"
           >
             Refresh
