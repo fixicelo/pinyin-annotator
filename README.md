@@ -25,7 +25,6 @@ Pinyin Annotator is a browser extension that overlays Hanyu Pinyin annotations o
 
 - Safari Support
 - Bopomofo (注音) / Jyutping (粵拼)
-- Right click to toggle annotation
 
 ## 🚩 Known Issues (Pull Requests are Welcome)
 
