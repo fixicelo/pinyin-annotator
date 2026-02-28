@@ -5,9 +5,10 @@ import { UserAction } from '~constants';
 interface ButtonGroupProps {
   isAnnotated: boolean;
   communicateWithContentScript: (action: UserAction, payload?: any) => void;
+  disabled?: boolean;
 }
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({ isAnnotated, communicateWithContentScript }) => {
+const ButtonGroup: React.FC<ButtonGroupProps> = ({ isAnnotated, communicateWithContentScript, disabled = false }) => {
   const performAnnotation = useCallback(() => communicateWithContentScript(UserAction.Annotate), [communicateWithContentScript]);
   const removeAnnotations = useCallback(() => communicateWithContentScript(UserAction.Clear), [communicateWithContentScript]);
 
@@ -18,8 +19,8 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ isAnnotated, communicateWithC
   return (
     <Flex gap="middle" justify="flex-end">
       <Button onClick={openOptionsPage} variant={"text"} color={"primary"}>Options</Button>
-      <Button onClick={removeAnnotations} variant={"outlined"} disabled={!isAnnotated}>Clear</Button>
-      <Button onClick={performAnnotation} type={"primary"}  >Annotate</Button>
+      <Button onClick={removeAnnotations} variant={"outlined"} disabled={disabled || !isAnnotated}>Clear</Button>
+      <Button onClick={performAnnotation} type={"primary"} disabled={disabled}>Annotate</Button>
     </Flex>
   );
 };

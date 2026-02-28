@@ -22,6 +22,27 @@ export enum ResponseStatus {
   NotAnnotated = "not_annotated"
 }
 
+export enum TabStatus {
+  Loading = "loading",
+  Available = "available",
+  RestrictedPage = "restricted_page",
+  NeedsRefresh = "needs_refresh"
+}
+
+export const RESTRICTED_URL_PATTERNS = [
+  /^chrome:/,
+  /^chrome-extension:/,
+  /^edge:/,
+  /^about:/,
+  /^brave:/,
+  /^vivaldi:/,
+  /^opera:/,
+  /^moz-extension:/,
+  /^https:\/\/chromewebstore\.google\.com/,
+  /^https:\/\/microsoftedge\.microsoft\.com\/addons/,
+  /^https:\/\/addons\.mozilla\.org/
+]
+
 export enum StorageKey {
   toneType = "toneType",
   observerEnabled = "observerEnabled",

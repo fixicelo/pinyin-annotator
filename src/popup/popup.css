@@ -43,3 +43,8 @@ body {
 .py-chinese-item a:hover {
   background-color: antiquewhite;
 }
+
+.refresh-link {
+  cursor: pointer;
+  font-weight: bold;
+}

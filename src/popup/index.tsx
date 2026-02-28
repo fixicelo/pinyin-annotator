@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ResponseStatus, UserAction, type Response } from "~constants"
+import { ResponseStatus, TabStatus, UserAction, type Response } from "~constants"
 import AnnotationStatus from "./AnnotationStatus"
 import AppTitle from "./AppTitle"
 import AutoAnnotateOption from "./AutoAnnotateOption"
@@ -11,14 +11,18 @@ import useCommunicateWithContentScript from "./useCommunicateWithContentScript"
 
 function Popup() {
   const [isAnnotated, setIsAnnotated] = useState(false)
+  const [tabStatus, setTabStatus] = useState<TabStatus>(TabStatus.Loading)
 
   const communicateWithContentScript = useCommunicateWithContentScript(
     (response: Response) => {
       if (response) {
         setIsAnnotated(response.status === ResponseStatus.Annotated)
       }
-    }
+    },
+    setTabStatus
   )
+
+  const isAvailable = tabStatus === TabStatus.Available
 
   useEffect(() => {
     communicateWithContentScript(UserAction.Check, {})
@@ -27,12 +31,17 @@ function Popup() {
   return (
     <div className="popup">
       <AppTitle />
-      <AnnotationStatus isAnnotated={isAnnotated} />
-      <MonitorModeOption />
-      <AutoAnnotateOption />
+      <AnnotationStatus isAnnotated={isAnnotated} tabStatus={tabStatus} />
+      {isAvailable && (
+        <>
+          <MonitorModeOption />
+          <AutoAnnotateOption />
+        </>
+      )}
       <ButtonGroup
         isAnnotated={isAnnotated}
         communicateWithContentScript={communicateWithContentScript}
+        disabled={!isAvailable}
       />
       <HighlightedTextDisplay />
     </div>
