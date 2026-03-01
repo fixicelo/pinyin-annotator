@@ -78,9 +78,21 @@ export const findTextNodesWithContent = async (
 
   const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) => {
+      // Check if direct parent should be ignored
       if (resolvedIgnoredNodes.includes(node.parentElement.nodeName)) {
         return NodeFilter.FILTER_REJECT
       }
+      
+      // Check if node is inside our annotation structure (check immediate 3 levels up)
+      // This prevents re-processing while allowing AJAX-replaced content
+      let ancestor = node.parentElement
+      for (let depth = 0; depth < 3 && ancestor && ancestor !== root; depth++) {
+        if (ancestor.nodeName === TAG_NAME.toUpperCase()) {
+          return NodeFilter.FILTER_REJECT
+        }
+        ancestor = ancestor.parentElement
+      }
+      
       return containsChinese(node.textContent)
         ? NodeFilter.FILTER_ACCEPT
         : NodeFilter.FILTER_REJECT
