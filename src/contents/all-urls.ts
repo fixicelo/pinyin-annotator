@@ -1,4 +1,3 @@
-import { sendToBackground } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 
 import {
@@ -15,6 +14,7 @@ import {
 import {
   clearAnnotation,
   convertHtmlToDocument,
+  convertTextContentToHtml,
   findTextNodesWithContent,
   isAnnotated,
   replaceNode
@@ -205,16 +205,6 @@ export class Annotator {
     `
   }
 
-  private async requestAnnotation(text: string, htmlOptions: HtmlOptions) {
-    return await sendToBackground({
-      name: "request-annotation",
-      body: {
-        text,
-        htmlOptions
-      }
-    })
-  }
-
   private async processNodes(root: Node, htmlOptions: HtmlOptions, version: number) {
     const nodes = await findTextNodesWithContent(root, this.cachedIgnoredNodes)
 
@@ -227,16 +217,8 @@ export class Annotator {
         continue
       }
 
-      const response = await this.requestAnnotation(
-        node.textContent,
-        htmlOptions
-      )
-
-      if (version !== this.annotationVersion) {
-        return
-      }
-
-      const doc = convertHtmlToDocument(response.html)
+      const html = convertTextContentToHtml(node.textContent, htmlOptions)
+      const doc = convertHtmlToDocument(html)
 
       replaceNode(node, doc, false)
     }
