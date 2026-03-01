@@ -2,6 +2,7 @@ import { sendToBackground } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 
 import {
+  DEFAULT_IGNORED_NODES,
   ResponseStatus,
   RubyPosition,
   StorageKey,
@@ -28,6 +29,7 @@ export class Annotator {
   private mutationObserver: MutationObserver
   private isObserverEnabled = true
   private autoAnnotate = false
+  private cachedIgnoredNodes: string[] = DEFAULT_IGNORED_NODES
   private styleTag: HTMLStyleElement
   private annotationVersion = 0
   private isProcessing = false
@@ -115,24 +117,27 @@ export class Annotator {
     }
   }
 
-  private async getUserPreferencesFromStorage(): Promise<UserPreferences> {
+  private async getUserPreferencesFromStorage(): Promise<UserPreferences & { ignoredNodes: string[] }> {
     const [
       toneTypeResult,
       observerEnabledResult,
       rubyPositionResult,
-      autoAnnotateResult
+      autoAnnotateResult,
+      ignoredNodesResult
     ] = await Promise.all([
       this.storage.get(StorageKey.toneType),
       this.storage.get(StorageKey.observerEnabled),
       this.storage.get(StorageKey.rubyPosition),
-      this.storage.get(StorageKey.autoAnnotate)
+      this.storage.get(StorageKey.autoAnnotate),
+      this.storage.get<string[]>(StorageKey.ignoredNodes)
     ])
 
     return {
       toneType: toneTypeResult as ToneType,
       observerEnabled: observerEnabledResult as unknown as boolean,
       rubyPosition: rubyPositionResult as RubyPosition,
-      autoAnnotate: autoAnnotateResult as unknown as boolean
+      autoAnnotate: autoAnnotateResult as unknown as boolean,
+      ignoredNodes: (ignoredNodesResult as string[]) || []
     }
   }
 
@@ -184,6 +189,12 @@ export class Annotator {
     }
     this.isObserverEnabled = updatedPreferences.observerEnabled
     this.autoAnnotate = updatedPreferences.autoAnnotate
+
+    const rawIgnored = storedPreferences.ignoredNodes
+    this.cachedIgnoredNodes =
+      rawIgnored.length === 0
+        ? DEFAULT_IGNORED_NODES
+        : [...rawIgnored, TAG_NAME.toUpperCase()]
   }
 
   private updateStyle(rubyPosition: RubyPosition) {
@@ -205,7 +216,7 @@ export class Annotator {
   }
 
   private async processNodes(root: Node, htmlOptions: HtmlOptions, version: number) {
-    const nodes = await findTextNodesWithContent(root)
+    const nodes = await findTextNodesWithContent(root, this.cachedIgnoredNodes)
 
     for (const node of nodes) {
       if (version !== this.annotationVersion) {

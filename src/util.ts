@@ -66,16 +66,19 @@ export async function getIgnoredNodes(): Promise<string[]> {
     : [...userDefinedIgnoredNodes, TAG_NAME.toUpperCase()]
 }
 
-export const findTextNodesWithContent = async (root: Node): Promise<Node[]> => {
+export const findTextNodesWithContent = async (
+  root: Node,
+  ignoredNodes?: string[]
+): Promise<Node[]> => {
   if (!root) {
     return []
   }
 
-  const ignoredNodes = await getIgnoredNodes()
+  const resolvedIgnoredNodes = ignoredNodes ?? await getIgnoredNodes()
 
   const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) => {
-      if (ignoredNodes.includes(node.parentElement.nodeName)) {
+      if (resolvedIgnoredNodes.includes(node.parentElement.nodeName)) {
         return NodeFilter.FILTER_REJECT
       }
       return containsChinese(node.textContent)
