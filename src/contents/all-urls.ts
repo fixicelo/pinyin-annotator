@@ -94,6 +94,7 @@ export class Annotator {
       return
     }
 
+    const version = this.annotationVersion
     for (let mutation of mutationsList) {
       switch (mutation.type) {
         case "childList":
@@ -101,14 +102,14 @@ export class Annotator {
             if (TAG_NAME.toUpperCase() === node.nodeName) {
               continue
             }
-            this.processNodes(node, this.htmlOptions)
+            this.processNodes(node, this.htmlOptions, version)
           }
           break
         case "characterData":
-          this.processNodes(mutation.target.parentElement, this.htmlOptions)
+          this.processNodes(mutation.target.parentElement, this.htmlOptions, version)
           break
         case "attributes":
-          this.processNodes(mutation.target, this.htmlOptions)
+          this.processNodes(mutation.target, this.htmlOptions, version)
           break
       }
     }
@@ -212,7 +213,7 @@ export class Annotator {
       }
 
       if (!node.isConnected) {
-        return
+        continue
       }
 
       const response = await this.requestAnnotation(
