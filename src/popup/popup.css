@@ -1,38 +1,45 @@
-body {
-  font-family: sans-serif;
-}
+@import "./design-system.css";
 
 .popup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   padding: 20px;
-  width: 400px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
+  width: 420px;
+  background-color: var(--bg-base);
 }
 
 .title {
   font-size: 24px;
   text-align: center;
-}
-
-.button {
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .status {
-  font-size: 1.2em;
+  font-size: 13px;
+  margin: 0 0 12px 0;
+  font-weight: 500;
+  text-align: center;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--bg-hover);
+  display: inline-block;
+  align-self: center;
 }
 
 .annotated {
-  color: green;
+  color: var(--success-text);
+  background-color: var(--success-bg);
+  border: 1px solid var(--success-border);
 }
 
 .not-annotated {
-  color: gray;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  background-color: transparent;
 }
 
 .py-chinese-item a {
@@ -41,10 +48,11 @@ body {
 }
 
 .py-chinese-item a:hover {
-  background-color: antiquewhite;
+  background-color: var(--warning-bg);
+  border-radius: 4px;
 }
 
 .refresh-link {
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
 }

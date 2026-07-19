@@ -43,12 +43,14 @@ function Popup() {
     <div className="popup">
       <AppTitle />
       <AnnotationStatus isAnnotated={isAnnotated} tabStatus={tabStatus} onRefresh={handleRefresh} />
+      
       {isAvailable && (
-        <>
+        <div className="card" style={{ marginBottom: '8px', padding: '0 16px' }}>
           <MonitorModeOption />
           <AutoAnnotateOption />
-        </>
+        </div>
       )}
+      
       <ButtonGroup
         isAnnotated={isAnnotated}
         communicateWithContentScript={communicateWithContentScript}

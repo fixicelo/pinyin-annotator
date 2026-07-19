@@ -1,6 +1,4 @@
 import { useStorage } from "@plasmohq/storage/hook";
-import { Divider } from 'antd';
-import parse from "html-react-parser";
 import { useEffect, useState } from "react";
 import { PREDEFINED_DICT_LINK, RubyPosition, StorageKey, ToneType, type HtmlOptions } from "~constants";
 import { convertTextContentToHtml } from "~util";
@@ -110,23 +108,22 @@ const HighlightedTextDisplay = () => {
 
   useEffect(() => {
     retrieveHighlightedText(setSelectedText)
-  }, [retrieveHighlightedText])
+  }, [])
 
   return (
     selectedText && (
       <>
-        <Divider plain>
+        <div className="divider">
           Selected Text
-        </Divider>
+        </div>
         <span
           style={{
             fontSize: `${fontSizePx}px`,
             lineHeight: `${lineHeightPx}px`,
             rubyPosition: rubyPosition
           }}
-        >
-          {parse(htmlString)}
-        </span>
+          dangerouslySetInnerHTML={{ __html: htmlString }}
+        />
       </>
     )
   )

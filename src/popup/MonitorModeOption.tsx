@@ -1,32 +1,35 @@
 import { useStorage } from "@plasmohq/storage/hook";
-import { Flex, Switch, Tooltip, Typography } from 'antd';
 import React from 'react';
 import { StorageKey, UserAction } from '~constants';
 import useCommunicateWithContentScript from './useCommunicateWithContentScript';
-
-const { Text } = Typography;
 
 const MonitorModeOption: React.FC = () => {
   const [observerEnabled, setObserverEnabled] = useStorage<boolean>(StorageKey.observerEnabled, true);
 
   const communicateWithContentScript = useCommunicateWithContentScript()
 
-  const handleObserverEnabledChange = (isChecked: boolean) => {
+  const handleObserverEnabledChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked
     setObserverEnabled(isChecked);
     communicateWithContentScript(UserAction.UpdateOptions, { observerEnabled: isChecked });
   };
 
   return (
-    <Tooltip
+    <div 
+      className="flex items-center justify-between" 
+      style={{ padding: "12px 0", borderBottom: "1px solid var(--border-color)" }}
       title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili."
-      placement="bottom"
-     
     >
-      <Flex align="center" justify="space-between">
-        <Text>Monitor mode</Text>
-        <Switch checked={observerEnabled} onChange={(checked) => handleObserverEnabledChange(checked)} />
-      </Flex>
-    </Tooltip>
+      <span className="text-strong" style={{ fontSize: "13px" }}>Monitor mode</span>
+      <label className="switch">
+        <input 
+          type="checkbox" 
+          checked={observerEnabled} 
+          onChange={handleObserverEnabledChange} 
+        />
+        <span className="switch-slider"></span>
+      </label>
+    </div>
   );
 };
 

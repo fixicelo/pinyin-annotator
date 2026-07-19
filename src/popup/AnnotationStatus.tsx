@@ -1,4 +1,3 @@
-import { Alert } from 'antd';
 import React, { memo } from 'react';
 import { TabStatus } from '~constants';
 
@@ -11,31 +10,28 @@ interface AnnotationStatusProps {
 const AnnotationStatus = memo(({ isAnnotated, tabStatus, onRefresh }: AnnotationStatusProps) => {
   if (tabStatus === TabStatus.RestrictedPage) {
     return (
-      <Alert
-        message="Not available on this page"
-        description="Browser extensions cannot run on this type of page (e.g. browser internal pages, extension stores)."
-        type="warning"
-        showIcon
-      />
+      <div className="alert alert-warning">
+        <div>
+          <div className="alert-title">Not available on this page</div>
+          <div className="alert-desc">Browser extensions cannot run on this type of page (e.g. browser internal pages, extension stores).</div>
+        </div>
+      </div>
     );
   }
 
   if (tabStatus === TabStatus.NeedsRefresh) {
     return (
-      <Alert
-        message="Page refresh required"
-        description="This tab was opened before the extension was installed or updated. Please refresh the page to activate."
-        type="info"
-        showIcon
-        action={
-          <a
-            onClick={onRefresh}
-            className="refresh-link"
-          >
-            Refresh
-          </a>
-        }
-      />
+      <div className="alert alert-info">
+        <div>
+          <div className="alert-title">Page refresh required</div>
+          <div className="alert-desc">
+            This tab was opened before the extension was installed or updated. Please refresh the page to activate.
+            <div style={{ marginTop: '8px' }}>
+              <a onClick={onRefresh} className="refresh-link btn-text">Refresh</a>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 

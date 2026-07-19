@@ -1,16 +1,4 @@
-import styled from "@emotion/styled"
 import { useStorage } from "@plasmohq/storage/hook"
-import {
-  Alert,
-  Card,
-  ConfigProvider,
-  Flex,
-  Input,
-  Layout,
-  Select,
-  Switch,
-  Typography,
-} from "antd"
 import React, { useCallback, useEffect, useState } from "react"
 
 import {
@@ -21,96 +9,7 @@ import {
 } from "~constants"
 
 import { debounce } from "./util"
-
-const { Option } = Select
-const { Title, Text, Link } = Typography
-const { Content } = Layout
-
-const Container = styled(Content)`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  min-height: 100vh;
-  background: #f5f7fa;
-`
-
-const StyledCard = styled(Card)`
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-  border: none;
-  margin-bottom: 24px;
-
-  .ant-card-head {
-    border-bottom: 1px solid #f0f0f0;
-    padding: 0 24px;
-  }
-
-  .ant-card-body {
-    padding: 24px;
-  }
-`
-
-const SettingRow = styled(Flex)`
-  padding: 16px 0;
-  border-bottom: 1px solid #f5f5f5;
-  
-  &:last-child {
-    border-bottom: none;
-  }
-`
-
-const SettingLabel = styled.div`
-  flex: 1;
-  padding-right: 16px;
-`
-
-const SettingControl = styled.div`
-  flex-shrink: 0;
-`
-
-const SectionTitle = styled(Title)`
-  &.ant-typography {
-    margin-top: 0;
-    margin-bottom: 24px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #1f1f1f;
-  }
-`
-
-const Header = styled.div`
-  text-align: center;
-  margin-bottom: 40px;
-`
-
-const Footer = styled.div`
-  text-align: center;
-  margin-top: 40px;
-  padding-bottom: 20px;
-`
-
-const SectionHeader = styled.div`
-  margin-bottom: 16px;
-`
-
-const ShortcutContainer = styled.div`
-  margin-bottom: 24px;
-`
-
-const ShortcutList = styled.ul`
-  color: rgba(0, 0, 0, 0.45);
-  font-size: 13px;
-  padding-left: 20px;
-  margin-top: 4px;
-`
-
-const SupportContainer = styled.div`
-  /* margin-top: 24px; */
-`
-
-const SpacedDiv = styled.div`
-  margin-top: 8px;
-`
+import "./popup/design-system.css"
 
 function Options() {
   const [toneType, setToneType] = useStorage<ToneType>(
@@ -150,16 +49,16 @@ function Options() {
     RubyPosition.OVER
   )
 
-  const handleToneTypeChange = (checked: boolean) => {
-    setToneType(checked ? ToneType.Symbol : ToneType.None)
+  const handleToneTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setToneType(e.target.checked ? ToneType.Symbol : ToneType.None)
   }
 
-  const handleObserverEnabledChange = (checked: boolean) => {
-    setObserverEnabled(checked)
+  const handleObserverEnabledChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setObserverEnabled(e.target.checked)
   }
 
-  const handleAutoAnnotateChange = (checked: boolean) => {
-    setAutoAnnotate(checked)
+  const handleAutoAnnotateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAutoAnnotate(e.target.checked)
   }
 
   const debouncedSetIgnoredNodes = useCallback(
@@ -176,19 +75,19 @@ function Options() {
   )
 
   const handleIgnoredNodesChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const newIgnoredNodesInput = event.target.value.trim().toUpperCase()
     setIgnoredNodesInput(newIgnoredNodesInput)
     debouncedSetIgnoredNodes(newIgnoredNodesInput)
   }
 
-  const handleDictLinkToggle = (checked: boolean) => {
-    setDictLinkEnabled(checked)
+  const handleDictLinkToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDictLinkEnabled(e.target.checked)
   }
 
-  const handleDictChange = (value: string) => {
-    setSelectedDict(value)
+  const handleDictChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDict(e.target.value)
   }
 
   const handleCustomDictUrlChange = (
@@ -197,8 +96,8 @@ function Options() {
     setCustomDictUrl(event.target.value)
   }
 
-  const handleRubyPositionChange = (value: RubyPosition) => {
-    setRubyPosition(value)
+  const handleRubyPositionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRubyPosition(e.target.value as RubyPosition)
   }
 
   useEffect(() => {
@@ -206,250 +105,269 @@ function Options() {
   }, [ignoredNodes])
 
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: "#1677ff",
-          borderRadius: 8
-        }
-      }}>
-      <Layout style={{ minHeight: "100vh", background: "#f5f7fa" }}>
-        <Container>
-          <Header>
-            <Title level={2} style={{ margin: 0 }}>
-              Pinyin Annotator
-            </Title>
-            <Text type="secondary">Configuration & Settings</Text>
-          </Header>
+    <div style={{ minHeight: "100vh", background: "var(--bg-layout)", padding: "40px 20px" }}>
+      <div className="container" style={{ padding: 0 }}>
+        <div style={{ marginBottom: "32px", padding: "0 4px" }}>
+          <h2 style={{ margin: "0 0 4px 0", fontSize: "28px", fontWeight: 600 }}>Settings</h2>
+          <div className="text-secondary" style={{ fontSize: "14px" }}>Configure your Pinyin Annotator experience.</div>
+        </div>
 
-          <StyledCard>
-            <SectionTitle level={4}>General Settings</SectionTitle>
-            
-            <SettingRow align="center" justify="space-between">
-              <SettingLabel>
-                <Text strong>Monitor Mode</Text>
-                <br />
-                <Text type="secondary" style={{ fontSize: 13 }}>
+        <div className="card">
+          <div className="card-header">
+            <h4>General Settings</h4>
+          </div>
+          <div className="card-body">
+            <div className="settings-row">
+              <div className="settings-row-content">
+                <span className="settings-row-title">Monitor Mode</span>
+                <span className="settings-row-desc">
                   Works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.
-                </Text>
-              </SettingLabel>
-              <SettingControl>
-                <Switch
-                  checked={observerEnabled}
-                  onChange={handleObserverEnabledChange}
-                />
-              </SettingControl>
-            </SettingRow>
+                </span>
+              </div>
+              <div className="settings-row-action">
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={observerEnabled}
+                    onChange={handleObserverEnabledChange}
+                  />
+                  <span className="switch-slider"></span>
+                </label>
+              </div>
+            </div>
 
-            <SettingRow align="center" justify="space-between">
-              <SettingLabel>
-                <Text strong>Auto-Annotate</Text>
-                <br />
-                <Text type="secondary" style={{ fontSize: 13 }}>
+            <div className="settings-row">
+              <div className="settings-row-content">
+                <span className="settings-row-title">Auto-Annotate</span>
+                <span className="settings-row-desc">
                   Automatically annotate pinyin on every page load.
-                </Text>
-              </SettingLabel>
-              <SettingControl>
-                <Switch
-                  checked={autoAnnotate}
-                  onChange={handleAutoAnnotateChange}
-                />
-              </SettingControl>
-            </SettingRow>
-          </StyledCard>
+                </span>
+              </div>
+              <div className="settings-row-action">
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={autoAnnotate}
+                    onChange={handleAutoAnnotateChange}
+                  />
+                  <span className="switch-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <StyledCard>
-            <SectionTitle level={4}>Appearance</SectionTitle>
-
-            <SettingRow align="center" justify="space-between">
-              <SettingLabel>
-                <Text strong>Tone Marks</Text>
-                <br />
-                <Text type="secondary" style={{ fontSize: 13 }}>
+        <div className="card">
+          <div className="card-header">
+            <h4>Appearance</h4>
+          </div>
+          <div className="card-body">
+            <div className="settings-row">
+              <div className="settings-row-content">
+                <span className="settings-row-title">Tone Marks</span>
+                <span className="settings-row-desc">
                   Show tone marks (ā á ǎ à) instead of numbers or no tones.
-                </Text>
-              </SettingLabel>
-              <SettingControl>
-                <Switch
-                  checked={toneType === ToneType.Symbol}
-                  onChange={handleToneTypeChange}
-                />
-              </SettingControl>
-            </SettingRow>
+                </span>
+              </div>
+              <div className="settings-row-action">
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={toneType === ToneType.Symbol}
+                    onChange={handleToneTypeChange}
+                  />
+                  <span className="switch-slider"></span>
+                </label>
+              </div>
+            </div>
 
-            <SettingRow align="center" justify="space-between">
-              <SettingLabel>
-                <Text strong>Annotation Position</Text>
-                <br />
-                <Text type="secondary" style={{ fontSize: 13 }}>
+            <div className="settings-row">
+              <div className="settings-row-content">
+                <span className="settings-row-title">Annotation Position</span>
+                <span className="settings-row-desc">
                   Display pinyin above or below the characters.
-                </Text>
-              </SettingLabel>
-              <SettingControl>
-                <Select
+                </span>
+              </div>
+              <div className="settings-row-action">
+                <select
+                  className="select"
                   value={rubyPosition}
                   onChange={handleRubyPositionChange}
-                  style={{ width: 120 }}
+                  style={{ width: "120px" }}
                 >
-                  <Option value={RubyPosition.OVER}>Top</Option>
-                  <Option value={RubyPosition.UNDER}>Bottom</Option>
-                </Select>
-              </SettingControl>
-            </SettingRow>
-          </StyledCard>
+                  <option value={RubyPosition.OVER}>Top</option>
+                  <option value={RubyPosition.UNDER}>Bottom</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <StyledCard>
-            <SectionTitle level={4}>Dictionary</SectionTitle>
-
-            <SettingRow align="center" justify="space-between">
-              <SettingLabel>
-                <Text strong>Dictionary Link</Text>
-                <br />
-                <Text type="secondary" style={{ fontSize: 13 }}>
+        <div className="card">
+          <div className="card-header">
+            <h4>Dictionary</h4>
+          </div>
+          <div className="card-body">
+            <div className="settings-row" style={{ borderBottom: dictLinkEnabled ? "1px solid var(--border-color)" : "none" }}>
+              <div className="settings-row-content">
+                <span className="settings-row-title">Dictionary Link</span>
+                <span className="settings-row-desc">
                   Add a link to an online dictionary for each word in the "Selected Text" area.
-                </Text>
-              </SettingLabel>
-              <SettingControl>
-                <Switch
-                  checked={dictLinkEnabled}
-                  onChange={handleDictLinkToggle}
-                />
-              </SettingControl>
-            </SettingRow>
+                </span>
+              </div>
+              <div className="settings-row-action">
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={dictLinkEnabled}
+                    onChange={handleDictLinkToggle}
+                  />
+                  <span className="switch-slider"></span>
+                </label>
+              </div>
+            </div>
 
             {dictLinkEnabled && (
               <>
-                <SettingRow align="center" justify="space-between">
-                  <SettingLabel>
-                    <Text strong>Select Dictionary</Text>
-                  </SettingLabel>
-                  <SettingControl>
-                    <Select
+                <div className="settings-row">
+                  <div className="settings-row-content">
+                    <span className="settings-row-title">Select Dictionary</span>
+                  </div>
+                  <div className="settings-row-action">
+                    <select
+                      className="select"
                       value={selectedDict}
                       onChange={handleDictChange}
-                      style={{ width: 200 }}
+                      style={{ width: "200px" }}
                     >
                       {PREDEFINED_DICT_LINK.map((dict) => (
-                        <Option key={dict.site} value={dict.site}>
+                        <option key={dict.site} value={dict.site}>
                           {dict.desc}
-                        </Option>
+                        </option>
                       ))}
-                    </Select>
-                  </SettingControl>
-                </SettingRow>
+                    </select>
+                  </div>
+                </div>
 
                 {selectedDict === "custom" && (
-                  <SettingRow align="center" justify="space-between">
-                    <SettingLabel>
-                      <Text strong>Custom Dictionary URL</Text>
-                      <br />
-                      <Text type="secondary" style={{ fontSize: 13 }}>
+                  <div className="settings-row">
+                    <div className="settings-row-content">
+                      <span className="settings-row-title">Custom Dictionary URL</span>
+                      <span className="settings-row-desc">
                         Use {"{word}"} as a placeholder.
-                      </Text>
-                    </SettingLabel>
-                    <SettingControl style={{ width: "50%" }}>
-                      <Input
+                      </span>
+                    </div>
+                    <div className="settings-row-action" style={{ width: "250px" }}>
+                      <input
+                        className="input"
                         value={customDictUrl}
                         onChange={handleCustomDictUrlChange}
                         placeholder="https://example.com/dict/{word}"
                       />
-                    </SettingControl>
-                  </SettingRow>
+                    </div>
+                  </div>
                 )}
                 
                 {selectedDict !== "custom" && (
-                   <SettingRow align="center" justify="space-between">
-                    <SettingLabel>
-                      <Text strong>Current URL Pattern</Text>
-                    </SettingLabel>
-                    <SettingControl>
-                      <Text type="secondary" copyable>
+                   <div className="settings-row">
+                    <div className="settings-row-content">
+                      <span className="settings-row-title">Current URL Pattern</span>
+                    </div>
+                    <div className="settings-row-action">
+                      <span className="text-secondary text-small" style={{ userSelect: "all", background: "rgba(0,0,0,0.04)", padding: "4px 8px", borderRadius: "4px" }}>
                         {PREDEFINED_DICT_LINK.find(dict => dict.site === selectedDict)?.url}
-                      </Text>
-                    </SettingControl>
-                   </SettingRow>
+                      </span>
+                    </div>
+                   </div>
                 )}
               </>
             )}
-          </StyledCard>
+          </div>
+        </div>
 
-          <StyledCard>
-            <SectionTitle level={4}>Shortcuts</SectionTitle>
-            
-            <ShortcutContainer>
-              <Text strong>Keyboard Shortcuts</Text>
-              <SpacedDiv>
-                <Text type="secondary">
-                  Default: <Text keyboard>Alt</Text> + <Text keyboard>Shift</Text> + <Text keyboard>P</Text>
-                </Text>
-              </SpacedDiv>
-              <SpacedDiv>
-                <Text type="secondary" style={{ fontSize: 13 }}>
-                  To customize, visit:
-                </Text>
-                <ShortcutList>
-                  <li>Chrome/Edge: <Text code>chrome://extensions/shortcuts</Text></li>
-                  <li>Firefox: <Text code>about:addons</Text> {">"} Gear Icon {">"} Manage Extension Shortcuts</li>
-                </ShortcutList>
-              </SpacedDiv>
-            </ShortcutContainer>
-          </StyledCard>
+        <div className="card">
+          <div className="card-header">
+            <h4>Shortcuts</h4>
+          </div>
+          <div className="card-body">
+            <div className="settings-row">
+              <div className="settings-row-content">
+                <span className="settings-row-title">Keyboard Shortcuts</span>
+                <span className="settings-row-desc">
+                  Default: <span className="keyboard">Alt</span> + <span className="keyboard">Shift</span> + <span className="keyboard">P</span>
+                </span>
+                <div style={{ marginTop: "12px" }}>
+                  <span className="text-secondary text-small">
+                    To customize, visit:
+                  </span>
+                  <ul className="text-secondary text-small" style={{ paddingLeft: "20px", marginTop: "4px", marginBottom: 0 }}>
+                    <li>Chrome/Edge: <code>chrome://extensions/shortcuts</code></li>
+                    <li>Firefox: <code>about:addons</code> &gt; Gear Icon &gt; Manage Extension Shortcuts</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <StyledCard>
-            <SectionTitle level={4}>Support</SectionTitle>
+        <div className="card">
+          <div className="card-header">
+            <h4>Support</h4>
+          </div>
+          <div className="card-body">
+            <div className="settings-row">
+              <div className="settings-row-content">
+                <span className="settings-row-title">Feedback & Bug Report</span>
+                <span className="settings-row-desc">
+                  Found a bug or have a feature request? 
+                  <a 
+                    href="https://github.com/fixicelo/pinyin-annotator/issues" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ marginLeft: "4px", fontWeight: 500 }}
+                  >
+                    Visit our GitHub repository
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <SupportContainer>
-              <Text strong>Feedback & Bug Report</Text>
-              <br />
-              <Text type="secondary">
-                Found a bug or have a feature request? 
-                <Link 
-                  href="https://github.com/fixicelo/pinyin-annotator/issues" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{ marginLeft: 4 }}
-                >
-                  Visit our GitHub repository
-                </Link>
-              </Text>
-            </SupportContainer>
-          </StyledCard>
-
-          <StyledCard>
-            <SectionTitle level={4}>Advanced</SectionTitle>
-            
-            <SectionHeader>
-              <Text strong>Ignored Tags</Text>
-              <br />
-              <Text type="secondary" style={{ fontSize: 13 }}>
+        <div className="card">
+          <div className="card-header">
+            <h4>Advanced</h4>
+          </div>
+          <div className="card-body" style={{ padding: "20px" }}>
+            <div style={{ marginBottom: "12px" }}>
+              <span className="settings-row-title">Ignored Tags</span>
+              <span className="settings-row-desc">
                 Enter the tag names of nodes to ignore (separated by commas).
-              </Text>
-            </SectionHeader>
+              </span>
+            </div>
             
-            <Input.TextArea
+            <textarea
+              className="textarea"
               value={ignoredNodesInput}
               onChange={handleIgnoredNodesChange}
               placeholder="TEXTAREA,CODE,PRE,KBD,INPUT,RP,RT,RUBY,SCRIPT,STYLE"
-              autoSize={{ minRows: 2, maxRows: 6 }}
+              style={{ minHeight: "80px" }}
             />
             {notification && (
-              <Alert
-                message={notification}
-                type="success"
-                showIcon
-                style={{ marginTop: 12 }}
-              />
+              <div className="alert alert-success" style={{ marginTop: "16px" }}>
+                <div>{notification}</div>
+              </div>
             )}
-          </StyledCard>
-          
-          <Footer>
-            <Text type="secondary" style={{ fontSize: 12 }}>
-              Pinyin Annotator © {new Date().getFullYear()}
-            </Text>
-          </Footer>
-        </Container>
-      </Layout>
-    </ConfigProvider>
+          </div>
+        </div>
+        
+        <div style={{ textAlign: "center", marginTop: "40px", paddingBottom: "20px" }}>
+          <span className="text-secondary text-small">
+            Pinyin Annotator © {new Date().getFullYear()}
+          </span>
+        </div>
+      </div>
+    </div>
   )
 }
 

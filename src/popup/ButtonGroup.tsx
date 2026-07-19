@@ -1,4 +1,3 @@
-import { Button, Flex } from "antd";
 import React, { useCallback } from 'react';
 import { UserAction } from '~constants';
 
@@ -17,11 +16,11 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ isAnnotated, communicateWithC
   };
 
   return (
-    <Flex gap="middle" justify="flex-end">
-      <Button onClick={openOptionsPage} variant={"text"} color={"primary"}>Options</Button>
-      <Button onClick={removeAnnotations} variant={"outlined"} disabled={disabled || !isAnnotated}>Clear</Button>
-      <Button onClick={performAnnotation} type={"primary"} disabled={disabled}>Annotate</Button>
-    </Flex>
+    <div className="flex gap-md justify-end">
+      <button className="btn btn-text" onClick={openOptionsPage}>Options</button>
+      <button className="btn btn-outlined" onClick={removeAnnotations} disabled={disabled || !isAnnotated}>Clear</button>
+      <button className="btn btn-primary" onClick={performAnnotation} disabled={disabled}>Annotate</button>
+    </div>
   );
 };
 

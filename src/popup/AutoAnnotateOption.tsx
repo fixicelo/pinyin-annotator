@@ -1,12 +1,9 @@
 import { useStorage } from "@plasmohq/storage/hook"
-import { Flex, Switch, Tooltip, Typography } from "antd"
 import React from "react"
 
 import { StorageKey, UserAction } from "~constants"
 
 import useCommunicateWithContentScript from "./useCommunicateWithContentScript"
-
-const { Text } = Typography
 
 const AutoAnnotateOption: React.FC = () => {
   const [autoAnnotate, setAutoAnnotate] = useStorage<boolean>(
@@ -16,7 +13,8 @@ const AutoAnnotateOption: React.FC = () => {
 
   const communicateWithContentScript = useCommunicateWithContentScript()
 
-  const handleAutoAnnotateChange = (isChecked: boolean) => {
+  const handleAutoAnnotateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked
     setAutoAnnotate(isChecked)
     communicateWithContentScript(UserAction.UpdateOptions, {
       autoAnnotate: isChecked
@@ -24,18 +22,21 @@ const AutoAnnotateOption: React.FC = () => {
   }
 
   return (
-    <Tooltip
+    <div 
+      className="flex items-center justify-between" 
+      style={{ padding: "12px 0" }}
       title="Automatically annotate pinyin on every page load."
-      placement="bottom"
-     >
-      <Flex align="center" justify="space-between">
-        <Text>Auto-Annotate</Text>
-        <Switch
-          checked={autoAnnotate}
-          onChange={(checked) => handleAutoAnnotateChange(checked)}
+    >
+      <span className="text-strong" style={{ fontSize: "13px" }}>Auto-Annotate</span>
+      <label className="switch">
+        <input 
+          type="checkbox" 
+          checked={autoAnnotate} 
+          onChange={handleAutoAnnotateChange} 
         />
-      </Flex>
-    </Tooltip>
+        <span className="switch-slider"></span>
+      </label>
+    </div>
   )
 }
 
