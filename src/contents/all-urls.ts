@@ -11,14 +11,13 @@ import {
   type HtmlOptions,
   type UserPreferences
 } from "~constants"
+import { loadUserPreferences, saveUserPreferences } from "~lib/user-preferences"
 import {
   buildAnnotatedFragment,
   clearAnnotation,
   findTextNodesWithContent,
   isAnnotated
 } from "~util"
-
-import { loadUserPreferences, saveUserPreferences } from "./user-preferences"
 
 type ActionHandlers = {
   [action in UserAction]?: (data?: any) => void
