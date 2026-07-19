@@ -43,7 +43,10 @@
     ],
     "browser_specific_settings": {
       "gecko": {
-        "id": "pinyin-annotator@fixicelo.ext"
+        "id": "pinyin-annotator@fixicelo.ext",
+        "data_collection_permissions": {
+          "required": ["none"]
+        }
       }
     },
     "commands": {
