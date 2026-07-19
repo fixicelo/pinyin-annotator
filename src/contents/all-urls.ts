@@ -186,8 +186,8 @@ export class Annotator {
     const nodes = await findTextNodesWithContent(root, this.cachedIgnoredNodes)
 
     for (let i = 0; i < nodes.length; i++) {
-      if (i > 0 && i % 50 === 0) {
-        await new Promise((resolve) => setTimeout(resolve, 0))
+      if (i > 0 && i % 80 === 0) {
+        await new Promise((resolve) => requestAnimationFrame(resolve))
       }
 
       if (version !== this.annotationVersion) {
