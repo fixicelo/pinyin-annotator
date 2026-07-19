@@ -4,7 +4,6 @@ import {
   DEFAULT_IGNORED_NODES,
   ResponseStatus,
   RubyPosition,
-  StorageKey,
   TAG_NAME,
   ToneType,
   UserAction,
@@ -19,6 +18,7 @@ import {
   isAnnotated,
   replaceNode
 } from "~util"
+import { loadUserPreferences, saveUserPreferences } from "./user-preferences"
 
 type ActionHandlers = {
   [action in UserAction]?: (data?: any) => void
@@ -117,47 +117,8 @@ export class Annotator {
     }
   }
 
-  private async getUserPreferencesFromStorage(): Promise<UserPreferences & { ignoredNodes: string[] }> {
-    const [
-      toneTypeResult,
-      observerEnabledResult,
-      rubyPositionResult,
-      autoAnnotateResult,
-      ignoredNodesResult
-    ] = await Promise.all([
-      this.storage.get(StorageKey.toneType),
-      this.storage.get(StorageKey.observerEnabled),
-      this.storage.get(StorageKey.rubyPosition),
-      this.storage.get(StorageKey.autoAnnotate),
-      this.storage.get<string[]>(StorageKey.ignoredNodes)
-    ])
-
-    return {
-      toneType: toneTypeResult as ToneType,
-      observerEnabled: observerEnabledResult as unknown as boolean,
-      rubyPosition: rubyPositionResult as RubyPosition,
-      autoAnnotate: autoAnnotateResult as unknown as boolean,
-      ignoredNodes: (ignoredNodesResult as string[]) || []
-    }
-  }
-
-  private async updateUserPreferencesInStorage(options: UserPreferences) {
-    if (options?.toneType !== undefined) {
-      await this.storage.set(StorageKey.toneType, options.toneType)
-    }
-    if (options?.observerEnabled !== undefined) {
-      await this.storage.set(
-        StorageKey.observerEnabled,
-        options.observerEnabled
-      )
-    }
-    if (options?.autoAnnotate !== undefined) {
-      await this.storage.set(StorageKey.autoAnnotate, options.autoAnnotate)
-    }
-  }
-
   public async syncUserPreferences(options: UserPreferences = {}) {
-    const storedPreferences = await this.getUserPreferencesFromStorage()
+    const storedPreferences = await loadUserPreferences(this.storage)
 
     const updatedPreferences = {
       toneType:
@@ -180,7 +141,7 @@ export class Annotator {
             : false
     }
 
-    await this.updateUserPreferencesInStorage(updatedPreferences)
+    await saveUserPreferences(this.storage, updatedPreferences)
     this.updateStyle(updatedPreferences.rubyPosition)
 
     this.htmlOptions = {
