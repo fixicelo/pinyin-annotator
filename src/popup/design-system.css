@@ -12,9 +12,10 @@
   --bg-card: #ffffff;
   --bg-hover: #f3f4f6;
   
-  /* Borders */
+  /* Borders & Disabled */
   --border-color: #e5e7eb;
   --border-color-hover: #d1d5db;
+  --switch-off-bg: #e5e7eb;
   
   /* Text */
   --text-primary: #111827;
@@ -190,7 +191,7 @@ code, .keyboard {
   position: absolute;
   cursor: pointer;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #e5e7eb;
+  background-color: var(--switch-off-bg);
   transition: background-color 0.2s;
   border-radius: 20px;
 }
@@ -219,11 +220,6 @@ code, .keyboard {
 .switch input:focus-visible + .switch-slider {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
-}
-
-/* Tooltip (Simple Title Fallback) */
-.tooltip-wrapper {
-  cursor: default;
 }
 
 /* Flex layout utilities */
