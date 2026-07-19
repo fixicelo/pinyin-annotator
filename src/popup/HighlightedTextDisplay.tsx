@@ -1,6 +1,6 @@
 import { useStorage } from "@plasmohq/storage/hook";
 import { useEffect, useState } from "react";
-import { PREDEFINED_DICT_LINK, RubyPosition, StorageKey, ToneType, type HtmlOptions } from "~constants";
+import { PREDEFINED_DICT_LINK, PronunciationSystem, RubyPosition, StorageKey, ToneType, type HtmlOptions } from "~constants";
 import { convertTextContentToHtml } from "~util";
 
 function getTextFromRange(range: Range): string {
@@ -86,6 +86,10 @@ const retrieveHighlightedText = (setSelectedText) => {
 
 const HighlightedTextDisplay = () => {
   const [toneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
+  const [pronunciationSystem] = useStorage<PronunciationSystem>(
+    StorageKey.pronunciationSystem,
+    PronunciationSystem.Pinyin
+  )
   const [selectedText, setSelectedText] = useState("")
   const [dictLinkEnabled] = useStorage<boolean>(StorageKey.dictLinkEnabled, true);
   const [selectedDict] = useStorage<string>(StorageKey.selectedDict, PREDEFINED_DICT_LINK[0].site);
@@ -101,7 +105,7 @@ const HighlightedTextDisplay = () => {
     }
   }
 
-  const htmlOptions: HtmlOptions = { toneType, dictLink }
+  const htmlOptions: HtmlOptions = { toneType, dictLink, pronunciationSystem }
   const htmlString = convertTextContentToHtml(selectedText, htmlOptions)
   const fontSizePx = 40
   const lineHeightPx = fontSizePx + 30

@@ -14,6 +14,7 @@ import {
   IS_ANNOTATED_ATTR,
   NON_CHINESE_CLASS,
   PINYIN_CLASS,
+  PronunciationSystem,
   RESULT_CLASS,
   StorageKey,
   TAG_NAME,
@@ -169,14 +170,19 @@ export function convertTextContentToHtml(
   htmlOptions: HtmlOptions
 ): string {
   const simplifiedText = cnchar.convert.tradToSimple(text)
-  const pinyinArray = pinyinConverter(simplifiedText, {
+  const isZhuyin = htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
+  const toneType = isZhuyin ? "num" : htmlOptions.toneType
+  const rawPinyin = pinyinConverter(simplifiedText, {
     type: "array",
-    toneType: htmlOptions.toneType
+    toneType
   })
   const words = [...text]
   const lookup = words.map((word, index) => {
-    const pinyin = pinyinArray[index]
-    return word === pinyin ? [word, null] : [word, pinyin]
+    const raw = rawPinyin[index]
+    const isPinyin = word !== raw
+    if (!isPinyin) return [word, null] as const
+    const display = isZhuyin ? pinyinToZhuyin(raw) : raw
+    return [word, display] as const
   })
   const markup = lookup
     .map(([word, pinyin]) => {
@@ -191,6 +197,106 @@ export function convertTextContentToHtml(
     .join("")
 
   return markup
+}
+
+const PINYIN_INITIALS: Record<string, string> = {
+  b: "\u3105", p: "\u3106", m: "\u3107", f: "\u3108",
+  d: "\u3109", t: "\u310A", n: "\u310B", l: "\u310C",
+  g: "\u310D", k: "\u310E", h: "\u310F",
+  j: "\u3110", q: "\u3111", x: "\u3112",
+  zh: "\u3113", ch: "\u3114", sh: "\u3115", r: "\u3116",
+  z: "\u3117", c: "\u3118", s: "\u3119"
+}
+
+const PINYIN_FINALS: Record<string, string> = {
+  i: "\u3127", u: "\u3128", "\u00FC": "\u3129",
+  a: "\u312A", o: "\u312B", e: "\u312C", "\u00EA": "\u311D",
+  ai: "\u311E", ei: "\u311F", ao: "\u3120", ou: "\u3121",
+  an: "\u3122", en: "\u3123", ang: "\u3124", eng: "\u3125",
+  er: "\u3126",
+  ia: "\u3127\u312A", ie: "\u3127\u311D", iao: "\u3127\u3120",
+  iu: "\u3127\u3121", ian: "\u3127\u3122", in: "\u3127\u3123",
+  iang: "\u3127\u3124", ing: "\u3127\u3125",
+  ua: "\u3128\u312A", uo: "\u3128\u312B", uai: "\u3128\u311E",
+  ui: "\u3128\u311F", uan: "\u3128\u3122", un: "\u3128\u3123",
+  uang: "\u3128\u3124", ong: "\u3128\u3125",
+  "\u00FCe": "\u3129\u311D", "\u00FCn": "\u3129\u3123",
+  "\u00FCan": "\u3129\u3122", iong: "\u3129\u3125"
+}
+
+const SYLLABIC_CONSONANTS: Record<string, string> = {
+  zhi: "\u3113", chi: "\u3114", shi: "\u3115", ri: "\u3116",
+  zi: "\u3117", ci: "\u3118", si: "\u3119"
+}
+
+const ZERO_INITIAL_FORMS: Record<string, string> = {
+  yi: "\u3127", wu: "\u3128", yu: "\u3129",
+  ya: "\u3127\u312A", ye: "\u3127\u311D", yao: "\u3127\u3120",
+  you: "\u3127\u3121", yan: "\u3127\u3122", yin: "\u3127\u3123",
+  yang: "\u3127\u3124", ying: "\u3127\u3125",
+  wa: "\u3128\u312A", wo: "\u3128\u312B", wai: "\u3128\u311E",
+  wei: "\u3128\u311F", wan: "\u3128\u3122", wen: "\u3128\u3123",
+  wang: "\u3128\u3124", weng: "\u3128\u3125",
+  yue: "\u3129\u311D", yuan: "\u3129\u3122",
+  yun: "\u3129\u3123", yong: "\u3129\u3125",
+  a: "\u312A", o: "\u312B", e: "\u312C", "\u00EA": "\u311D",
+  ai: "\u311E", ei: "\u311F", ao: "\u3120", ou: "\u3121",
+  an: "\u3122", en: "\u3123", ang: "\u3124", eng: "\u3125",
+  er: "\u3126", r: "\u3126"
+}
+
+const ZHUYIN_TONES: Record<string, string> = {
+  "1": "", "2": "\u02CA", "3": "\u02C7", "4": "\u02CB", "5": "\u02D9"
+}
+
+const INITIAL_KEYS = Object.keys(PINYIN_INITIALS).sort(
+  (a, b) => b.length - a.length
+)
+const FINAL_KEYS = Object.keys(PINYIN_FINALS).sort(
+  (a, b) => b.length - a.length
+)
+
+export function pinyinToZhuyin(pinyin: string): string {
+  if (!pinyin) return ""
+
+  let syllable = pinyin.toLowerCase().replace(/v|u:/g, "\u00FC")
+  let tone = "1"
+
+  const toneMatch = syllable.match(/[1-5]$/)
+  if (toneMatch) {
+    tone = toneMatch[0]
+    syllable = syllable.slice(0, -1)
+  }
+
+  let result = ""
+
+  if (syllable in SYLLABIC_CONSONANTS) {
+    result = SYLLABIC_CONSONANTS[syllable]
+  } else if (syllable in ZERO_INITIAL_FORMS) {
+    result = ZERO_INITIAL_FORMS[syllable]
+  } else {
+    let remaining = syllable
+    let initial = ""
+    for (const ik of INITIAL_KEYS) {
+      if (remaining.startsWith(ik)) {
+        initial = PINYIN_INITIALS[ik]
+        remaining = remaining.slice(ik.length)
+        break
+      }
+    }
+    const finalZhuyin = PINYIN_FINALS[remaining] ?? ""
+    result = initial + finalZhuyin
+  }
+
+  result = result.replace(/^(\u3110|\u3111|\u3112)\u3128/, "$1\u3129")
+
+  if (tone === "5") {
+    result = ZHUYIN_TONES[tone] + result
+  } else if (tone !== "1") {
+    result = result + ZHUYIN_TONES[tone]
+  }
+
+  return result
 }
 
 function createAnnotationElement(
@@ -247,9 +353,11 @@ export function buildAnnotatedFragment(
   htmlOptions: HtmlOptions
 ): DocumentFragment {
   const simplifiedText = cnchar.convert.tradToSimple(text)
-  const pinyinArray = pinyinConverter(simplifiedText, {
+  const isZhuyin = htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
+  const toneType = isZhuyin ? "num" : htmlOptions.toneType
+  const rawPinyin = pinyinConverter(simplifiedText, {
     type: "array",
-    toneType: htmlOptions.toneType
+    toneType
   })
   const words = [...text]
   const dictLink =
@@ -260,13 +368,14 @@ export function buildAnnotatedFragment(
   const frag = document.createDocumentFragment()
   for (let i = 0; i < words.length; i++) {
     const word = words[i]
-    const pinyin = pinyinArray[i]
-    const hasPinyin = word !== pinyin
-    const element = createAnnotationElement(
-      word,
-      hasPinyin ? pinyin : null,
-      dictLink
-    )
+    const raw = rawPinyin[i]
+    const hasPinyin = word !== raw
+    const displayPinyin = hasPinyin
+      ? isZhuyin
+        ? pinyinToZhuyin(raw)
+        : raw
+      : null
+    const element = createAnnotationElement(word, displayPinyin, dictLink)
     frag.appendChild(element)
   }
 

@@ -4,6 +4,11 @@ export enum ToneType {
   None = "none"
 }
 
+export enum PronunciationSystem {
+  Pinyin = "pinyin",
+  Zhuyin = "zhuyin"
+}
+
 export enum RubyPosition {
   OVER = "over",
   UNDER = "under"
@@ -45,6 +50,7 @@ export const RESTRICTED_URL_PATTERNS = [
 
 export enum StorageKey {
   toneType = "toneType",
+  pronunciationSystem = "pronunciationSystem",
   observerEnabled = "observerEnabled",
   ignoredNodes = "ignoredNodes",
   dictLinkEnabled = "dictLinkEnabled",
@@ -56,6 +62,7 @@ export enum StorageKey {
 
 export interface UserPreferences {
   toneType?: ToneType
+  pronunciationSystem?: PronunciationSystem
   observerEnabled?: boolean
   rubyPosition?: RubyPosition
   autoAnnotate?: boolean
@@ -69,6 +76,7 @@ export type HtmlOptions = {
   wrapNonChinese?: boolean
   toneType?: ToneType
   dictLink?: string
+  pronunciationSystem?: PronunciationSystem
 }
 
 export const TAG_NAME = "pya"

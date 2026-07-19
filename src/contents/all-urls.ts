@@ -2,6 +2,7 @@ import { Storage } from "@plasmohq/storage"
 
 import {
   DEFAULT_IGNORED_NODES,
+  PronunciationSystem,
   ResponseStatus,
   RubyPosition,
   TAG_NAME,
@@ -133,6 +134,10 @@ export class Annotator {
     const updatedPreferences = {
       toneType:
         options.toneType || storedPreferences.toneType || ToneType.Symbol,
+      pronunciationSystem:
+        options.pronunciationSystem ||
+        storedPreferences.pronunciationSystem ||
+        PronunciationSystem.Pinyin,
       observerEnabled:
         options.observerEnabled !== undefined
           ? options.observerEnabled
@@ -156,7 +161,8 @@ export class Annotator {
 
     this.htmlOptions = {
       ...this.htmlOptions,
-      toneType: updatedPreferences.toneType
+      toneType: updatedPreferences.toneType,
+      pronunciationSystem: updatedPreferences.pronunciationSystem
     }
     this.isObserverEnabled = updatedPreferences.observerEnabled
     this.autoAnnotate = updatedPreferences.autoAnnotate

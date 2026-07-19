@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react"
 
 import {
   PREDEFINED_DICT_LINK,
+  PronunciationSystem,
   RubyPosition,
   StorageKey,
   ToneType
@@ -16,6 +17,11 @@ function Options() {
     StorageKey.toneType,
     ToneType.Symbol
   )
+  const [pronunciationSystem, setPronunciationSystem] =
+    useStorage<PronunciationSystem>(
+      StorageKey.pronunciationSystem,
+      PronunciationSystem.Pinyin
+    )
   const [observerEnabled, setObserverEnabled] = useStorage<boolean>(
     StorageKey.observerEnabled,
     true
@@ -51,6 +57,12 @@ function Options() {
 
   const handleToneTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToneType(e.target.checked ? ToneType.Symbol : ToneType.None)
+  }
+
+  const handlePronunciationSystemChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setPronunciationSystem(e.target.value as PronunciationSystem)
   }
 
   const handleObserverEnabledChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,22 +176,48 @@ function Options() {
           <div className="card-body">
             <div className="settings-row">
               <div className="settings-row-content">
-                <span className="settings-row-title">Tone Marks</span>
+                <span className="settings-row-title">Pronunciation</span>
                 <span className="settings-row-desc">
-                  Show tone marks (ā á ǎ à) instead of numbers or no tones.
+                  Choose between Pinyin (Latin alphabet) or Zhuyin (Bopomofo) annotation.
                 </span>
               </div>
               <div className="settings-row-action">
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={toneType === ToneType.Symbol}
-                    onChange={handleToneTypeChange}
-                  />
-                  <span className="switch-slider"></span>
-                </label>
+                <select
+                  className="select"
+                  value={pronunciationSystem}
+                  onChange={handlePronunciationSystemChange}
+                  style={{ width: "120px" }}
+                >
+                  <option value={PronunciationSystem.Pinyin}>
+                    Pinyin
+                  </option>
+                  <option value={PronunciationSystem.Zhuyin}>
+                    Zhuyin
+                  </option>
+                </select>
               </div>
             </div>
+
+            {pronunciationSystem === PronunciationSystem.Pinyin && (
+              <div className="settings-row">
+                <div className="settings-row-content">
+                  <span className="settings-row-title">Tone Marks</span>
+                  <span className="settings-row-desc">
+                    Show tone marks (ā á ǎ à) instead of numbers or no tones.
+                  </span>
+                </div>
+                <div className="settings-row-action">
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={toneType === ToneType.Symbol}
+                      onChange={handleToneTypeChange}
+                    />
+                    <span className="switch-slider"></span>
+                  </label>
+                </div>
+              </div>
+            )}
 
             <div className="settings-row">
               <div className="settings-row-content">

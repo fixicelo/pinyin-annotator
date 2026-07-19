@@ -1,6 +1,7 @@
 import type { Storage } from "@plasmohq/storage"
 
 import {
+  PronunciationSystem,
   RubyPosition,
   StorageKey,
   ToneType,
@@ -14,12 +15,14 @@ export async function loadUserPreferences(
 ): Promise<StoredPreferences> {
   const [
     toneTypeResult,
+    pronunciationSystemResult,
     observerEnabledResult,
     rubyPositionResult,
     autoAnnotateResult,
     ignoredNodesResult
   ] = await Promise.all([
     storage.get(StorageKey.toneType),
+    storage.get(StorageKey.pronunciationSystem),
     storage.get(StorageKey.observerEnabled),
     storage.get(StorageKey.rubyPosition),
     storage.get(StorageKey.autoAnnotate),
@@ -28,6 +31,8 @@ export async function loadUserPreferences(
 
   return {
     toneType: toneTypeResult as ToneType,
+    pronunciationSystem:
+      pronunciationSystemResult as PronunciationSystem,
     observerEnabled: observerEnabledResult as unknown as boolean,
     rubyPosition: rubyPositionResult as RubyPosition,
     autoAnnotate: autoAnnotateResult as unknown as boolean,
@@ -41,6 +46,12 @@ export async function saveUserPreferences(
 ) {
   if (options?.toneType !== undefined) {
     await storage.set(StorageKey.toneType, options.toneType)
+  }
+  if (options?.pronunciationSystem !== undefined) {
+    await storage.set(
+      StorageKey.pronunciationSystem,
+      options.pronunciationSystem
+    )
   }
   if (options?.observerEnabled !== undefined) {
     await storage.set(StorageKey.observerEnabled, options.observerEnabled)
