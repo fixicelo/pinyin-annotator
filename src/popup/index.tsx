@@ -13,12 +13,15 @@ import AutoAnnotateOption from "./AutoAnnotateOption"
 import ButtonGroup from "./ButtonGroup"
 import HighlightedTextDisplay from "./HighlightedTextDisplay"
 import MonitorModeOption from "./MonitorModeOption"
+import { useTheme } from "./useTheme"
 
 import "./popup.css"
 
 import useCommunicateWithContentScript from "./useCommunicateWithContentScript"
 
 function Popup() {
+  useTheme()
+
   const [isAnnotated, setIsAnnotated] = useState(false)
   const [tabStatus, setTabStatus] = useState<TabStatus>(TabStatus.Loading)
 

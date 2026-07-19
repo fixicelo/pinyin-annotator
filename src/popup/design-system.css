@@ -437,3 +437,63 @@ code,
   padding: 40px 20px;
   min-height: 100vh;
 }
+
+/* Dark mode (system preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --primary-active: #1d4ed8;
+    --primary-disabled: #374151;
+    --primary-disabled-text: #6b7280;
+    --bg-base: #1f2937;
+    --bg-layout: #111827;
+    --bg-card: #1f2937;
+    --bg-hover: #374151;
+    --border-color: #374151;
+    --border-color-hover: #4b5563;
+    --switch-off-bg: #4b5563;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --text-disabled: #6b7280;
+    --success-bg: #064e3b;
+    --success-border: #065f46;
+    --success-text: #6ee7b7;
+    --warning-bg: #451a03;
+    --warning-border: #78350f;
+    --warning-text: #fcd34d;
+    --info-bg: #172554;
+    --info-border: #1e3a5f;
+    --info-text: #93c5fd;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Dark mode (explicit override) */
+:root[data-theme="dark"] {
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-active: #1d4ed8;
+  --primary-disabled: #374151;
+  --primary-disabled-text: #6b7280;
+  --bg-base: #1f2937;
+  --bg-layout: #111827;
+  --bg-card: #1f2937;
+  --bg-hover: #374151;
+  --border-color: #374151;
+  --border-color-hover: #4b5563;
+  --switch-off-bg: #4b5563;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-disabled: #6b7280;
+  --success-bg: #064e3b;
+  --success-border: #065f46;
+  --success-text: #6ee7b7;
+  --warning-bg: #451a03;
+  --warning-border: #78350f;
+  --warning-text: #fcd34d;
+  --info-bg: #172554;
+  --info-border: #1e3a5f;
+  --info-text: #93c5fd;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+}

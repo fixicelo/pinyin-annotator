@@ -9,6 +9,12 @@ export enum PronunciationSystem {
   Zhuyin = "zhuyin"
 }
 
+export enum Theme {
+  System = "system",
+  Light = "light",
+  Dark = "dark"
+}
+
 export enum RubyPosition {
   OVER = "over",
   UNDER = "under"
@@ -51,6 +57,7 @@ export const RESTRICTED_URL_PATTERNS = [
 export enum StorageKey {
   toneType = "toneType",
   pronunciationSystem = "pronunciationSystem",
+  theme = "theme",
   observerEnabled = "observerEnabled",
   ignoredNodes = "ignoredNodes",
   dictLinkEnabled = "dictLinkEnabled",

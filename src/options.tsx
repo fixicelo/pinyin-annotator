@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -7,14 +7,18 @@ import {
   PronunciationSystem,
   RubyPosition,
   StorageKey,
+  Theme,
   ToneType
 } from "~constants"
 
+import { useTheme } from "./popup/useTheme"
 import { debounce } from "./util"
 
 import "./popup/design-system.css"
 
 function Options() {
+  useTheme()
+
   const [toneType, setToneType] = useStorage<ToneType>(
     StorageKey.toneType,
     ToneType.Symbol
@@ -56,6 +60,7 @@ function Options() {
     StorageKey.rubyPosition,
     RubyPosition.OVER
   )
+  const [theme, setTheme] = useStorage<Theme>(StorageKey.theme, Theme.System)
 
   const handleToneTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToneType(e.target.checked ? ToneType.Symbol : ToneType.None)
@@ -116,6 +121,10 @@ function Options() {
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setRubyPosition(e.target.value as RubyPosition)
+  }
+
+  const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setTheme(e.target.value as Theme)
   }
 
   useEffect(() => {
@@ -247,6 +256,26 @@ function Options() {
                   style={{ width: "120px" }}>
                   <option value={RubyPosition.OVER}>Top</option>
                   <option value={RubyPosition.UNDER}>Bottom</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="settings-row">
+              <div className="settings-row-content">
+                <span className="settings-row-title">Theme</span>
+                <span className="settings-row-desc">
+                  Choose between light, dark, or follow your system preference.
+                </span>
+              </div>
+              <div className="settings-row-action">
+                <select
+                  className="select"
+                  value={theme}
+                  onChange={handleThemeChange}
+                  style={{ width: "120px" }}>
+                  <option value={Theme.System}>System</option>
+                  <option value={Theme.Light}>Light</option>
+                  <option value={Theme.Dark}>Dark</option>
                 </select>
               </div>
             </div>
