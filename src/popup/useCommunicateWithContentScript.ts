@@ -25,7 +25,7 @@ const useCommunicateWithContentScript = (
         })
         const tab = tabs[0]
 
-        if (!tab) {
+        if (!tab?.id) {
           onTabStatusChange?.(TabStatus.RestrictedPage)
           return
         }
@@ -39,10 +39,18 @@ const useCommunicateWithContentScript = (
           action,
           data
         })
+
+        if (chrome.runtime.lastError) {
+          throw new Error(chrome.runtime.lastError.message)
+        }
+
         onTabStatusChange?.(TabStatus.Available)
         callback?.(response)
       } catch (error) {
-        console.info("Error communicating with content script:", error)
+        console.debug(
+          "Content script communication failed:",
+          error instanceof Error ? error.message : error
+        )
         onTabStatusChange?.(TabStatus.NeedsRefresh)
       }
     },

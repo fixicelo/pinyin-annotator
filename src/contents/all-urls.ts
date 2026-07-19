@@ -232,19 +232,24 @@ export class Annotator {
 
   public handleUserAction(message, sender, sendResponse) {
     ;(async () => {
-      const actionHandler = this.actionHandlers[message.action]
-      if (actionHandler) {
-        await actionHandler(message.data)
-      }
+      try {
+        const actionHandler = this.actionHandlers[message.action]
+        if (actionHandler) {
+          await actionHandler(message.data)
+        }
 
-      const target = this.getObservationTarget()
-      const response = {
-        status:
-          target && isAnnotated(target)
-            ? ResponseStatus.Annotated
-            : ResponseStatus.NotAnnotated
+        const target = this.getObservationTarget()
+        const response = {
+          status:
+            target && isAnnotated(target)
+              ? ResponseStatus.Annotated
+              : ResponseStatus.NotAnnotated
+        }
+        sendResponse(response)
+      } catch (error) {
+        console.debug("Error handling user action:", error)
+        sendResponse({ status: ResponseStatus.NotAnnotated })
       }
-      sendResponse(response)
     })()
     return true
   }
