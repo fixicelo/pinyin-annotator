@@ -12,11 +12,9 @@ import {
 } from "~constants"
 import {
   clearAnnotation,
-  convertHtmlToDocument,
-  convertTextContentToHtml,
+  buildAnnotatedFragment,
   findTextNodesWithContent,
-  isAnnotated,
-  replaceNode
+  isAnnotated
 } from "~util"
 import { loadUserPreferences, saveUserPreferences } from "./user-preferences"
 
@@ -45,10 +43,12 @@ export class Annotator {
     subtree: true
   }
   private observationTargetSelector: string = "body"
+  private pendingMutations: MutationRecord[] = []
+  private mutationFlushTimer: ReturnType<typeof setTimeout> | null = null
 
   constructor() {
     this.mutationObserver = new MutationObserver(
-      this.processDOMMutations.bind(this)
+      (mutations) => this.enqueueMutations(mutations)
     )
     chrome.runtime.onMessage.addListener(this.handleUserAction.bind(this))
     this.styleTag = document.createElement("style")
@@ -88,10 +88,20 @@ export class Annotator {
     }
   }
 
-  private processDOMMutations(
-    mutationsList: MutationRecord[],
-    observer: MutationObserver
-  ) {
+  private enqueueMutations(mutations: MutationRecord[]) {
+    this.pendingMutations.push(...mutations)
+    if (this.mutationFlushTimer !== null) {
+      clearTimeout(this.mutationFlushTimer)
+    }
+    this.mutationFlushTimer = setTimeout(() => {
+      this.mutationFlushTimer = null
+      const merged = this.pendingMutations
+      this.pendingMutations = []
+      this.processDOMMutations(merged)
+    }, 200)
+  }
+
+  private processDOMMutations(mutationsList: MutationRecord[]) {
     if (!this.isObserverEnabled) {
       return
     }
@@ -169,19 +179,24 @@ export class Annotator {
   private async processNodes(root: Node, htmlOptions: HtmlOptions, version: number) {
     const nodes = await findTextNodesWithContent(root, this.cachedIgnoredNodes)
 
-    for (const node of nodes) {
+    for (let i = 0; i < nodes.length; i++) {
+      if (i > 0 && i % 50 === 0) {
+        await new Promise((resolve) => setTimeout(resolve, 0))
+      }
+
       if (version !== this.annotationVersion) {
         return
       }
 
+      const node = nodes[i]
       if (!node.isConnected) {
         continue
       }
 
-      const html = convertTextContentToHtml(node.textContent, htmlOptions)
-      const doc = convertHtmlToDocument(html)
-
-      replaceNode(node, doc, false)
+      const frag = buildAnnotatedFragment(node.textContent, htmlOptions)
+      if (node.parentNode) {
+        node.parentNode.replaceChild(frag, node)
+      }
     }
   }
 
@@ -212,6 +227,11 @@ export class Annotator {
     [UserAction.Clear]: () => {
       this.annotationVersion++
       this.isProcessing = false
+      this.pendingMutations = []
+      if (this.mutationFlushTimer !== null) {
+        clearTimeout(this.mutationFlushTimer)
+        this.mutationFlushTimer = null
+      }
       if (this.isObserverEnabled) {
         this.mutationObserver.disconnect()
       }

@@ -168,9 +168,6 @@ export function convertTextContentToHtml(
   text: string,
   htmlOptions: HtmlOptions
 ): string {
-  // Convert to Simplified Chinese first,
-  // as the library may struggle with Traditional Chinese phrases
-  // Ref: https://github.com/zh-lx/pinyin-pro/issues/212
   const simplifiedText = cnchar.convert.tradToSimple(text)
   const pinyinArray = pinyinConverter(simplifiedText, {
     type: "array",
@@ -196,29 +193,84 @@ export function convertTextContentToHtml(
   return markup
 }
 
-export function convertHtmlToDocument(html: string) {
-  const parser = new DOMParser()
-  return parser.parseFromString(html, "text/html")
+function createAnnotationElement(
+  word: string,
+  pinyin: string | null,
+  dictLink?: string
+): HTMLElement {
+  const wrapper = document.createElement(TAG_NAME)
+
+  if (pinyin) {
+    wrapper.className = RESULT_CLASS
+    wrapper.setAttribute(IS_ANNOTATED_ATTR, "true")
+
+    const ruby = document.createElement("ruby")
+
+    const chineseWrapper = document.createElement(TAG_NAME)
+    chineseWrapper.className = CHINESE_CLASS
+
+    if (dictLink) {
+      const link = document.createElement("a")
+      link.href = dictLink.replace("{word}", word)
+      link.target = "_blank"
+      link.textContent = word
+      chineseWrapper.appendChild(link)
+    } else {
+      chineseWrapper.textContent = word
+    }
+
+    const rpOpen = document.createElement("rp")
+    rpOpen.textContent = "("
+
+    const rt = document.createElement("rt")
+    rt.className = PINYIN_CLASS
+    rt.textContent = pinyin
+
+    const rpClose = document.createElement("rp")
+    rpClose.textContent = ")"
+
+    ruby.appendChild(chineseWrapper)
+    ruby.appendChild(rpOpen)
+    ruby.appendChild(rt)
+    ruby.appendChild(rpClose)
+    wrapper.appendChild(ruby)
+  } else {
+    wrapper.className = NON_CHINESE_CLASS
+    wrapper.textContent = word
+  }
+
+  return wrapper
 }
 
-export function replaceNode(
-  node: Node,
-  parsedHtml: Document,
-  wrap: boolean = false
-) {
+export function buildAnnotatedFragment(
+  text: string,
+  htmlOptions: HtmlOptions
+): DocumentFragment {
+  const simplifiedText = cnchar.convert.tradToSimple(text)
+  const pinyinArray = pinyinConverter(simplifiedText, {
+    type: "array",
+    toneType: htmlOptions.toneType
+  })
+  const words = [...text]
+  const dictLink =
+    htmlOptions.dictLink && htmlOptions.dictLink !== ""
+      ? htmlOptions.dictLink
+      : undefined
+
   const frag = document.createDocumentFragment()
-  const newElement = document.createElement(TAG_NAME)
-  newElement.append(...Array.from(parsedHtml.body.childNodes))
-
-  if (wrap) {
-    frag.appendChild(newElement)
-  } else {
-    frag.append(...Array.from(newElement.childNodes))
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i]
+    const pinyin = pinyinArray[i]
+    const hasPinyin = word !== pinyin
+    const element = createAnnotationElement(
+      word,
+      hasPinyin ? pinyin : null,
+      dictLink
+    )
+    frag.appendChild(element)
   }
 
-  if (node.parentNode) {
-    node.parentNode.replaceChild(frag, node)
-  }
+  return frag
 }
 
 export function clearAnnotation(root: Element) {
