@@ -1,9 +1,7 @@
 import cnchar from "cnchar"
 import poly from "cnchar-poly"
 import trad from "cnchar-trad"
-import {
-  pinyin as pinyinConverter
-} from "pinyin-pro"
+import { pinyin as pinyinConverter } from "pinyin-pro"
 
 import { Storage } from "@plasmohq/storage"
 
@@ -61,7 +59,7 @@ export const findTextNodesWithContent = async (
     return []
   }
 
-  const resolvedIgnoredNodes = ignoredNodes ?? await getIgnoredNodes()
+  const resolvedIgnoredNodes = ignoredNodes ?? (await getIgnoredNodes())
 
   const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) => {
@@ -69,7 +67,7 @@ export const findTextNodesWithContent = async (
       if (resolvedIgnoredNodes.includes(node.parentElement.nodeName)) {
         return NodeFilter.FILTER_REJECT
       }
-      
+
       // Check if node is inside our annotation structure (check immediate 3 levels up)
       // This prevents re-processing while allowing AJAX-replaced content
       let ancestor = node.parentElement
@@ -79,7 +77,7 @@ export const findTextNodesWithContent = async (
         }
         ancestor = ancestor.parentElement
       }
-      
+
       return containsChinese(node.textContent)
         ? NodeFilter.FILTER_ACCEPT
         : NodeFilter.FILTER_REJECT
@@ -101,7 +99,8 @@ export function convertTextContentToHtml(
   htmlOptions: HtmlOptions
 ): string {
   const simplifiedText = cnchar.convert.tradToSimple(text)
-  const isZhuyin = htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
+  const isZhuyin =
+    htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
   const toneType = isZhuyin ? "num" : htmlOptions.toneType
   const rawPinyin = pinyinConverter(simplifiedText, {
     type: "array",
@@ -131,53 +130,124 @@ export function convertTextContentToHtml(
 }
 
 const PINYIN_INITIALS: Record<string, string> = {
-  b: "ㄅ", p: "ㄆ", m: "ㄇ", f: "ㄈ",
-  d: "ㄉ", t: "ㄊ", n: "ㄋ", l: "ㄌ",
-  g: "ㄍ", k: "ㄎ", h: "ㄏ",
-  j: "ㄐ", q: "ㄑ", x: "ㄒ",
-  zh: "ㄓ", ch: "ㄔ", sh: "ㄕ", r: "ㄖ",
-  z: "ㄗ", c: "ㄘ", s: "ㄙ"
+  b: "ㄅ",
+  p: "ㄆ",
+  m: "ㄇ",
+  f: "ㄈ",
+  d: "ㄉ",
+  t: "ㄊ",
+  n: "ㄋ",
+  l: "ㄌ",
+  g: "ㄍ",
+  k: "ㄎ",
+  h: "ㄏ",
+  j: "ㄐ",
+  q: "ㄑ",
+  x: "ㄒ",
+  zh: "ㄓ",
+  ch: "ㄔ",
+  sh: "ㄕ",
+  r: "ㄖ",
+  z: "ㄗ",
+  c: "ㄘ",
+  s: "ㄙ"
 }
 
 const PINYIN_FINALS: Record<string, string> = {
-  i: "ㄧ", u: "ㄨ", ü: "ㄩ",
-  a: "ㄚ", o: "ㄛ", e: "ㄜ", ê: "ㄝ",
-  ai: "ㄞ", ei: "ㄟ", ao: "ㄠ", ou: "ㄡ",
-  an: "ㄢ", en: "ㄣ", ang: "ㄤ", eng: "ㄥ",
+  i: "ㄧ",
+  u: "ㄨ",
+  ü: "ㄩ",
+  a: "ㄚ",
+  o: "ㄛ",
+  e: "ㄜ",
+  ê: "ㄝ",
+  ai: "ㄞ",
+  ei: "ㄟ",
+  ao: "ㄠ",
+  ou: "ㄡ",
+  an: "ㄢ",
+  en: "ㄣ",
+  ang: "ㄤ",
+  eng: "ㄥ",
   er: "ㄦ",
-  ia: "ㄧㄚ", ie: "ㄧㄝ", iao: "ㄧㄠ",
-  iu: "ㄧㄡ", ian: "ㄧㄢ", in: "ㄧㄣ",
-  iang: "ㄧㄤ", ing: "ㄧㄥ",
-  ua: "ㄨㄚ", uo: "ㄨㄛ", uai: "ㄨㄞ",
-  ui: "ㄨㄟ", uan: "ㄨㄢ", un: "ㄨㄣ",
-  uang: "ㄨㄤ", ong: "ㄨㄥ",
-  üe: "ㄩㄝ", ün: "ㄩㄣ",
-  üan: "ㄩㄢ", iong: "ㄩㄥ"
+  ia: "ㄧㄚ",
+  ie: "ㄧㄝ",
+  iao: "ㄧㄠ",
+  iu: "ㄧㄡ",
+  ian: "ㄧㄢ",
+  in: "ㄧㄣ",
+  iang: "ㄧㄤ",
+  ing: "ㄧㄥ",
+  ua: "ㄨㄚ",
+  uo: "ㄨㄛ",
+  uai: "ㄨㄞ",
+  ui: "ㄨㄟ",
+  uan: "ㄨㄢ",
+  un: "ㄨㄣ",
+  uang: "ㄨㄤ",
+  ong: "ㄨㄥ",
+  üe: "ㄩㄝ",
+  ün: "ㄩㄣ",
+  üan: "ㄩㄢ",
+  iong: "ㄩㄥ"
 }
 
 const SYLLABIC_CONSONANTS: Record<string, string> = {
-  zhi: "ㄓ", chi: "ㄔ", shi: "ㄕ", ri: "ㄖ",
-  zi: "ㄗ", ci: "ㄘ", si: "ㄙ"
+  zhi: "ㄓ",
+  chi: "ㄔ",
+  shi: "ㄕ",
+  ri: "ㄖ",
+  zi: "ㄗ",
+  ci: "ㄘ",
+  si: "ㄙ"
 }
 
 const ZERO_INITIAL_FORMS: Record<string, string> = {
-  yi: "ㄧ", wu: "ㄨ", yu: "ㄩ",
-  ya: "ㄧㄚ", ye: "ㄧㄝ", yao: "ㄧㄠ",
-  you: "ㄧㄡ", yan: "ㄧㄢ", yin: "ㄧㄣ",
-  yang: "ㄧㄤ", ying: "ㄧㄥ",
-  wa: "ㄨㄚ", wo: "ㄨㄛ", wai: "ㄨㄞ",
-  wei: "ㄨㄟ", wan: "ㄨㄢ", wen: "ㄨㄣ",
-  wang: "ㄨㄤ", weng: "ㄨㄥ",
-  yue: "ㄩㄝ", yuan: "ㄩㄢ",
-  yun: "ㄩㄣ", yong: "ㄩㄥ",
-  a: "ㄚ", o: "ㄛ", e: "ㄜ", ê: "ㄝ",
-  ai: "ㄞ", ei: "ㄟ", ao: "ㄠ", ou: "ㄡ",
-  an: "ㄢ", en: "ㄣ", ang: "ㄤ", eng: "ㄥ",
-  er: "ㄦ", r: "ㄦ"
+  yi: "ㄧ",
+  wu: "ㄨ",
+  yu: "ㄩ",
+  ya: "ㄧㄚ",
+  ye: "ㄧㄝ",
+  yao: "ㄧㄠ",
+  you: "ㄧㄡ",
+  yan: "ㄧㄢ",
+  yin: "ㄧㄣ",
+  yang: "ㄧㄤ",
+  ying: "ㄧㄥ",
+  wa: "ㄨㄚ",
+  wo: "ㄨㄛ",
+  wai: "ㄨㄞ",
+  wei: "ㄨㄟ",
+  wan: "ㄨㄢ",
+  wen: "ㄨㄣ",
+  wang: "ㄨㄤ",
+  weng: "ㄨㄥ",
+  yue: "ㄩㄝ",
+  yuan: "ㄩㄢ",
+  yun: "ㄩㄣ",
+  yong: "ㄩㄥ",
+  a: "ㄚ",
+  o: "ㄛ",
+  e: "ㄜ",
+  ê: "ㄝ",
+  ai: "ㄞ",
+  ei: "ㄟ",
+  ao: "ㄠ",
+  ou: "ㄡ",
+  an: "ㄢ",
+  en: "ㄣ",
+  ang: "ㄤ",
+  eng: "ㄥ",
+  er: "ㄦ",
+  r: "ㄦ"
 }
 
 const ZHUYIN_TONES: Record<string, string> = {
-  "1": "", "2": "ˊ", "3": "ˇ", "4": "ˋ", "5": "˙"
+  "1": "",
+  "2": "ˊ",
+  "3": "ˇ",
+  "4": "ˋ",
+  "5": "˙"
 }
 
 const INITIAL_KEYS = Object.keys(PINYIN_INITIALS).sort(
@@ -284,7 +354,8 @@ export function buildAnnotatedFragment(
   htmlOptions: HtmlOptions
 ): DocumentFragment {
   const simplifiedText = cnchar.convert.tradToSimple(text)
-  const isZhuyin = htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
+  const isZhuyin =
+    htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
   const toneType = isZhuyin ? "num" : htmlOptions.toneType
   const rawPinyin = pinyinConverter(simplifiedText, {
     type: "array",

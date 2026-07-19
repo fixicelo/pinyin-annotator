@@ -1,9 +1,6 @@
-import { useStorage } from "@plasmohq/storage/hook";
-import {
-  PronunciationSystem,
-  StorageKey,
-  ToneType
-} from "~constants"
+import { useStorage } from "@plasmohq/storage/hook"
+
+import { PronunciationSystem, StorageKey, ToneType } from "~constants"
 
 const titleChars = [
   { char: "拼", pinyin: "pīn", zhuyin: "ㄆㄧㄣˇ" },
@@ -30,17 +27,39 @@ const AppTitle = () => {
           {char}
           <rp>(</rp>
           <rt>
-            {isZhuyin ? zhuyin : withTones ? pinyin : pinyin.replace(/[āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜ]/g, (c) => {
-              const map: Record<string, string> = {
-                ā:'a', á:'a', ǎ:'a', à:'a',
-                ō:'o', ó:'o', ǒ:'o', ò:'o',
-                ē:'e', é:'e', ě:'e', è:'e',
-                ī:'i', í:'i', ǐ:'i', ì:'i',
-                ū:'u', ú:'u', ǔ:'u', ù:'u',
-                ǖ:'ü', ǘ:'ü', ǚ:'ü', ǜ:'ü'
-              }
-              return map[c] ?? c
-            })}
+            {isZhuyin
+              ? zhuyin
+              : withTones
+                ? pinyin
+                : pinyin.replace(/[āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜ]/g, (c) => {
+                    const map: Record<string, string> = {
+                      ā: "a",
+                      á: "a",
+                      ǎ: "a",
+                      à: "a",
+                      ō: "o",
+                      ó: "o",
+                      ǒ: "o",
+                      ò: "o",
+                      ē: "e",
+                      é: "e",
+                      ě: "e",
+                      è: "e",
+                      ī: "i",
+                      í: "i",
+                      ǐ: "i",
+                      ì: "i",
+                      ū: "u",
+                      ú: "u",
+                      ǔ: "u",
+                      ù: "u",
+                      ǖ: "ü",
+                      ǘ: "ü",
+                      ǚ: "ü",
+                      ǜ: "ü"
+                    }
+                    return map[c] ?? c
+                  })}
           </rt>
           <rp>)</rp>
         </ruby>

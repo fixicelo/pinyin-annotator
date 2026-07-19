@@ -1,7 +1,16 @@
-import { useStorage } from "@plasmohq/storage/hook";
-import { useEffect, useState } from "react";
-import { PREDEFINED_DICT_LINK, PronunciationSystem, RubyPosition, StorageKey, ToneType, type HtmlOptions } from "~constants";
-import { convertTextContentToHtml } from "~util";
+import { useEffect, useState } from "react"
+
+import { useStorage } from "@plasmohq/storage/hook"
+
+import {
+  PREDEFINED_DICT_LINK,
+  PronunciationSystem,
+  RubyPosition,
+  StorageKey,
+  ToneType,
+  type HtmlOptions
+} from "~constants"
+import { convertTextContentToHtml } from "~util"
 
 function getTextFromRange(range: Range): string {
   const container = range.commonAncestorContainer
@@ -19,7 +28,8 @@ function getTextFromRange(range: Range): string {
 
         if (node.nodeType === Node.ELEMENT_NODE) {
           const tagName = node.nodeName.toUpperCase()
-          if (tagName === "RP" || tagName === "RT") return NodeFilter.FILTER_REJECT
+          if (tagName === "RP" || tagName === "RT")
+            return NodeFilter.FILTER_REJECT
           return NodeFilter.FILTER_SKIP
         }
         return NodeFilter.FILTER_ACCEPT
@@ -91,17 +101,28 @@ const HighlightedTextDisplay = () => {
     PronunciationSystem.Pinyin
   )
   const [selectedText, setSelectedText] = useState("")
-  const [dictLinkEnabled] = useStorage<boolean>(StorageKey.dictLinkEnabled, true);
-  const [selectedDict] = useStorage<string>(StorageKey.selectedDict, PREDEFINED_DICT_LINK[0].site);
-  const [customDictUrl] = useStorage<string>(StorageKey.customDictUrl, "");
-  const [rubyPosition] = useStorage<RubyPosition>(StorageKey.rubyPosition, RubyPosition.OVER);
+  const [dictLinkEnabled] = useStorage<boolean>(
+    StorageKey.dictLinkEnabled,
+    true
+  )
+  const [selectedDict] = useStorage<string>(
+    StorageKey.selectedDict,
+    PREDEFINED_DICT_LINK[0].site
+  )
+  const [customDictUrl] = useStorage<string>(StorageKey.customDictUrl, "")
+  const [rubyPosition] = useStorage<RubyPosition>(
+    StorageKey.rubyPosition,
+    RubyPosition.OVER
+  )
 
-  let dictLink = "";
+  let dictLink = ""
   if (dictLinkEnabled) {
     if (selectedDict === "custom") {
-      dictLink = customDictUrl;
+      dictLink = customDictUrl
     } else {
-      dictLink = PREDEFINED_DICT_LINK.find((dict) => dict.site === selectedDict)?.url;
+      dictLink = PREDEFINED_DICT_LINK.find(
+        (dict) => dict.site === selectedDict
+      )?.url
     }
   }
 
@@ -117,9 +138,7 @@ const HighlightedTextDisplay = () => {
   return (
     selectedText && (
       <>
-        <div className="divider">
-          Selected Text
-        </div>
+        <div className="divider">Selected Text</div>
         <span
           style={{
             fontSize: `${fontSizePx}px`,

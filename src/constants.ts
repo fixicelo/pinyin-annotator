@@ -143,5 +143,5 @@ export const PREDEFINED_DICT_LINK = [
     desc: "Putonghua Web",
     site: "putonghuaweb.com"
   },
-  { url: "", desc: "Custom", site: "custom" },
+  { url: "", desc: "Custom", site: "custom" }
 ]

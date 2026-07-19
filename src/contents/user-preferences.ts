@@ -31,8 +31,7 @@ export async function loadUserPreferences(
 
   return {
     toneType: toneTypeResult as ToneType,
-    pronunciationSystem:
-      pronunciationSystemResult as PronunciationSystem,
+    pronunciationSystem: pronunciationSystemResult as PronunciationSystem,
     observerEnabled: observerEnabledResult as unknown as boolean,
     rubyPosition: rubyPositionResult as RubyPosition,
     autoAnnotate: autoAnnotateResult as unknown as boolean,

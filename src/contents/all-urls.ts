@@ -12,11 +12,12 @@ import {
   type UserPreferences
 } from "~constants"
 import {
-  clearAnnotation,
   buildAnnotatedFragment,
+  clearAnnotation,
   findTextNodesWithContent,
   isAnnotated
 } from "~util"
+
 import { loadUserPreferences, saveUserPreferences } from "./user-preferences"
 
 type ActionHandlers = {
@@ -48,8 +49,8 @@ export class Annotator {
   private mutationFlushTimer: ReturnType<typeof setTimeout> | null = null
 
   constructor() {
-    this.mutationObserver = new MutationObserver(
-      (mutations) => this.enqueueMutations(mutations)
+    this.mutationObserver = new MutationObserver((mutations) =>
+      this.enqueueMutations(mutations)
     )
     chrome.runtime.onMessage.addListener(this.handleUserAction.bind(this))
     this.styleTag = document.createElement("style")
@@ -119,7 +120,11 @@ export class Annotator {
           }
           break
         case "characterData":
-          this.processNodes(mutation.target.parentElement, this.htmlOptions, version)
+          this.processNodes(
+            mutation.target.parentElement,
+            this.htmlOptions,
+            version
+          )
           break
         case "attributes":
           this.processNodes(mutation.target, this.htmlOptions, version)
@@ -182,7 +187,11 @@ export class Annotator {
     `
   }
 
-  private async processNodes(root: Node, htmlOptions: HtmlOptions, version: number) {
+  private async processNodes(
+    root: Node,
+    htmlOptions: HtmlOptions,
+    version: number
+  ) {
     const nodes = await findTextNodesWithContent(root, this.cachedIgnoredNodes)
 
     for (let i = 0; i < nodes.length; i++) {
@@ -251,7 +260,10 @@ export class Annotator {
       if (!root) {
         return
       }
-      const action = (isAnnotated(root) || this.isProcessing) ? UserAction.Clear : UserAction.Annotate
+      const action =
+        isAnnotated(root) || this.isProcessing
+          ? UserAction.Clear
+          : UserAction.Annotate
       await this.actionHandlers[action]()
     }
   }

@@ -1,12 +1,21 @@
 import { useCallback, useEffect, useState } from "react"
-import { ResponseStatus, TabStatus, UserAction, type Response } from "~constants"
+
+import {
+  ResponseStatus,
+  TabStatus,
+  UserAction,
+  type Response
+} from "~constants"
+
 import AnnotationStatus from "./AnnotationStatus"
 import AppTitle from "./AppTitle"
 import AutoAnnotateOption from "./AutoAnnotateOption"
 import ButtonGroup from "./ButtonGroup"
 import HighlightedTextDisplay from "./HighlightedTextDisplay"
 import MonitorModeOption from "./MonitorModeOption"
+
 import "./popup.css"
+
 import useCommunicateWithContentScript from "./useCommunicateWithContentScript"
 
 function Popup() {
@@ -42,15 +51,25 @@ function Popup() {
   return (
     <div className="popup">
       <AppTitle />
-      <AnnotationStatus isAnnotated={isAnnotated} tabStatus={tabStatus} onRefresh={handleRefresh} />
-      
+      <AnnotationStatus
+        isAnnotated={isAnnotated}
+        tabStatus={tabStatus}
+        onRefresh={handleRefresh}
+      />
+
       {isAvailable && (
-        <div className="card" style={{ marginBottom: '8px', padding: '0 16px' }}>
-          <MonitorModeOption communicateWithContentScript={communicateWithContentScript} />
-          <AutoAnnotateOption communicateWithContentScript={communicateWithContentScript} />
+        <div
+          className="card"
+          style={{ marginBottom: "8px", padding: "0 16px" }}>
+          <MonitorModeOption
+            communicateWithContentScript={communicateWithContentScript}
+          />
+          <AutoAnnotateOption
+            communicateWithContentScript={communicateWithContentScript}
+          />
         </div>
       )}
-      
+
       <ButtonGroup
         isAnnotated={isAnnotated}
         communicateWithContentScript={communicateWithContentScript}

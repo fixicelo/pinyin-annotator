@@ -5,32 +5,32 @@
   --primary-active: #1e40af;
   --primary-disabled: #f3f4f6;
   --primary-disabled-text: #9ca3af;
-  
+
   /* Backgrounds */
   --bg-base: #ffffff;
   --bg-layout: #f9fafb;
   --bg-card: #ffffff;
   --bg-hover: #f3f4f6;
-  
+
   /* Borders & Disabled */
   --border-color: #e5e7eb;
   --border-color-hover: #d1d5db;
   --switch-off-bg: #e5e7eb;
-  
+
   /* Text */
   --text-primary: #111827;
   --text-secondary: #6b7280;
   --text-disabled: #9ca3af;
-  
+
   /* Semantic */
   --success-bg: #ecfdf5;
   --success-border: #a7f3d0;
   --success-text: #059669;
-  
+
   --warning-bg: #fffbeb;
   --warning-border: #fde68a;
   --warning-text: #d97706;
-  
+
   --info-bg: #eff6ff;
   --info-border: #bfdbfe;
   --info-text: #2563eb;
@@ -39,14 +39,17 @@
   --border-radius-base: 8px;
   --border-radius-sm: 6px;
   --border-radius-lg: 12px;
-  
+
   /* Shadows - Minimalist */
   --box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --box-shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --box-shadow-hover:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  
+
   /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family:
+    -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   --transition: all 0.15s ease-in-out;
 }
 
@@ -65,7 +68,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
   color: var(--text-primary);
   font-weight: 600;
@@ -94,7 +102,8 @@ a:hover {
   color: var(--primary-hover);
 }
 
-code, .keyboard {
+code,
+.keyboard {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   background: var(--bg-hover);
   padding: 0.2em 0.4em;
@@ -190,7 +199,10 @@ code, .keyboard {
 .switch-slider {
   position: absolute;
   cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: var(--switch-off-bg);
   transition: background-color 0.2s;
   border-radius: 20px;
@@ -206,7 +218,9 @@ code, .keyboard {
   background-color: white;
   transition: transform 0.2s;
   border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 1px 1px rgba(0,0,0,0.06);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    0 1px 1px rgba(0, 0, 0, 0.06);
 }
 
 .switch input:checked + .switch-slider {
@@ -223,13 +237,27 @@ code, .keyboard {
 }
 
 /* Flex layout utilities */
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
-.justify-end { justify-content: flex-end; }
-.gap-sm { gap: 8px; }
-.gap-md { gap: 16px; }
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.gap-sm {
+  gap: 8px;
+}
+.gap-md {
+  gap: 16px;
+}
 
 /* Divider */
 .divider {
@@ -246,13 +274,17 @@ code, .keyboard {
 
 .divider::before,
 .divider::after {
-  content: '';
+  content: "";
   flex: 1;
   border-bottom: 1px solid var(--border-color);
 }
 
-.divider:not(:empty):before { margin-right: 12px; }
-.divider:not(:empty):after { margin-left: 12px; }
+.divider:not(:empty):before {
+  margin-right: 12px;
+}
+.divider:not(:empty):after {
+  margin-left: 12px;
+}
 
 /* Alerts */
 .alert {
@@ -294,7 +326,9 @@ code, .keyboard {
 }
 
 /* Forms */
-.input, .select, .textarea {
+.input,
+.select,
+.textarea {
   width: 100%;
   font-size: 13px;
   line-height: 1.5;
@@ -307,7 +341,8 @@ code, .keyboard {
   box-shadow: none;
 }
 
-.input, .select {
+.input,
+.select {
   padding: 6px 12px;
   height: 32px;
 }
@@ -317,13 +352,17 @@ code, .keyboard {
   resize: vertical;
 }
 
-.input:focus, .select:focus, .textarea:focus {
+.input:focus,
+.select:focus,
+.textarea:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 1px var(--primary-color);
   outline: none;
 }
 
-.input:hover:not(:focus), .select:hover:not(:focus), .textarea:hover:not(:focus) {
+.input:hover:not(:focus),
+.select:hover:not(:focus),
+.textarea:hover:not(:focus) {
   border-color: var(--border-color-hover);
 }
 

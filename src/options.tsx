@@ -1,5 +1,6 @@
-import { useStorage } from "@plasmohq/storage/hook"
 import React, { useCallback, useEffect, useState } from "react"
+
+import { useStorage } from "@plasmohq/storage/hook"
 
 import {
   PREDEFINED_DICT_LINK,
@@ -10,6 +11,7 @@ import {
 } from "~constants"
 
 import { debounce } from "./util"
+
 import "./popup/design-system.css"
 
 function Options() {
@@ -65,7 +67,9 @@ function Options() {
     setPronunciationSystem(e.target.value as PronunciationSystem)
   }
 
-  const handleObserverEnabledChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleObserverEnabledChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setObserverEnabled(e.target.checked)
   }
 
@@ -108,7 +112,9 @@ function Options() {
     setCustomDictUrl(event.target.value)
   }
 
-  const handleRubyPositionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleRubyPositionChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setRubyPosition(e.target.value as RubyPosition)
   }
 
@@ -117,11 +123,21 @@ function Options() {
   }, [ignoredNodes])
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg-layout)", padding: "40px 20px" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "var(--bg-layout)",
+        padding: "40px 20px"
+      }}>
       <div className="container" style={{ padding: 0 }}>
         <div style={{ marginBottom: "32px", padding: "0 4px" }}>
-          <h2 style={{ margin: "0 0 4px 0", fontSize: "28px", fontWeight: 600 }}>Settings</h2>
-          <div className="text-secondary" style={{ fontSize: "14px" }}>Configure your Pinyin Annotator experience.</div>
+          <h2
+            style={{ margin: "0 0 4px 0", fontSize: "28px", fontWeight: 600 }}>
+            Settings
+          </h2>
+          <div className="text-secondary" style={{ fontSize: "14px" }}>
+            Configure your Pinyin Annotator experience.
+          </div>
         </div>
 
         <div className="card">
@@ -133,7 +149,8 @@ function Options() {
               <div className="settings-row-content">
                 <span className="settings-row-title">Monitor Mode</span>
                 <span className="settings-row-desc">
-                  Works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.
+                  Works with CC (subtitles) on video streaming platforms such as
+                  Netflix, Disney+, YouTube, and Bilibili.
                 </span>
               </div>
               <div className="settings-row-action">
@@ -178,7 +195,8 @@ function Options() {
               <div className="settings-row-content">
                 <span className="settings-row-title">Pronunciation</span>
                 <span className="settings-row-desc">
-                  Choose between Pinyin (Latin alphabet) or Zhuyin (Bopomofo) annotation.
+                  Choose between Pinyin (Latin alphabet) or Zhuyin (Bopomofo)
+                  annotation.
                 </span>
               </div>
               <div className="settings-row-action">
@@ -186,14 +204,9 @@ function Options() {
                   className="select"
                   value={pronunciationSystem}
                   onChange={handlePronunciationSystemChange}
-                  style={{ width: "120px" }}
-                >
-                  <option value={PronunciationSystem.Pinyin}>
-                    Pinyin
-                  </option>
-                  <option value={PronunciationSystem.Zhuyin}>
-                    Zhuyin
-                  </option>
+                  style={{ width: "120px" }}>
+                  <option value={PronunciationSystem.Pinyin}>Pinyin</option>
+                  <option value={PronunciationSystem.Zhuyin}>Zhuyin</option>
                 </select>
               </div>
             </div>
@@ -231,8 +244,7 @@ function Options() {
                   className="select"
                   value={rubyPosition}
                   onChange={handleRubyPositionChange}
-                  style={{ width: "120px" }}
-                >
+                  style={{ width: "120px" }}>
                   <option value={RubyPosition.OVER}>Top</option>
                   <option value={RubyPosition.UNDER}>Bottom</option>
                 </select>
@@ -246,11 +258,18 @@ function Options() {
             <h4>Dictionary</h4>
           </div>
           <div className="card-body">
-            <div className="settings-row" style={{ borderBottom: dictLinkEnabled ? "1px solid var(--border-color)" : "none" }}>
+            <div
+              className="settings-row"
+              style={{
+                borderBottom: dictLinkEnabled
+                  ? "1px solid var(--border-color)"
+                  : "none"
+              }}>
               <div className="settings-row-content">
                 <span className="settings-row-title">Dictionary Link</span>
                 <span className="settings-row-desc">
-                  Add a link to an online dictionary for each word in the "Selected Text" area.
+                  Add a link to an online dictionary for each word in the
+                  "Selected Text" area.
                 </span>
               </div>
               <div className="settings-row-action">
@@ -269,15 +288,16 @@ function Options() {
               <>
                 <div className="settings-row">
                   <div className="settings-row-content">
-                    <span className="settings-row-title">Select Dictionary</span>
+                    <span className="settings-row-title">
+                      Select Dictionary
+                    </span>
                   </div>
                   <div className="settings-row-action">
                     <select
                       className="select"
                       value={selectedDict}
                       onChange={handleDictChange}
-                      style={{ width: "200px" }}
-                    >
+                      style={{ width: "200px" }}>
                       {PREDEFINED_DICT_LINK.map((dict) => (
                         <option key={dict.site} value={dict.site}>
                           {dict.desc}
@@ -290,12 +310,16 @@ function Options() {
                 {selectedDict === "custom" && (
                   <div className="settings-row">
                     <div className="settings-row-content">
-                      <span className="settings-row-title">Custom Dictionary URL</span>
+                      <span className="settings-row-title">
+                        Custom Dictionary URL
+                      </span>
                       <span className="settings-row-desc">
                         Use {"{word}"} as a placeholder.
                       </span>
                     </div>
-                    <div className="settings-row-action" style={{ width: "250px" }}>
+                    <div
+                      className="settings-row-action"
+                      style={{ width: "250px" }}>
                       <input
                         className="input"
                         value={customDictUrl}
@@ -305,18 +329,31 @@ function Options() {
                     </div>
                   </div>
                 )}
-                
+
                 {selectedDict !== "custom" && (
-                   <div className="settings-row">
+                  <div className="settings-row">
                     <div className="settings-row-content">
-                      <span className="settings-row-title">Current URL Pattern</span>
-                    </div>
-                    <div className="settings-row-action">
-                      <span className="text-secondary text-small" style={{ userSelect: "all", background: "rgba(0,0,0,0.04)", padding: "4px 8px", borderRadius: "4px" }}>
-                        {PREDEFINED_DICT_LINK.find(dict => dict.site === selectedDict)?.url}
+                      <span className="settings-row-title">
+                        Current URL Pattern
                       </span>
                     </div>
-                   </div>
+                    <div className="settings-row-action">
+                      <span
+                        className="text-secondary text-small"
+                        style={{
+                          userSelect: "all",
+                          background: "rgba(0,0,0,0.04)",
+                          padding: "4px 8px",
+                          borderRadius: "4px"
+                        }}>
+                        {
+                          PREDEFINED_DICT_LINK.find(
+                            (dict) => dict.site === selectedDict
+                          )?.url
+                        }
+                      </span>
+                    </div>
+                  </div>
                 )}
               </>
             )}
@@ -332,15 +369,28 @@ function Options() {
               <div className="settings-row-content">
                 <span className="settings-row-title">Keyboard Shortcuts</span>
                 <span className="settings-row-desc">
-                  Default: <span className="keyboard">Alt</span> + <span className="keyboard">Shift</span> + <span className="keyboard">P</span>
+                  Default: <span className="keyboard">Alt</span> +{" "}
+                  <span className="keyboard">Shift</span> +{" "}
+                  <span className="keyboard">P</span>
                 </span>
                 <div style={{ marginTop: "12px" }}>
                   <span className="text-secondary text-small">
                     To customize, visit:
                   </span>
-                  <ul className="text-secondary text-small" style={{ paddingLeft: "20px", marginTop: "4px", marginBottom: 0 }}>
-                    <li>Chrome/Edge: <code>chrome://extensions/shortcuts</code></li>
-                    <li>Firefox: <code>about:addons</code> &gt; Gear Icon &gt; Manage Extension Shortcuts</li>
+                  <ul
+                    className="text-secondary text-small"
+                    style={{
+                      paddingLeft: "20px",
+                      marginTop: "4px",
+                      marginBottom: 0
+                    }}>
+                    <li>
+                      Chrome/Edge: <code>chrome://extensions/shortcuts</code>
+                    </li>
+                    <li>
+                      Firefox: <code>about:addons</code> &gt; Gear Icon &gt;
+                      Manage Extension Shortcuts
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -355,15 +405,16 @@ function Options() {
           <div className="card-body">
             <div className="settings-row">
               <div className="settings-row-content">
-                <span className="settings-row-title">Feedback & Bug Report</span>
+                <span className="settings-row-title">
+                  Feedback & Bug Report
+                </span>
                 <span className="settings-row-desc">
-                  Found a bug or have a feature request? 
-                  <a 
-                    href="https://github.com/fixicelo/pinyin-annotator/issues" 
-                    target="_blank" 
+                  Found a bug or have a feature request?
+                  <a
+                    href="https://github.com/fixicelo/pinyin-annotator/issues"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    style={{ marginLeft: "4px", fontWeight: 500 }}
-                  >
+                    style={{ marginLeft: "4px", fontWeight: 500 }}>
                     Visit our GitHub repository
                   </a>
                 </span>
@@ -383,7 +434,7 @@ function Options() {
                 Enter the tag names of nodes to ignore (separated by commas).
               </span>
             </div>
-            
+
             <textarea
               className="textarea"
               value={ignoredNodesInput}
@@ -392,14 +443,21 @@ function Options() {
               style={{ minHeight: "80px" }}
             />
             {notification && (
-              <div className="alert alert-success" style={{ marginTop: "16px" }}>
+              <div
+                className="alert alert-success"
+                style={{ marginTop: "16px" }}>
                 <div>{notification}</div>
               </div>
             )}
           </div>
         </div>
-        
-        <div style={{ textAlign: "center", marginTop: "40px", paddingBottom: "20px" }}>
+
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "40px",
+            paddingBottom: "20px"
+          }}>
           <span className="text-secondary text-small">
             Pinyin Annotator © {new Date().getFullYear()}
           </span>

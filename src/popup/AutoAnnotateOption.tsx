@@ -1,5 +1,6 @@
-import { useStorage } from "@plasmohq/storage/hook"
 import React from "react"
+
+import { useStorage } from "@plasmohq/storage/hook"
 
 import { StorageKey, UserAction } from "~constants"
 
@@ -24,17 +25,18 @@ const AutoAnnotateOption: React.FC<AutoAnnotateOptionProps> = ({
   }
 
   return (
-    <div 
-      className="flex items-center justify-between" 
+    <div
+      className="flex items-center justify-between"
       style={{ padding: "12px 0" }}
-      title="Automatically annotate pinyin on every page load."
-    >
-      <span className="text-strong" style={{ fontSize: "13px" }}>Auto-Annotate</span>
+      title="Automatically annotate pinyin on every page load.">
+      <span className="text-strong" style={{ fontSize: "13px" }}>
+        Auto-Annotate
+      </span>
       <label className="switch">
-        <input 
-          type="checkbox" 
-          checked={autoAnnotate} 
-          onChange={handleAutoAnnotateChange} 
+        <input
+          type="checkbox"
+          checked={autoAnnotate}
+          onChange={handleAutoAnnotateChange}
         />
         <span className="switch-slider"></span>
       </label>
