@@ -2,7 +2,6 @@ import cnchar from "cnchar"
 import poly from "cnchar-poly"
 import trad from "cnchar-trad"
 import {
-  html as convertToPinyinHtml,
   pinyin as pinyinConverter
 } from "pinyin-pro"
 
@@ -38,19 +37,6 @@ export function debounce<T extends (...args: any) => any>(
   //     cancelAnimationFrame(frameId)
   //     frameId = requestAnimationFrame(() => func.apply(null, args))
   //   }
-}
-
-export function isElementVisible(node: Node) {
-  if (!(node instanceof HTMLElement)) {
-    return false
-  }
-
-  const style = window.getComputedStyle(node)
-  const isVisible =
-    style.display !== "none" &&
-    style.visibility !== "hidden" &&
-    style.opacity !== "0"
-  return isVisible
 }
 
 export function containsChinese(text: string): boolean {
@@ -108,61 +94,6 @@ export const findTextNodesWithContent = async (
   }
 
   return nodes
-}
-
-export function convertTextContentToHtmlPinyinPro(
-  text: string,
-  htmlOptions: HtmlOptions
-): string {
-  /* Example: Result of `convertToPinyinHtml('A,漢，汉', {wrapNonChinese: true, toneType: 'symbol'})`
-  ```html
-  <span class="py-non-chinese-item">A</span>
-  <span class="py-non-chinese-item">,</span>
-  <span class="py-result-item">
-    <ruby>
-      <span class="py-chinese-item">漢</span>
-      <rp>(</rp> <rt class="py-pinyin-item">hàn</rt><rp>)</rp>
-    </ruby>
-  </span>
-  <span class="py-non-chinese-item">，</span>
-  <span class="py-result-item">
-    <ruby>
-      <span class="py-chinese-item">汉</span>
-      <rp>(</rp> <rt class="py-pinyin-item">hàn</rt><rp>)</rp>
-    </ruby>
-  </span>
-  ```
-
-  // Next steps:
-  // const parsedHtml = convertHtmlToDocument(markup)
-  // convertTag(parsedHtml, CHINESE_CLASS)
-  // convertTag(parsedHtml, NON_CHINESE_CLASS)
-  // convertTag(parsedHtml, RESULT_CLASS, true)
-  */
-  const markup = convertToPinyinHtml(text, htmlOptions)
-  return markup
-}
-
-function convertTag(
-  doc: Document,
-  className: string,
-  addAnnotatedAttribute: boolean = false
-) {
-  doc.querySelectorAll(`span.${className}`).forEach((node) => {
-    const newElement = document.createElement(TAG_NAME)
-    newElement.className = className
-    if (addAnnotatedAttribute) {
-      newElement.setAttribute(IS_ANNOTATED_ATTR, "true")
-    }
-
-    // Move all children from the old node to the new one
-    while (node.firstChild) {
-      newElement.appendChild(node.firstChild)
-    }
-
-    // Replace the old node with the new one
-    node.parentNode.replaceChild(newElement, node)
-  })
 }
 
 export function convertTextContentToHtml(
