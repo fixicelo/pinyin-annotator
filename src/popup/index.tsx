@@ -46,8 +46,8 @@ function Popup() {
       
       {isAvailable && (
         <div className="card" style={{ marginBottom: '8px', padding: '0 16px' }}>
-          <MonitorModeOption />
-          <AutoAnnotateOption />
+          <MonitorModeOption communicateWithContentScript={communicateWithContentScript} />
+          <AutoAnnotateOption communicateWithContentScript={communicateWithContentScript} />
         </div>
       )}
       

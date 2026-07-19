@@ -1,12 +1,15 @@
 import { useStorage } from "@plasmohq/storage/hook";
 import React from 'react';
 import { StorageKey, UserAction } from '~constants';
-import useCommunicateWithContentScript from './useCommunicateWithContentScript';
 
-const MonitorModeOption: React.FC = () => {
+interface MonitorModeOptionProps {
+  communicateWithContentScript: (action: UserAction, data?: any) => void
+}
+
+const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
+  communicateWithContentScript
+}) => {
   const [observerEnabled, setObserverEnabled] = useStorage<boolean>(StorageKey.observerEnabled, true);
-
-  const communicateWithContentScript = useCommunicateWithContentScript()
 
   const handleObserverEnabledChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked

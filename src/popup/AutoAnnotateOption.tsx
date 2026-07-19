@@ -3,15 +3,17 @@ import React from "react"
 
 import { StorageKey, UserAction } from "~constants"
 
-import useCommunicateWithContentScript from "./useCommunicateWithContentScript"
+interface AutoAnnotateOptionProps {
+  communicateWithContentScript: (action: UserAction, data?: any) => void
+}
 
-const AutoAnnotateOption: React.FC = () => {
+const AutoAnnotateOption: React.FC<AutoAnnotateOptionProps> = ({
+  communicateWithContentScript
+}) => {
   const [autoAnnotate, setAutoAnnotate] = useStorage<boolean>(
     StorageKey.autoAnnotate,
     false
   )
-
-  const communicateWithContentScript = useCommunicateWithContentScript()
 
   const handleAutoAnnotateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked
