@@ -72,7 +72,7 @@ export class Annotator {
   }
 
   public setObserverOptions(options: MutationObserverInit) {
-    if (JSON.stringify(this.observerOptions) !== JSON.stringify(options)) {
+    if (JSON.stringify(this.observerOptions) === JSON.stringify(options)) {
       return
     }
 
