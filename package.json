@@ -1,8 +1,8 @@
 {
   "name": "pinyin-annotator",
   "displayName": "Pinyin Annotator",
-  "version": "1.6.1",
-  "description": "A browser extension overlays Hanyu Pinyin annotations over Chinese characters present in web pages and video closed captions.",
+  "version": "1.7.0",
+  "description": "A browser extension overlays Hanyu Pinyin or Zhuyin annotations over Chinese characters present in web pages and video closed captions.",
   "author": "fixicelo <fixicelo@gmail.com>",
   "scripts": {
     "dev": "plasmo dev",
