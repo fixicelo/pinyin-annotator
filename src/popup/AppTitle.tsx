@@ -6,12 +6,12 @@ import {
 } from "~constants"
 
 const titleChars = [
-  { char: "拼", pinyin: "pīn", zhuyin: "\u3106\u3127\u3123\u02C7" },
-  { char: "音", pinyin: "yīn", zhuyin: "\u3127\u3123\u02C7" },
-  { char: "標", pinyin: "biāo", zhuyin: "\u3105\u3127\u3120\u02C7" },
-  { char: "註", pinyin: "zhù", zhuyin: "\u3113\u3128\u02CB" },
-  { char: "工", pinyin: "gōng", zhuyin: "\u310D\u3128\u3125\u02C7" },
-  { char: "具", pinyin: "jù", zhuyin: "\u3110\u3129\u02CB" }
+  { char: "拼", pinyin: "pīn", zhuyin: "ㄆㄧㄣˇ" },
+  { char: "音", pinyin: "yīn", zhuyin: "ㄧㄣˇ" },
+  { char: "標", pinyin: "biāo", zhuyin: "ㄅㄧㄠˇ" },
+  { char: "註", pinyin: "zhù", zhuyin: "ㄓㄨˋ" },
+  { char: "工", pinyin: "gōng", zhuyin: "ㄍㄨㄥˇ" },
+  { char: "具", pinyin: "jù", zhuyin: "ㄐㄩˋ" }
 ]
 
 const AppTitle = () => {

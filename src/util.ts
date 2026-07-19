@@ -131,53 +131,53 @@ export function convertTextContentToHtml(
 }
 
 const PINYIN_INITIALS: Record<string, string> = {
-  b: "\u3105", p: "\u3106", m: "\u3107", f: "\u3108",
-  d: "\u3109", t: "\u310A", n: "\u310B", l: "\u310C",
-  g: "\u310D", k: "\u310E", h: "\u310F",
-  j: "\u3110", q: "\u3111", x: "\u3112",
-  zh: "\u3113", ch: "\u3114", sh: "\u3115", r: "\u3116",
-  z: "\u3117", c: "\u3118", s: "\u3119"
+  b: "ㄅ", p: "ㄆ", m: "ㄇ", f: "ㄈ",
+  d: "ㄉ", t: "ㄊ", n: "ㄋ", l: "ㄌ",
+  g: "ㄍ", k: "ㄎ", h: "ㄏ",
+  j: "ㄐ", q: "ㄑ", x: "ㄒ",
+  zh: "ㄓ", ch: "ㄔ", sh: "ㄕ", r: "ㄖ",
+  z: "ㄗ", c: "ㄘ", s: "ㄙ"
 }
 
 const PINYIN_FINALS: Record<string, string> = {
-  i: "\u3127", u: "\u3128", "\u00FC": "\u3129",
-  a: "\u312A", o: "\u312B", e: "\u312C", "\u00EA": "\u311D",
-  ai: "\u311E", ei: "\u311F", ao: "\u3120", ou: "\u3121",
-  an: "\u3122", en: "\u3123", ang: "\u3124", eng: "\u3125",
-  er: "\u3126",
-  ia: "\u3127\u312A", ie: "\u3127\u311D", iao: "\u3127\u3120",
-  iu: "\u3127\u3121", ian: "\u3127\u3122", in: "\u3127\u3123",
-  iang: "\u3127\u3124", ing: "\u3127\u3125",
-  ua: "\u3128\u312A", uo: "\u3128\u312B", uai: "\u3128\u311E",
-  ui: "\u3128\u311F", uan: "\u3128\u3122", un: "\u3128\u3123",
-  uang: "\u3128\u3124", ong: "\u3128\u3125",
-  "\u00FCe": "\u3129\u311D", "\u00FCn": "\u3129\u3123",
-  "\u00FCan": "\u3129\u3122", iong: "\u3129\u3125"
+  i: "ㄧ", u: "ㄨ", ü: "ㄩ",
+  a: "ㄚ", o: "ㄛ", e: "ㄜ", ê: "ㄝ",
+  ai: "ㄞ", ei: "ㄟ", ao: "ㄠ", ou: "ㄡ",
+  an: "ㄢ", en: "ㄣ", ang: "ㄤ", eng: "ㄥ",
+  er: "ㄦ",
+  ia: "ㄧㄚ", ie: "ㄧㄝ", iao: "ㄧㄠ",
+  iu: "ㄧㄡ", ian: "ㄧㄢ", in: "ㄧㄣ",
+  iang: "ㄧㄤ", ing: "ㄧㄥ",
+  ua: "ㄨㄚ", uo: "ㄨㄛ", uai: "ㄨㄞ",
+  ui: "ㄨㄟ", uan: "ㄨㄢ", un: "ㄨㄣ",
+  uang: "ㄨㄤ", ong: "ㄨㄥ",
+  üe: "ㄩㄝ", ün: "ㄩㄣ",
+  üan: "ㄩㄢ", iong: "ㄩㄥ"
 }
 
 const SYLLABIC_CONSONANTS: Record<string, string> = {
-  zhi: "\u3113", chi: "\u3114", shi: "\u3115", ri: "\u3116",
-  zi: "\u3117", ci: "\u3118", si: "\u3119"
+  zhi: "ㄓ", chi: "ㄔ", shi: "ㄕ", ri: "ㄖ",
+  zi: "ㄗ", ci: "ㄘ", si: "ㄙ"
 }
 
 const ZERO_INITIAL_FORMS: Record<string, string> = {
-  yi: "\u3127", wu: "\u3128", yu: "\u3129",
-  ya: "\u3127\u312A", ye: "\u3127\u311D", yao: "\u3127\u3120",
-  you: "\u3127\u3121", yan: "\u3127\u3122", yin: "\u3127\u3123",
-  yang: "\u3127\u3124", ying: "\u3127\u3125",
-  wa: "\u3128\u312A", wo: "\u3128\u312B", wai: "\u3128\u311E",
-  wei: "\u3128\u311F", wan: "\u3128\u3122", wen: "\u3128\u3123",
-  wang: "\u3128\u3124", weng: "\u3128\u3125",
-  yue: "\u3129\u311D", yuan: "\u3129\u3122",
-  yun: "\u3129\u3123", yong: "\u3129\u3125",
-  a: "\u312A", o: "\u312B", e: "\u312C", "\u00EA": "\u311D",
-  ai: "\u311E", ei: "\u311F", ao: "\u3120", ou: "\u3121",
-  an: "\u3122", en: "\u3123", ang: "\u3124", eng: "\u3125",
-  er: "\u3126", r: "\u3126"
+  yi: "ㄧ", wu: "ㄨ", yu: "ㄩ",
+  ya: "ㄧㄚ", ye: "ㄧㄝ", yao: "ㄧㄠ",
+  you: "ㄧㄡ", yan: "ㄧㄢ", yin: "ㄧㄣ",
+  yang: "ㄧㄤ", ying: "ㄧㄥ",
+  wa: "ㄨㄚ", wo: "ㄨㄛ", wai: "ㄨㄞ",
+  wei: "ㄨㄟ", wan: "ㄨㄢ", wen: "ㄨㄣ",
+  wang: "ㄨㄤ", weng: "ㄨㄥ",
+  yue: "ㄩㄝ", yuan: "ㄩㄢ",
+  yun: "ㄩㄣ", yong: "ㄩㄥ",
+  a: "ㄚ", o: "ㄛ", e: "ㄜ", ê: "ㄝ",
+  ai: "ㄞ", ei: "ㄟ", ao: "ㄠ", ou: "ㄡ",
+  an: "ㄢ", en: "ㄣ", ang: "ㄤ", eng: "ㄥ",
+  er: "ㄦ", r: "ㄦ"
 }
 
 const ZHUYIN_TONES: Record<string, string> = {
-  "1": "", "2": "\u02CA", "3": "\u02C7", "4": "\u02CB", "5": "\u02D9"
+  "1": "", "2": "ˊ", "3": "ˇ", "4": "ˋ", "5": "˙"
 }
 
 const INITIAL_KEYS = Object.keys(PINYIN_INITIALS).sort(
@@ -190,7 +190,7 @@ const FINAL_KEYS = Object.keys(PINYIN_FINALS).sort(
 export function pinyinToZhuyin(pinyin: string): string {
   if (!pinyin) return ""
 
-  let syllable = pinyin.toLowerCase().replace(/v|u:/g, "\u00FC")
+  let syllable = pinyin.toLowerCase().replace(/v|u:/g, "ü")
   let tone = "1"
 
   const toneMatch = syllable.match(/[1-5]$/)
@@ -219,7 +219,7 @@ export function pinyinToZhuyin(pinyin: string): string {
     result = initial + finalZhuyin
   }
 
-  result = result.replace(/^(\u3110|\u3111|\u3112)\u3128/, "$1\u3129")
+  result = result.replace(/^(ㄐ|ㄑ|ㄒ)ㄨ/, "$1ㄩ")
 
   if (tone === "5") {
     result = ZHUYIN_TONES[tone] + result
