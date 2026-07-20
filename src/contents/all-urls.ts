@@ -99,7 +99,7 @@ export class Annotator {
       const merged = this.pendingMutations
       this.pendingMutations = []
       this.processDOMMutations(merged)
-    }, 200)
+    }, 30)
   }
 
   private processDOMMutations(mutationsList: MutationRecord[]) {
