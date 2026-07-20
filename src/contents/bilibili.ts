@@ -10,6 +10,7 @@ style.textContent = `
   .bpx-player-subtitle-panel-text,
   .bili-subtitle-x-subtitle-panel-text {
     position: static !important;
+    padding-top: 0.6em !important;
   }
 `
 document.head.appendChild(style)
