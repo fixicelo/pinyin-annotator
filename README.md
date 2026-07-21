@@ -30,8 +30,9 @@ Pinyin Annotator is a browser extension that overlays **Hanyu Pinyin** or **Zhuy
 
 ## 🚩 Known Issues
 
-- Incorrect video titles when transitioning between pages on YouTube.
-- Sentences truncated in Google AI mode when the Auto-Annotate is enabled.
+- **YouTube**: Incorrect video titles when transitioning between pages on YouTube.
+- **Google AI mode**: Sentences truncated in Google AI mode when the Auto-Annotate is enabled.
+- **Bilibili**: Navigation header may disappear when Auto-Annotate is enabled.
 
 ## 🔨 Making a Production Build
 
