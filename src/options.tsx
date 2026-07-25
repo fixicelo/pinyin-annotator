@@ -82,7 +82,11 @@ function Options() {
   const handlePronunciationSystemChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setPronunciationSystem(e.target.value as PronunciationSystem)
+    const value = e.target.value as PronunciationSystem
+    setPronunciationSystem(value)
+    if (value === PronunciationSystem.Pinyin && rubyPosition === RubyPosition.RIGHT) {
+      setRubyPosition(RubyPosition.OVER)
+    }
   }
 
   const handleObserverEnabledChange = (
@@ -156,7 +160,33 @@ function Options() {
         background: "var(--bg-layout)",
         padding: "40px 20px"
       }}>
-      <style>{`pya { ruby-position: ${rubyPosition}; }`}</style>
+      <style>{`
+        pya { ruby-position: ${rubyPosition}; }
+        ${
+          rubyPosition === RubyPosition.RIGHT
+            ? `
+        @supports not (ruby-position: inter-character) {
+          .py-result-item[data-pya-is-annotated] {
+            display: inline-flex; align-items: center;
+          }
+          .py-result-item[data-pya-is-annotated] ruby {
+            display: contents;
+          }
+          .py-result-item[data-pya-is-annotated] rp {
+            display: none;
+          }
+          .py-result-item[data-pya-is-annotated] rt {
+            display: inline-block;
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+            font-size: 0.4em;
+            line-height: 1;
+            padding-left: 1px;
+          }
+        }`
+            : ""
+        }
+      `}</style>
 
       <div style={{ maxWidth: "960px", margin: "0 auto" }}>
         <div style={{ marginBottom: "32px" }}>
@@ -229,7 +259,9 @@ function Options() {
                   <div className="settings-row-content">
                     <span className="settings-row-title">Placement</span>
                     <span className="settings-row-desc">
-                      Show annotations above or below each character.
+                      {rubyPosition === RubyPosition.RIGHT
+                        ? "Right side (traditional zhuyin style)."
+                        : "Above or below each character."}
                     </span>
                   </div>
                   <div className="settings-row-action">
@@ -240,6 +272,9 @@ function Options() {
                       style={{ width: "120px" }}>
                       <option value={RubyPosition.OVER}>Above</option>
                       <option value={RubyPosition.UNDER}>Below</option>
+                      {pronunciationSystem === PronunciationSystem.Zhuyin && (
+                        <option value={RubyPosition.RIGHT}>Right</option>
+                      )}
                     </select>
                   </div>
                 </div>
@@ -524,7 +559,11 @@ function Options() {
                       : "without tones"
                     : "zhuyin"}
                   {" · "}
-                  {rubyPosition === RubyPosition.OVER ? "above" : "below"}
+                  {rubyPosition === RubyPosition.RIGHT
+                    ? "right"
+                    : rubyPosition === RubyPosition.OVER
+                      ? "above"
+                      : "below"}
                 </span>
               </div>
               <div

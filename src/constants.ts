@@ -17,7 +17,8 @@ export enum Theme {
 
 export enum RubyPosition {
   OVER = "over",
-  UNDER = "under"
+  UNDER = "under",
+  RIGHT = "inter-character"
 }
 
 export enum UserAction {

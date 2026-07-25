@@ -2,8 +2,10 @@ import { Storage } from "@plasmohq/storage"
 
 import {
   DEFAULT_IGNORED_NODES,
+  IS_ANNOTATED_ATTR,
   PronunciationSystem,
   ResponseStatus,
+  RESULT_CLASS,
   RubyPosition,
   TAG_NAME,
   ToneType,
@@ -179,10 +181,36 @@ export class Annotator {
   }
 
   private updateStyle(rubyPosition: RubyPosition) {
+    const flexboxFallback =
+      rubyPosition === RubyPosition.RIGHT
+        ? `
+      @supports not (ruby-position: inter-character) {
+        .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}] {
+          display: inline-flex;
+          align-items: center;
+        }
+        .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}] ruby {
+          display: contents;
+        }
+        .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}] rp {
+          display: none;
+        }
+        .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}] rt {
+          display: inline-block;
+          writing-mode: vertical-lr;
+          text-orientation: upright;
+          font-size: 0.4em;
+          line-height: 1;
+          padding-left: 1px;
+        }
+      }
+    `
+        : ""
     this.styleTag.innerHTML = `
       ${TAG_NAME} {
         ruby-position: ${rubyPosition};
       }
+      ${flexboxFallback}
     `
   }
 
