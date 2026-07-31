@@ -3,6 +3,7 @@ import { Storage } from "@plasmohq/storage"
 import {
   DEFAULT_IGNORED_NODES,
   IS_ANNOTATED_ATTR,
+  NON_CHINESE_CLASS,
   PronunciationSystem,
   ResponseStatus,
   RESULT_CLASS,
@@ -13,6 +14,14 @@ import {
   type HtmlOptions,
   type UserPreferences
 } from "~constants"
+import {
+  ANNOTATION_SCALE_DEFAULT,
+  clampAnnotationScale,
+  getAnnotationFontSizeEm,
+  getScaledTextFontSize,
+  getScaledTextLineHeight,
+  SCALE_TEXT_TOGETHER_DEFAULT
+} from "~lib/annotation-scale"
 import { loadUserPreferences, saveUserPreferences } from "~lib/user-preferences"
 import {
   buildAnnotatedFragment,
@@ -48,6 +57,7 @@ export class Annotator {
   private observationTargetSelector: string = "body"
   private pendingMutations: MutationRecord[] = []
   private mutationFlushTimer: ReturnType<typeof setTimeout> | null = null
+  private lastAppliedStyleKey = ""
 
   constructor() {
     this.mutationObserver = new MutationObserver((mutations) =>
@@ -159,11 +169,53 @@ export class Annotator {
           ? options.autoAnnotate
           : storedPreferences.autoAnnotate !== undefined
             ? storedPreferences.autoAnnotate
+            : false,
+      annotationScale:
+        options.annotationScale !== undefined
+          ? clampAnnotationScale(options.annotationScale)
+          : storedPreferences.annotationScale !== undefined
+            ? clampAnnotationScale(storedPreferences.annotationScale)
+            : ANNOTATION_SCALE_DEFAULT,
+      scaleTextTogether:
+        options.scaleTextTogether !== undefined
+          ? options.scaleTextTogether
+          : storedPreferences.scaleTextTogetherTouched
+            ? storedPreferences.scaleTextTogether !== undefined
+              ? storedPreferences.scaleTextTogether
+              : SCALE_TEXT_TOGETHER_DEFAULT
+            : SCALE_TEXT_TOGETHER_DEFAULT,
+      scaleTextTogetherTouched:
+        options.scaleTextTogetherTouched !== undefined
+          ? options.scaleTextTogetherTouched
+          : storedPreferences.scaleTextTogetherTouched !== undefined
+            ? storedPreferences.scaleTextTogetherTouched
             : false
     }
 
-    await saveUserPreferences(this.storage, updatedPreferences)
-    this.updateStyle(updatedPreferences.rubyPosition)
+    const shouldPersistPreferences =
+      updatedPreferences.toneType !== storedPreferences.toneType ||
+      updatedPreferences.pronunciationSystem !==
+        storedPreferences.pronunciationSystem ||
+      updatedPreferences.observerEnabled !==
+        storedPreferences.observerEnabled ||
+      updatedPreferences.rubyPosition !== storedPreferences.rubyPosition ||
+      updatedPreferences.autoAnnotate !== storedPreferences.autoAnnotate ||
+      updatedPreferences.annotationScale !==
+        storedPreferences.annotationScale ||
+      updatedPreferences.scaleTextTogether !==
+        storedPreferences.scaleTextTogether ||
+      updatedPreferences.scaleTextTogetherTouched !==
+        storedPreferences.scaleTextTogetherTouched
+
+    if (shouldPersistPreferences) {
+      await saveUserPreferences(this.storage, updatedPreferences)
+    }
+
+    this.updateStyle(
+      updatedPreferences.rubyPosition,
+      updatedPreferences.annotationScale,
+      updatedPreferences.scaleTextTogether
+    )
 
     this.htmlOptions = {
       ...this.htmlOptions,
@@ -180,7 +232,31 @@ export class Annotator {
         : [...rawIgnored, TAG_NAME.toUpperCase()]
   }
 
-  private updateStyle(rubyPosition: RubyPosition) {
+  private updateStyle(
+    rubyPosition: RubyPosition,
+    annotationScale: number,
+    scaleTextTogether: boolean
+  ) {
+    const annotationFontSize = getAnnotationFontSizeEm(
+      annotationScale,
+      rubyPosition,
+      scaleTextTogether
+    )
+    const scaledTextFontSize = getScaledTextFontSize(
+      annotationScale,
+      scaleTextTogether
+    )
+    const scaledTextLineHeight = getScaledTextLineHeight(
+      annotationScale,
+      rubyPosition,
+      scaleTextTogether
+    )
+    const nextStyleKey = `${rubyPosition}:${annotationFontSize}:${scaledTextFontSize}:${scaledTextLineHeight}`
+    if (this.lastAppliedStyleKey === nextStyleKey) {
+      return
+    }
+
+    this.lastAppliedStyleKey = nextStyleKey
     const flexboxFallback =
       rubyPosition === RubyPosition.RIGHT
         ? `
@@ -199,7 +275,7 @@ export class Annotator {
           display: inline-block;
           writing-mode: vertical-lr;
           text-orientation: upright;
-          font-size: 0.4em;
+          font-size: ${annotationFontSize};
           line-height: 1;
           padding-left: 1px;
         }
@@ -209,6 +285,14 @@ export class Annotator {
     this.styleTag.innerHTML = `
       ${TAG_NAME} {
         ruby-position: ${rubyPosition};
+      }
+      .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}],
+      .${NON_CHINESE_CLASS} {
+        font-size: ${scaledTextFontSize};
+        line-height: ${scaledTextLineHeight};
+      }
+      .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}] rt {
+        font-size: ${annotationFontSize};
       }
       ${flexboxFallback}
     `

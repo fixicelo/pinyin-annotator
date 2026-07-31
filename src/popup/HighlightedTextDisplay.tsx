@@ -3,13 +3,23 @@ import { useEffect, useState } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import {
+  NON_CHINESE_CLASS,
   PREDEFINED_DICT_LINK,
   PronunciationSystem,
+  RESULT_CLASS,
   RubyPosition,
   StorageKey,
   ToneType,
   type HtmlOptions
 } from "~constants"
+import {
+  ANNOTATION_SCALE_DEFAULT,
+  clampAnnotationScale,
+  getAnnotationFontSizeEm,
+  getScaledTextFontSize,
+  getScaledTextLineHeight,
+  SCALE_TEXT_TOGETHER_DEFAULT
+} from "~lib/annotation-scale"
 import { convertTextContentToHtml } from "~util"
 
 function getTextFromRange(range: Range): string {
@@ -94,7 +104,15 @@ const retrieveHighlightedText = (setSelectedText) => {
   })
 }
 
-const HighlightedTextDisplay = () => {
+interface HighlightedTextDisplayProps {
+  annotationScaleOverride?: number
+  scaleTextTogetherOverride?: boolean
+}
+
+const HighlightedTextDisplay = ({
+  annotationScaleOverride,
+  scaleTextTogetherOverride
+}: HighlightedTextDisplayProps) => {
   const [toneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
   const [pronunciationSystem] = useStorage<PronunciationSystem>(
     StorageKey.pronunciationSystem,
@@ -114,6 +132,18 @@ const HighlightedTextDisplay = () => {
     StorageKey.rubyPosition,
     RubyPosition.OVER
   )
+  const [annotationScale] = useStorage<number>(
+    StorageKey.annotationScale,
+    ANNOTATION_SCALE_DEFAULT
+  )
+  const [scaleTextTogether] = useStorage<boolean>(
+    StorageKey.scaleTextTogether,
+    SCALE_TEXT_TOGETHER_DEFAULT
+  )
+  const [scaleTextTogetherTouched] = useStorage<boolean>(
+    StorageKey.scaleTextTogetherTouched,
+    false
+  )
 
   let dictLink = ""
   if (dictLinkEnabled) {
@@ -126,10 +156,30 @@ const HighlightedTextDisplay = () => {
     }
   }
 
+  const resolvedAnnotationScale = clampAnnotationScale(
+    annotationScaleOverride ?? annotationScale
+  )
+  const resolvedScaleTextTogether =
+    scaleTextTogetherOverride ??
+    (scaleTextTogetherTouched ? scaleTextTogether : SCALE_TEXT_TOGETHER_DEFAULT)
   const htmlOptions: HtmlOptions = { toneType, dictLink, pronunciationSystem }
   const htmlString = convertTextContentToHtml(selectedText, htmlOptions)
   const fontSizePx = 40
   const lineHeightPx = fontSizePx + 30
+  const annotationFontSize = getAnnotationFontSizeEm(
+    resolvedAnnotationScale,
+    rubyPosition,
+    resolvedScaleTextTogether
+  )
+  const scaledTextFontSize = getScaledTextFontSize(
+    resolvedAnnotationScale,
+    resolvedScaleTextTogether
+  )
+  const scaledTextLineHeight = getScaledTextLineHeight(
+    resolvedAnnotationScale,
+    rubyPosition,
+    resolvedScaleTextTogether
+  )
 
   useEffect(() => {
     retrieveHighlightedText(setSelectedText)
@@ -138,12 +188,50 @@ const HighlightedTextDisplay = () => {
   return (
     selectedText && (
       <>
+        <style>{`
+          .highlighted-text-preview pya {
+            ruby-position: ${rubyPosition};
+          }
+          .highlighted-text-preview .${RESULT_CLASS}[data-pya-is-annotated],
+          .highlighted-text-preview .${NON_CHINESE_CLASS} {
+            font-size: ${scaledTextFontSize};
+            line-height: ${scaledTextLineHeight};
+          }
+          .highlighted-text-preview rt {
+            font-size: ${annotationFontSize};
+          }
+          ${
+            rubyPosition === RubyPosition.RIGHT
+              ? `
+          @supports not (ruby-position: inter-character) {
+            .highlighted-text-preview .py-result-item[data-pya-is-annotated] {
+              display: inline-flex;
+              align-items: center;
+            }
+            .highlighted-text-preview .py-result-item[data-pya-is-annotated] ruby {
+              display: contents;
+            }
+            .highlighted-text-preview .py-result-item[data-pya-is-annotated] rp {
+              display: none;
+            }
+            .highlighted-text-preview .py-result-item[data-pya-is-annotated] rt {
+              display: inline-block;
+              writing-mode: vertical-lr;
+              text-orientation: upright;
+              font-size: ${annotationFontSize};
+              line-height: 1;
+              padding-left: 1px;
+            }
+          }`
+              : ""
+          }
+        `}</style>
         <div className="divider">Selected Text</div>
         <span
+          className="highlighted-text-preview"
           style={{
             fontSize: `${fontSizePx}px`,
-            lineHeight: `${lineHeightPx}px`,
-            rubyPosition: rubyPosition
+            lineHeight: `${lineHeightPx}px`
           }}
           dangerouslySetInnerHTML={{ __html: htmlString }}
         />

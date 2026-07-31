@@ -14,28 +14,37 @@ export async function loadUserPreferences(
   storage: Storage
 ): Promise<StoredPreferences> {
   const [
-    toneTypeResult,
-    pronunciationSystemResult,
-    observerEnabledResult,
-    rubyPositionResult,
-    autoAnnotateResult,
-    ignoredNodesResult
+    toneType,
+    pronunciationSystem,
+    observerEnabled,
+    rubyPosition,
+    autoAnnotate,
+    annotationScale,
+    scaleTextTogether,
+    scaleTextTogetherTouched,
+    ignoredNodes
   ] = await Promise.all([
-    storage.get(StorageKey.toneType),
-    storage.get(StorageKey.pronunciationSystem),
-    storage.get(StorageKey.observerEnabled),
-    storage.get(StorageKey.rubyPosition),
-    storage.get(StorageKey.autoAnnotate),
+    storage.get<ToneType>(StorageKey.toneType),
+    storage.get<PronunciationSystem>(StorageKey.pronunciationSystem),
+    storage.get<boolean>(StorageKey.observerEnabled),
+    storage.get<RubyPosition>(StorageKey.rubyPosition),
+    storage.get<boolean>(StorageKey.autoAnnotate),
+    storage.get<number>(StorageKey.annotationScale),
+    storage.get<boolean>(StorageKey.scaleTextTogether),
+    storage.get<boolean>(StorageKey.scaleTextTogetherTouched),
     storage.get<string[]>(StorageKey.ignoredNodes)
   ])
 
   return {
-    toneType: toneTypeResult as ToneType,
-    pronunciationSystem: pronunciationSystemResult as PronunciationSystem,
-    observerEnabled: observerEnabledResult as unknown as boolean,
-    rubyPosition: rubyPositionResult as RubyPosition,
-    autoAnnotate: autoAnnotateResult as unknown as boolean,
-    ignoredNodes: (ignoredNodesResult as string[]) || []
+    toneType,
+    pronunciationSystem,
+    observerEnabled,
+    rubyPosition,
+    autoAnnotate,
+    annotationScale,
+    scaleTextTogether,
+    scaleTextTogetherTouched,
+    ignoredNodes: ignoredNodes || []
   }
 }
 
@@ -57,5 +66,20 @@ export async function saveUserPreferences(
   }
   if (options?.autoAnnotate !== undefined) {
     await storage.set(StorageKey.autoAnnotate, options.autoAnnotate)
+  }
+  if (options?.rubyPosition !== undefined) {
+    await storage.set(StorageKey.rubyPosition, options.rubyPosition)
+  }
+  if (options?.annotationScale !== undefined) {
+    await storage.set(StorageKey.annotationScale, options.annotationScale)
+  }
+  if (options?.scaleTextTogether !== undefined) {
+    await storage.set(StorageKey.scaleTextTogether, options.scaleTextTogether)
+  }
+  if (options?.scaleTextTogetherTouched !== undefined) {
+    await storage.set(
+      StorageKey.scaleTextTogetherTouched,
+      options.scaleTextTogetherTouched
+    )
   }
 }

@@ -3,14 +3,23 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import {
+  NON_CHINESE_CLASS,
   PREDEFINED_DICT_LINK,
   PronunciationSystem,
+  RESULT_CLASS,
   RubyPosition,
   StorageKey,
   Theme,
   ToneType,
   type HtmlOptions
 } from "~constants"
+import {
+  ANNOTATION_SCALE_DEFAULT,
+  getAnnotationFontSizeEm,
+  getScaledTextFontSize,
+  getScaledTextLineHeight,
+  SCALE_TEXT_TOGETHER_DEFAULT
+} from "~lib/annotation-scale"
 
 import { useTheme } from "./popup/useTheme"
 import { convertTextContentToHtml, debounce } from "./util"
@@ -64,7 +73,36 @@ function Options() {
     RubyPosition.OVER
   )
   const [theme, setTheme] = useStorage<Theme>(StorageKey.theme, Theme.System)
+  const [annotationScale] = useStorage<number>(
+    StorageKey.annotationScale,
+    ANNOTATION_SCALE_DEFAULT
+  )
+  const [scaleTextTogether] = useStorage<boolean>(
+    StorageKey.scaleTextTogether,
+    SCALE_TEXT_TOGETHER_DEFAULT
+  )
+  const [scaleTextTogetherTouched] = useStorage<boolean>(
+    StorageKey.scaleTextTogetherTouched,
+    false
+  )
   const [shortcut, setShortcut] = useState("Alt+Shift+P")
+  const resolvedScaleTextTogether = scaleTextTogetherTouched
+    ? scaleTextTogether
+    : SCALE_TEXT_TOGETHER_DEFAULT
+  const annotationFontSize = getAnnotationFontSizeEm(
+    annotationScale,
+    rubyPosition,
+    resolvedScaleTextTogether
+  )
+  const scaledTextFontSize = getScaledTextFontSize(
+    annotationScale,
+    resolvedScaleTextTogether
+  )
+  const scaledTextLineHeight = getScaledTextLineHeight(
+    annotationScale,
+    rubyPosition,
+    resolvedScaleTextTogether
+  )
 
   useEffect(() => {
     chrome.commands.getAll((commands) => {
@@ -84,7 +122,10 @@ function Options() {
   ) => {
     const value = e.target.value as PronunciationSystem
     setPronunciationSystem(value)
-    if (value === PronunciationSystem.Pinyin && rubyPosition === RubyPosition.RIGHT) {
+    if (
+      value === PronunciationSystem.Pinyin &&
+      rubyPosition === RubyPosition.RIGHT
+    ) {
       setRubyPosition(RubyPosition.OVER)
     }
   }
@@ -161,25 +202,33 @@ function Options() {
         padding: "40px 20px"
       }}>
       <style>{`
-        pya { ruby-position: ${rubyPosition}; }
+        .options-preview pya { ruby-position: ${rubyPosition}; }
+        .options-preview .${RESULT_CLASS}[data-pya-is-annotated],
+        .options-preview .${NON_CHINESE_CLASS} {
+          font-size: ${scaledTextFontSize};
+          line-height: ${scaledTextLineHeight};
+        }
+        .options-preview rt {
+          font-size: ${annotationFontSize};
+        }
         ${
           rubyPosition === RubyPosition.RIGHT
             ? `
         @supports not (ruby-position: inter-character) {
-          .py-result-item[data-pya-is-annotated] {
+          .options-preview .py-result-item[data-pya-is-annotated] {
             display: inline-flex; align-items: center;
           }
-          .py-result-item[data-pya-is-annotated] ruby {
+          .options-preview .py-result-item[data-pya-is-annotated] ruby {
             display: contents;
           }
-          .py-result-item[data-pya-is-annotated] rp {
+          .options-preview .py-result-item[data-pya-is-annotated] rp {
             display: none;
           }
-          .py-result-item[data-pya-is-annotated] rt {
+          .options-preview .py-result-item[data-pya-is-annotated] rt {
             display: inline-block;
             writing-mode: vertical-lr;
             text-orientation: upright;
-            font-size: 0.4em;
+            font-size: ${annotationFontSize};
             line-height: 1;
             padding-left: 1px;
           }
@@ -564,9 +613,15 @@ function Options() {
                     : rubyPosition === RubyPosition.OVER
                       ? "above"
                       : "below"}
+                  {" · "}
+                  {annotationScale}%{" · "}
+                  {resolvedScaleTextTogether
+                    ? "text + annotation"
+                    : "annotation only"}
                 </span>
               </div>
               <div
+                className="options-preview"
                 style={{
                   padding: "32px 24px",
                   fontSize: "22px",

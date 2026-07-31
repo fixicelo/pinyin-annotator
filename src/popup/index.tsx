@@ -7,6 +7,7 @@ import {
   type Response
 } from "~constants"
 
+import AnnotationScaleControl from "./AnnotationScaleControl"
 import AnnotationStatus from "./AnnotationStatus"
 import AppTitle from "./AppTitle"
 import AutoAnnotateOption from "./AutoAnnotateOption"
@@ -24,6 +25,9 @@ function Popup() {
 
   const [isAnnotated, setIsAnnotated] = useState(false)
   const [tabStatus, setTabStatus] = useState<TabStatus>(TabStatus.Loading)
+  const [previewAnnotationScale, setPreviewAnnotationScale] = useState<number>()
+  const [previewScaleTextTogether, setPreviewScaleTextTogether] =
+    useState<boolean>()
 
   const communicateWithContentScript = useCommunicateWithContentScript(
     (response: Response) => {
@@ -39,6 +43,20 @@ function Popup() {
   const checkStatus = useCallback(() => {
     communicateWithContentScript(UserAction.Check, {})
   }, [communicateWithContentScript])
+
+  const handlePreviewChange = useCallback(
+    ({
+      annotationScale,
+      scaleTextTogether
+    }: {
+      annotationScale: number
+      scaleTextTogether: boolean
+    }) => {
+      setPreviewAnnotationScale(annotationScale)
+      setPreviewScaleTextTogether(scaleTextTogether)
+    },
+    []
+  )
 
   useEffect(() => {
     checkStatus()
@@ -59,6 +77,11 @@ function Popup() {
         tabStatus={tabStatus}
         onRefresh={handleRefresh}
       />
+      <AnnotationScaleControl
+        communicateWithContentScript={communicateWithContentScript}
+        onPreviewChange={handlePreviewChange}
+        syncWithCurrentTab={isAvailable}
+      />
 
       {isAvailable && (
         <div
@@ -78,7 +101,10 @@ function Popup() {
         communicateWithContentScript={communicateWithContentScript}
         disabled={!isAvailable}
       />
-      <HighlightedTextDisplay />
+      <HighlightedTextDisplay
+        annotationScaleOverride={previewAnnotationScale}
+        scaleTextTogetherOverride={previewScaleTextTogether}
+      />
     </div>
   )
 }

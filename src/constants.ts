@@ -65,7 +65,10 @@ export enum StorageKey {
   selectedDict = "selectedDict",
   customDictUrl = "customDictUrl",
   rubyPosition = "rubyPosition",
-  autoAnnotate = "autoAnnotate"
+  autoAnnotate = "autoAnnotate",
+  annotationScale = "annotationScale",
+  scaleTextTogether = "scaleTextTogether",
+  scaleTextTogetherTouched = "scaleTextTogetherTouched"
 }
 
 export interface UserPreferences {
@@ -74,6 +77,9 @@ export interface UserPreferences {
   observerEnabled?: boolean
   rubyPosition?: RubyPosition
   autoAnnotate?: boolean
+  annotationScale?: number
+  scaleTextTogether?: boolean
+  scaleTextTogetherTouched?: boolean
 }
 
 export interface Response {
