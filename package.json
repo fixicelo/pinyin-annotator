@@ -6,7 +6,7 @@
   "author": "fixicelo <fixicelo@gmail.com>",
   "scripts": {
     "dev": "plasmo dev",
-    "clean": "rm -rf build",
+    "clean": "rm -rf build/chrome-mv3-prod build/firefox-mv3-prod build/chrome-mv3-prod.zip build/firefox-mv3-prod.zip",
     "build": "pnpm run clean && plasmo build",
     "package": "plasmo package",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
