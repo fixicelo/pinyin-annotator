@@ -11,6 +11,8 @@
     "package": "plasmo package",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "start:firefox": "web-ext run --source-dir ./build/firefox-mv3-prod/",
     "i18n:sync": "node scripts/generate-i18n-fallback.mjs && prettier --write src/lib/i18n-fallback.ts && node scripts/check-locales.mjs",
     "predev": "node scripts/generate-i18n-fallback.mjs && prettier --write src/lib/i18n-fallback.ts",
@@ -30,19 +32,21 @@
     "cnchar": "^3.2.6",
     "cnchar-poly": "^3.2.6",
     "cnchar-trad": "^3.2.6",
-    "pinyin-pro": "^3.28.1",
+    "pinyin-pro": "^3.28.2",
     "plasmo": "^0.90.5",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "@types/chrome": "^0.2.2",
-    "@types/node": "^26.1.1",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "prettier": "^3.9.5",
-    "typescript": "^5.9.3"
+    "@types/chrome": "^0.2.5",
+    "@types/filesystem": "^0.0.36",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
   },
   "manifest": {
     "name": "__MSG_extensionName__",
