@@ -8,11 +8,11 @@
     "description": "扩展描述。"
   },
   "commandToggleDescription": {
-    "message": "切换拼音标注",
+    "message": "添加或移除标注",
     "description": "键盘命令描述。"
   },
   "contextMenuToggle": {
-    "message": "切换标注",
+    "message": "添加或移除标注",
     "description": "右键菜单项标题。"
   },
   "statusAnnotated": {

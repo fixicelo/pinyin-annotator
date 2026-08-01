@@ -8,11 +8,11 @@
     "description": "확장 프로그램 설명."
   },
   "commandToggleDescription": {
-    "message": "병음 주석 토글",
+    "message": "주석 추가 또는 제거",
     "description": "키보드 명령 설명."
   },
   "contextMenuToggle": {
-    "message": "주석 토글",
+    "message": "주석 추가 또는 제거",
     "description": "컨텍스트 메뉴 항목 제목."
   },
   "statusAnnotated": {

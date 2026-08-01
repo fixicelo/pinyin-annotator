@@ -8,11 +8,11 @@
     "description": "Description de l'extension."
   },
   "commandToggleDescription": {
-    "message": "Activer/désactiver les annotations en pinyin",
+    "message": "Ajouter ou retirer les annotations",
     "description": "Description de la commande clavier."
   },
   "contextMenuToggle": {
-    "message": "Activer/désactiver les annotations",
+    "message": "Ajouter ou retirer les annotations",
     "description": "Titre de l'élément du menu contextuel."
   },
   "statusAnnotated": {

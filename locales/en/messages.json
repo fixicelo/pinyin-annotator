@@ -8,11 +8,11 @@
     "description": "Description of the extension."
   },
   "commandToggleDescription": {
-    "message": "Toggle Pinyin annotations",
+    "message": "Add or remove annotations",
     "description": "Description of the keyboard command."
   },
   "contextMenuToggle": {
-    "message": "Toggle Annotation",
+    "message": "Add or Remove Annotations",
     "description": "Context menu item title."
   },
   "statusAnnotated": {

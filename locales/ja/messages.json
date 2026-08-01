@@ -8,11 +8,11 @@
     "description": "拡張機能の説明。"
   },
   "commandToggleDescription": {
-    "message": "ピンイン注釈を切り替え",
+    "message": "注釈を追加または削除",
     "description": "キーボードコマンドの説明。"
   },
   "contextMenuToggle": {
-    "message": "注釈を切り替え",
+    "message": "注釈を追加または削除",
     "description": "コンテキストメニュー項目のタイトル。"
   },
   "statusAnnotated": {

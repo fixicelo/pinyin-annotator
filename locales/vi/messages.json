@@ -8,11 +8,11 @@
     "description": "Mô tả tiện ích."
   },
   "commandToggleDescription": {
-    "message": "Bật/tắt chú thích Pinyin",
+    "message": "Thêm hoặc xóa chú thích",
     "description": "Mô tả phím tắt."
   },
   "contextMenuToggle": {
-    "message": "Bật/tắt chú thích",
+    "message": "Thêm hoặc xóa chú thích",
     "description": "Tiêu đề mục menu ngữ cảnh."
   },
   "statusAnnotated": {

@@ -8,11 +8,11 @@
     "description": "Descripción de la extensión."
   },
   "commandToggleDescription": {
-    "message": "Alternar anotaciones de pinyin",
+    "message": "Añadir o quitar anotaciones",
     "description": "Descripción del comando de teclado."
   },
   "contextMenuToggle": {
-    "message": "Alternar anotaciones",
+    "message": "Añadir o quitar anotaciones",
     "description": "Título del elemento del menú contextual."
   },
   "statusAnnotated": {

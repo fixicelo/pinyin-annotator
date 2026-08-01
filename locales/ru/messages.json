@@ -8,11 +8,11 @@
     "description": "Описание расширения."
   },
   "commandToggleDescription": {
-    "message": "Переключить аннотации пиньинь",
+    "message": "Добавить или удалить аннотации",
     "description": "Описание клавиатурной команды."
   },
   "contextMenuToggle": {
-    "message": "Переключить аннотации",
+    "message": "Добавить или удалить аннотации",
     "description": "Заголовок пункта контекстного меню."
   },
   "statusAnnotated": {

@@ -8,11 +8,11 @@
     "description": "擴充功能描述。"
   },
   "commandToggleDescription": {
-    "message": "切換拼音標註",
+    "message": "新增或移除標註",
     "description": "鍵盤命令描述。"
   },
   "contextMenuToggle": {
-    "message": "切換標註",
+    "message": "新增或移除標註",
     "description": "右鍵選單項目標題。"
   },
   "statusAnnotated": {

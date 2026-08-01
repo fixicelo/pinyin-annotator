@@ -5,8 +5,8 @@ export const i18nFallback: Record<string, string> = {
   extensionName: "Pinyin Annotator",
   extensionDescription:
     "A browser extension that overlays Pinyin or Zhuyin annotations on Chinese characters in web pages and video subtitles.",
-  commandToggleDescription: "Toggle Pinyin annotations",
-  contextMenuToggle: "Toggle Annotation",
+  commandToggleDescription: "Add or remove annotations",
+  contextMenuToggle: "Add or Remove Annotations",
   statusAnnotated: "Annotated",
   statusNotAnnotated: "Not annotated",
   statusRestrictedTitle: "Not available on this page",

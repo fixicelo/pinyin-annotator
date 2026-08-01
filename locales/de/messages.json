@@ -8,11 +8,11 @@
     "description": "Beschreibung der Erweiterung."
   },
   "commandToggleDescription": {
-    "message": "Pinyin-Annotationen umschalten",
+    "message": "Annotationen hinzufügen oder entfernen",
     "description": "Beschreibung der Tastenkombination."
   },
   "contextMenuToggle": {
-    "message": "Annotationen umschalten",
+    "message": "Annotationen hinzufügen oder entfernen",
     "description": "Titel des Kontextmenüpunkts."
   },
   "statusAnnotated": {

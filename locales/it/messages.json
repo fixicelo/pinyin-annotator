@@ -8,11 +8,11 @@
     "description": "Descrizione dell'estensione."
   },
   "commandToggleDescription": {
-    "message": "Attiva/disattiva annotazioni pinyin",
+    "message": "Aggiungi o rimuovi annotazioni",
     "description": "Descrizione del comando da tastiera."
   },
   "contextMenuToggle": {
-    "message": "Attiva/disattiva annotazioni",
+    "message": "Aggiungi o rimuovi annotazioni",
     "description": "Titolo della voce del menu contestuale."
   },
   "statusAnnotated": {
