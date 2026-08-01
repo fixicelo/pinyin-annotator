@@ -120,10 +120,10 @@ export class Annotator {
     }
 
     const version = this.annotationVersion
-    for (let mutation of mutationsList) {
+    for (const mutation of mutationsList) {
       switch (mutation.type) {
         case "childList":
-          for (let node of mutation.addedNodes) {
+          for (const node of mutation.addedNodes) {
             if (TAG_NAME.toUpperCase() === node.nodeName) {
               continue
             }

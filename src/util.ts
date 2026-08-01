@@ -27,7 +27,7 @@ export function debounce<T extends (...args: any) => any>(
   let timeout: NodeJS.Timeout
   return (...args: Parameters<T>) => {
     clearTimeout(timeout)
-    timeout = setTimeout(() => func.apply(null, args), wait)
+    timeout = setTimeout(() => func(...args), wait)
   }
 
   //   let frameId: number
@@ -253,9 +253,6 @@ const ZHUYIN_TONES: Record<string, string> = {
 const INITIAL_KEYS = Object.keys(PINYIN_INITIALS).sort(
   (a, b) => b.length - a.length
 )
-const FINAL_KEYS = Object.keys(PINYIN_FINALS).sort(
-  (a, b) => b.length - a.length
-)
 
 export function pinyinToZhuyin(pinyin: string): string {
   if (!pinyin) return ""
@@ -269,7 +266,7 @@ export function pinyinToZhuyin(pinyin: string): string {
     syllable = syllable.slice(0, -1)
   }
 
-  let result = ""
+  let result: string
 
   if (syllable in SYLLABIC_CONSONANTS) {
     result = SYLLABIC_CONSONANTS[syllable]

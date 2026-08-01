@@ -40,7 +40,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
       if (opened && tab.windowId && chrome.windows?.update) {
         await chrome.windows.update(tab.windowId, { focused: true })
       }
-    } catch (error) {
+    } catch {
       if (!opened) {
         chrome.runtime.openOptionsPage()
       }

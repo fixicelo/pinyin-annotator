@@ -7,7 +7,7 @@ export const config: PlasmoCSConfig = {
 
 function injectStyles() {
   // Inject styles to prevent captions from wrapping
-  let style = document.createElement("style")
+  const style = document.createElement("style")
   style.innerHTML = `span.ytp-caption-segment {
     white-space: nowrap !important;
   }`

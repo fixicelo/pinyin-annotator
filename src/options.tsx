@@ -166,16 +166,17 @@ function Options() {
     setAutoAnnotate(e.target.checked)
   }
 
-  const debouncedSetIgnoredNodes = useCallback(
-    debounce((newIgnoredNodesInput: string) => {
-      const newIgnoredNodes = newIgnoredNodesInput
-        .split(",")
-        .map((node) => node.trim())
-        .filter(Boolean)
-      setIgnoredNodes(newIgnoredNodes)
-      setNotification(t("notificationSaved"))
-      setTimeout(() => setNotification(null), 2000)
-    }, 1000),
+  const debouncedSetIgnoredNodes = useMemo(
+    () =>
+      debounce((newIgnoredNodesInput: string) => {
+        const newIgnoredNodes = newIgnoredNodesInput
+          .split(",")
+          .map((node) => node.trim())
+          .filter(Boolean)
+        setIgnoredNodes(newIgnoredNodes)
+        setNotification(t("notificationSaved"))
+        setTimeout(() => setNotification(null), 2000)
+      }, 1000),
     []
   )
 

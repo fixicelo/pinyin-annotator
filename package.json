@@ -11,15 +11,17 @@
     "package": "plasmo package",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
+    "lint": "eslint src",
     "test": "vitest run",
     "test:watch": "vitest",
     "start:firefox": "web-ext run --source-dir ./build/firefox-mv3-prod/",
     "i18n:sync": "node scripts/generate-i18n-fallback.mjs && prettier --write src/lib/i18n-fallback.ts && node scripts/check-locales.mjs",
+    "verify": "pnpm run i18n:sync && pnpm test && pnpm lint",
     "predev": "node scripts/generate-i18n-fallback.mjs && prettier --write src/lib/i18n-fallback.ts",
-    "prebuild": "pnpm run i18n:sync",
-    "prepackage": "pnpm run i18n:sync",
-    "build:all": "pnpm run i18n:sync && pnpm run clean && plasmo build --target=chrome-mv3 && plasmo build --target=firefox-mv3",
-    "package:all": "pnpm run i18n:sync && pnpm run clean && plasmo build --target=chrome-mv3 && plasmo build --target=firefox-mv3 && plasmo package --target=chrome-mv3 && plasmo package --target=firefox-mv3"
+    "prebuild": "pnpm run verify",
+    "prepackage": "pnpm run verify",
+    "build:all": "pnpm run verify && pnpm run clean && plasmo build --target=chrome-mv3 && plasmo build --target=firefox-mv3",
+    "package:all": "pnpm run verify && pnpm run clean && plasmo build --target=chrome-mv3 && plasmo build --target=firefox-mv3 && plasmo package --target=chrome-mv3 && plasmo package --target=firefox-mv3"
   },
   "repository": {
     "type": "git",
@@ -38,14 +40,19 @@
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@types/chrome": "^0.2.5",
     "@types/filesystem": "^0.0.36",
     "@types/node": "^26.1.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "prettier": "^3.9.6",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.65.0",
     "vitest": "^4.1.10"
   },
   "manifest": {
