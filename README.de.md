@@ -16,7 +16,7 @@ Der Pinyin-Annotator ist eine Browser-Erweiterung, die **Hanyu-Pinyin-** oder **
 
 ## ✨ Hauptfunktionen
 
-- 📖 **Doppelte Aussprache**: Unterstützt **Hanyu-Pinyin** (lateinisches Alphabet, 漢語拼音) und **Zhuyin / Bopomofo** (注音符號) mit präzisen Tonmarkierungen.
+- 📖 **Pinyin und Zhuyin**: Unterstützt **Hanyu-Pinyin** (lateinisches Alphabet, 漢語拼音) und **Zhuyin / Bopomofo** (注音符號) mit präzisen Tonmarkierungen.
 - 🎦 **Verbessertes Video-Streaming**: Integriert Annotationen in chinesische Untertitel (Closed Captions) auf Plattformen wie Netflix, Disney+, YouTube, Bilibili und mehr.
 - 🌐 **Cross-Browser**: Funktioniert in Firefox und Chromium-basierten Browsern (Chrome, Edge, Opera, Brave).
 - 🀄 **Vereinfachtes und traditionelles Chinesisch**: Unterstützt sowohl vereinfachtes (简体) als auch traditionelles (繁體) Chinesisch.

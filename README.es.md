@@ -16,7 +16,7 @@ Anotador Pinyin es una extensión de navegador que superpone anotaciones de **pi
 
 ## ✨ Funciones principales
 
-- 📖 **Doble pronunciación**: Admite **pinyin han** (alfabeto latino, 漢語拼音) y **zhuyin / bopomofo** (注音符號) con marcas de tono precisas.
+- 📖 **Pinyin y zhuyin**: Admite **pinyin han** (alfabeto latino, 漢語拼音) y **zhuyin / bopomofo** (注音符號) con marcas de tono precisas.
 - 🎦 **Streaming de vídeo mejorado**: Integra anotaciones en los subtítulos en chino (subtítulos ocultos) de plataformas como Netflix, Disney+, YouTube, Bilibili y más.
 - 🌐 **Multiplataforma**: Funciona en Firefox y en navegadores basados en Chromium (Chrome, Edge, Opera, Brave).
 - 🀄 **Chino simplificado y tradicional**: Admite tanto el chino simplificado (简体) como el tradicional (繁體).

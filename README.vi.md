@@ -16,7 +16,7 @@ Chú thích Pinyin là tiện ích mở rộng trình duyệt giúp thêm chú t
 
 ## ✨ Tính năng chính
 
-- 📖 **Kép cách phát âm**: Hỗ trợ cả **Hán ngữ Pinyin** (bảng chữ cái Latinh, 漢語拼音) và **Zhuyin / Bopomofo** (注音符號) với dấu thanh chính xác.
+- 📖 **Pinyin & Zhuyin**: Hỗ trợ cả **Hán ngữ Pinyin** (bảng chữ cái Latinh, 漢語拼音) và **Zhuyin / Bopomofo** (注音符號) với dấu thanh chính xác.
 - 🎦 **Xem video nâng cao**: Tích hợp chú thích vào phụ đề tiếng Trung (phụ đề đóng) trên các nền tảng như Netflix, Disney+, YouTube, Bilibili, v.v.
 - 🌐 **Đa trình duyệt**: Hoạt động trên Firefox và các trình duyệt dựa trên Chromium (Chrome, Edge, Opera, Brave).
 - 🀄 **Tiếng Trung giản thể và phồn thể**: Hỗ trợ cả tiếng Trung giản thể (简体) và phồn thể (繁體).
