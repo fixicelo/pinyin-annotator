@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator | ピンイン注釈ツール",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "ウェブページや動画字幕の漢字にピンインまたは注音の注釈を重ねて表示するブラウザ拡張機能です。",
+    "description": "拡張機能の説明。"
+  },
+  "commandToggleDescription": {
+    "message": "ピンイン注釈を切り替え",
+    "description": "キーボードコマンドの説明。"
+  },
+  "contextMenuToggle": {
+    "message": "注釈を切り替え",
+    "description": "コンテキストメニュー項目のタイトル。"
+  },
+  "statusAnnotated": {
+    "message": "注釈済み",
+    "description": "ポップアップの状態：注釈済み。"
+  },
+  "statusNotAnnotated": {
+    "message": "未注釈",
+    "description": "ポップアップの状態：未注釈。"
+  },
+  "statusRestrictedTitle": {
+    "message": "このページでは利用できません",
+    "description": "制限ページのポップアップ警告タイトル。"
+  },
+  "statusRestrictedDesc": {
+    "message": "ブラウザ拡張機能はこの種のページ（ブラウザの内部ページや拡張機能ストアなど）では実行できません。",
+    "description": "制限ページのポップアップ警告の説明。"
+  },
+  "statusRefreshTitle": {
+    "message": "ページの更新が必要です",
+    "description": "更新が必要な場合のポップアップ警告タイトル。"
+  },
+  "statusRefreshDesc": {
+    "message": "このタブは拡張機能のインストールまたは更新前に開かれました。ページを更新して有効化してください。",
+    "description": "更新が必要な場合のポップアップ警告の説明。"
+  },
+  "statusRefreshAction": {
+    "message": "更新",
+    "description": "現在のタブを更新するボタン。"
+  },
+  "annotationScaleTitle": {
+    "message": "注釈サイズ",
+    "description": "ポップアップ：注釈スケールコントロールの見出し。"
+  },
+  "annotationScaleTogether": {
+    "message": "テキストと注釈を一緒に拡大",
+    "description": "ポップアップ：テキストが注釈と一緒に拡大されるモードのヒント。"
+  },
+  "annotationScaleOnly": {
+    "message": "注釈のみ",
+    "description": "ポップアップ：注釈のみ拡大されるモードのヒント。"
+  },
+  "annotationScaleReset": {
+    "message": "リセット",
+    "description": "ポップアップ：注釈スケールをリセットするボタン。"
+  },
+  "scaleTextTogether": {
+    "message": "テキストも一緒に拡大",
+    "description": "ポップアップ：テキストを注釈と一緒に拡大するチェックボックスのラベル。"
+  },
+  "buttonOptions": {
+    "message": "オプション",
+    "description": "ポップアップ：オプションページを開くボタン。"
+  },
+  "buttonClear": {
+    "message": "クリア",
+    "description": "ポップアップ：注釈をクリアするボタン。"
+  },
+  "buttonAnnotate": {
+    "message": "注釈",
+    "description": "ポップアップ：注釈ボタン。"
+  },
+  "monitorModeTitle": {
+    "message": "モニターモード",
+    "description": "ポップアップ：モニターモードオプションのラベル。"
+  },
+  "autoAnnotateTitle": {
+    "message": "自動注釈",
+    "description": "ポップアップ：自動注釈オプションのラベル。"
+  },
+  "selectedTextLabel": {
+    "message": "選択したテキスト",
+    "description": "ポップアップ：選択したテキストのプレビュー上の区切りラベル。"
+  },
+  "optionsAppearanceTitle": {
+    "message": "外観",
+    "description": "オプション：外観セクションのタイトル。"
+  },
+  "optionsWritingSystem": {
+    "message": "表記体系",
+    "description": "オプション：表記体系設定の名前。"
+  },
+  "optionsWritingSystemDesc": {
+    "message": "ピンインは入力できるアルファベットを使います。注音は台湾で使われる記号を使います。",
+    "description": "オプション：表記体系設定の説明。"
+  },
+  "optionPinyin": {
+    "message": "ピンイン",
+    "description": "オプション：ピンイン表記体系の選択。"
+  },
+  "optionZhuyin": {
+    "message": "注音",
+    "description": "オプション：注音表記体系の選択。"
+  },
+  "optionsToneMarks": {
+    "message": "声調記号",
+    "description": "オプション：声調記号設定の名前。"
+  },
+  "optionsToneMarksDesc": {
+    "message": "声調記号（ā á ǎ à）を表示し、声調なしの代わりにします。",
+    "description": "オプション：声調記号設定の説明。"
+  },
+  "optionsPlacement": {
+    "message": "配置",
+    "description": "オプション：注釈配置設定の名前。"
+  },
+  "optionsPlacementDescRight": {
+    "message": "右側（伝統的な注音スタイル）。",
+    "description": "オプション：右側を選択した場合の配置の説明。"
+  },
+  "optionsPlacementDescOver": {
+    "message": "各文字の上または下。",
+    "description": "オプション：上/下を選択した場合の配置の説明。"
+  },
+  "optionAbove": {
+    "message": "上",
+    "description": "オプション：上の配置の選択。"
+  },
+  "optionBelow": {
+    "message": "下",
+    "description": "オプション：下の配置の選択。"
+  },
+  "optionRight": {
+    "message": "右",
+    "description": "オプション：右の配置の選択。"
+  },
+  "optionsBehaviorTitle": {
+    "message": "動作",
+    "description": "オプション：動作セクションのタイトル。"
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "自動注釈：すべてのページで",
+    "description": "オプション：自動注釈設定の名前。"
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "新しいページを開くたびに自動的に注釈します。",
+    "description": "オプション：自動注釈設定の説明。"
+  },
+  "optionsMonitorTitle": {
+    "message": "モニターモード：注釈を継続、特に動画字幕で",
+    "description": "オプション：モニターモード設定の名前。"
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix、Disney+、YouTube、Bilibili — CC 字幕がライブ更新されます。",
+    "description": "オプション：モニターモード設定の説明。"
+  },
+  "optionsWordLookup": {
+    "message": "単語検索",
+    "description": "オプション：単語検索設定の名前。"
+  },
+  "optionsWordLookupDesc": {
+    "message": "ポップアップ内の単語をクリックすると辞書が開きます。",
+    "description": "オプション：単語検索設定の説明。"
+  },
+  "optionsWhichDict": {
+    "message": "使用する辞書",
+    "description": "オプション：辞書セレクターのラベル。"
+  },
+  "optionsUrlPattern": {
+    "message": "URL パターン",
+    "description": "オプション：カスタム辞書 URL パターンのラベル。"
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} は選択したテキストに置き換えられます。",
+    "description": "オプション：カスタム辞書 URL パターンの説明。"
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "オプション：カスタム辞書 URL パターンのプレースホルダー。"
+  },
+  "optionsTheme": {
+    "message": "テーマ",
+    "description": "オプション：テーマ設定の名前。"
+  },
+  "optionsThemeDesc": {
+    "message": "システムに合わせるか、明るいまたは暗いを選択します。",
+    "description": "オプション：テーマ設定の説明。"
+  },
+  "optionAuto": {
+    "message": "自動",
+    "description": "オプション：自動テーマの選択。"
+  },
+  "optionLight": {
+    "message": "ライト",
+    "description": "オプション：ライトテーマの選択。"
+  },
+  "optionDark": {
+    "message": "ダーク",
+    "description": "オプション：ダークテーマの選択。"
+  },
+  "optionsShortcutTitle": {
+    "message": "キーボードショートカット",
+    "description": "オプション：キーボードショートカットセクションのタイトル。"
+  },
+  "optionsShortcutDesc": {
+    "message": "任意のページで注釈を切り替えます。",
+    "description": "オプション：キーボードショートカットセクションの説明。"
+  },
+  "buttonChange": {
+    "message": "変更",
+    "description": "オプション：ショートカットを変更するボタン。"
+  },
+  "optionsAdvancedTitle": {
+    "message": "詳細設定",
+    "description": "オプション：詳細設定セクションのタイトル。"
+  },
+  "optionsSkipTitle": {
+    "message": "これらの要素をスキップ",
+    "description": "オプション：無視する要素設定の名前。"
+  },
+  "optionsSkipDesc": {
+    "message": "注釈時にスキップする HTML タグ。カンマ区切り、大文字。",
+    "description": "オプション：無視する要素設定の説明。"
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "オプション：無視する要素テキストエリアのプレースホルダー。"
+  },
+  "notificationSaved": {
+    "message": "保存しました",
+    "description": "オプション：保存通知。"
+  },
+  "optionsReportBug": {
+    "message": "問題を報告",
+    "description": "オプション：フッターのバグ報告リンク。"
+  },
+  "optionsFooterCopyright": {
+    "message": "ピンイン注釈ツール © $1",
+    "description": "オプション：フッターの著作権、$1 は年。"
+  },
+  "optionsPreviewTitle": {
+    "message": "プレビュー",
+    "description": "オプション：プレビューパネルのタイトル。"
+  },
+  "optionsPreviewWithTones": {
+    "message": "声調あり",
+    "description": "オプション：プレビューメタ、声調あり。"
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "声調なし",
+    "description": "オプション：プレビューメタ、声調なし。"
+  },
+  "optionsPreviewZhuyin": {
+    "message": "注音",
+    "description": "オプション：プレビューメタ、注音システム。"
+  },
+  "optionsPreviewRight": {
+    "message": "右",
+    "description": "オプション：プレビューメタ、右の配置。"
+  },
+  "optionsPreviewAbove": {
+    "message": "上",
+    "description": "オプション：プレビューメタ、上の配置。"
+  },
+  "optionsPreviewBelow": {
+    "message": "下",
+    "description": "オプション：プレビューメタ、下の配置。"
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "テキスト + 注釈",
+    "description": "オプション：プレビューメタ、テキストが注釈と一緒に拡大。"
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "注釈のみ",
+    "description": "オプション：プレビューメタ、注釈のみ拡大。"
+  },
+  "statusLabel": {
+    "message": "状態",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "about:addons → 歯車 → 拡張機能のショートカットを管理 を開いてください",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "モニターモードは、Netflix、Disney+、YouTube、Bilibili などの動画配信プラットフォームの CC（字幕）で動作します。",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "ページを読み込むたびにピンインを自動的に注釈します。",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "言語",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "拡張機能のインターフェース言語を選択します。",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "ブラウザの言語を使用",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

@@ -20,6 +20,7 @@ import {
   getScaledTextLineHeight,
   SCALE_TEXT_TOGETHER_DEFAULT
 } from "~lib/annotation-scale"
+import { t, useI18n } from "~lib/i18n"
 import { convertTextContentToHtml } from "~util"
 
 function getTextFromRange(range: Range): string {
@@ -113,6 +114,8 @@ const HighlightedTextDisplay = ({
   annotationScaleOverride,
   scaleTextTogetherOverride
 }: HighlightedTextDisplayProps) => {
+  useI18n()
+
   const [toneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
   const [pronunciationSystem] = useStorage<PronunciationSystem>(
     StorageKey.pronunciationSystem,
@@ -226,7 +229,7 @@ const HighlightedTextDisplay = ({
               : ""
           }
         `}</style>
-        <div className="divider">Selected Text</div>
+        <div className="divider">{t("selectedTextLabel")}</div>
         <span
           className="highlighted-text-preview"
           style={{

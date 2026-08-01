@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Eine Browser-Erweiterung, die Pinyin- oder Zhuyin-Annotationen über chinesische Zeichen in Webseiten und Video-Untertiteln legt.",
+    "description": "Beschreibung der Erweiterung."
+  },
+  "commandToggleDescription": {
+    "message": "Pinyin-Annotationen umschalten",
+    "description": "Beschreibung der Tastenkombination."
+  },
+  "contextMenuToggle": {
+    "message": "Annotationen umschalten",
+    "description": "Titel des Kontextmenüpunkts."
+  },
+  "statusAnnotated": {
+    "message": "Annotiert",
+    "description": "Popup-Status: Seite ist annotiert."
+  },
+  "statusNotAnnotated": {
+    "message": "Nicht annotiert",
+    "description": "Popup-Status: Seite ist nicht annotiert."
+  },
+  "statusRestrictedTitle": {
+    "message": "Auf dieser Seite nicht verfügbar",
+    "description": "Titel des Popup-Hinweises für eingeschränkte Seiten."
+  },
+  "statusRestrictedDesc": {
+    "message": "Browser-Erweiterungen können auf diesem Seitentyp nicht ausgeführt werden (z. B. interne Browserseiten, Erweiterungs-Store).",
+    "description": "Beschreibung des Popup-Hinweises für eingeschränkte Seiten."
+  },
+  "statusRefreshTitle": {
+    "message": "Seitenaktualisierung erforderlich",
+    "description": "Titel des Popup-Hinweises, wenn eine Aktualisierung erforderlich ist."
+  },
+  "statusRefreshDesc": {
+    "message": "Dieser Tab wurde geöffnet, bevor die Erweiterung installiert oder aktualisiert wurde. Bitte aktualisieren Sie die Seite, um sie zu aktivieren.",
+    "description": "Beschreibung des Popup-Hinweises, wenn eine Aktualisierung erforderlich ist."
+  },
+  "statusRefreshAction": {
+    "message": "Aktualisieren",
+    "description": "Schaltfläche zum Aktualisieren des aktuellen Tabs."
+  },
+  "annotationScaleTitle": {
+    "message": "Annotationsgröße",
+    "description": "Popup: Überschrift des Annotationsskalen-Reglers."
+  },
+  "annotationScaleTogether": {
+    "message": "Text und Annotation gemeinsam skalieren",
+    "description": "Popup: Modushinweis, wenn der Text mit der Annotation skaliert."
+  },
+  "annotationScaleOnly": {
+    "message": "Nur Annotation",
+    "description": "Popup: Modushinweis, wenn nur die Annotation skaliert."
+  },
+  "annotationScaleReset": {
+    "message": "Zurücksetzen",
+    "description": "Popup: Schaltfläche zum Zurücksetzen der Annotationsskala."
+  },
+  "scaleTextTogether": {
+    "message": "Text gemeinsam skalieren",
+    "description": "Popup: Kontrollkästchen zum Skalieren des Texts mit der Annotation."
+  },
+  "buttonOptions": {
+    "message": "Optionen",
+    "description": "Popup: Schaltfläche zum Öffnen der Optionsseite."
+  },
+  "buttonClear": {
+    "message": "Löschen",
+    "description": "Popup: Schaltfläche zum Löschen von Annotationen."
+  },
+  "buttonAnnotate": {
+    "message": "Annotieren",
+    "description": "Popup: Schaltfläche zum Annotieren."
+  },
+  "monitorModeTitle": {
+    "message": "Überwachungsmodus",
+    "description": "Popup: Bezeichnung der Option Überwachungsmodus."
+  },
+  "autoAnnotateTitle": {
+    "message": "Auto-Annotieren",
+    "description": "Popup: Bezeichnung der Option Auto-Annotieren."
+  },
+  "selectedTextLabel": {
+    "message": "Ausgewählter Text",
+    "description": "Popup: Trenner über der Vorschau des ausgewählten Texts."
+  },
+  "optionsAppearanceTitle": {
+    "message": "Darstellung",
+    "description": "Optionen: Titel des Abschnitts Darstellung."
+  },
+  "optionsWritingSystem": {
+    "message": "Schriftsystem",
+    "description": "Optionen: Name der Einstellung Schriftsystem."
+  },
+  "optionsWritingSystemDesc": {
+    "message": "Pinyin verwendet Buchstaben, die Sie tippen können. Zhuyin verwendet in Taiwan gebräuchliche Symbole.",
+    "description": "Optionen: Beschreibung der Einstellung Schriftsystem."
+  },
+  "optionPinyin": {
+    "message": "Pinyin",
+    "description": "Optionen: Auswahl des Schriftsystems Pinyin."
+  },
+  "optionZhuyin": {
+    "message": "Zhuyin",
+    "description": "Optionen: Auswahl des Schriftsystems Zhuyin."
+  },
+  "optionsToneMarks": {
+    "message": "Tonmarkierungen",
+    "description": "Optionen: Name der Einstellung Tonmarkierungen."
+  },
+  "optionsToneMarksDesc": {
+    "message": "Tonmarkierungen (ā á ǎ à) anzeigen statt ohne Töne.",
+    "description": "Optionen: Beschreibung der Einstellung Tonmarkierungen."
+  },
+  "optionsPlacement": {
+    "message": "Platzierung",
+    "description": "Optionen: Name der Einstellung zur Annotationsplatzierung."
+  },
+  "optionsPlacementDescRight": {
+    "message": "Rechte Seite (traditioneller Zhuyin-Stil).",
+    "description": "Optionen: Platzierungsbeschreibung bei Auswahl der rechten Seite."
+  },
+  "optionsPlacementDescOver": {
+    "message": "Über oder unter jedem Zeichen.",
+    "description": "Optionen: Platzierungsbeschreibung bei Auswahl über/unter."
+  },
+  "optionAbove": {
+    "message": "Über",
+    "description": "Optionen: Auswahl Platzierung über."
+  },
+  "optionBelow": {
+    "message": "Unter",
+    "description": "Optionen: Auswahl Platzierung unter."
+  },
+  "optionRight": {
+    "message": "Rechts",
+    "description": "Optionen: Auswahl Platzierung rechts."
+  },
+  "optionsBehaviorTitle": {
+    "message": "Verhalten",
+    "description": "Optionen: Titel des Abschnitts Verhalten."
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "Auto-Annotieren: auf jeder Seite",
+    "description": "Optionen: Name der Einstellung Auto-Annotieren."
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "Automatisch annotieren, sobald Sie eine neue Seite öffnen.",
+    "description": "Optionen: Beschreibung der Einstellung Auto-Annotieren."
+  },
+  "optionsMonitorTitle": {
+    "message": "Überwachungsmodus: Weiter annotieren, besonders bei Video-Untertiteln",
+    "description": "Optionen: Name der Einstellung Überwachungsmodus."
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix, Disney+, YouTube, Bilibili – CC-Untertitel werden live aktualisiert.",
+    "description": "Optionen: Beschreibung der Einstellung Überwachungsmodus."
+  },
+  "optionsWordLookup": {
+    "message": "Wortsuchen",
+    "description": "Optionen: Name der Einstellung Wortsuchen."
+  },
+  "optionsWordLookupDesc": {
+    "message": "Klicken Sie im Popup auf ein Wort, um ein Wörterbuch zu öffnen.",
+    "description": "Optionen: Beschreibung der Einstellung Wortsuchen."
+  },
+  "optionsWhichDict": {
+    "message": "Welches Wörterbuch",
+    "description": "Optionen: Bezeichnung der Wörterbuchauswahl."
+  },
+  "optionsUrlPattern": {
+    "message": "URL-Muster",
+    "description": "Optionen: Bezeichnung des URL-Musters für das benutzerdefinierte Wörterbuch."
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} wird durch den ausgewählten Text ersetzt.",
+    "description": "Optionen: Beschreibung des URL-Musters für das benutzerdefinierte Wörterbuch."
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "Optionen: Platzhalter des URL-Musters für das benutzerdefinierte Wörterbuch."
+  },
+  "optionsTheme": {
+    "message": "Design",
+    "description": "Optionen: Name der Einstellung Design."
+  },
+  "optionsThemeDesc": {
+    "message": "An Ihr System anpassen oder hell oder dunkel wählen.",
+    "description": "Optionen: Beschreibung der Einstellung Design."
+  },
+  "optionAuto": {
+    "message": "Automatisch",
+    "description": "Optionen: Auswahl Design automatisch."
+  },
+  "optionLight": {
+    "message": "Hell",
+    "description": "Optionen: Auswahl Design hell."
+  },
+  "optionDark": {
+    "message": "Dunkel",
+    "description": "Optionen: Auswahl Design dunkel."
+  },
+  "optionsShortcutTitle": {
+    "message": "Tastenkombination",
+    "description": "Optionen: Titel des Abschnitts Tastenkombination."
+  },
+  "optionsShortcutDesc": {
+    "message": "um Annotationen auf jeder Seite umzuschalten.",
+    "description": "Optionen: Beschreibung des Abschnitts Tastenkombination."
+  },
+  "buttonChange": {
+    "message": "Ändern",
+    "description": "Optionen: Schaltfläche zum Ändern der Tastenkombination."
+  },
+  "optionsAdvancedTitle": {
+    "message": "Erweitert",
+    "description": "Optionen: Titel des Abschnitts Erweitert."
+  },
+  "optionsSkipTitle": {
+    "message": "Diese Elemente überspringen",
+    "description": "Optionen: Name der Einstellung für ignorierte Elemente."
+  },
+  "optionsSkipDesc": {
+    "message": "HTML-Tags, die beim Annotieren übersprungen werden sollen. Mit Kommas getrennt, in Großbuchstaben.",
+    "description": "Optionen: Beschreibung der Einstellung für ignorierte Elemente."
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "Optionen: Platzhalter des Textbereichs für ignorierte Elemente."
+  },
+  "notificationSaved": {
+    "message": "Gespeichert",
+    "description": "Optionen: Speichern-Benachrichtigung."
+  },
+  "optionsReportBug": {
+    "message": "Problem melden",
+    "description": "Optionen: Link zum Melden eines Problems in der Fußzeile."
+  },
+  "optionsFooterCopyright": {
+    "message": "Pinyin-Annotator © $1",
+    "description": "Optionen: Urheberrecht in der Fußzeile, $1 ist das Jahr."
+  },
+  "optionsPreviewTitle": {
+    "message": "Vorschau",
+    "description": "Optionen: Titel des Vorschaufensters."
+  },
+  "optionsPreviewWithTones": {
+    "message": "mit Tönen",
+    "description": "Optionen: Vorschaumetadaten, Töne aktiviert."
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "ohne Töne",
+    "description": "Optionen: Vorschaumetadaten, Töne deaktiviert."
+  },
+  "optionsPreviewZhuyin": {
+    "message": "Zhuyin",
+    "description": "Optionen: Vorschaumetadaten, Zhuyin-System."
+  },
+  "optionsPreviewRight": {
+    "message": "rechts",
+    "description": "Optionen: Vorschaumetadaten, Platzierung rechts."
+  },
+  "optionsPreviewAbove": {
+    "message": "oben",
+    "description": "Optionen: Vorschaumetadaten, Platzierung oben."
+  },
+  "optionsPreviewBelow": {
+    "message": "unten",
+    "description": "Optionen: Vorschaumetadaten, Platzierung unten."
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "Text + Annotation",
+    "description": "Optionen: Vorschaumetadaten, Text wird mit Annotation skaliert."
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "nur Annotation",
+    "description": "Optionen: Vorschaumetadaten, nur Annotation wird skaliert."
+  },
+  "statusLabel": {
+    "message": "Status",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "Öffnen Sie about:addons → Zahnrad → Erweiterungsverknüpfungen verwalten",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "Der Überwachungsmodus funktioniert mit CC-Untertiteln auf Video-Streaming-Plattformen wie Netflix, Disney+, YouTube und Bilibili.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "Bei jedem Seitenaufruf automatisch Pinyin annotieren.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "Sprache",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "Wählen Sie die Sprache der Erweiterungsoberfläche.",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "Sprache des Browsers verwenden",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator | 병음 주석 도구",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "웹 페이지와 동영상 자막의 한자 위에 병음 또는 주음 주석을 표시하는 브라우저 확장 프로그램입니다.",
+    "description": "확장 프로그램 설명."
+  },
+  "commandToggleDescription": {
+    "message": "병음 주석 토글",
+    "description": "키보드 명령 설명."
+  },
+  "contextMenuToggle": {
+    "message": "주석 토글",
+    "description": "컨텍스트 메뉴 항목 제목."
+  },
+  "statusAnnotated": {
+    "message": "주석됨",
+    "description": "팝업 상태: 주석이 달린 페이지."
+  },
+  "statusNotAnnotated": {
+    "message": "주석 안 됨",
+    "description": "팝업 상태: 주석이 없는 페이지."
+  },
+  "statusRestrictedTitle": {
+    "message": "이 페이지에서는 사용할 수 없음",
+    "description": "제한된 페이지의 팝업 경고 제목."
+  },
+  "statusRestrictedDesc": {
+    "message": "브라우저 확장 프로그램은 이 유형의 페이지(예: 브라우저 내부 페이지, 확장 프로그램 스토어)에서 실행할 수 없습니다.",
+    "description": "제한된 페이지의 팝업 경고 설명."
+  },
+  "statusRefreshTitle": {
+    "message": "페이지 새로고침 필요",
+    "description": "새로고침이 필요할 때의 팝업 경고 제목."
+  },
+  "statusRefreshDesc": {
+    "message": "이 탭은 확장 프로그램을 설치하거나 업데이트하기 전에 열렸습니다. 페이지를 새로고침하여 활성화하세요.",
+    "description": "새로고침이 필요할 때의 팝업 경고 설명."
+  },
+  "statusRefreshAction": {
+    "message": "새로고침",
+    "description": "현재 탭을 새로고침하는 버튼."
+  },
+  "annotationScaleTitle": {
+    "message": "주석 크기",
+    "description": "팝업: 주석 배율 컨트롤 제목."
+  },
+  "annotationScaleTogether": {
+    "message": "텍스트와 주석을 함께 확대",
+    "description": "팝업: 텍스트가 주석과 함께 확대되는 모드 힌트."
+  },
+  "annotationScaleOnly": {
+    "message": "주석만",
+    "description": "팝업: 주석만 확대되는 모드 힌트."
+  },
+  "annotationScaleReset": {
+    "message": "재설정",
+    "description": "팝업: 주석 배율을 재설정하는 버튼."
+  },
+  "scaleTextTogether": {
+    "message": "텍스트도 함께 확대",
+    "description": "팝업: 텍스트를 주석과 함께 확대하는 체크박스 레이블."
+  },
+  "buttonOptions": {
+    "message": "옵션",
+    "description": "팝업: 옵션 페이지를 여는 버튼."
+  },
+  "buttonClear": {
+    "message": "지우기",
+    "description": "팝업: 주석을 지우는 버튼."
+  },
+  "buttonAnnotate": {
+    "message": "주석",
+    "description": "팝업: 주석 버튼."
+  },
+  "monitorModeTitle": {
+    "message": "모니터 모드",
+    "description": "팝업: 모니터 모드 옵션 레이블."
+  },
+  "autoAnnotateTitle": {
+    "message": "자동 주석",
+    "description": "팝업: 자동 주석 옵션 레이블."
+  },
+  "selectedTextLabel": {
+    "message": "선택한 텍스트",
+    "description": "팝업: 선택한 텍스트 미리보기 위의 구분 레이블."
+  },
+  "optionsAppearanceTitle": {
+    "message": "모양",
+    "description": "옵션: 모양 섹션 제목."
+  },
+  "optionsWritingSystem": {
+    "message": "문자 체계",
+    "description": "옵션: 문자 체계 설정 이름."
+  },
+  "optionsWritingSystemDesc": {
+    "message": "병음은 입력 가능한 알파벳을 사용합니다. 주음은 대만에서 사용하는 기호를 사용합니다.",
+    "description": "옵션: 문자 체계 설정 설명."
+  },
+  "optionPinyin": {
+    "message": "병음",
+    "description": "옵션: 병음 문자 체계 선택."
+  },
+  "optionZhuyin": {
+    "message": "주음",
+    "description": "옵션: 주음 문자 체계 선택."
+  },
+  "optionsToneMarks": {
+    "message": "성조 기호",
+    "description": "옵션: 성조 기호 설정 이름."
+  },
+  "optionsToneMarksDesc": {
+    "message": "성조 없는 대신 성조 기호(ā á ǎ à)를 표시합니다.",
+    "description": "옵션: 성조 기호 설정 설명."
+  },
+  "optionsPlacement": {
+    "message": "위치",
+    "description": "옵션: 주석 위치 설정 이름."
+  },
+  "optionsPlacementDescRight": {
+    "message": "오른쪽(전통 주음 스타일).",
+    "description": "옵션: 오른쪽을 선택한 경우의 위치 설명."
+  },
+  "optionsPlacementDescOver": {
+    "message": "각 문자의 위 또는 아래.",
+    "description": "옵션: 위/아래를 선택한 경우의 위치 설명."
+  },
+  "optionAbove": {
+    "message": "위",
+    "description": "옵션: 위 위치 선택."
+  },
+  "optionBelow": {
+    "message": "아래",
+    "description": "옵션: 아래 위치 선택."
+  },
+  "optionRight": {
+    "message": "오른쪽",
+    "description": "옵션: 오른쪽 위치 선택."
+  },
+  "optionsBehaviorTitle": {
+    "message": "동작",
+    "description": "옵션: 동작 섹션 제목."
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "자동 주석: 모든 페이지에서",
+    "description": "옵션: 자동 주석 설정 이름."
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "새 페이지를 열 때마다 자동으로 주석을 답니다.",
+    "description": "옵션: 자동 주석 설정 설명."
+  },
+  "optionsMonitorTitle": {
+    "message": "모니터 모드: 특히 동영상 자막에서 계속 주석 달기",
+    "description": "옵션: 모니터 모드 설정 이름."
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix, Disney+, YouTube, Bilibili — CC 자막이 실시간으로 업데이트됩니다.",
+    "description": "옵션: 모니터 모드 설정 설명."
+  },
+  "optionsWordLookup": {
+    "message": "단어 검색",
+    "description": "옵션: 단어 검색 설정 이름."
+  },
+  "optionsWordLookupDesc": {
+    "message": "팝업에서 단어를 클릭하면 사전이 열립니다.",
+    "description": "옵션: 단어 검색 설정 설명."
+  },
+  "optionsWhichDict": {
+    "message": "사용할 사전",
+    "description": "옵션: 사전 선택기 레이블."
+  },
+  "optionsUrlPattern": {
+    "message": "URL 패턴",
+    "description": "옵션: 맞춤 사전 URL 패턴 레이블."
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word}는 선택한 텍스트로 대체됩니다.",
+    "description": "옵션: 맞춤 사전 URL 패턴 설명."
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "옵션: 맞춤 사전 URL 패턴 자리 표시자."
+  },
+  "optionsTheme": {
+    "message": "테마",
+    "description": "옵션: 테마 설정 이름."
+  },
+  "optionsThemeDesc": {
+    "message": "시스템에 맞추거나 밝게 또는 어둡게 선택하세요.",
+    "description": "옵션: 테마 설정 설명."
+  },
+  "optionAuto": {
+    "message": "자동",
+    "description": "옵션: 자동 테마 선택."
+  },
+  "optionLight": {
+    "message": "밝게",
+    "description": "옵션: 밝은 테마 선택."
+  },
+  "optionDark": {
+    "message": "어둡게",
+    "description": "옵션: 어두운 테마 선택."
+  },
+  "optionsShortcutTitle": {
+    "message": "키보드 단축키",
+    "description": "옵션: 키보드 단축키 섹션 제목."
+  },
+  "optionsShortcutDesc": {
+    "message": "모든 페이지에서 주석을 전환합니다.",
+    "description": "옵션: 키보드 단축키 섹션 설명."
+  },
+  "buttonChange": {
+    "message": "변경",
+    "description": "옵션: 단축키 변경 버튼."
+  },
+  "optionsAdvancedTitle": {
+    "message": "고급",
+    "description": "옵션: 고급 섹션 제목."
+  },
+  "optionsSkipTitle": {
+    "message": "이 요소 건너뛰기",
+    "description": "옵션: 무시할 요소 설정 이름."
+  },
+  "optionsSkipDesc": {
+    "message": "주석을 달 때 건너뛸 HTML 태그입니다. 쉼표로 구분하고 대문자로 입력하세요.",
+    "description": "옵션: 무시할 요소 설정 설명."
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "옵션: 무시할 요소 텍스트 영역 자리 표시자."
+  },
+  "notificationSaved": {
+    "message": "저장됨",
+    "description": "옵션: 저장 알림."
+  },
+  "optionsReportBug": {
+    "message": "버그 신고",
+    "description": "옵션: 바닥글 버그 신고 링크."
+  },
+  "optionsFooterCopyright": {
+    "message": "병음 주석 도구 © $1",
+    "description": "옵션: 바닥글 저작권, $1은 연도."
+  },
+  "optionsPreviewTitle": {
+    "message": "미리보기",
+    "description": "옵션: 미리보기 패널 제목."
+  },
+  "optionsPreviewWithTones": {
+    "message": "성조 포함",
+    "description": "옵션: 미리보기 메타, 성조 켜짐."
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "성조 없음",
+    "description": "옵션: 미리보기 메타, 성조 꺼짐."
+  },
+  "optionsPreviewZhuyin": {
+    "message": "주음",
+    "description": "옵션: 미리보기 메타, 주음 시스템."
+  },
+  "optionsPreviewRight": {
+    "message": "오른쪽",
+    "description": "옵션: 미리보기 메타, 오른쪽 위치."
+  },
+  "optionsPreviewAbove": {
+    "message": "위",
+    "description": "옵션: 미리보기 메타, 위 위치."
+  },
+  "optionsPreviewBelow": {
+    "message": "아래",
+    "description": "옵션: 미리보기 메타, 아래 위치."
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "텍스트 + 주석",
+    "description": "옵션: 미리보기 메타, 텍스트가 주석과 함께 확대."
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "주석만",
+    "description": "옵션: 미리보기 메타, 주석만 확대."
+  },
+  "statusLabel": {
+    "message": "상태",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "about:addons → 톱니바퀴 → 확장 프로그램 단축키 관리 열기",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "모니터 모드는 Netflix, Disney+, YouTube, Bilibili 등 동영상 스트리밍 플랫폼의 CC(자막)에서 작동합니다.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "페이지를 로드할 때마다 병음을 자동으로 주석 처리합니다.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "언어",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "확장 프로그램 인터페이스 언어를 선택하세요.",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "브라우저 언어 사용",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

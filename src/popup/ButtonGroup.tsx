@@ -1,6 +1,7 @@
 import React, { useCallback } from "react"
 
 import { UserAction } from "~constants"
+import { t, useI18n } from "~lib/i18n"
 
 interface ButtonGroupProps {
   isAnnotated: boolean
@@ -13,6 +14,8 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
   communicateWithContentScript,
   disabled = false
 }) => {
+  useI18n()
+
   const performAnnotation = useCallback(
     () => communicateWithContentScript(UserAction.Annotate),
     [communicateWithContentScript]
@@ -49,19 +52,19 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
   return (
     <div className="flex gap-md justify-end">
       <button className="btn btn-text" onClick={openOptionsPage}>
-        Options
+        {t("buttonOptions")}
       </button>
       <button
         className="btn btn-outlined"
         onClick={removeAnnotations}
         disabled={disabled || !isAnnotated}>
-        Clear
+        {t("buttonClear")}
       </button>
       <button
         className="btn btn-primary"
         onClick={performAnnotation}
         disabled={disabled}>
-        Annotate
+        {t("buttonAnnotate")}
       </button>
     </div>
   )

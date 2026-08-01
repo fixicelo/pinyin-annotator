@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator | 拼音标注工具",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "一款浏览器扩展，在网页与视频字幕中的汉字上叠加拼音或注音标注。",
+    "description": "扩展描述。"
+  },
+  "commandToggleDescription": {
+    "message": "切换拼音标注",
+    "description": "键盘命令描述。"
+  },
+  "contextMenuToggle": {
+    "message": "切换标注",
+    "description": "右键菜单项标题。"
+  },
+  "statusAnnotated": {
+    "message": "已标注",
+    "description": "弹窗状态：页面已标注。"
+  },
+  "statusNotAnnotated": {
+    "message": "未标注",
+    "description": "弹窗状态：页面未标注。"
+  },
+  "statusRestrictedTitle": {
+    "message": "此页面不可用",
+    "description": "受限页面的弹窗警告标题。"
+  },
+  "statusRestrictedDesc": {
+    "message": "浏览器扩展无法在此类页面上运行（例如浏览器内部页面、扩展商店）。",
+    "description": "受限页面的弹窗警告描述。"
+  },
+  "statusRefreshTitle": {
+    "message": "需要刷新页面",
+    "description": "需要刷新时的弹窗警告标题。"
+  },
+  "statusRefreshDesc": {
+    "message": "此标签页是在扩展安装或更新之前打开的。请刷新页面以启用。",
+    "description": "需要刷新时的弹窗警告描述。"
+  },
+  "statusRefreshAction": {
+    "message": "刷新",
+    "description": "刷新当前标签页的按钮。"
+  },
+  "annotationScaleTitle": {
+    "message": "标注大小",
+    "description": "弹窗：标注缩放控件标题。"
+  },
+  "annotationScaleTogether": {
+    "message": "文字与标注一同缩放",
+    "description": "弹窗：文字随标注缩放时的模式提示。"
+  },
+  "annotationScaleOnly": {
+    "message": "仅标注",
+    "description": "弹窗：仅标注缩放时的模式提示。"
+  },
+  "annotationScaleReset": {
+    "message": "重置",
+    "description": "弹窗：重置标注缩放的按钮。"
+  },
+  "scaleTextTogether": {
+    "message": "文字一同缩放",
+    "description": "弹窗：将文字随标注一同缩放的复选框标签。"
+  },
+  "buttonOptions": {
+    "message": "选项",
+    "description": "弹窗：打开选项页面的按钮。"
+  },
+  "buttonClear": {
+    "message": "清除",
+    "description": "弹窗：清除标注按钮。"
+  },
+  "buttonAnnotate": {
+    "message": "标注",
+    "description": "弹窗：标注按钮。"
+  },
+  "monitorModeTitle": {
+    "message": "监控模式",
+    "description": "弹窗：监控模式选项标签。"
+  },
+  "autoAnnotateTitle": {
+    "message": "自动标注",
+    "description": "弹窗：自动标注选项标签。"
+  },
+  "selectedTextLabel": {
+    "message": "选中的文本",
+    "description": "弹窗：选中文本预览上方的分隔标签。"
+  },
+  "optionsAppearanceTitle": {
+    "message": "外观",
+    "description": "选项：外观区域标题。"
+  },
+  "optionsWritingSystem": {
+    "message": "书写系统",
+    "description": "选项：书写系统设置名称。"
+  },
+  "optionsWritingSystemDesc": {
+    "message": "拼音使用你可输入的字母，注音使用台湾使用的符号。",
+    "description": "选项：书写系统设置描述。"
+  },
+  "optionPinyin": {
+    "message": "拼音",
+    "description": "选项：拼音书写系统选项。"
+  },
+  "optionZhuyin": {
+    "message": "注音",
+    "description": "选项：注音书写系统选项。"
+  },
+  "optionsToneMarks": {
+    "message": "声调标记",
+    "description": "选项：声调标记设置名称。"
+  },
+  "optionsToneMarksDesc": {
+    "message": "显示声调标记（ā á ǎ à）而不是无声调。",
+    "description": "选项：声调标记设置描述。"
+  },
+  "optionsPlacement": {
+    "message": "位置",
+    "description": "选项：标注位置设置名称。"
+  },
+  "optionsPlacementDescRight": {
+    "message": "右侧（传统注音样式）。",
+    "description": "选项：选择右侧时的位置描述。"
+  },
+  "optionsPlacementDescOver": {
+    "message": "每个字的上方或下方。",
+    "description": "选项：选择上/下方时的位置描述。"
+  },
+  "optionAbove": {
+    "message": "上方",
+    "description": "选项：上方位置选项。"
+  },
+  "optionBelow": {
+    "message": "下方",
+    "description": "选项：下方位置选项。"
+  },
+  "optionRight": {
+    "message": "右侧",
+    "description": "选项：右侧位置选项。"
+  },
+  "optionsBehaviorTitle": {
+    "message": "行为",
+    "description": "选项：行为区域标题。"
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "自动标注：每个页面",
+    "description": "选项：自动标注设置名称。"
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "每次打开新页面时自动标注。",
+    "description": "选项：自动标注设置描述。"
+  },
+  "optionsMonitorTitle": {
+    "message": "监控模式：持续标注，尤其是视频字幕",
+    "description": "选项：监控模式设置名称。"
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix、Disney+、YouTube、Bilibili——CC 字幕实时更新。",
+    "description": "选项：监控模式设置描述。"
+  },
+  "optionsWordLookup": {
+    "message": "查词",
+    "description": "选项：查词设置名称。"
+  },
+  "optionsWordLookupDesc": {
+    "message": "在弹出窗口中点击某个词以打开词典。",
+    "description": "选项：查词设置描述。"
+  },
+  "optionsWhichDict": {
+    "message": "选择词典",
+    "description": "选项：词典选择器标签。"
+  },
+  "optionsUrlPattern": {
+    "message": "URL 模板",
+    "description": "选项：自定义词典 URL 模板标签。"
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} 会被替换为所选文字。",
+    "description": "选项：自定义词典 URL 模板描述。"
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "选项：自定义词典 URL 模板占位符。"
+  },
+  "optionsTheme": {
+    "message": "主题",
+    "description": "选项：主题设置名称。"
+  },
+  "optionsThemeDesc": {
+    "message": "匹配你的系统，或选择浅色或深色。",
+    "description": "选项：主题设置描述。"
+  },
+  "optionAuto": {
+    "message": "自动",
+    "description": "选项：自动主题选项。"
+  },
+  "optionLight": {
+    "message": "浅色",
+    "description": "选项：浅色主题选项。"
+  },
+  "optionDark": {
+    "message": "深色",
+    "description": "选项：深色主题选项。"
+  },
+  "optionsShortcutTitle": {
+    "message": "键盘快捷键",
+    "description": "选项：键盘快捷键区域标题。"
+  },
+  "optionsShortcutDesc": {
+    "message": "在任何页面切换标注。",
+    "description": "选项：键盘快捷键区域描述。"
+  },
+  "buttonChange": {
+    "message": "更改",
+    "description": "选项：更改快捷键按钮。"
+  },
+  "optionsAdvancedTitle": {
+    "message": "高级",
+    "description": "选项：高级区域标题。"
+  },
+  "optionsSkipTitle": {
+    "message": "跳过这些元素",
+    "description": "选项：忽略元素设置名称。"
+  },
+  "optionsSkipDesc": {
+    "message": "标注时要跳过的 HTML 标签。以逗号分隔，大写。",
+    "description": "选项：忽略元素设置描述。"
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "选项：忽略元素文本框占位符。"
+  },
+  "notificationSaved": {
+    "message": "已保存",
+    "description": "选项：保存通知。"
+  },
+  "optionsReportBug": {
+    "message": "报告问题",
+    "description": "选项：页脚报告问题链接。"
+  },
+  "optionsFooterCopyright": {
+    "message": "拼音标注工具 © $1",
+    "description": "选项：页脚版权，$1 为年份。"
+  },
+  "optionsPreviewTitle": {
+    "message": "预览",
+    "description": "选项：预览面板标题。"
+  },
+  "optionsPreviewWithTones": {
+    "message": "带声调",
+    "description": "选项：预览元信息，已启用声调。"
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "无声调",
+    "description": "选项：预览元信息，未启用声调。"
+  },
+  "optionsPreviewZhuyin": {
+    "message": "注音",
+    "description": "选项：预览元信息，注音系统。"
+  },
+  "optionsPreviewRight": {
+    "message": "右侧",
+    "description": "选项：预览元信息，右侧位置。"
+  },
+  "optionsPreviewAbove": {
+    "message": "上方",
+    "description": "选项：预览元信息，上方位置。"
+  },
+  "optionsPreviewBelow": {
+    "message": "下方",
+    "description": "选项：预览元信息，下方位置。"
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "文字 + 标注",
+    "description": "选项：预览元信息，文字随标注缩放。"
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "仅标注",
+    "description": "选项：预览元信息，仅标注缩放。"
+  },
+  "statusLabel": {
+    "message": "状态",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "打开 about:addons → 齿轮 → 管理扩展快捷键",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "监控模式适用于 Netflix、Disney+、YouTube、Bilibili 等视频平台上的 CC（字幕）。",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "每次加载页面时自动标注拼音。",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "语言",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "选择扩展界面的显示语言。",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "使用浏览器语言",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

@@ -1,7 +1,10 @@
 import { addDict } from "pinyin-pro"
 import ModernDictPath from "raw:@pinyin-pro/data/json/modern.json"
 
-import { RESTRICTED_URL_PATTERNS, UserAction } from "~constants"
+import { RESTRICTED_URL_PATTERNS, StorageKey, UserAction } from "~constants"
+import { applyLanguage, t } from "~lib/i18n"
+
+const CONTEXT_MENU_ID = "toggle-annotation-context-menu"
 
 function isRestrictedUrl(url: string): boolean {
   if (!url) return true
@@ -19,6 +22,36 @@ async function sendToggleToTab(tabId: number, tabUrl?: string) {
   }
 }
 
+function deserializeLanguage(raw: unknown): string {
+  if (typeof raw !== "string") return ""
+  try {
+    const parsed = JSON.parse(raw)
+    return typeof parsed === "string" ? parsed : ""
+  } catch {
+    return ""
+  }
+}
+
+function readUILanguage(): Promise<string> {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(StorageKey.uiLanguage, (result) => {
+      resolve(deserializeLanguage(result[StorageKey.uiLanguage]))
+    })
+  })
+}
+
+function updateContextMenuTitle() {
+  chrome.contextMenus?.update?.(CONTEXT_MENU_ID, {
+    title: t("contextMenuToggle")
+  })
+}
+
+async function syncUILanguage(lang?: string) {
+  const resolved = lang ?? (await readUILanguage())
+  await applyLanguage(resolved)
+  updateContextMenuTitle()
+}
+
 chrome.commands?.onCommand?.addListener((command) => {
   if (command === "toggle-annotation") {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -30,19 +63,29 @@ chrome.commands?.onCommand?.addListener((command) => {
   }
 })
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(async () => {
+  const lang = await readUILanguage()
+  await applyLanguage(lang)
   chrome.contextMenus?.create({
-    id: "toggle-annotation-context-menu",
-    title: "Toggle Annotation",
+    id: CONTEXT_MENU_ID,
+    title: t("contextMenuToggle"),
     contexts: ["all"]
   })
 })
 
 chrome.contextMenus?.onClicked?.addListener((info, tab) => {
-  if (info.menuItemId === "toggle-annotation-context-menu") {
+  if (info.menuItemId === CONTEXT_MENU_ID) {
     sendToggleToTab(tab.id, tab.url)
   }
 })
+
+chrome.storage.onChanged?.addListener((changes, area) => {
+  if (area === "sync" && changes[StorageKey.uiLanguage]) {
+    syncUILanguage(deserializeLanguage(changes[StorageKey.uiLanguage].newValue))
+  }
+})
+
+syncUILanguage()
 
 fetch(ModernDictPath)
   .then((response) => response.json())

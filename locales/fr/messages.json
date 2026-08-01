@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator | Annotateur Pinyin",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Extension qui superpose des annotations pinyin ou zhuyin sur les caractères chinois des pages web et sous-titres vidéo.",
+    "description": "Description de l'extension."
+  },
+  "commandToggleDescription": {
+    "message": "Activer/désactiver les annotations en pinyin",
+    "description": "Description de la commande clavier."
+  },
+  "contextMenuToggle": {
+    "message": "Activer/désactiver les annotations",
+    "description": "Titre de l'élément du menu contextuel."
+  },
+  "statusAnnotated": {
+    "message": "Annoté",
+    "description": "État de la fenêtre contextuelle : page annotée."
+  },
+  "statusNotAnnotated": {
+    "message": "Non annoté",
+    "description": "État de la fenêtre contextuelle : page non annotée."
+  },
+  "statusRestrictedTitle": {
+    "message": "Indisponible sur cette page",
+    "description": "Titre de l'alerte de la fenêtre contextuelle pour les pages restreintes."
+  },
+  "statusRestrictedDesc": {
+    "message": "Les extensions du navigateur ne peuvent pas s'exécuter sur ce type de page (par exemple, les pages internes du navigateur, les boutiques d'extensions).",
+    "description": "Description de l'alerte de la fenêtre contextuelle pour les pages restreintes."
+  },
+  "statusRefreshTitle": {
+    "message": "Actualisation de la page requise",
+    "description": "Titre de l'alerte de la fenêtre contextuelle lorsqu'une actualisation est nécessaire."
+  },
+  "statusRefreshDesc": {
+    "message": "Cet onglet a été ouvert avant l'installation ou la mise à jour de l'extension. Veuillez actualiser la page pour l'activer.",
+    "description": "Description de l'alerte de la fenêtre contextuelle lorsqu'une actualisation est nécessaire."
+  },
+  "statusRefreshAction": {
+    "message": "Actualiser",
+    "description": "Bouton pour actualiser l'onglet actuel."
+  },
+  "annotationScaleTitle": {
+    "message": "Taille de l'annotation",
+    "description": "Fenêtre contextuelle : titre du contrôle d'échelle des annotations."
+  },
+  "annotationScaleTogether": {
+    "message": "Mettre à l'échelle texte et annotation ensemble",
+    "description": "Fenêtre contextuelle : indication du mode lorsque le texte est mis à l'échelle avec l'annotation."
+  },
+  "annotationScaleOnly": {
+    "message": "Annotation uniquement",
+    "description": "Fenêtre contextuelle : indication du mode lorsque seule l'annotation est mise à l'échelle."
+  },
+  "annotationScaleReset": {
+    "message": "Réinitialiser",
+    "description": "Fenêtre contextuelle : bouton pour réinitialiser l'échelle des annotations."
+  },
+  "scaleTextTogether": {
+    "message": "Mettre le texte à l'échelle ensemble",
+    "description": "Fenêtre contextuelle : étiquette de la case pour mettre le texte à l'échelle avec l'annotation."
+  },
+  "buttonOptions": {
+    "message": "Options",
+    "description": "Fenêtre contextuelle : bouton pour ouvrir la page des options."
+  },
+  "buttonClear": {
+    "message": "Effacer",
+    "description": "Fenêtre contextuelle : bouton pour effacer les annotations."
+  },
+  "buttonAnnotate": {
+    "message": "Annoter",
+    "description": "Fenêtre contextuelle : bouton pour annoter."
+  },
+  "monitorModeTitle": {
+    "message": "Mode surveillance",
+    "description": "Fenêtre contextuelle : étiquette de l'option de mode surveillance."
+  },
+  "autoAnnotateTitle": {
+    "message": "Auto-annotation",
+    "description": "Fenêtre contextuelle : étiquette de l'option d'auto-annotation."
+  },
+  "selectedTextLabel": {
+    "message": "Texte sélectionné",
+    "description": "Fenêtre contextuelle : étiquette du séparateur au-dessus de l'aperçu du texte sélectionné."
+  },
+  "optionsAppearanceTitle": {
+    "message": "Apparence",
+    "description": "Options : titre de la section d'apparence."
+  },
+  "optionsWritingSystem": {
+    "message": "Système d'écriture",
+    "description": "Options : nom du réglage du système d'écriture."
+  },
+  "optionsWritingSystemDesc": {
+    "message": "Le pinyin utilise des lettres que vous pouvez saisir. Le zhuyin utilise des symboles utilisés à Taïwan.",
+    "description": "Options : description du réglage du système d'écriture."
+  },
+  "optionPinyin": {
+    "message": "Pinyin",
+    "description": "Options : choix du système d'écriture pinyin."
+  },
+  "optionZhuyin": {
+    "message": "Zhuyin",
+    "description": "Options : choix du système d'écriture zhuyin."
+  },
+  "optionsToneMarks": {
+    "message": "Marques de ton",
+    "description": "Options : nom du réglage des marques de ton."
+  },
+  "optionsToneMarksDesc": {
+    "message": "Afficher les marques de ton (ā á ǎ à) au lieu de l'absence de tons.",
+    "description": "Options : description du réglage des marques de ton."
+  },
+  "optionsPlacement": {
+    "message": "Emplacement",
+    "description": "Options : nom du réglage de l'emplacement des annotations."
+  },
+  "optionsPlacementDescRight": {
+    "message": "Côté droit (style zhuyin traditionnel).",
+    "description": "Options : description de l'emplacement lorsque le côté droit est sélectionné."
+  },
+  "optionsPlacementDescOver": {
+    "message": "Au-dessus ou au-dessous de chaque caractère.",
+    "description": "Options : description de l'emplacement lorsque dessus/dessous est sélectionné."
+  },
+  "optionAbove": {
+    "message": "Au-dessus",
+    "description": "Options : choix d'emplacement au-dessus."
+  },
+  "optionBelow": {
+    "message": "Au-dessous",
+    "description": "Options : choix d'emplacement au-dessous."
+  },
+  "optionRight": {
+    "message": "À droite",
+    "description": "Options : choix d'emplacement à droite."
+  },
+  "optionsBehaviorTitle": {
+    "message": "Comportement",
+    "description": "Options : titre de la section de comportement."
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "Auto-annotation : sur toutes les pages",
+    "description": "Options : nom du réglage d'auto-annotation."
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "Annotez automatiquement chaque fois que vous ouvrez une nouvelle page.",
+    "description": "Options : description du réglage d'auto-annotation."
+  },
+  "optionsMonitorTitle": {
+    "message": "Mode surveillance : continuer à annoter, surtout sur les sous-titres vidéo",
+    "description": "Options : nom du réglage du mode surveillance."
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix, Disney+, YouTube, Bilibili — les sous-titres CC se mettent à jour en direct.",
+    "description": "Options : description du réglage du mode surveillance."
+  },
+  "optionsWordLookup": {
+    "message": "Recherche de mots",
+    "description": "Options : nom du réglage de recherche de mots."
+  },
+  "optionsWordLookupDesc": {
+    "message": "Cliquez sur un mot dans la fenêtre contextuelle pour ouvrir un dictionnaire.",
+    "description": "Options : description du réglage de recherche de mots."
+  },
+  "optionsWhichDict": {
+    "message": "Quel dictionnaire",
+    "description": "Options : étiquette du sélecteur de dictionnaire."
+  },
+  "optionsUrlPattern": {
+    "message": "Modèle d'URL",
+    "description": "Options : étiquette du modèle d'URL du dictionnaire personnalisé."
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} sera remplacé par le texte sélectionné.",
+    "description": "Options : description du modèle d'URL du dictionnaire personnalisé."
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "Options : texte indicatif du modèle d'URL du dictionnaire personnalisé."
+  },
+  "optionsTheme": {
+    "message": "Thème",
+    "description": "Options : nom du réglage du thème."
+  },
+  "optionsThemeDesc": {
+    "message": "Correspondre à votre système, ou choisir clair ou sombre.",
+    "description": "Options : description du réglage du thème."
+  },
+  "optionAuto": {
+    "message": "Automatique",
+    "description": "Options : choix de thème automatique."
+  },
+  "optionLight": {
+    "message": "Clair",
+    "description": "Options : choix de thème clair."
+  },
+  "optionDark": {
+    "message": "Sombre",
+    "description": "Options : choix de thème sombre."
+  },
+  "optionsShortcutTitle": {
+    "message": "Raccourci clavier",
+    "description": "Options : titre de la section des raccourcis clavier."
+  },
+  "optionsShortcutDesc": {
+    "message": "pour activer/désactiver les annotations sur n'importe quelle page.",
+    "description": "Options : description de la section des raccourcis clavier."
+  },
+  "buttonChange": {
+    "message": "Modifier",
+    "description": "Options : bouton pour modifier le raccourci."
+  },
+  "optionsAdvancedTitle": {
+    "message": "Avancé",
+    "description": "Options : titre de la section avancée."
+  },
+  "optionsSkipTitle": {
+    "message": "Ignorer ces éléments",
+    "description": "Options : nom du réglage des éléments ignorés."
+  },
+  "optionsSkipDesc": {
+    "message": "Balises HTML à ignorer lors de l'annotation. Séparées par des virgules, en majuscules.",
+    "description": "Options : description du réglage des éléments ignorés."
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "Options : texte indicatif de la zone de texte des éléments ignorés."
+  },
+  "notificationSaved": {
+    "message": "Enregistré",
+    "description": "Options : notification d'enregistrement."
+  },
+  "optionsReportBug": {
+    "message": "Signaler un problème",
+    "description": "Options : lien de signalement de bug dans le pied de page."
+  },
+  "optionsFooterCopyright": {
+    "message": "Annotateur Pinyin © $1",
+    "description": "Options : copyright du pied de page, $1 est l'année."
+  },
+  "optionsPreviewTitle": {
+    "message": "Aperçu",
+    "description": "Options : titre du panneau d'aperçu."
+  },
+  "optionsPreviewWithTones": {
+    "message": "avec tons",
+    "description": "Options : métadonnées d'aperçu, tons activés."
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "sans tons",
+    "description": "Options : métadonnées d'aperçu, tons désactivés."
+  },
+  "optionsPreviewZhuyin": {
+    "message": "zhuyin",
+    "description": "Options : métadonnées d'aperçu, système zhuyin."
+  },
+  "optionsPreviewRight": {
+    "message": "à droite",
+    "description": "Options : métadonnées d'aperçu, emplacement à droite."
+  },
+  "optionsPreviewAbove": {
+    "message": "au-dessus",
+    "description": "Options : métadonnées d'aperçu, emplacement au-dessus."
+  },
+  "optionsPreviewBelow": {
+    "message": "au-dessous",
+    "description": "Options : métadonnées d'aperçu, emplacement au-dessous."
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "texte + annotation",
+    "description": "Options : métadonnées d'aperçu, le texte est mis à l'échelle avec l'annotation."
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "annotation uniquement",
+    "description": "Options : métadonnées d'aperçu, seule l'annotation est mise à l'échelle."
+  },
+  "statusLabel": {
+    "message": "État",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "Ouvrir about:addons → Engrenage → Gérer les raccourcis de l'extension",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "Le mode surveillance fonctionne avec les sous-titres CC sur les plateformes de streaming telles que Netflix, Disney+, YouTube et Bilibili.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "Annoter automatiquement le pinyin à chaque chargement de page.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "Langue",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "Choisissez la langue de l'interface de l'extension.",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "Utiliser la langue du navigateur",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

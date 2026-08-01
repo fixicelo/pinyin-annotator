@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator | Chú thích Pinyin",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Tiện ích mở rộng trình duyệt thêm chú thích Pinyin hoặc Zhuyin cho các ký tự tiếng Trung trong trang web và phụ đề video.",
+    "description": "Mô tả tiện ích."
+  },
+  "commandToggleDescription": {
+    "message": "Bật/tắt chú thích Pinyin",
+    "description": "Mô tả phím tắt."
+  },
+  "contextMenuToggle": {
+    "message": "Bật/tắt chú thích",
+    "description": "Tiêu đề mục menu ngữ cảnh."
+  },
+  "statusAnnotated": {
+    "message": "Đã chú thích",
+    "description": "Trạng thái popup: trang đã được chú thích."
+  },
+  "statusNotAnnotated": {
+    "message": "Chưa chú thích",
+    "description": "Trạng thái popup: trang chưa được chú thích."
+  },
+  "statusRestrictedTitle": {
+    "message": "Không khả dụng trên trang này",
+    "description": "Tiêu đề cảnh báo popup cho các trang hạn chế."
+  },
+  "statusRestrictedDesc": {
+    "message": "Tiện ích mở rộng trình duyệt không thể chạy trên loại trang này (ví dụ: các trang nội bộ của trình duyệt, cửa hàng tiện ích mở rộng).",
+    "description": "Mô tả cảnh báo popup cho các trang hạn chế."
+  },
+  "statusRefreshTitle": {
+    "message": "Cần làm mới trang",
+    "description": "Tiêu đề cảnh báo popup khi cần làm mới."
+  },
+  "statusRefreshDesc": {
+    "message": "Trang này đã được mở trước khi tiện ích được cài đặt hoặc cập nhật. Vui lòng làm mới trang để kích hoạt.",
+    "description": "Mô tả cảnh báo popup khi cần làm mới."
+  },
+  "statusRefreshAction": {
+    "message": "Làm mới",
+    "description": "Nút làm mới trang hiện tại."
+  },
+  "annotationScaleTitle": {
+    "message": "Kích thước chú thích",
+    "description": "Popup: tiêu đề điều khiển tỷ lệ chú thích."
+  },
+  "annotationScaleTogether": {
+    "message": "Phóng to văn bản và chú thích cùng nhau",
+    "description": "Popup: gợi ý chế độ khi văn bản phóng to cùng chú thích."
+  },
+  "annotationScaleOnly": {
+    "message": "Chỉ chú thích",
+    "description": "Popup: gợi ý chế độ khi chỉ chú thích phóng to."
+  },
+  "annotationScaleReset": {
+    "message": "Đặt lại",
+    "description": "Popup: nút đặt lại tỷ lệ chú thích."
+  },
+  "scaleTextTogether": {
+    "message": "Phóng to văn bản cùng nhau",
+    "description": "Popup: nhãn hộp kiểm để phóng to văn bản cùng chú thích."
+  },
+  "buttonOptions": {
+    "message": "Tùy chọn",
+    "description": "Popup: nút mở trang tùy chọn."
+  },
+  "buttonClear": {
+    "message": "Xóa",
+    "description": "Popup: nút xóa chú thích."
+  },
+  "buttonAnnotate": {
+    "message": "Chú thích",
+    "description": "Popup: nút chú thích."
+  },
+  "monitorModeTitle": {
+    "message": "Chế độ theo dõi",
+    "description": "Popup: nhãn tùy chọn chế độ theo dõi."
+  },
+  "autoAnnotateTitle": {
+    "message": "Tự động chú thích",
+    "description": "Popup: nhãn tùy chọn tự động chú thích."
+  },
+  "selectedTextLabel": {
+    "message": "Văn bản đã chọn",
+    "description": "Popup: nhãn phân cách phía trên bản xem trước văn bản đã chọn."
+  },
+  "optionsAppearanceTitle": {
+    "message": "Giao diện",
+    "description": "Tùy chọn: tiêu đề mục giao diện."
+  },
+  "optionsWritingSystem": {
+    "message": "Hệ thống chữ viết",
+    "description": "Tùy chọn: tên cài đặt hệ thống chữ viết."
+  },
+  "optionsWritingSystemDesc": {
+    "message": "Pinyin sử dụng chữ cái bạn có thể gõ. Zhuyin sử dụng ký hiệu dùng ở Đài Loan.",
+    "description": "Tùy chọn: mô tả cài đặt hệ thống chữ viết."
+  },
+  "optionPinyin": {
+    "message": "Pinyin",
+    "description": "Tùy chọn: lựa chọn hệ thống pinyin."
+  },
+  "optionZhuyin": {
+    "message": "Zhuyin",
+    "description": "Tùy chọn: lựa chọn hệ thống zhuyin."
+  },
+  "optionsToneMarks": {
+    "message": "Dấu thanh",
+    "description": "Tùy chọn: tên cài đặt dấu thanh."
+  },
+  "optionsToneMarksDesc": {
+    "message": "Hiển thị dấu thanh (ā á ǎ à) thay vì không có thanh điệu.",
+    "description": "Tùy chọn: mô tả cài đặt dấu thanh."
+  },
+  "optionsPlacement": {
+    "message": "Vị trí",
+    "description": "Tùy chọn: tên cài đặt vị trí chú thích."
+  },
+  "optionsPlacementDescRight": {
+    "message": "Bên phải (kiểu chú âm truyền thống).",
+    "description": "Tùy chọn: mô tả vị trí khi chọn bên phải."
+  },
+  "optionsPlacementDescOver": {
+    "message": "Phía trên hoặc phía dưới mỗi ký tự.",
+    "description": "Tùy chọn: mô tả vị trí khi chọn trên/dưới."
+  },
+  "optionAbove": {
+    "message": "Phía trên",
+    "description": "Tùy chọn: lựa chọn vị trí trên."
+  },
+  "optionBelow": {
+    "message": "Phía dưới",
+    "description": "Tùy chọn: lựa chọn vị trí dưới."
+  },
+  "optionRight": {
+    "message": "Bên phải",
+    "description": "Tùy chọn: lựa chọn vị trí phải."
+  },
+  "optionsBehaviorTitle": {
+    "message": "Hành vi",
+    "description": "Tùy chọn: tiêu đề mục hành vi."
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "Tự động chú thích: trên mọi trang",
+    "description": "Tùy chọn: tên cài đặt tự động chú thích."
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "Tự động chú thích mỗi khi bạn mở trang mới.",
+    "description": "Tùy chọn: mô tả cài đặt tự động chú thích."
+  },
+  "optionsMonitorTitle": {
+    "message": "Chế độ theo dõi: tiếp tục chú thích, đặc biệt là phụ đề video",
+    "description": "Tùy chọn: tên cài đặt chế độ theo dõi."
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix, Disney+, YouTube, Bilibili — phụ đề CC cập nhật theo thời gian thực.",
+    "description": "Tùy chọn: mô tả cài đặt chế độ theo dõi."
+  },
+  "optionsWordLookup": {
+    "message": "Tra từ",
+    "description": "Tùy chọn: tên cài đặt tra từ."
+  },
+  "optionsWordLookupDesc": {
+    "message": "Bấm vào một từ trong cửa sổ bật lên để mở từ điển.",
+    "description": "Tùy chọn: mô tả cài đặt tra từ."
+  },
+  "optionsWhichDict": {
+    "message": "Từ điển nào",
+    "description": "Tùy chọn: nhãn bộ chọn từ điển."
+  },
+  "optionsUrlPattern": {
+    "message": "Mẫu URL",
+    "description": "Tùy chọn: nhãn mẫu URL từ điển tùy chỉnh."
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} sẽ được thay bằng văn bản đã chọn.",
+    "description": "Tùy chọn: mô tả mẫu URL từ điển tùy chỉnh."
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "Tùy chọn: nội dung mẫu mẫu URL từ điển tùy chỉnh."
+  },
+  "optionsTheme": {
+    "message": "Chủ đề",
+    "description": "Tùy chọn: tên cài đặt chủ đề."
+  },
+  "optionsThemeDesc": {
+    "message": "Khớp với hệ thống của bạn, hoặc chọn sáng hoặc tối.",
+    "description": "Tùy chọn: mô tả cài đặt chủ đề."
+  },
+  "optionAuto": {
+    "message": "Tự động",
+    "description": "Tùy chọn: lựa chọn chủ đề tự động."
+  },
+  "optionLight": {
+    "message": "Sáng",
+    "description": "Tùy chọn: lựa chọn chủ đề sáng."
+  },
+  "optionDark": {
+    "message": "Tối",
+    "description": "Tùy chọn: lựa chọn chủ đề tối."
+  },
+  "optionsShortcutTitle": {
+    "message": "Phím tắt",
+    "description": "Tùy chọn: tiêu đề mục phím tắt."
+  },
+  "optionsShortcutDesc": {
+    "message": "để bật/tắt chú thích trên mọi trang.",
+    "description": "Tùy chọn: mô tả mục phím tắt."
+  },
+  "buttonChange": {
+    "message": "Đổi",
+    "description": "Tùy chọn: nút đổi phím tắt."
+  },
+  "optionsAdvancedTitle": {
+    "message": "Nâng cao",
+    "description": "Tùy chọn: tiêu đề mục nâng cao."
+  },
+  "optionsSkipTitle": {
+    "message": "Bỏ qua các phần tử này",
+    "description": "Tùy chọn: tên cài đặt các phần tử bị bỏ qua."
+  },
+  "optionsSkipDesc": {
+    "message": "Các thẻ HTML cần bỏ qua khi chú thích. Phân cách bằng dấu phẩy, viết hoa.",
+    "description": "Tùy chọn: mô tả cài đặt các phần tử bị bỏ qua."
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "Tùy chọn: nội dung mẫu của hộp văn bản phần tử bị bỏ qua."
+  },
+  "notificationSaved": {
+    "message": "Đã lưu",
+    "description": "Tùy chọn: thông báo lưu."
+  },
+  "optionsReportBug": {
+    "message": "Báo lỗi",
+    "description": "Tùy chọn: liên kết báo lỗi ở chân trang."
+  },
+  "optionsFooterCopyright": {
+    "message": "Chú thích Pinyin © $1",
+    "description": "Tùy chọn: bản quyền chân trang, $1 là năm."
+  },
+  "optionsPreviewTitle": {
+    "message": "Xem trước",
+    "description": "Tùy chọn: tiêu đề bảng xem trước."
+  },
+  "optionsPreviewWithTones": {
+    "message": "có dấu thanh",
+    "description": "Tùy chọn: thông tin xem trước khi bật dấu thanh."
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "không có dấu thanh",
+    "description": "Tùy chọn: thông tin xem trước khi tắt dấu thanh."
+  },
+  "optionsPreviewZhuyin": {
+    "message": "zhuyin",
+    "description": "Tùy chọn: thông tin xem trước, hệ thống zhuyin."
+  },
+  "optionsPreviewRight": {
+    "message": "bên phải",
+    "description": "Tùy chọn: thông tin xem trước, vị trí phải."
+  },
+  "optionsPreviewAbove": {
+    "message": "phía trên",
+    "description": "Tùy chọn: thông tin xem trước, vị trí trên."
+  },
+  "optionsPreviewBelow": {
+    "message": "phía dưới",
+    "description": "Tùy chọn: thông tin xem trước, vị trí dưới."
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "văn bản + chú thích",
+    "description": "Tùy chọn: thông tin xem trước khi văn bản phóng to cùng chú thích."
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "chỉ chú thích",
+    "description": "Tùy chọn: thông tin xem trước khi chỉ chú thích phóng to."
+  },
+  "statusLabel": {
+    "message": "Trạng thái",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "Mở about:addons → Cài đặt → Quản lý phím tắt của tiện ích",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "Chế độ theo dõi hoạt động với phụ đề CC trên các nền tảng phát video như Netflix, Disney+, YouTube và Bilibili.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "Tự động chú thích pinyin mỗi khi tải trang.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "Ngôn ngữ",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "Chọn ngôn ngữ cho giao diện tiện ích.",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "Dùng ngôn ngữ trình duyệt",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

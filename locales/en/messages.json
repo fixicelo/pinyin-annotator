@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "A browser extension that overlays Pinyin or Zhuyin annotations on Chinese characters in web pages and video subtitles.",
+    "description": "Description of the extension."
+  },
+  "commandToggleDescription": {
+    "message": "Toggle Pinyin annotations",
+    "description": "Description of the keyboard command."
+  },
+  "contextMenuToggle": {
+    "message": "Toggle Annotation",
+    "description": "Context menu item title."
+  },
+  "statusAnnotated": {
+    "message": "Annotated",
+    "description": "Popup status: page is annotated."
+  },
+  "statusNotAnnotated": {
+    "message": "Not annotated",
+    "description": "Popup status: page is not annotated."
+  },
+  "statusRestrictedTitle": {
+    "message": "Not available on this page",
+    "description": "Popup alert title for restricted pages."
+  },
+  "statusRestrictedDesc": {
+    "message": "Browser extensions cannot run on this type of page (e.g. browser internal pages, extension stores).",
+    "description": "Popup alert description for restricted pages."
+  },
+  "statusRefreshTitle": {
+    "message": "Page refresh required",
+    "description": "Popup alert title when a refresh is needed."
+  },
+  "statusRefreshDesc": {
+    "message": "This tab was opened before the extension was installed or updated. Please refresh the page to activate.",
+    "description": "Popup alert description when a refresh is needed."
+  },
+  "statusRefreshAction": {
+    "message": "Refresh",
+    "description": "Button to refresh the current tab."
+  },
+  "annotationScaleTitle": {
+    "message": "Annotation size",
+    "description": "Popup: annotation scale control heading."
+  },
+  "annotationScaleTogether": {
+    "message": "Text + annotation scale together",
+    "description": "Popup: scale mode hint when text scales together with annotation."
+  },
+  "annotationScaleOnly": {
+    "message": "Annotation only",
+    "description": "Popup: scale mode hint when only the annotation scales."
+  },
+  "annotationScaleReset": {
+    "message": "Reset",
+    "description": "Popup: reset annotation scale button."
+  },
+  "scaleTextTogether": {
+    "message": "Scale text together",
+    "description": "Popup: checkbox label to scale text with the annotation."
+  },
+  "buttonOptions": {
+    "message": "Options",
+    "description": "Popup: open options page button."
+  },
+  "buttonClear": {
+    "message": "Clear",
+    "description": "Popup: clear annotations button."
+  },
+  "buttonAnnotate": {
+    "message": "Annotate",
+    "description": "Popup: annotate button."
+  },
+  "monitorModeTitle": {
+    "message": "Monitor mode",
+    "description": "Popup: monitor mode option label."
+  },
+  "autoAnnotateTitle": {
+    "message": "Auto-Annotate",
+    "description": "Popup: auto-annotate option label."
+  },
+  "selectedTextLabel": {
+    "message": "Selected Text",
+    "description": "Popup: divider label above the selected text preview."
+  },
+  "optionsAppearanceTitle": {
+    "message": "Appearance",
+    "description": "Options: appearance section title."
+  },
+  "optionsWritingSystem": {
+    "message": "Writing system",
+    "description": "Options: writing system setting name."
+  },
+  "optionsWritingSystemDesc": {
+    "message": "Pinyin uses letters you can type. Zhuyin uses symbols used in Taiwan.",
+    "description": "Options: writing system setting description."
+  },
+  "optionPinyin": {
+    "message": "Pinyin",
+    "description": "Options: pinyin writing system choice."
+  },
+  "optionZhuyin": {
+    "message": "Zhuyin",
+    "description": "Options: zhuyin writing system choice."
+  },
+  "optionsToneMarks": {
+    "message": "Tone marks",
+    "description": "Options: tone marks setting name."
+  },
+  "optionsToneMarksDesc": {
+    "message": "Show tone marks (ā á ǎ à) instead of no tones.",
+    "description": "Options: tone marks setting description."
+  },
+  "optionsPlacement": {
+    "message": "Placement",
+    "description": "Options: annotation placement setting name."
+  },
+  "optionsPlacementDescRight": {
+    "message": "Right side (traditional zhuyin style).",
+    "description": "Options: placement description when right side is selected."
+  },
+  "optionsPlacementDescOver": {
+    "message": "Above or below each character.",
+    "description": "Options: placement description when above/below is selected."
+  },
+  "optionAbove": {
+    "message": "Above",
+    "description": "Options: placement choice above."
+  },
+  "optionBelow": {
+    "message": "Below",
+    "description": "Options: placement choice below."
+  },
+  "optionRight": {
+    "message": "Right",
+    "description": "Options: placement choice right."
+  },
+  "optionsBehaviorTitle": {
+    "message": "Behavior",
+    "description": "Options: behavior section title."
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "Auto-annotate: On every page",
+    "description": "Options: auto-annotate setting name."
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "Automatically annotate whenever you open a new page.",
+    "description": "Options: auto-annotate setting description."
+  },
+  "optionsMonitorTitle": {
+    "message": "Monitor Mode: Keep annotating, especially on video subtitles",
+    "description": "Options: monitor mode setting name."
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix, Disney+, YouTube, Bilibili — CC subtitles update live.",
+    "description": "Options: monitor mode setting description."
+  },
+  "optionsWordLookup": {
+    "message": "Word lookup",
+    "description": "Options: word lookup setting name."
+  },
+  "optionsWordLookupDesc": {
+    "message": "Click a word in the popup to open a dictionary.",
+    "description": "Options: word lookup setting description."
+  },
+  "optionsWhichDict": {
+    "message": "Which dictionary",
+    "description": "Options: dictionary selector label."
+  },
+  "optionsUrlPattern": {
+    "message": "URL pattern",
+    "description": "Options: custom dictionary URL pattern label."
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} will be replaced with the selected text.",
+    "description": "Options: custom dictionary URL pattern description."
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "Options: custom dictionary URL pattern placeholder."
+  },
+  "optionsTheme": {
+    "message": "Theme",
+    "description": "Options: theme setting name."
+  },
+  "optionsThemeDesc": {
+    "message": "Match your system, or pick light or dark.",
+    "description": "Options: theme setting description."
+  },
+  "optionAuto": {
+    "message": "Auto",
+    "description": "Options: theme choice auto."
+  },
+  "optionLight": {
+    "message": "Light",
+    "description": "Options: theme choice light."
+  },
+  "optionDark": {
+    "message": "Dark",
+    "description": "Options: theme choice dark."
+  },
+  "optionsShortcutTitle": {
+    "message": "Keyboard shortcut",
+    "description": "Options: keyboard shortcut section title."
+  },
+  "optionsShortcutDesc": {
+    "message": "to toggle annotations on any page.",
+    "description": "Options: keyboard shortcut section description."
+  },
+  "buttonChange": {
+    "message": "Change",
+    "description": "Options: change shortcut button."
+  },
+  "optionsAdvancedTitle": {
+    "message": "Advanced",
+    "description": "Options: advanced section title."
+  },
+  "optionsSkipTitle": {
+    "message": "Skip these elements",
+    "description": "Options: ignored elements setting name."
+  },
+  "optionsSkipDesc": {
+    "message": "HTML tags to skip when annotating. Comma-separated, uppercase.",
+    "description": "Options: ignored elements setting description."
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "Options: ignored elements textarea placeholder."
+  },
+  "notificationSaved": {
+    "message": "Saved",
+    "description": "Options: save notification."
+  },
+  "optionsReportBug": {
+    "message": "Report a bug",
+    "description": "Options: report a bug footer link."
+  },
+  "optionsFooterCopyright": {
+    "message": "Pinyin Annotator © $1",
+    "description": "Options: footer copyright, $1 is the year."
+  },
+  "optionsPreviewTitle": {
+    "message": "Preview",
+    "description": "Options: preview panel title."
+  },
+  "optionsPreviewWithTones": {
+    "message": "with tones",
+    "description": "Options: preview meta, tones enabled."
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "without tones",
+    "description": "Options: preview meta, tones disabled."
+  },
+  "optionsPreviewZhuyin": {
+    "message": "zhuyin",
+    "description": "Options: preview meta, zhuyin system."
+  },
+  "optionsPreviewRight": {
+    "message": "right",
+    "description": "Options: preview meta, right placement."
+  },
+  "optionsPreviewAbove": {
+    "message": "above",
+    "description": "Options: preview meta, above placement."
+  },
+  "optionsPreviewBelow": {
+    "message": "below",
+    "description": "Options: preview meta, below placement."
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "text + annotation",
+    "description": "Options: preview meta, text scales with annotation."
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "annotation only",
+    "description": "Options: preview meta, only annotation scales."
+  },
+  "statusLabel": {
+    "message": "Status",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "Open about:addons → Gear → Manage Extension Shortcuts",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "Automatically annotate pinyin on every page load.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "Language",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "Choose the language for the extension interface.",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "Use browser language",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

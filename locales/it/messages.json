@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator | Annotatore Pinyin",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Estensione del browser che sovrappone annotazioni pinyin o zhuyin sui caratteri cinesi nelle pagine web e nei sottotitoli video.",
+    "description": "Descrizione dell'estensione."
+  },
+  "commandToggleDescription": {
+    "message": "Attiva/disattiva annotazioni pinyin",
+    "description": "Descrizione del comando da tastiera."
+  },
+  "contextMenuToggle": {
+    "message": "Attiva/disattiva annotazioni",
+    "description": "Titolo della voce del menu contestuale."
+  },
+  "statusAnnotated": {
+    "message": "Annotato",
+    "description": "Stato del popup: pagina annotata."
+  },
+  "statusNotAnnotated": {
+    "message": "Non annotato",
+    "description": "Stato del popup: pagina non annotata."
+  },
+  "statusRestrictedTitle": {
+    "message": "Non disponibile su questa pagina",
+    "description": "Titolo dell'avviso del popup per le pagine limitate."
+  },
+  "statusRestrictedDesc": {
+    "message": "Le estensioni del browser non possono essere eseguite su questo tipo di pagina (ad es. pagine interne del browser, negozi di estensioni).",
+    "description": "Descrizione dell'avviso del popup per le pagine limitate."
+  },
+  "statusRefreshTitle": {
+    "message": "Aggiornamento della pagina richiesto",
+    "description": "Titolo dell'avviso del popup quando è necessario un aggiornamento."
+  },
+  "statusRefreshDesc": {
+    "message": "Questa scheda è stata aperta prima dell'installazione o dell'aggiornamento dell'estensione. Aggiorna la pagina per attivarla.",
+    "description": "Descrizione dell'avviso del popup quando è necessario un aggiornamento."
+  },
+  "statusRefreshAction": {
+    "message": "Aggiorna",
+    "description": "Pulsante per aggiornare la scheda corrente."
+  },
+  "annotationScaleTitle": {
+    "message": "Dimensione annotazione",
+    "description": "Popup: titolo del controllo della scala delle annotazioni."
+  },
+  "annotationScaleTogether": {
+    "message": "Ridimensiona testo e annotazione insieme",
+    "description": "Popup: suggerimento della modalità quando il testo viene ridimensionato insieme all'annotazione."
+  },
+  "annotationScaleOnly": {
+    "message": "Solo annotazione",
+    "description": "Popup: suggerimento della modalità quando viene ridimensionata solo l'annotazione."
+  },
+  "annotationScaleReset": {
+    "message": "Reimposta",
+    "description": "Popup: pulsante per reimpostare la scala delle annotazioni."
+  },
+  "scaleTextTogether": {
+    "message": "Ridimensiona anche il testo",
+    "description": "Popup: etichetta della casella per ridimensionare il testo insieme all'annotazione."
+  },
+  "buttonOptions": {
+    "message": "Opzioni",
+    "description": "Popup: pulsante per aprire la pagina delle opzioni."
+  },
+  "buttonClear": {
+    "message": "Cancella",
+    "description": "Popup: pulsante per cancellare le annotazioni."
+  },
+  "buttonAnnotate": {
+    "message": "Annota",
+    "description": "Popup: pulsante per annotare."
+  },
+  "monitorModeTitle": {
+    "message": "Modalità monitor",
+    "description": "Popup: etichetta dell'opzione modalità monitor."
+  },
+  "autoAnnotateTitle": {
+    "message": "Auto-annotazione",
+    "description": "Popup: etichetta dell'opzione auto-annotazione."
+  },
+  "selectedTextLabel": {
+    "message": "Testo selezionato",
+    "description": "Popup: etichetta del divisore sopra l'anteprima del testo selezionato."
+  },
+  "optionsAppearanceTitle": {
+    "message": "Aspetto",
+    "description": "Opzioni: titolo della sezione Aspetto."
+  },
+  "optionsWritingSystem": {
+    "message": "Sistema di scrittura",
+    "description": "Opzioni: nome dell'impostazione del sistema di scrittura."
+  },
+  "optionsWritingSystemDesc": {
+    "message": "Il pinyin usa lettere che puoi digitare. Lo zhuyin usa simboli usati a Taiwan.",
+    "description": "Opzioni: descrizione dell'impostazione del sistema di scrittura."
+  },
+  "optionPinyin": {
+    "message": "Pinyin",
+    "description": "Opzioni: scelta del sistema di scrittura pinyin."
+  },
+  "optionZhuyin": {
+    "message": "Zhuyin",
+    "description": "Opzioni: scelta del sistema di scrittura zhuyin."
+  },
+  "optionsToneMarks": {
+    "message": "Segni di tono",
+    "description": "Opzioni: nome dell'impostazione dei segni di tono."
+  },
+  "optionsToneMarksDesc": {
+    "message": "Mostra i segni di tono (ā á ǎ à) invece di nessun tono.",
+    "description": "Opzioni: descrizione dell'impostazione dei segni di tono."
+  },
+  "optionsPlacement": {
+    "message": "Posizione",
+    "description": "Opzioni: nome dell'impostazione della posizione delle annotazioni."
+  },
+  "optionsPlacementDescRight": {
+    "message": "Lato destro (stile zhuyin tradizionale).",
+    "description": "Opzioni: descrizione della posizione quando è selezionato il lato destro."
+  },
+  "optionsPlacementDescOver": {
+    "message": "Sopra o sotto ogni carattere.",
+    "description": "Opzioni: descrizione della posizione quando è selezionato sopra/sotto."
+  },
+  "optionAbove": {
+    "message": "Sopra",
+    "description": "Opzioni: scelta della posizione sopra."
+  },
+  "optionBelow": {
+    "message": "Sotto",
+    "description": "Opzioni: scelta della posizione sotto."
+  },
+  "optionRight": {
+    "message": "Destra",
+    "description": "Opzioni: scelta della posizione a destra."
+  },
+  "optionsBehaviorTitle": {
+    "message": "Comportamento",
+    "description": "Opzioni: titolo della sezione Comportamento."
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "Auto-annotazione: su ogni pagina",
+    "description": "Opzioni: nome dell'impostazione di auto-annotazione."
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "Annota automaticamente ogni volta che apri una nuova pagina.",
+    "description": "Opzioni: descrizione dell'impostazione di auto-annotazione."
+  },
+  "optionsMonitorTitle": {
+    "message": "Modalità monitor: continua ad annotare, soprattutto sui sottotitoli dei video",
+    "description": "Opzioni: nome dell'impostazione della modalità monitor."
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix, Disney+, YouTube, Bilibili — i sottotitoli CC si aggiornano in tempo reale.",
+    "description": "Opzioni: descrizione dell'impostazione della modalità monitor."
+  },
+  "optionsWordLookup": {
+    "message": "Ricerca parole",
+    "description": "Opzioni: nome dell'impostazione di ricerca parole."
+  },
+  "optionsWordLookupDesc": {
+    "message": "Fai clic su una parola nel popup per aprire un dizionario.",
+    "description": "Opzioni: descrizione dell'impostazione di ricerca parole."
+  },
+  "optionsWhichDict": {
+    "message": "Quale dizionario",
+    "description": "Opzioni: etichetta del selettore del dizionario."
+  },
+  "optionsUrlPattern": {
+    "message": "Modello URL",
+    "description": "Opzioni: etichetta del modello URL del dizionario personalizzato."
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} verrà sostituito con il testo selezionato.",
+    "description": "Opzioni: descrizione del modello URL del dizionario personalizzato."
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "Opzioni: segnaposto del modello URL del dizionario personalizzato."
+  },
+  "optionsTheme": {
+    "message": "Tema",
+    "description": "Opzioni: nome dell'impostazione del tema."
+  },
+  "optionsThemeDesc": {
+    "message": "Usa il tema di sistema o scegli chiaro o scuro.",
+    "description": "Opzioni: descrizione dell'impostazione del tema."
+  },
+  "optionAuto": {
+    "message": "Automatico",
+    "description": "Opzioni: scelta del tema automatico."
+  },
+  "optionLight": {
+    "message": "Chiaro",
+    "description": "Opzioni: scelta del tema chiaro."
+  },
+  "optionDark": {
+    "message": "Scuro",
+    "description": "Opzioni: scelta del tema scuro."
+  },
+  "optionsShortcutTitle": {
+    "message": "Scorciatoia da tastiera",
+    "description": "Opzioni: titolo della sezione delle scorciatoie da tastiera."
+  },
+  "optionsShortcutDesc": {
+    "message": "per attivare/disattivare le annotazioni su qualsiasi pagina.",
+    "description": "Opzioni: descrizione della sezione delle scorciatoie da tastiera."
+  },
+  "buttonChange": {
+    "message": "Cambia",
+    "description": "Opzioni: pulsante per cambiare la scorciatoia."
+  },
+  "optionsAdvancedTitle": {
+    "message": "Avanzate",
+    "description": "Opzioni: titolo della sezione Avanzate."
+  },
+  "optionsSkipTitle": {
+    "message": "Salta questi elementi",
+    "description": "Opzioni: nome dell'impostazione degli elementi ignorati."
+  },
+  "optionsSkipDesc": {
+    "message": "Tag HTML da saltare durante l'annotazione. Separati da virgole, in maiuscolo.",
+    "description": "Opzioni: descrizione dell'impostazione degli elementi ignorati."
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "Opzioni: segnaposto dell'area di testo degli elementi ignorati."
+  },
+  "notificationSaved": {
+    "message": "Salvato",
+    "description": "Opzioni: notifica di salvataggio."
+  },
+  "optionsReportBug": {
+    "message": "Segnala un problema",
+    "description": "Opzioni: link per segnalare un problema nel piè di pagina."
+  },
+  "optionsFooterCopyright": {
+    "message": "Annotatore Pinyin © $1",
+    "description": "Opzioni: copyright nel piè di pagina, $1 è l'anno."
+  },
+  "optionsPreviewTitle": {
+    "message": "Anteprima",
+    "description": "Opzioni: titolo del pannello di anteprima."
+  },
+  "optionsPreviewWithTones": {
+    "message": "con toni",
+    "description": "Opzioni: metadati dell'anteprima, toni attivati."
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "senza toni",
+    "description": "Opzioni: metadati dell'anteprima, toni disattivati."
+  },
+  "optionsPreviewZhuyin": {
+    "message": "zhuyin",
+    "description": "Opzioni: metadati dell'anteprima, sistema zhuyin."
+  },
+  "optionsPreviewRight": {
+    "message": "destra",
+    "description": "Opzioni: metadati dell'anteprima, posizione a destra."
+  },
+  "optionsPreviewAbove": {
+    "message": "sopra",
+    "description": "Opzioni: metadati dell'anteprima, posizione sopra."
+  },
+  "optionsPreviewBelow": {
+    "message": "sotto",
+    "description": "Opzioni: metadati dell'anteprima, posizione sotto."
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "testo + annotazione",
+    "description": "Opzioni: metadati dell'anteprima, il testo viene ridimensionato con l'annotazione."
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "solo annotazione",
+    "description": "Opzioni: metadati dell'anteprima, viene ridimensionata solo l'annotazione."
+  },
+  "statusLabel": {
+    "message": "Stato",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "Aprire about:addons → Ingranaggio → Gestisci scorciatoie dell'estensione",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "La modalità monitor funziona con i sottotitoli CC sulle piattaforme di streaming come Netflix, Disney+, YouTube e Bilibili.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "Annota automaticamente il pinyin a ogni caricamento della pagina.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "Lingua",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "Scegli la lingua dell'interfaccia dell'estensione.",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "Usa la lingua del browser",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

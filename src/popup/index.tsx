@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useState } from "react"
 
+import { useStorage } from "@plasmohq/storage/hook"
+
 import {
   ResponseStatus,
+  StorageKey,
   TabStatus,
   UserAction,
   type Response
 } from "~constants"
+import { applyLanguage, useI18n } from "~lib/i18n"
 
 import AnnotationScaleControl from "./AnnotationScaleControl"
 import AnnotationStatus from "./AnnotationStatus"
@@ -22,12 +26,19 @@ import useCommunicateWithContentScript from "./useCommunicateWithContentScript"
 
 function Popup() {
   useTheme()
+  useI18n()
+
+  const [uiLanguage] = useStorage<string>(StorageKey.uiLanguage, "")
 
   useEffect(() => {
     if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
       document.documentElement.classList.add("is-mobile")
     }
   }, [])
+
+  useEffect(() => {
+    applyLanguage(uiLanguage)
+  }, [uiLanguage])
 
   const [isAnnotated, setIsAnnotated] = useState(false)
   const [tabStatus, setTabStatus] = useState<TabStatus>(TabStatus.Loading)

@@ -68,7 +68,8 @@ export enum StorageKey {
   autoAnnotate = "autoAnnotate",
   annotationScale = "annotationScale",
   scaleTextTogether = "scaleTextTogether",
-  scaleTextTogetherTouched = "scaleTextTogetherTouched"
+  scaleTextTogetherTouched = "scaleTextTogetherTouched",
+  uiLanguage = "uiLanguage"
 }
 
 export interface UserPreferences {

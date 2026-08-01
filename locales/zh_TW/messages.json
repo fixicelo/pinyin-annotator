@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator | 拼音標註工具",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "一款瀏覽器擴充功能，在網頁與影片字幕中的漢字上疊加拼音或注音符號標註。",
+    "description": "擴充功能描述。"
+  },
+  "commandToggleDescription": {
+    "message": "切換拼音標註",
+    "description": "鍵盤命令描述。"
+  },
+  "contextMenuToggle": {
+    "message": "切換標註",
+    "description": "右鍵選單項目標題。"
+  },
+  "statusAnnotated": {
+    "message": "已標註",
+    "description": "彈出視窗狀態：頁面已標註。"
+  },
+  "statusNotAnnotated": {
+    "message": "未標註",
+    "description": "彈出視窗狀態：頁面未標註。"
+  },
+  "statusRestrictedTitle": {
+    "message": "此頁面無法使用",
+    "description": "受限頁面的彈出視窗警告標題。"
+  },
+  "statusRestrictedDesc": {
+    "message": "瀏覽器擴充功能無法在這種頁面上執行（例如瀏覽器內部頁面、擴充功能商店）。",
+    "description": "受限頁面的彈出視窗警告描述。"
+  },
+  "statusRefreshTitle": {
+    "message": "需要重新整理頁面",
+    "description": "需要重新整理時的彈出視窗警告標題。"
+  },
+  "statusRefreshDesc": {
+    "message": "此分頁是在擴充功能安裝或更新之前開啟的。請重新整理頁面以啟用。",
+    "description": "需要重新整理時的彈出視窗警告描述。"
+  },
+  "statusRefreshAction": {
+    "message": "重新整理",
+    "description": "重新整理目前分頁的按鈕。"
+  },
+  "annotationScaleTitle": {
+    "message": "標註大小",
+    "description": "彈出視窗：標註縮放控制項標題。"
+  },
+  "annotationScaleTogether": {
+    "message": "文字與標註一同縮放",
+    "description": "彈出視窗：文字隨標註縮放時的模式提示。"
+  },
+  "annotationScaleOnly": {
+    "message": "僅標註",
+    "description": "彈出視窗：僅標註縮放時的模式提示。"
+  },
+  "annotationScaleReset": {
+    "message": "重設",
+    "description": "彈出視窗：重設標註縮放的按鈕。"
+  },
+  "scaleTextTogether": {
+    "message": "文字一同縮放",
+    "description": "彈出視窗：將文字隨標註一同縮放的核取方塊標籤。"
+  },
+  "buttonOptions": {
+    "message": "選項",
+    "description": "彈出視窗：開啟選項頁面的按鈕。"
+  },
+  "buttonClear": {
+    "message": "清除",
+    "description": "彈出視窗：清除標註按鈕。"
+  },
+  "buttonAnnotate": {
+    "message": "標註",
+    "description": "彈出視窗：標註按鈕。"
+  },
+  "monitorModeTitle": {
+    "message": "監控模式",
+    "description": "彈出視窗：監控模式選項標籤。"
+  },
+  "autoAnnotateTitle": {
+    "message": "自動標註",
+    "description": "彈出視窗：自動標註選項標籤。"
+  },
+  "selectedTextLabel": {
+    "message": "選取的文字",
+    "description": "彈出視窗：選取文字預覽上方的分隔標籤。"
+  },
+  "optionsAppearanceTitle": {
+    "message": "外觀",
+    "description": "選項：外觀區域標題。"
+  },
+  "optionsWritingSystem": {
+    "message": "書寫系統",
+    "description": "選項：書寫系統設定名稱。"
+  },
+  "optionsWritingSystemDesc": {
+    "message": "拼音使用你可以輸入的字母，注音符號則使用臺灣使用的符號。",
+    "description": "選項：書寫系統設定描述。"
+  },
+  "optionPinyin": {
+    "message": "拼音",
+    "description": "選項：拼音書寫系統選項。"
+  },
+  "optionZhuyin": {
+    "message": "注音",
+    "description": "選項：注音符號書寫系統選項。"
+  },
+  "optionsToneMarks": {
+    "message": "聲調標記",
+    "description": "選項：聲調標記設定名稱。"
+  },
+  "optionsToneMarksDesc": {
+    "message": "顯示聲調標記（ā á ǎ à）而非無聲調。",
+    "description": "選項：聲調標記設定描述。"
+  },
+  "optionsPlacement": {
+    "message": "位置",
+    "description": "選項：標註位置設定名稱。"
+  },
+  "optionsPlacementDescRight": {
+    "message": "右側（傳統注音符號樣式）。",
+    "description": "選項：選擇右側時的位置描述。"
+  },
+  "optionsPlacementDescOver": {
+    "message": "每個字的上方或下方。",
+    "description": "選項：選擇上/下方時的位置描述。"
+  },
+  "optionAbove": {
+    "message": "上方",
+    "description": "選項：上方位置選項。"
+  },
+  "optionBelow": {
+    "message": "下方",
+    "description": "選項：下方位置選項。"
+  },
+  "optionRight": {
+    "message": "右側",
+    "description": "選項：右側位置選項。"
+  },
+  "optionsBehaviorTitle": {
+    "message": "行為",
+    "description": "選項：行為區域標題。"
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "自動標註：每個頁面",
+    "description": "選項：自動標註設定名稱。"
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "每次開啟新頁面時自動標註。",
+    "description": "選項：自動標註設定描述。"
+  },
+  "optionsMonitorTitle": {
+    "message": "監控模式：持續標註，尤其是影片字幕",
+    "description": "選項：監控模式設定名稱。"
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix、Disney+、YouTube、Bilibili——CC 字幕即時更新。",
+    "description": "選項：監控模式設定描述。"
+  },
+  "optionsWordLookup": {
+    "message": "查詞",
+    "description": "選項：查詞設定名稱。"
+  },
+  "optionsWordLookupDesc": {
+    "message": "在彈出視窗中點擊某個詞以開啟辭典。",
+    "description": "選項：查詞設定描述。"
+  },
+  "optionsWhichDict": {
+    "message": "選擇辭典",
+    "description": "選項：辭典選擇器標籤。"
+  },
+  "optionsUrlPattern": {
+    "message": "URL 格式",
+    "description": "選項：自訂辭典 URL 格式標籤。"
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} 會被替換為選取的文字。",
+    "description": "選項：自訂辭典 URL 格式描述。"
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "選項：自訂辭典 URL 格式佔位符。"
+  },
+  "optionsTheme": {
+    "message": "主題",
+    "description": "選項：主題設定名稱。"
+  },
+  "optionsThemeDesc": {
+    "message": "配合你的系統，或選擇淺色或深色。",
+    "description": "選項：主題設定描述。"
+  },
+  "optionAuto": {
+    "message": "自動",
+    "description": "選項：自動主題選項。"
+  },
+  "optionLight": {
+    "message": "淺色",
+    "description": "選項：淺色主題選項。"
+  },
+  "optionDark": {
+    "message": "深色",
+    "description": "選項：深色主題選項。"
+  },
+  "optionsShortcutTitle": {
+    "message": "鍵盤快捷鍵",
+    "description": "選項：鍵盤快捷鍵區域標題。"
+  },
+  "optionsShortcutDesc": {
+    "message": "在任何頁面切換標註。",
+    "description": "選項：鍵盤快捷鍵區域描述。"
+  },
+  "buttonChange": {
+    "message": "變更",
+    "description": "選項：變更快鍵鍵按鈕。"
+  },
+  "optionsAdvancedTitle": {
+    "message": "進階",
+    "description": "選項：進階區域標題。"
+  },
+  "optionsSkipTitle": {
+    "message": "跳過這些元素",
+    "description": "選項：忽略元素設定名稱。"
+  },
+  "optionsSkipDesc": {
+    "message": "標註時要跳過的 HTML 標籤。以逗號分隔，大寫。",
+    "description": "選項：忽略元素設定描述。"
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "選項：忽略元素文字框佔位符。"
+  },
+  "notificationSaved": {
+    "message": "已儲存",
+    "description": "選項：儲存通知。"
+  },
+  "optionsReportBug": {
+    "message": "回報問題",
+    "description": "選項：頁尾回報問題連結。"
+  },
+  "optionsFooterCopyright": {
+    "message": "拼音標註工具 © $1",
+    "description": "選項：頁尾版權，$1 為年份。"
+  },
+  "optionsPreviewTitle": {
+    "message": "預覽",
+    "description": "選項：預覽面板標題。"
+  },
+  "optionsPreviewWithTones": {
+    "message": "帶聲調",
+    "description": "選項：預覽元資訊，已啟用聲調。"
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "無聲調",
+    "description": "選項：預覽元資訊，未啟用聲調。"
+  },
+  "optionsPreviewZhuyin": {
+    "message": "注音",
+    "description": "選項：預覽元資訊，注音符號系統。"
+  },
+  "optionsPreviewRight": {
+    "message": "右側",
+    "description": "選項：預覽元資訊，右側位置。"
+  },
+  "optionsPreviewAbove": {
+    "message": "上方",
+    "description": "選項：預覽元資訊，上方位置。"
+  },
+  "optionsPreviewBelow": {
+    "message": "下方",
+    "description": "選項：預覽元資訊，下方位置。"
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "文字 + 標註",
+    "description": "選項：預覽元資訊，文字隨標註縮放。"
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "僅標註",
+    "description": "選項：預覽元資訊，僅標註縮放。"
+  },
+  "statusLabel": {
+    "message": "狀態",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "開啟 about:addons → 齒輪 → 管理擴充功能快捷鍵",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "監控模式適用於 Netflix、Disney+、YouTube、Bilibili 等影片平台上的 CC（字幕）。",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "每次載入頁面時自動標註拼音。",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "語言",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "選擇擴充功能介面的顯示語言。",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "使用瀏覽器語言",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

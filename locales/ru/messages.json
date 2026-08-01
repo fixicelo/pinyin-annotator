@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Pinyin Annotator | Анотатор пиньинь",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Расширение браузера, которое добавляет аннотации пиньинь или чжуинь к китайским иероглифам на веб-страницах и в субтитрах видео.",
+    "description": "Описание расширения."
+  },
+  "commandToggleDescription": {
+    "message": "Переключить аннотации пиньинь",
+    "description": "Описание клавиатурной команды."
+  },
+  "contextMenuToggle": {
+    "message": "Переключить аннотации",
+    "description": "Заголовок пункта контекстного меню."
+  },
+  "statusAnnotated": {
+    "message": "Аннотировано",
+    "description": "Состояние всплывающего окна: страница аннотирована."
+  },
+  "statusNotAnnotated": {
+    "message": "Не аннотировано",
+    "description": "Состояние всплывающего окна: страница не аннотирована."
+  },
+  "statusRestrictedTitle": {
+    "message": "Недоступно на этой странице",
+    "description": "Заголовок предупреждения для ограниченных страниц."
+  },
+  "statusRestrictedDesc": {
+    "message": "Расширения браузера не могут работать на страницах такого типа (например, внутренние страницы браузера, магазины расширений).",
+    "description": "Описание предупреждения для ограниченных страниц."
+  },
+  "statusRefreshTitle": {
+    "message": "Требуется обновить страницу",
+    "description": "Заголовок предупреждения, когда требуется обновление."
+  },
+  "statusRefreshDesc": {
+    "message": "Эта вкладка была открыта до установки или обновления расширения. Обновите страницу, чтобы активировать её.",
+    "description": "Описание предупреждения, когда требуется обновление."
+  },
+  "statusRefreshAction": {
+    "message": "Обновить",
+    "description": "Кнопка обновления текущей вкладки."
+  },
+  "annotationScaleTitle": {
+    "message": "Размер аннотации",
+    "description": "Всплывающее окно: заголовок элемента управления масштабом аннотации."
+  },
+  "annotationScaleTogether": {
+    "message": "Масштабировать текст и аннотацию вместе",
+    "description": "Всплывающее окно: подсказка режима, когда текст масштабируется вместе с аннотацией."
+  },
+  "annotationScaleOnly": {
+    "message": "Только аннотация",
+    "description": "Всплывающее окно: подсказка режима, когда масштабируется только аннотация."
+  },
+  "annotationScaleReset": {
+    "message": "Сбросить",
+    "description": "Всплывающее окно: кнопка сброса масштаба аннотации."
+  },
+  "scaleTextTogether": {
+    "message": "Масштабировать текст вместе",
+    "description": "Всплывающее окно: метка флажка для масштабирования текста вместе с аннотацией."
+  },
+  "buttonOptions": {
+    "message": "Параметры",
+    "description": "Всплывающее окно: кнопка открытия страницы параметров."
+  },
+  "buttonClear": {
+    "message": "Очистить",
+    "description": "Всплывающее окно: кнопка очистки аннотаций."
+  },
+  "buttonAnnotate": {
+    "message": "Аннотировать",
+    "description": "Всплывающее окно: кнопка аннотирования."
+  },
+  "monitorModeTitle": {
+    "message": "Режим наблюдения",
+    "description": "Всплывающее окно: метка параметра режима наблюдения."
+  },
+  "autoAnnotateTitle": {
+    "message": "Авто-аннотирование",
+    "description": "Всплывающее окно: метка параметра авто-аннотирования."
+  },
+  "selectedTextLabel": {
+    "message": "Выделенный текст",
+    "description": "Всплывающее окно: метка разделителя над предпросмотром выделенного текста."
+  },
+  "optionsAppearanceTitle": {
+    "message": "Внешний вид",
+    "description": "Параметры: заголовок раздела внешнего вида."
+  },
+  "optionsWritingSystem": {
+    "message": "Система письма",
+    "description": "Параметры: название настройки системы письма."
+  },
+  "optionsWritingSystemDesc": {
+    "message": "Пиньинь использует буквы, которые вы можете вводить. Чжуинь использует символы, принятые на Тайване.",
+    "description": "Параметры: описание настройки системы письма."
+  },
+  "optionPinyin": {
+    "message": "Пиньинь",
+    "description": "Параметры: выбор системы письма пиньинь."
+  },
+  "optionZhuyin": {
+    "message": "Чжуинь",
+    "description": "Параметры: выбор системы письма чжуинь."
+  },
+  "optionsToneMarks": {
+    "message": "Тоновые знаки",
+    "description": "Параметры: название настройки тоновых знаков."
+  },
+  "optionsToneMarksDesc": {
+    "message": "Показывать тоновые знаки (ā á ǎ à) вместо отсутствия тонов.",
+    "description": "Параметры: описание настройки тоновых знаков."
+  },
+  "optionsPlacement": {
+    "message": "Расположение",
+    "description": "Параметры: название настройки расположения аннотации."
+  },
+  "optionsPlacementDescRight": {
+    "message": "Правая сторона (традиционный стиль чжуинь).",
+    "description": "Параметры: описание расположения при выборе правой стороны."
+  },
+  "optionsPlacementDescOver": {
+    "message": "Над или под каждым иероглифом.",
+    "description": "Параметры: описание расположения при выборе сверху/снизу."
+  },
+  "optionAbove": {
+    "message": "Сверху",
+    "description": "Параметры: выбор расположения сверху."
+  },
+  "optionBelow": {
+    "message": "Снизу",
+    "description": "Параметры: выбор расположения снизу."
+  },
+  "optionRight": {
+    "message": "Справа",
+    "description": "Параметры: выбор расположения справа."
+  },
+  "optionsBehaviorTitle": {
+    "message": "Поведение",
+    "description": "Параметры: заголовок раздела поведения."
+  },
+  "optionsAutoAnnotateTitle": {
+    "message": "Авто-аннотирование: на каждой странице",
+    "description": "Параметры: название настройки авто-аннотирования."
+  },
+  "optionsAutoAnnotateDesc": {
+    "message": "Автоматически аннотировать при открытии новой страницы.",
+    "description": "Параметры: описание настройки авто-аннотирования."
+  },
+  "optionsMonitorTitle": {
+    "message": "Режим наблюдения: продолжать аннотирование, особенно субтитров видео",
+    "description": "Параметры: название настройки режима наблюдения."
+  },
+  "optionsMonitorDesc": {
+    "message": "Netflix, Disney+, YouTube, Bilibili — субтитры CC обновляются в реальном времени.",
+    "description": "Параметры: описание настройки режима наблюдения."
+  },
+  "optionsWordLookup": {
+    "message": "Поиск слова",
+    "description": "Параметры: название настройки поиска слова."
+  },
+  "optionsWordLookupDesc": {
+    "message": "Нажмите на слово во всплывающем окне, чтобы открыть словарь.",
+    "description": "Параметры: описание настройки поиска слова."
+  },
+  "optionsWhichDict": {
+    "message": "Какой словарь",
+    "description": "Параметры: метка выбора словаря."
+  },
+  "optionsUrlPattern": {
+    "message": "Шаблон URL",
+    "description": "Параметры: метка шаблона URL пользовательского словаря."
+  },
+  "optionsUrlPatternDesc": {
+    "message": "{word} будет заменён на выделенный текст.",
+    "description": "Параметры: описание шаблона URL пользовательского словаря."
+  },
+  "optionsUrlPatternPlaceholder": {
+    "message": "https://example.com/dict/{word}",
+    "description": "Параметры: образец шаблона URL пользовательского словаря."
+  },
+  "optionsTheme": {
+    "message": "Тема",
+    "description": "Параметры: название настройки темы."
+  },
+  "optionsThemeDesc": {
+    "message": "Соответствовать вашей системе или выбрать светлую или тёмную.",
+    "description": "Параметры: описание настройки темы."
+  },
+  "optionAuto": {
+    "message": "Авто",
+    "description": "Параметры: выбор автоматической темы."
+  },
+  "optionLight": {
+    "message": "Светлая",
+    "description": "Параметры: выбор светлой темы."
+  },
+  "optionDark": {
+    "message": "Тёмная",
+    "description": "Параметры: выбор тёмной темы."
+  },
+  "optionsShortcutTitle": {
+    "message": "Сочетание клавиш",
+    "description": "Параметры: заголовок раздела сочетаний клавиш."
+  },
+  "optionsShortcutDesc": {
+    "message": "для переключения аннотаций на любой странице.",
+    "description": "Параметры: описание раздела сочетаний клавиш."
+  },
+  "buttonChange": {
+    "message": "Изменить",
+    "description": "Параметры: кнопка изменения сочетания клавиш."
+  },
+  "optionsAdvancedTitle": {
+    "message": "Дополнительно",
+    "description": "Параметры: заголовок раздела дополнительных настроек."
+  },
+  "optionsSkipTitle": {
+    "message": "Пропускать эти элементы",
+    "description": "Параметры: название настройки игнорируемых элементов."
+  },
+  "optionsSkipDesc": {
+    "message": "HTML-теги, которые следует пропускать при аннотировании. Через запятую, в верхнем регистре.",
+    "description": "Параметры: описание настройки игнорируемых элементов."
+  },
+  "optionsSkipPlaceholder": {
+    "message": "TEXTAREA,CODE,PRE,KBD,INPUT",
+    "description": "Параметры: образец текстовой области игнорируемых элементов."
+  },
+  "notificationSaved": {
+    "message": "Сохранено",
+    "description": "Параметры: уведомление о сохранении."
+  },
+  "optionsReportBug": {
+    "message": "Сообщить об ошибке",
+    "description": "Параметры: ссылка сообщения об ошибке в нижнем колонтитуле."
+  },
+  "optionsFooterCopyright": {
+    "message": "Анотатор пиньинь © $1",
+    "description": "Параметры: копирайт в нижнем колонтитуле, $1 — год."
+  },
+  "optionsPreviewTitle": {
+    "message": "Предпросмотр",
+    "description": "Параметры: заголовок панели предпросмотра."
+  },
+  "optionsPreviewWithTones": {
+    "message": "с тонами",
+    "description": "Параметры: метаданные предпросмотра, тона включены."
+  },
+  "optionsPreviewWithoutTones": {
+    "message": "без тонов",
+    "description": "Параметры: метаданные предпросмотра, тона выключены."
+  },
+  "optionsPreviewZhuyin": {
+    "message": "чжуинь",
+    "description": "Параметры: метаданные предпросмотра, система чжуинь."
+  },
+  "optionsPreviewRight": {
+    "message": "справа",
+    "description": "Параметры: метаданные предпросмотра, расположение справа."
+  },
+  "optionsPreviewAbove": {
+    "message": "сверху",
+    "description": "Параметры: метаданные предпросмотра, расположение сверху."
+  },
+  "optionsPreviewBelow": {
+    "message": "снизу",
+    "description": "Параметры: метаданные предпросмотра, расположение снизу."
+  },
+  "optionsPreviewTextAndAnnotation": {
+    "message": "текст + аннотация",
+    "description": "Параметры: метаданные предпросмотра, текст масштабируется с аннотацией."
+  },
+  "optionsPreviewAnnotationOnly": {
+    "message": "только аннотация",
+    "description": "Параметры: метаданные предпросмотра, масштабируется только аннотация."
+  },
+  "statusLabel": {
+    "message": "Статус",
+    "description": "Popup: status label prefix."
+  },
+  "shortcutChangeInstructions": {
+    "message": "Откройте about:addons → Шестерёнка → Управление сочетаниями клавиш расширения",
+    "description": "Options: alert instructions when shortcut settings cannot be opened."
+  },
+  "monitorModeTooltip": {
+    "message": "Режим наблюдения работает с субтитрами CC на стриминговых платформах, таких как Netflix, Disney+, YouTube и Bilibili.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "autoAnnotateTooltip": {
+    "message": "Автоматически аннотировать пиньинь при каждой загрузке страницы.",
+    "description": "Popup: tooltip on an option row."
+  },
+  "optionsLanguage": {
+    "message": "Язык",
+    "description": "Options: optionsLanguage label."
+  },
+  "optionsLanguageDesc": {
+    "message": "Выберите язык интерфейса расширения.",
+    "description": "Options: optionsLanguageDesc label."
+  },
+  "optionsFollowSystem": {
+    "message": "Использовать язык браузера",
+    "description": "Options: optionsFollowSystem label."
+  }
+}

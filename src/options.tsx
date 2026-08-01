@@ -20,6 +20,13 @@ import {
   getScaledTextLineHeight,
   SCALE_TEXT_TOGETHER_DEFAULT
 } from "~lib/annotation-scale"
+import {
+  applyLanguage,
+  LOCALE_NAMES,
+  SUPPORTED_LOCALES,
+  t,
+  useI18n
+} from "~lib/i18n"
 
 import { useTheme } from "./popup/useTheme"
 import { convertTextContentToHtml, debounce } from "./util"
@@ -30,6 +37,12 @@ const SAMPLE_TEXT = "你好！今天天氣真好。"
 
 function Options() {
   useTheme()
+  const i18nVersion = useI18n()
+
+  const [uiLanguage, setUILanguage] = useStorage<string>(
+    StorageKey.uiLanguage,
+    ""
+  )
 
   const [toneType, setToneType] = useStorage<ToneType>(
     StorageKey.toneType,
@@ -105,6 +118,14 @@ function Options() {
   )
 
   useEffect(() => {
+    applyLanguage(uiLanguage)
+  }, [uiLanguage])
+
+  useEffect(() => {
+    document.title = t("extensionName")
+  }, [i18nVersion])
+
+  useEffect(() => {
     if (!chrome.commands?.getAll) return
     chrome.commands.getAll((commands) => {
       const toggle = commands.find((c) => c.name === "toggle-annotation")
@@ -113,6 +134,10 @@ function Options() {
       }
     })
   }, [])
+
+  const handleUILanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setUILanguage(e.target.value)
+  }
 
   const handleToneTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToneType(e.target.checked ? ToneType.Symbol : ToneType.None)
@@ -148,7 +173,7 @@ function Options() {
         .map((node) => node.trim())
         .filter(Boolean)
       setIgnoredNodes(newIgnoredNodes)
-      setNotification("Saved")
+      setNotification(t("notificationSaved"))
       setTimeout(() => setNotification(null), 2000)
     }, 1000),
     []
@@ -277,7 +302,7 @@ function Options() {
               fontSize: "28px",
               fontWeight: 600
             }}>
-            Pinyin Annotator
+            {t("extensionName")}
           </h2>
         </div>
 
@@ -286,15 +311,16 @@ function Options() {
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <div className="card">
               <div className="card-header">
-                <h4>Appearance</h4>
+                <h4>{t("optionsAppearanceTitle")}</h4>
               </div>
               <div className="card-body">
                 <div className="settings-row">
                   <div className="settings-row-content">
-                    <span className="settings-row-title">Writing system</span>
+                    <span className="settings-row-title">
+                      {t("optionsWritingSystem")}
+                    </span>
                     <span className="settings-row-desc">
-                      Pinyin uses letters you can type. Zhuyin uses symbols used
-                      in Taiwan.
+                      {t("optionsWritingSystemDesc")}
                     </span>
                   </div>
                   <div className="settings-row-action">
@@ -303,8 +329,12 @@ function Options() {
                       value={pronunciationSystem}
                       onChange={handlePronunciationSystemChange}
                       style={{ width: "120px" }}>
-                      <option value={PronunciationSystem.Pinyin}>Pinyin</option>
-                      <option value={PronunciationSystem.Zhuyin}>Zhuyin</option>
+                      <option value={PronunciationSystem.Pinyin}>
+                        {t("optionPinyin")}
+                      </option>
+                      <option value={PronunciationSystem.Zhuyin}>
+                        {t("optionZhuyin")}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -312,9 +342,11 @@ function Options() {
                 {pronunciationSystem === PronunciationSystem.Pinyin && (
                   <div className="settings-row">
                     <div className="settings-row-content">
-                      <span className="settings-row-title">Tone marks</span>
+                      <span className="settings-row-title">
+                        {t("optionsToneMarks")}
+                      </span>
                       <span className="settings-row-desc">
-                        Show tone marks (ā á ǎ à) instead of no tones.
+                        {t("optionsToneMarksDesc")}
                       </span>
                     </div>
                     <div className="settings-row-action">
@@ -332,11 +364,13 @@ function Options() {
 
                 <div className="settings-row">
                   <div className="settings-row-content">
-                    <span className="settings-row-title">Placement</span>
+                    <span className="settings-row-title">
+                      {t("optionsPlacement")}
+                    </span>
                     <span className="settings-row-desc">
                       {rubyPosition === RubyPosition.RIGHT
-                        ? "Right side (traditional zhuyin style)."
-                        : "Above or below each character."}
+                        ? t("optionsPlacementDescRight")
+                        : t("optionsPlacementDescOver")}
                     </span>
                   </div>
                   <div className="settings-row-action">
@@ -345,11 +379,42 @@ function Options() {
                       value={rubyPosition}
                       onChange={handleRubyPositionChange}
                       style={{ width: "120px" }}>
-                      <option value={RubyPosition.OVER}>Above</option>
-                      <option value={RubyPosition.UNDER}>Below</option>
+                      <option value={RubyPosition.OVER}>
+                        {t("optionAbove")}
+                      </option>
+                      <option value={RubyPosition.UNDER}>
+                        {t("optionBelow")}
+                      </option>
                       {pronunciationSystem === PronunciationSystem.Zhuyin && (
-                        <option value={RubyPosition.RIGHT}>Right</option>
+                        <option value={RubyPosition.RIGHT}>
+                          {t("optionRight")}
+                        </option>
                       )}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="settings-row">
+                  <div className="settings-row-content">
+                    <span className="settings-row-title">
+                      {t("optionsLanguage")}
+                    </span>
+                    <span className="settings-row-desc">
+                      {t("optionsLanguageDesc")}
+                    </span>
+                  </div>
+                  <div className="settings-row-action">
+                    <select
+                      className="select"
+                      value={uiLanguage}
+                      onChange={handleUILanguageChange}
+                      style={{ width: "180px" }}>
+                      <option value="">{t("optionsFollowSystem")}</option>
+                      {SUPPORTED_LOCALES.map((locale) => (
+                        <option key={locale} value={locale}>
+                          {LOCALE_NAMES[locale]}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -358,16 +423,16 @@ function Options() {
 
             <div className="card">
               <div className="card-header">
-                <h4>Behavior</h4>
+                <h4>{t("optionsBehaviorTitle")}</h4>
               </div>
               <div className="card-body">
                 <div className="settings-row">
                   <div className="settings-row-content">
                     <span className="settings-row-title">
-                      Auto-annotate: On every page
+                      {t("optionsAutoAnnotateTitle")}
                     </span>
                     <span className="settings-row-desc">
-                      Automatically annotate whenever you open a new page.
+                      {t("optionsAutoAnnotateDesc")}
                     </span>
                   </div>
                   <div className="settings-row-action">
@@ -385,12 +450,10 @@ function Options() {
                 <div className="settings-row">
                   <div className="settings-row-content">
                     <span className="settings-row-title">
-                      Monitor Mode: Keep annotating, especially on video
-                      subtitles
+                      {t("optionsMonitorTitle")}
                     </span>
                     <span className="settings-row-desc">
-                      Netflix, Disney+, YouTube, Bilibili — CC subtitles update
-                      live.
+                      {t("optionsMonitorDesc")}
                     </span>
                   </div>
                   <div className="settings-row-action">
@@ -407,9 +470,11 @@ function Options() {
 
                 <div className="settings-row">
                   <div className="settings-row-content">
-                    <span className="settings-row-title">Word lookup</span>
+                    <span className="settings-row-title">
+                      {t("optionsWordLookup")}
+                    </span>
                     <span className="settings-row-desc">
-                      Click a word in the popup to open a dictionary.
+                      {t("optionsWordLookupDesc")}
                     </span>
                   </div>
                   <div className="settings-row-action">
@@ -435,7 +500,7 @@ function Options() {
                     }}>
                     <div className="settings-row-content">
                       <span className="settings-row-title">
-                        Which dictionary
+                        {t("optionsWhichDict")}
                       </span>
                     </div>
                     <div className="settings-row-action">
@@ -464,9 +529,11 @@ function Options() {
                       border: "none"
                     }}>
                     <div className="settings-row-content">
-                      <span className="settings-row-title">URL pattern</span>
+                      <span className="settings-row-title">
+                        {t("optionsUrlPattern")}
+                      </span>
                       <span className="settings-row-desc">
-                        {"{word}"} will be replaced with the selected text.
+                        {t("optionsUrlPatternDesc")}
                       </span>
                     </div>
                     <div
@@ -476,7 +543,7 @@ function Options() {
                         className="input"
                         value={customDictUrl}
                         onChange={handleCustomDictUrlChange}
-                        placeholder="https://example.com/dict/{word}"
+                        placeholder={t("optionsUrlPatternPlaceholder")}
                       />
                     </div>
                   </div>
@@ -486,14 +553,16 @@ function Options() {
 
             <div className="card">
               <div className="card-header">
-                <h4>Appearance</h4>
+                <h4>{t("optionsAppearanceTitle")}</h4>
               </div>
               <div className="card-body">
                 <div className="settings-row">
                   <div className="settings-row-content">
-                    <span className="settings-row-title">Theme</span>
+                    <span className="settings-row-title">
+                      {t("optionsTheme")}
+                    </span>
                     <span className="settings-row-desc">
-                      Match your system, or pick light or dark.
+                      {t("optionsThemeDesc")}
                     </span>
                   </div>
                   <div className="settings-row-action">
@@ -502,9 +571,9 @@ function Options() {
                       value={theme}
                       onChange={handleThemeChange}
                       style={{ width: "120px" }}>
-                      <option value={Theme.System}>Auto</option>
-                      <option value={Theme.Light}>Light</option>
-                      <option value={Theme.Dark}>Dark</option>
+                      <option value={Theme.System}>{t("optionAuto")}</option>
+                      <option value={Theme.Light}>{t("optionLight")}</option>
+                      <option value={Theme.Dark}>{t("optionDark")}</option>
                     </select>
                   </div>
                 </div>
@@ -521,7 +590,7 @@ function Options() {
               <span
                 className="settings-row-title"
                 style={{ marginBottom: "6px" }}>
-                Keyboard shortcut
+                {t("optionsShortcutTitle")}
               </span>
               <div
                 style={{
@@ -532,7 +601,7 @@ function Options() {
                 }}>
                 <span className="text-secondary" style={{ fontSize: "13px" }}>
                   <span className="keyboard">{shortcut || "Alt+Shift+P"}</span>{" "}
-                  to toggle annotations on any page.
+                  {t("optionsShortcutDesc")}
                 </span>
                 <button
                   className="btn btn-text"
@@ -549,9 +618,7 @@ function Options() {
                       if (typeof cmd.openShortcutSettings === "function") {
                         await cmd.openShortcutSettings()
                       } else {
-                        alert(
-                          "Open about:addons → Gear → Manage Extension Shortcuts"
-                        )
+                        alert(t("shortcutChangeInstructions"))
                       }
                     }
                   }}
@@ -560,23 +627,22 @@ function Options() {
                     height: "auto",
                     padding: "2px 8px"
                   }}>
-                  Change
+                  {t("buttonChange")}
                 </button>
               </div>
             </div>
 
             <div className="card">
               <div className="card-header">
-                <h4>Advanced</h4>
+                <h4>{t("optionsAdvancedTitle")}</h4>
               </div>
               <div className="card-body" style={{ padding: "20px" }}>
                 <div style={{ marginBottom: "12px" }}>
                   <span className="settings-row-title">
-                    Skip these elements
+                    {t("optionsSkipTitle")}
                   </span>
                   <span className="settings-row-desc">
-                    HTML tags to skip when annotating. Comma-separated,
-                    uppercase.
+                    {t("optionsSkipDesc")}
                   </span>
                 </div>
 
@@ -584,7 +650,7 @@ function Options() {
                   className="textarea"
                   value={ignoredNodesInput}
                   onChange={handleIgnoredNodesChange}
-                  placeholder="TEXTAREA,CODE,PRE,KBD,INPUT"
+                  placeholder={t("optionsSkipPlaceholder")}
                   style={{ minHeight: "80px" }}
                 />
                 {notification && (
@@ -607,9 +673,10 @@ function Options() {
                   href="https://github.com/fixicelo/pinyin-annotator/issues"
                   target="_blank"
                   rel="noopener noreferrer">
-                  Report a bug
+                  {t("optionsReportBug")}
                 </a>
-                {" · "}Pinyin Annotator © {new Date().getFullYear()}
+                {" · "}
+                {t("optionsFooterCopyright", String(new Date().getFullYear()))}
               </span>
             </div>
           </div>
@@ -625,25 +692,25 @@ function Options() {
                   alignItems: "center"
                 }}>
                 <h4 style={{ margin: 0, fontSize: "14px", fontWeight: 500 }}>
-                  Preview
+                  {t("optionsPreviewTitle")}
                 </h4>
                 <span className="text-secondary text-small">
                   {pronunciationSystem === PronunciationSystem.Pinyin
                     ? toneType === ToneType.Symbol
-                      ? "with tones"
-                      : "without tones"
-                    : "zhuyin"}
+                      ? t("optionsPreviewWithTones")
+                      : t("optionsPreviewWithoutTones")
+                    : t("optionsPreviewZhuyin")}
                   {" · "}
                   {rubyPosition === RubyPosition.RIGHT
-                    ? "right"
+                    ? t("optionsPreviewRight")
                     : rubyPosition === RubyPosition.OVER
-                      ? "above"
-                      : "below"}
+                      ? t("optionsPreviewAbove")
+                      : t("optionsPreviewBelow")}
                   {" · "}
                   {annotationScale}%{" · "}
                   {resolvedScaleTextTogether
-                    ? "text + annotation"
-                    : "annotation only"}
+                    ? t("optionsPreviewTextAndAnnotation")
+                    : t("optionsPreviewAnnotationOnly")}
                 </span>
               </div>
               <div

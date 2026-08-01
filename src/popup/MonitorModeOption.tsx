@@ -3,6 +3,7 @@ import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { StorageKey, UserAction } from "~constants"
+import { t, useI18n } from "~lib/i18n"
 
 interface MonitorModeOptionProps {
   communicateWithContentScript: (action: UserAction, data?: any) => void
@@ -11,6 +12,8 @@ interface MonitorModeOptionProps {
 const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
   communicateWithContentScript
 }) => {
+  useI18n()
+
   const [observerEnabled, setObserverEnabled] = useStorage<boolean>(
     StorageKey.observerEnabled,
     true
@@ -33,9 +36,9 @@ const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
         padding: "12px 0",
         borderBottom: "1px solid var(--border-color)"
       }}
-      title="Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.">
+      title={t("monitorModeTooltip")}>
       <span className="text-strong" style={{ fontSize: "13px" }}>
-        Monitor mode
+        {t("monitorModeTitle")}
       </span>
       <label className="switch">
         <input

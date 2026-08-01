@@ -6,10 +6,18 @@
   "author": "fixicelo <fixicelo@gmail.com>",
   "scripts": {
     "dev": "plasmo dev",
-    "build": "plasmo build",
+    "clean": "rm -rf build",
+    "build": "pnpm run clean && plasmo build",
     "package": "plasmo package",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\""
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
+    "start:firefox": "web-ext run --source-dir ./build/firefox-mv3-prod/",
+    "i18n:sync": "node scripts/generate-i18n-fallback.mjs && prettier --write src/lib/i18n-fallback.ts && node scripts/check-locales.mjs",
+    "predev": "node scripts/generate-i18n-fallback.mjs && prettier --write src/lib/i18n-fallback.ts",
+    "prebuild": "pnpm run i18n:sync",
+    "prepackage": "pnpm run i18n:sync",
+    "build:all": "pnpm run i18n:sync && pnpm run clean && plasmo build --target=chrome-mv3 && plasmo build --target=firefox-mv3",
+    "package:all": "pnpm run i18n:sync && pnpm run clean && plasmo build --target=chrome-mv3 && plasmo build --target=firefox-mv3 && plasmo package --target=chrome-mv3 && plasmo package --target=firefox-mv3"
   },
   "repository": {
     "type": "git",
@@ -37,6 +45,9 @@
     "typescript": "^5.9.3"
   },
   "manifest": {
+    "name": "__MSG_extensionName__",
+    "description": "__MSG_extensionDescription__",
+    "default_locale": "en",
     "permissions": [
       "activeTab",
       "scripting",
@@ -47,7 +58,9 @@
       "gecko": {
         "id": "pinyin-annotator@fixicelo.ext",
         "data_collection_permissions": {
-          "required": ["none"]
+          "required": [
+            "none"
+          ]
         }
       }
     },
@@ -57,7 +70,7 @@
           "default": "Alt+Shift+P",
           "mac": "Alt+Shift+P"
         },
-        "description": "Toggle Pinyin annotations"
+        "description": "__MSG_commandToggleDescription__"
       }
     }
   }

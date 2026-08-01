@@ -1,6 +1,7 @@
 import { memo } from "react"
 
 import { TabStatus } from "~constants"
+import { t, useI18n } from "~lib/i18n"
 
 interface AnnotationStatusProps {
   isAnnotated: boolean
@@ -10,15 +11,13 @@ interface AnnotationStatusProps {
 
 const AnnotationStatus = memo(
   ({ isAnnotated, tabStatus, onRefresh }: AnnotationStatusProps) => {
+    useI18n()
     if (tabStatus === TabStatus.RestrictedPage) {
       return (
         <div className="alert alert-warning">
           <div>
-            <div className="alert-title">Not available on this page</div>
-            <div className="alert-desc">
-              Browser extensions cannot run on this type of page (e.g. browser
-              internal pages, extension stores).
-            </div>
+            <div className="alert-title">{t("statusRestrictedTitle")}</div>
+            <div className="alert-desc">{t("statusRestrictedDesc")}</div>
           </div>
         </div>
       )
@@ -28,13 +27,12 @@ const AnnotationStatus = memo(
       return (
         <div className="alert alert-info">
           <div>
-            <div className="alert-title">Page refresh required</div>
+            <div className="alert-title">{t("statusRefreshTitle")}</div>
             <div className="alert-desc">
-              This tab was opened before the extension was installed or updated.
-              Please refresh the page to activate.
+              {t("statusRefreshDesc")}
               <div style={{ marginTop: "8px" }}>
                 <a onClick={onRefresh} className="refresh-link btn-text">
-                  Refresh
+                  {t("statusRefreshAction")}
                 </a>
               </div>
             </div>
@@ -45,7 +43,8 @@ const AnnotationStatus = memo(
 
     return (
       <p className={`status ${isAnnotated ? "annotated" : "not-annotated"}`}>
-        Status: {isAnnotated ? "Annotated" : "Not annotated"}
+        {t("statusLabel")}:{" "}
+        {t(isAnnotated ? "statusAnnotated" : "statusNotAnnotated")}
       </p>
     )
   }

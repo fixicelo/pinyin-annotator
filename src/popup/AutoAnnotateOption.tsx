@@ -3,6 +3,7 @@ import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { StorageKey, UserAction } from "~constants"
+import { t, useI18n } from "~lib/i18n"
 
 interface AutoAnnotateOptionProps {
   communicateWithContentScript: (action: UserAction, data?: any) => void
@@ -11,6 +12,8 @@ interface AutoAnnotateOptionProps {
 const AutoAnnotateOption: React.FC<AutoAnnotateOptionProps> = ({
   communicateWithContentScript
 }) => {
+  useI18n()
+
   const [autoAnnotate, setAutoAnnotate] = useStorage<boolean>(
     StorageKey.autoAnnotate,
     false
@@ -28,9 +31,9 @@ const AutoAnnotateOption: React.FC<AutoAnnotateOptionProps> = ({
     <div
       className="flex items-center justify-between"
       style={{ padding: "12px 0" }}
-      title="Automatically annotate pinyin on every page load.">
+      title={t("autoAnnotateTooltip")}>
       <span className="text-strong" style={{ fontSize: "13px" }}>
-        Auto-Annotate
+        {t("autoAnnotateTitle")}
       </span>
       <label className="switch">
         <input

@@ -14,6 +14,7 @@ import {
   SCALE_TEXT_TOGETHER_DEFAULT,
   snapAnnotationScaleToStep
 } from "~lib/annotation-scale"
+import { t, useI18n } from "~lib/i18n"
 
 interface AnnotationScalePreview {
   annotationScale: number
@@ -34,6 +35,8 @@ const AnnotationScaleControl: React.FC<AnnotationScaleControlProps> = ({
   onPreviewChange,
   syncWithCurrentTab
 }) => {
+  useI18n()
+
   const [annotationScale, setAnnotationScale] = useStorage<number>(
     StorageKey.annotationScale,
     ANNOTATION_SCALE_DEFAULT
@@ -162,11 +165,13 @@ const AnnotationScaleControl: React.FC<AnnotationScaleControlProps> = ({
     <div className="card annotation-scale-card">
       <div className="annotation-scale-header">
         <div className="annotation-scale-heading">
-          <div className="annotation-scale-title">Annotation size</div>
+          <div className="annotation-scale-title">
+            {t("annotationScaleTitle")}
+          </div>
           <div className="annotation-scale-meta">
             {draftScaleTextTogether
-              ? "Text + annotation scale together"
-              : "Annotation only"}
+              ? t("annotationScaleTogether")
+              : t("annotationScaleOnly")}
           </div>
         </div>
         <div className="annotation-scale-actions">
@@ -194,7 +199,7 @@ const AnnotationScaleControl: React.FC<AnnotationScaleControlProps> = ({
               draftScaleTextTogether === SCALE_TEXT_TOGETHER_DEFAULT
             }
             onClick={handleReset}>
-            Reset
+            {t("annotationScaleReset")}
           </button>
         </div>
       </div>
@@ -254,7 +259,7 @@ const AnnotationScaleControl: React.FC<AnnotationScaleControlProps> = ({
 
       <label className="annotation-scale-toggle">
         <span className="annotation-scale-toggle-text">
-          Scale text together
+          {t("scaleTextTogether")}
         </span>
         <span className="switch">
           <input

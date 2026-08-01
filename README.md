@@ -1,5 +1,7 @@
 # Pinyin Annotator
 
+> **🌐 Language / 語言:** English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [Tiếng Việt](README.vi.md) · [Español](README.es.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Deutsch](README.de.md) · [Italiano](README.it.md)
+
 Pinyin Annotator is a browser extension that overlays **Hanyu Pinyin** or **Zhuyin (Bopomofo)** annotations over Chinese characters in web pages and video closed captions, enhancing your Chinese language learning journey.
 
 ## ⏩ Quick Start
@@ -36,17 +38,19 @@ Pinyin Annotator is a browser extension that overlays **Hanyu Pinyin** or **Zhuy
 
 ## 🔨 Making a Production Build
 
+
 ```bash
 pnpm install
-pnpm build --target=chrome-mv3
-pnpm package --target=chrome-mv3
-
-pnpm build --target=firefox-mv3
-pnpm package --target=firefox-mv3
-# Load from about:debugging#/runtime/this-firefox
+pnpm package:all
 ```
 
-This creates a production bundle ready to be loaded into your browser. For further reference, consult the [Plasmo documentation](https://docs.plasmo.com/framework).
+This builds and zips both Chrome and Firefox releases into `build/chrome-mv3-prod.zip` and `build/firefox-mv3-prod.zip`. For a single target, run `pnpm build --target=chrome-mv3` then `pnpm package --target=chrome-mv3` (or the `firefox-mv3` equivalent).
+
+For local testing, load the unpacked build (`pnpm build:all`):
+- Chrome: `chrome://extensions` → Developer mode → Load unpacked → `build/chrome-mv3-prod/`
+- Firefox: `about:debugging#/runtime/this-firefox` → Load Temporary Add-on → `build/firefox-mv3-prod/manifest.json`
+
+For further reference, consult the [Plasmo documentation](https://docs.plasmo.com/framework).
 
 ## 🍵 Sponsor
 
