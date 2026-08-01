@@ -438,6 +438,26 @@ code,
   min-height: 100vh;
 }
 
+/* Narrow screens: stack settings rows so large fonts and touch targets fit */
+@media (max-width: 640px) {
+  .settings-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+
+  .settings-row-content {
+    padding-right: 0;
+  }
+
+  .settings-row-action {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
 /* Dark mode (system preference) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {

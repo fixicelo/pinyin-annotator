@@ -23,6 +23,12 @@ import useCommunicateWithContentScript from "./useCommunicateWithContentScript"
 function Popup() {
   useTheme()
 
+  useEffect(() => {
+    if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+      document.documentElement.classList.add("is-mobile")
+    }
+  }, [])
+
   const [isAnnotated, setIsAnnotated] = useState(false)
   const [tabStatus, setTabStatus] = useState<TabStatus>(TabStatus.Loading)
   const [previewAnnotationScale, setPreviewAnnotationScale] = useState<number>()

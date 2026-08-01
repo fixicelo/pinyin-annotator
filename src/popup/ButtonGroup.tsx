@@ -22,8 +22,28 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
     [communicateWithContentScript]
   )
 
-  const openOptionsPage = () => {
-    chrome.runtime.openOptionsPage()
+  const openOptionsPage = async () => {
+    let opened = false
+    try {
+      const url = chrome.runtime.getURL("options.html")
+      const existingTabs = await chrome.tabs.query({ url })
+      const existingTab = existingTabs.find((tab) => tab.id != null)
+      const tab =
+        existingTab ?? (await chrome.tabs.create({ url, active: true }))
+      if (tab?.id) {
+        await chrome.tabs.update(tab.id, { active: true })
+        opened = true
+      }
+      if (opened && tab.windowId && chrome.windows?.update) {
+        await chrome.windows.update(tab.windowId, { focused: true })
+      }
+    } catch (error) {
+      if (!opened) {
+        chrome.runtime.openOptionsPage()
+      }
+    } finally {
+      if (opened) window.close()
+    }
   }
 
   return (

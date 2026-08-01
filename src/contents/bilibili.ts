@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig } from "plasmo"
 
 export const config: PlasmoCSConfig = {
-  matches: ["*://www.bilibili.com/*"],
+  matches: ["*://*.bilibili.com/*"],
   all_frames: true
 }
 

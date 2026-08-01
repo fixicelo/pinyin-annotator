@@ -19,7 +19,7 @@ async function sendToggleToTab(tabId: number, tabUrl?: string) {
   }
 }
 
-chrome.commands.onCommand.addListener((command) => {
+chrome.commands?.onCommand?.addListener((command) => {
   if (command === "toggle-annotation") {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tab = tabs[0]
@@ -31,14 +31,14 @@ chrome.commands.onCommand.addListener((command) => {
 })
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
+  chrome.contextMenus?.create({
     id: "toggle-annotation-context-menu",
     title: "Toggle Annotation",
     contexts: ["all"]
   })
 })
 
-chrome.contextMenus.onClicked.addListener((info, tab) => {
+chrome.contextMenus?.onClicked?.addListener((info, tab) => {
   if (info.menuItemId === "toggle-annotation-context-menu") {
     sendToggleToTab(tab.id, tab.url)
   }

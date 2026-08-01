@@ -105,6 +105,7 @@ function Options() {
   )
 
   useEffect(() => {
+    if (!chrome.commands?.getAll) return
     chrome.commands.getAll((commands) => {
       const toggle = commands.find((c) => c.name === "toggle-annotation")
       if (toggle?.shortcut) {
@@ -195,13 +196,35 @@ function Options() {
   }, [toneType, pronunciationSystem])
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--bg-layout)",
-        padding: "40px 20px"
-      }}>
+    <div className="options-page">
       <style>{`
+        body {
+          background: var(--bg-layout);
+        }
+        .options-page {
+          min-height: 100vh;
+          min-height: 100dvh;
+          background: var(--bg-layout);
+          padding: 40px 20px;
+        }
+        .options-layout {
+          display: grid;
+          grid-template-columns: 1fr 380px;
+          gap: 24px;
+          align-items: start;
+          max-width: 100%;
+        }
+        .options-layout > * {
+          min-width: 0;
+        }
+        .options-preview {
+          max-width: 100%;
+          overflow-x: auto;
+        }
+        .options-preview-col {
+          position: sticky;
+          top: 40px;
+        }
         .options-preview pya { ruby-position: ${rubyPosition}; }
         .options-preview .${RESULT_CLASS}[data-pya-is-annotated],
         .options-preview .${NON_CHINESE_CLASS} {
@@ -235,6 +258,15 @@ function Options() {
         }`
             : ""
         }
+        @media (max-width: 900px) {
+          .options-layout {
+            grid-template-columns: 1fr;
+          }
+          .options-preview-col {
+            position: static;
+            order: -1;
+          }
+        }
       `}</style>
 
       <div style={{ maxWidth: "960px", margin: "0 auto" }}>
@@ -249,13 +281,7 @@ function Options() {
           </h2>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 380px",
-            gap: "24px",
-            alignItems: "start"
-          }}>
+        <div className="options-layout">
           <div
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <div className="card">
@@ -588,7 +614,7 @@ function Options() {
             </div>
           </div>
 
-          <div style={{ position: "sticky", top: "40px" }}>
+          <div className="options-preview-col">
             <div className="card">
               <div
                 style={{

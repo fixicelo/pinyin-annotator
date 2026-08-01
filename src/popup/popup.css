@@ -9,6 +9,10 @@
   background-color: var(--bg-base);
 }
 
+.is-mobile .popup {
+  width: 100%;
+}
+
 .title {
   font-size: 24px;
   text-align: center;
