@@ -2,11 +2,14 @@ import React from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { StorageKey, UserAction } from "~constants"
+import { StorageKey, UserAction, type UserPreferences } from "~constants"
 import { t, useI18n } from "~lib/i18n"
 
 interface MonitorModeOptionProps {
-  communicateWithContentScript: (action: UserAction, data?: any) => void
+  communicateWithContentScript: (
+    action: UserAction,
+    data?: UserPreferences
+  ) => void
 }
 
 const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({

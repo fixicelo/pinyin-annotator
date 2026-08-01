@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -75,8 +75,12 @@ function Popup() {
     []
   )
 
+  const checkStatusRef = useRef(checkStatus)
   useEffect(() => {
-    checkStatus()
+    checkStatusRef.current = checkStatus
+  }, [checkStatus])
+  useEffect(() => {
+    checkStatusRef.current()
   }, [])
 
   const handleRefresh = useCallback(async () => {

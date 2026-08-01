@@ -1,11 +1,14 @@
 import React, { useCallback } from "react"
 
-import { UserAction } from "~constants"
+import { UserAction, type UserPreferences } from "~constants"
 import { t, useI18n } from "~lib/i18n"
 
 interface ButtonGroupProps {
   isAnnotated: boolean
-  communicateWithContentScript: (action: UserAction, payload?: any) => void
+  communicateWithContentScript: (
+    action: UserAction,
+    payload?: UserPreferences
+  ) => void
   disabled?: boolean
 }
 

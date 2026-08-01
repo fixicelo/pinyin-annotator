@@ -53,12 +53,27 @@ const AnnotationScaleControl: React.FC<AnnotationScaleControlProps> = ({
   const [draftScaleInput, setDraftScaleInput] = useState(() =>
     String(clampAnnotationScale(annotationScale))
   )
+  const [prevAnnotationScale, setPrevAnnotationScale] =
+    useState(annotationScale)
+  if (annotationScale !== prevAnnotationScale) {
+    setPrevAnnotationScale(annotationScale)
+    const normalizedScale = clampAnnotationScale(annotationScale)
+    setDraftScale(normalizedScale)
+    setDraftScaleInput(String(normalizedScale))
+  }
   const resolvedScaleTextTogether = scaleTextTogetherTouched
     ? scaleTextTogether
     : SCALE_TEXT_TOGETHER_DEFAULT
   const [draftScaleTextTogether, setDraftScaleTextTogether] = useState(
     resolvedScaleTextTogether
   )
+  const [prevScaleTextTogether, setPrevScaleTextTogether] = useState(
+    resolvedScaleTextTogether
+  )
+  if (resolvedScaleTextTogether !== prevScaleTextTogether) {
+    setPrevScaleTextTogether(resolvedScaleTextTogether)
+    setDraftScaleTextTogether(resolvedScaleTextTogether)
+  }
 
   const getSliderPositionRatio = useCallback((value: number) => {
     return (
@@ -66,16 +81,6 @@ const AnnotationScaleControl: React.FC<AnnotationScaleControlProps> = ({
       (ANNOTATION_SCALE_MAX - ANNOTATION_SCALE_MIN)
     )
   }, [])
-
-  useEffect(() => {
-    const normalizedScale = clampAnnotationScale(annotationScale)
-    setDraftScale(normalizedScale)
-    setDraftScaleInput(String(normalizedScale))
-  }, [annotationScale])
-
-  useEffect(() => {
-    setDraftScaleTextTogether(resolvedScaleTextTogether)
-  }, [resolvedScaleTextTogether])
 
   useEffect(() => {
     onPreviewChange?.({

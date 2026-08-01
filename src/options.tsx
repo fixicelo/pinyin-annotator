@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -68,6 +68,11 @@ function Options() {
   const [ignoredNodesInput, setIgnoredNodesInput] = useState(
     ignoredNodes.join(",")
   )
+  const [prevIgnoredNodes, setPrevIgnoredNodes] = useState(ignoredNodes)
+  if (ignoredNodes !== prevIgnoredNodes) {
+    setPrevIgnoredNodes(ignoredNodes)
+    setIgnoredNodesInput(ignoredNodes.join(","))
+  }
   const [notification, setNotification] = useState<string | null>(null)
   const [dictLinkEnabled, setDictLinkEnabled] = useStorage<boolean>(
     StorageKey.dictLinkEnabled,
@@ -166,6 +171,8 @@ function Options() {
     setAutoAnnotate(e.target.checked)
   }
 
+  // The storage setter is bound to a fixed key, so capturing the initial
+  // instance once keeps the debounced function stable across re-renders.
   const debouncedSetIgnoredNodes = useMemo(
     () =>
       debounce((newIgnoredNodesInput: string) => {
@@ -177,6 +184,7 @@ function Options() {
         setNotification(t("notificationSaved"))
         setTimeout(() => setNotification(null), 2000)
       }, 1000),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- setter is stable by design
     []
   )
 
@@ -211,10 +219,6 @@ function Options() {
   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTheme(e.target.value as Theme)
   }
-
-  useEffect(() => {
-    setIgnoredNodesInput(ignoredNodes.join(","))
-  }, [ignoredNodes])
 
   const previewHtml = useMemo(() => {
     const opts: HtmlOptions = { toneType, pronunciationSystem }

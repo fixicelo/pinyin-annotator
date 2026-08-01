@@ -31,7 +31,7 @@ import {
 } from "~util"
 
 type ActionHandlers = {
-  [action in UserAction]?: (data?: any) => void
+  [action in UserAction]?: (data?: UserPreferences) => void
 }
 
 export class Annotator {
@@ -417,5 +417,5 @@ function canAnnotateDocument(): boolean {
 }
 
 if (canAnnotateDocument()) {
-  const annotator = new Annotator()
+  void new Annotator()
 }
