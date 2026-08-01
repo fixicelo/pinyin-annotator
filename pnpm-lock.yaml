@@ -29,9 +29,6 @@ importers:
       pinyin-pro:
         specifier: ^3.28.2
         version: 3.28.2
-      plasmo:
-        specifier: ^0.90.5
-        version: 0.90.5(@swc/core@1.15.47(@swc/helpers@0.5.23))(@swc/helpers@0.5.23)(@types/node@26.1.2)(lodash@4.17.21)(postcss@8.5.25)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(srcset@5.0.1)
       react:
         specifier: ^19.2.8
         version: 19.2.8
@@ -69,6 +66,9 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.1.1
         version: 7.1.1(eslint@10.8.0)
+      plasmo:
+        specifier: ^0.90.5
+        version: 0.90.5(@swc/core@1.15.47(@swc/helpers@0.5.23))(@swc/helpers@0.5.23)(@types/node@26.1.2)(lodash@4.17.21)(postcss@8.5.25)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(srcset@5.0.1)
       prettier:
         specifier: ^3.9.6
         version: 3.9.6

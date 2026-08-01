@@ -35,7 +35,6 @@
     "cnchar-poly": "^3.2.6",
     "cnchar-trad": "^3.2.6",
     "pinyin-pro": "^3.28.2",
-    "plasmo": "^0.90.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
@@ -50,6 +49,7 @@
     "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
+    "plasmo": "^0.90.5",
     "prettier": "^3.9.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.65.0",
