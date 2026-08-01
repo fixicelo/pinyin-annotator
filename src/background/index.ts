@@ -41,9 +41,15 @@ function readUILanguage(): Promise<string> {
 }
 
 function updateContextMenuTitle() {
-  chrome.contextMenus?.update?.(CONTEXT_MENU_ID, {
-    title: t("contextMenuToggle")
-  })
+  try {
+    chrome.contextMenus
+      ?.update?.(CONTEXT_MENU_ID, {
+        title: t("contextMenuToggle")
+      })
+      ?.catch?.(() => {})
+  } catch {
+    // Menu item may not exist yet (e.g., before onInstalled creates it).
+  }
 }
 
 async function syncUILanguage(lang?: string) {
@@ -84,8 +90,6 @@ chrome.storage.onChanged?.addListener((changes, area) => {
     syncUILanguage(deserializeLanguage(changes[StorageKey.uiLanguage].newValue))
   }
 })
-
-syncUILanguage()
 
 fetch(ModernDictPath)
   .then((response) => response.json())

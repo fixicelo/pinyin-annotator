@@ -13,18 +13,38 @@ export function isRestrictedUrl(url: string | undefined): boolean {
   return RESTRICTED_URL_PATTERNS.some((pattern) => pattern.test(url))
 }
 
+async function isDocumentAnnotatable(tabId: number): Promise<boolean> {
+  try {
+    const results = await chrome.scripting.executeScript({
+      target: { tabId },
+      func: () => {
+        try {
+          return document.contentType ?? ""
+        } catch {
+          return ""
+        }
+      }
+    })
+    const contentType = results?.[0]?.result as string | undefined
+    return typeof contentType === "string" && /html|xml/i.test(contentType)
+  } catch {
+    return false
+  }
+}
+
 const useCommunicateWithContentScript = (
   callback?: (response: Response) => void,
   onTabStatusChange?: (status: TabStatus) => void
 ) => {
   return useCallback(
     async (action: UserAction, data: UserPreferences = {}) => {
+      let tab: chrome.tabs.Tab | undefined
       try {
         const tabs = await chrome.tabs.query({
           active: true,
           currentWindow: true
         })
-        const tab = tabs[0]
+        tab = tabs[0]
 
         if (!tab?.id) {
           onTabStatusChange?.(TabStatus.RestrictedPage)
@@ -52,7 +72,14 @@ const useCommunicateWithContentScript = (
           "Content script communication failed:",
           error instanceof Error ? error.message : error
         )
-        onTabStatusChange?.(TabStatus.NeedsRefresh)
+        if (!tab?.id) {
+          onTabStatusChange?.(TabStatus.RestrictedPage)
+          return
+        }
+        const annotatable = await isDocumentAnnotatable(tab.id)
+        onTabStatusChange?.(
+          annotatable ? TabStatus.NeedsRefresh : TabStatus.RestrictedPage
+        )
       }
     },
     [callback, onTabStatusChange]

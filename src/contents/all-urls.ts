@@ -404,4 +404,18 @@ export class Annotator {
   }
 }
 
-const annotator = new Annotator()
+function canAnnotateDocument(): boolean {
+  try {
+    const contentType = document.contentType
+    if (contentType && !/html|xml/i.test(contentType)) {
+      return false
+    }
+    return !!document.documentElement
+  } catch {
+    return false
+  }
+}
+
+if (canAnnotateDocument()) {
+  const annotator = new Annotator()
+}
