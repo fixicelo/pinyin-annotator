@@ -28,12 +28,14 @@ interface AnnotationScaleControlProps {
   ) => void
   onPreviewChange?: (preview: AnnotationScalePreview) => void
   syncWithCurrentTab: boolean
+  embedded?: boolean
 }
 
 const AnnotationScaleControl: React.FC<AnnotationScaleControlProps> = ({
   communicateWithContentScript,
   onPreviewChange,
-  syncWithCurrentTab
+  syncWithCurrentTab,
+  embedded = false
 }) => {
   useI18n()
 
@@ -167,7 +169,10 @@ const AnnotationScaleControl: React.FC<AnnotationScaleControlProps> = ({
   }, [commitPreferences])
 
   return (
-    <div className="card annotation-scale-card">
+    <div
+      className={
+        embedded ? "annotation-scale-embedded" : "card annotation-scale-card"
+      }>
       <div className="annotation-scale-header">
         <div className="annotation-scale-heading">
           <div className="annotation-scale-title">

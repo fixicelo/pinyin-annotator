@@ -28,12 +28,13 @@ import {
   useI18n
 } from "~lib/i18n"
 
+import AnnotationScaleControl from "./popup/AnnotationScaleControl"
 import { useTheme } from "./popup/useTheme"
 import { convertTextContentToHtml, debounce } from "./util"
 
 import "./popup/design-system.css"
 
-const SAMPLE_TEXT = "你好！今天天氣真好。"
+const SAMPLE_TEXT = "你好！"
 
 function Options() {
   useTheme()
@@ -104,22 +105,28 @@ function Options() {
     false
   )
   const [shortcut, setShortcut] = useState("Alt+Shift+P")
+  const [previewAnnotationScale, setPreviewAnnotationScale] = useState<number>()
+  const [previewScaleTextTogether, setPreviewScaleTextTogether] =
+    useState<boolean>()
   const resolvedScaleTextTogether = scaleTextTogetherTouched
     ? scaleTextTogether
     : SCALE_TEXT_TOGETHER_DEFAULT
+  const effectiveAnnotationScale = previewAnnotationScale ?? annotationScale
+  const effectiveScaleTextTogether =
+    previewScaleTextTogether ?? resolvedScaleTextTogether
   const annotationFontSize = getAnnotationFontSizeEm(
-    annotationScale,
+    effectiveAnnotationScale,
     rubyPosition,
-    resolvedScaleTextTogether
+    effectiveScaleTextTogether
   )
   const scaledTextFontSize = getScaledTextFontSize(
-    annotationScale,
-    resolvedScaleTextTogether
+    effectiveAnnotationScale,
+    effectiveScaleTextTogether
   )
   const scaledTextLineHeight = getScaledTextLineHeight(
-    annotationScale,
+    effectiveAnnotationScale,
     rubyPosition,
-    resolvedScaleTextTogether
+    effectiveScaleTextTogether
   )
 
   useEffect(() => {
@@ -142,6 +149,17 @@ function Options() {
 
   const handleUILanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUILanguage(e.target.value)
+  }
+
+  const handlePreviewChange = ({
+    annotationScale: nextAnnotationScale,
+    scaleTextTogether: nextScaleTextTogether
+  }: {
+    annotationScale: number
+    scaleTextTogether: boolean
+  }) => {
+    setPreviewAnnotationScale(nextAnnotationScale)
+    setPreviewScaleTextTogether(nextScaleTextTogether)
   }
 
   const handleToneTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -423,6 +441,37 @@ function Options() {
                     </select>
                   </div>
                 </div>
+
+                <div className="appearance-scale-section">
+                  <AnnotationScaleControl
+                    communicateWithContentScript={() => {}}
+                    syncWithCurrentTab={false}
+                    onPreviewChange={handlePreviewChange}
+                    embedded
+                  />
+                </div>
+
+                <div className="settings-row">
+                  <div className="settings-row-content">
+                    <span className="settings-row-title">
+                      {t("optionsTheme")}
+                    </span>
+                    <span className="settings-row-desc">
+                      {t("optionsThemeDesc")}
+                    </span>
+                  </div>
+                  <div className="settings-row-action">
+                    <select
+                      className="select"
+                      value={theme}
+                      onChange={handleThemeChange}
+                      style={{ width: "120px" }}>
+                      <option value={Theme.System}>{t("optionAuto")}</option>
+                      <option value={Theme.Light}>{t("optionLight")}</option>
+                      <option value={Theme.Dark}>{t("optionDark")}</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -556,35 +605,6 @@ function Options() {
               </div>
             </div>
 
-            <div className="card">
-              <div className="card-header">
-                <h4>{t("optionsAppearanceTitle")}</h4>
-              </div>
-              <div className="card-body">
-                <div className="settings-row">
-                  <div className="settings-row-content">
-                    <span className="settings-row-title">
-                      {t("optionsTheme")}
-                    </span>
-                    <span className="settings-row-desc">
-                      {t("optionsThemeDesc")}
-                    </span>
-                  </div>
-                  <div className="settings-row-action">
-                    <select
-                      className="select"
-                      value={theme}
-                      onChange={handleThemeChange}
-                      style={{ width: "120px" }}>
-                      <option value={Theme.System}>{t("optionAuto")}</option>
-                      <option value={Theme.Light}>{t("optionLight")}</option>
-                      <option value={Theme.Dark}>{t("optionDark")}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div
               style={{
                 background: "var(--bg-card)",
@@ -712,8 +732,8 @@ function Options() {
                       ? t("optionsPreviewAbove")
                       : t("optionsPreviewBelow")}
                   {" · "}
-                  {annotationScale}%{" · "}
-                  {resolvedScaleTextTogether
+                  {effectiveAnnotationScale}%{" · "}
+                  {effectiveScaleTextTogether
                     ? t("optionsPreviewTextAndAnnotation")
                     : t("optionsPreviewAnnotationOnly")}
                 </span>
