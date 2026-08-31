@@ -1,3 +1,5 @@
+
+
 # Pinyin Annotator
 
 > **🌐 Language / 語言:** English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [Tiếng Việt](README.vi.md) · [Español](README.es.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Deutsch](README.de.md) · [Italiano](README.it.md)
@@ -46,7 +48,7 @@ pnpm package:all
 
 This builds and zips both Chrome and Firefox releases into `build/chrome-mv3-prod.zip` and `build/firefox-mv3-prod.zip`. For a single target, run `pnpm build --target=chrome-mv3` then `pnpm package --target=chrome-mv3` (or the `firefox-mv3` equivalent).
 
-For local testing, load the unpacked build (`pnpm build:all`):
+For local testing, run `pnpm build:all`, then load the unpacked build:
 - Chrome: `chrome://extensions` → Developer mode → Load unpacked → `build/chrome-mv3-prod/`
 - Firefox: `about:debugging#/runtime/this-firefox` → Load Temporary Add-on → `build/firefox-mv3-prod/manifest.json`
 
