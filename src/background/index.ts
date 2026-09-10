@@ -1,6 +1,3 @@
-import { addDict } from "pinyin-pro"
-import ModernDictPath from "raw:@pinyin-pro/data/json/modern.json"
-
 import { RESTRICTED_URL_PATTERNS, StorageKey, UserAction } from "~constants"
 import { applyLanguage, t } from "~lib/i18n"
 
@@ -90,12 +87,3 @@ chrome.storage.onChanged?.addListener((changes, area) => {
     syncUILanguage(deserializeLanguage(changes[StorageKey.uiLanguage].newValue))
   }
 })
-
-fetch(ModernDictPath)
-  .then((response) => response.json())
-  .then((dict) => {
-    addDict(dict)
-  })
-  .catch((error) => {
-    console.error("Failed to load ModernDict", error)
-  })

@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@pinyin-pro/data':
-        specifier: ^1.3.1
-        version: 1.3.1
-      '@plasmohq/messaging':
-        specifier: ^0.7.2
-        version: 0.7.2(react@19.2.8)
       '@plasmohq/storage':
         specifier: ^1.15.0
         version: 1.15.0(react@19.2.8)
@@ -1163,9 +1157,6 @@ packages:
     peerDependencies:
       '@parcel/core': ^2.9.3
 
-  '@pinyin-pro/data@1.3.1':
-    resolution: {integrity: sha512-7SLDd8Q31U8lvZ6BtRFaZrTfQ4p01g+q/VFqpMRG0dAAsuBKMl59pAOsbLsRL2m3+SgW0zzztrQyAtHSvijMIQ==}
-
   '@plasmohq/consolidate@0.17.0':
     resolution: {integrity: sha512-Na8imBnvzYPtzkK+9Uv9hPZ/oJti/0jgiQWD222SHxHw2QCVuR4KzslxXCy/rS8gGluSiTs1BGVvc3d2O6aJCA==}
     engines: {node: '>= 0.10.0'}
@@ -1312,14 +1303,6 @@ packages:
 
   '@plasmohq/init@0.7.0':
     resolution: {integrity: sha512-P75g48dqOGneJ+n0AcqnLE/TYflcaPc3B7h6EopnCBBYUDnCNBMwYmKAkaf5pnhsEB0ybPS6TU1C2DTGfqaW7A==}
-
-  '@plasmohq/messaging@0.7.2':
-    resolution: {integrity: sha512-waIp827DRgy4KiF+eoWQBvlacltAGzD1LgeFdgMC0tF2eMSgSFmvIEZc/8irQUFTcG+nk/Z+ESTIS7MVX71iTQ==}
-    peerDependencies:
-      react: ^16.8.6 || ^17 || ^18 || ^19.0.0
-    peerDependenciesMeta:
-      react:
-        optional: true
 
   '@plasmohq/parcel-bundler@0.5.6':
     resolution: {integrity: sha512-kjwj5tQUhdAK00AxXOzgqJ2jryZg4X6aleYAcjbREPzVMqKEu1NrNSNy5VGAfNRG6NCT6ZYg39ZCyuUOR2lEsQ==}
@@ -2991,11 +2974,6 @@ packages:
   nanoid@3.3.16:
     resolution: {integrity: sha512-bzlKTyNJ7+LdGIIwy8ijFpIqEQIvafahV7eYykJ8Cvh42EdJeODoJ6gUJXpQJvej1BddH8OqTXZNE/KfbWAu8Q==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
-  nanoid@5.1.5:
-    resolution: {integrity: sha512-Ir/+ZpE9fDsNH0hQ3C68uyThDXzYcim2EqcZ8zn8Chtt1iylPT9xXJB0kPCnqzgcEGikO9RxSrh63MsmVCU7Fw==}
-    engines: {node: ^18 || >=20}
     hasBin: true
 
   natural-compare@1.4.0:
@@ -5027,8 +5005,6 @@ snapshots:
       '@parcel/utils': 2.9.3
       nullthrows: 1.1.1
 
-  '@pinyin-pro/data@1.3.1': {}
-
   '@plasmohq/consolidate@0.17.0(lodash@4.17.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       bluebird: 3.7.2
@@ -5038,12 +5014,6 @@ snapshots:
       react-dom: 19.2.8(react@19.2.8)
 
   '@plasmohq/init@0.7.0': {}
-
-  '@plasmohq/messaging@0.7.2(react@19.2.8)':
-    dependencies:
-      nanoid: 5.1.5
-    optionalDependencies:
-      react: 19.2.8
 
   '@plasmohq/parcel-bundler@0.5.6':
     dependencies:
@@ -6899,8 +6869,6 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.16: {}
-
-  nanoid@5.1.5: {}
 
   natural-compare@1.4.0: {}
 
