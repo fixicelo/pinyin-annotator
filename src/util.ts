@@ -59,8 +59,11 @@ export const findTextNodesWithContent = async (
 
   const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) => {
-      // Check if direct parent should be ignored
-      if (resolvedIgnoredNodes.includes(node.parentElement.nodeName)) {
+      // A text node's parent is not always an element -- a document fragment or
+      // the document itself can hold one -- so parentNode is used rather than
+      // parentElement.
+      const parent = node.parentNode
+      if (parent && resolvedIgnoredNodes.includes(parent.nodeName)) {
         return NodeFilter.FILTER_REJECT
       }
 
