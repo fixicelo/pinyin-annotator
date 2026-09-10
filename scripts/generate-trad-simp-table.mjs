@@ -8,7 +8,7 @@
 // This mapping is a stable linguistic fact, so the table is generated once and
 // committed. Regenerate with:
 //
-//   node scripts/generate-trad-simp-table.mjs
+//   pnpm run trad-simp:sync
 //
 // The script uses cnchar/cnchar-trad, which are devDependencies only — they are
 // deliberately absent from the shipped bundle.

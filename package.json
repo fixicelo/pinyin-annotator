@@ -16,7 +16,7 @@
     "test:watch": "vitest",
     "start:firefox": "web-ext run --source-dir ./build/firefox-mv3-prod/",
     "i18n:sync": "node scripts/generate-i18n-fallback.mjs && prettier --write src/lib/i18n-fallback.ts && node scripts/check-locales.mjs",
-    "trad-simp:sync": "node scripts/generate-trad-simp-table.mjs",
+    "trad-simp:sync": "node scripts/generate-trad-simp-table.mjs && prettier --write src/lib/trad-simp.ts",
     "verify": "pnpm run i18n:sync && pnpm test && pnpm lint",
     "predev": "node scripts/generate-i18n-fallback.mjs && prettier --write src/lib/i18n-fallback.ts",
     "prebuild": "pnpm run verify",
