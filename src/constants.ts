@@ -88,7 +88,6 @@ export interface Response {
 }
 
 export type HtmlOptions = {
-  wrapNonChinese?: boolean
   toneType?: ToneType
   dictLink?: string
   pronunciationSystem?: PronunciationSystem

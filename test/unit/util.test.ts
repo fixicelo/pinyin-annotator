@@ -61,10 +61,27 @@ describe("convertTextContentToHtml", () => {
     expect(html).toContain('<rt class="py-pinyin-item">hǎo</rt>')
   })
 
-  it("wraps non-Chinese characters", () => {
+  it("merges adjacent non-Chinese characters into a single wrapper", () => {
     const html = convertTextContentToHtml("A！", {})
-    expect(html).toContain('class="py-non-chinese-item">A</pya>')
-    expect(html).toContain('class="py-non-chinese-item">！</pya>')
+    expect(html).toBe('<pya class="py-non-chinese-item">A！</pya>')
+  })
+
+  it("keeps unannotated runs on both sides of an annotated character", () => {
+    const html = convertTextContentToHtml("hi 你 ok", {})
+    expect(html).toContain('<pya class="py-non-chinese-item">hi </pya>')
+    expect(html).toContain('<pya class="py-non-chinese-item"> ok</pya>')
+    expect(html.match(/py-non-chinese-item/g)).toHaveLength(2)
+  })
+
+  it("escapes markup so merged runs cannot break out of the wrapper", () => {
+    const html = convertTextContentToHtml('a < b & "c"', {})
+    expect(html).not.toContain("< b")
+    expect(html).toContain("a &lt; b &amp; &quot;c&quot;")
+  })
+
+  it("omits the legacy <rp> fallback elements", () => {
+    const html = convertTextContentToHtml("你好", {})
+    expect(html).not.toContain("<rp>")
   })
 
   it("omits tone marks when toneType is none", () => {

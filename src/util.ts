@@ -90,39 +90,94 @@ export const findTextNodesWithContent = async (
   return nodes
 }
 
+/**
+ * A run of text that carries no annotation, or a single character together with
+ * its reading. Adjacent unannotated characters are merged into one segment so
+ * that the DOM keeps scripts, grapheme clusters (emoji ZWJ sequences, combining
+ * marks) and word boundaries intact instead of boxing up every code point.
+ */
+export type AnnotationSegment =
+  | { type: "annotated"; char: string; pinyin: string }
+  | { type: "plain"; text: string }
+
+export function segmentText(
+  text: string,
+  htmlOptions: HtmlOptions
+): AnnotationSegment[] {
+  if (!text) {
+    return []
+  }
+
+  const isZhuyin =
+    htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
+  const rawPinyin = pinyinConverter(tradToSimplified(text), {
+    type: "array",
+    toneType: isZhuyin ? "num" : htmlOptions.toneType
+  })
+
+  const segments: AnnotationSegment[] = []
+  let plain = ""
+
+  const flushPlain = () => {
+    if (plain) {
+      segments.push({ type: "plain", text: plain })
+      plain = ""
+    }
+  }
+
+  const chars = [...text]
+  for (let i = 0; i < chars.length; i++) {
+    const char = chars[i]
+    const raw = rawPinyin[i]
+    // pinyin-pro echoes a character back when it has no reading for it, which
+    // is how non-Chinese text is recognised.
+    if (raw === undefined || char === raw) {
+      plain += char
+      continue
+    }
+    flushPlain()
+    segments.push({
+      type: "annotated",
+      char,
+      pinyin: isZhuyin ? pinyinToZhuyin(raw) : raw
+    })
+  }
+  flushPlain()
+
+  return segments
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
 export function convertTextContentToHtml(
   text: string,
   htmlOptions: HtmlOptions
 ): string {
-  const simplifiedText = tradToSimplified(text)
-  const isZhuyin =
-    htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
-  const toneType = isZhuyin ? "num" : htmlOptions.toneType
-  const rawPinyin = pinyinConverter(simplifiedText, {
-    type: "array",
-    toneType
-  })
-  const words = [...text]
-  const lookup = words.map((word, index) => {
-    const raw = rawPinyin[index]
-    const isPinyin = word !== raw
-    if (!isPinyin) return [word, null] as const
-    const display = isZhuyin ? pinyinToZhuyin(raw) : raw
-    return [word, display] as const
-  })
-  const markup = lookup
-    .map(([word, pinyin]) => {
-      if (pinyin) {
-        if (htmlOptions.dictLink && htmlOptions.dictLink != "") {
-          return `<${TAG_NAME} class="${RESULT_CLASS}" ${IS_ANNOTATED_ATTR}="true"><ruby><${TAG_NAME} class="${CHINESE_CLASS}"><a href="${htmlOptions.dictLink.replace("{word}", word)}" target="_blank">${word}</a></${TAG_NAME}><rp>(</rp><rt class="${PINYIN_CLASS}">${pinyin}</rt><rp>)</rp></ruby></${TAG_NAME}>`
-        }
-        return `<${TAG_NAME} class="${RESULT_CLASS}" ${IS_ANNOTATED_ATTR}="true"><ruby><${TAG_NAME} class="${CHINESE_CLASS}">${word}</${TAG_NAME}><rp>(</rp><rt class="${PINYIN_CLASS}">${pinyin}</rt><rp>)</rp></ruby></${TAG_NAME}>`
+  const dictLink =
+    htmlOptions.dictLink && htmlOptions.dictLink !== ""
+      ? htmlOptions.dictLink
+      : undefined
+
+  return segmentText(text, htmlOptions)
+    .map((segment) => {
+      if (segment.type === "plain") {
+        return `<${TAG_NAME} class="${NON_CHINESE_CLASS}">${escapeHtml(segment.text)}</${TAG_NAME}>`
       }
-      return `<${TAG_NAME} class="${NON_CHINESE_CLASS}">${word}</${TAG_NAME}>`
+
+      const char = escapeHtml(segment.char)
+      const base = dictLink
+        ? `<${TAG_NAME} class="${CHINESE_CLASS}"><a href="${escapeHtml(dictLink.replace("{word}", segment.char))}" target="_blank">${char}</a></${TAG_NAME}>`
+        : `<${TAG_NAME} class="${CHINESE_CLASS}">${char}</${TAG_NAME}>`
+
+      return `<${TAG_NAME} class="${RESULT_CLASS}" ${IS_ANNOTATED_ATTR}="true"><ruby>${base}<rt class="${PINYIN_CLASS}">${escapeHtml(segment.pinyin)}</rt></ruby></${TAG_NAME}>`
     })
     .join("")
-
-  return markup
 }
 
 const PINYIN_INITIALS: Record<string, string> = {
@@ -293,52 +348,44 @@ export function pinyinToZhuyin(pinyin: string): string {
   return result
 }
 
-function createAnnotationElement(
-  word: string,
-  pinyin: string | null,
+function createAnnotatedElement(
+  char: string,
+  pinyin: string,
   dictLink?: string
 ): HTMLElement {
   const wrapper = document.createElement(TAG_NAME)
+  wrapper.className = RESULT_CLASS
+  wrapper.setAttribute(IS_ANNOTATED_ATTR, "true")
 
-  if (pinyin) {
-    wrapper.className = RESULT_CLASS
-    wrapper.setAttribute(IS_ANNOTATED_ATTR, "true")
+  const ruby = document.createElement("ruby")
 
-    const ruby = document.createElement("ruby")
-
-    const chineseWrapper = document.createElement(TAG_NAME)
-    chineseWrapper.className = CHINESE_CLASS
-
-    if (dictLink) {
-      const link = document.createElement("a")
-      link.href = dictLink.replace("{word}", word)
-      link.target = "_blank"
-      link.textContent = word
-      chineseWrapper.appendChild(link)
-    } else {
-      chineseWrapper.textContent = word
-    }
-
-    const rpOpen = document.createElement("rp")
-    rpOpen.textContent = "("
-
-    const rt = document.createElement("rt")
-    rt.className = PINYIN_CLASS
-    rt.textContent = pinyin
-
-    const rpClose = document.createElement("rp")
-    rpClose.textContent = ")"
-
-    ruby.appendChild(chineseWrapper)
-    ruby.appendChild(rpOpen)
-    ruby.appendChild(rt)
-    ruby.appendChild(rpClose)
-    wrapper.appendChild(ruby)
+  const base = document.createElement(TAG_NAME)
+  base.className = CHINESE_CLASS
+  if (dictLink) {
+    const link = document.createElement("a")
+    link.href = dictLink.replace("{word}", char)
+    link.target = "_blank"
+    link.textContent = char
+    base.appendChild(link)
   } else {
-    wrapper.className = NON_CHINESE_CLASS
-    wrapper.textContent = word
+    base.textContent = char
   }
 
+  const rt = document.createElement("rt")
+  rt.className = PINYIN_CLASS
+  rt.textContent = pinyin
+
+  ruby.appendChild(base)
+  ruby.appendChild(rt)
+  wrapper.appendChild(ruby)
+
+  return wrapper
+}
+
+function createPlainElement(text: string): HTMLElement {
+  const wrapper = document.createElement(TAG_NAME)
+  wrapper.className = NON_CHINESE_CLASS
+  wrapper.textContent = text
   return wrapper
 }
 
@@ -346,54 +393,50 @@ export function buildAnnotatedFragment(
   text: string,
   htmlOptions: HtmlOptions
 ): DocumentFragment {
-  const simplifiedText = tradToSimplified(text)
-  const isZhuyin =
-    htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
-  const toneType = isZhuyin ? "num" : htmlOptions.toneType
-  const rawPinyin = pinyinConverter(simplifiedText, {
-    type: "array",
-    toneType
-  })
-  const words = [...text]
   const dictLink =
     htmlOptions.dictLink && htmlOptions.dictLink !== ""
       ? htmlOptions.dictLink
       : undefined
 
-  const frag = document.createDocumentFragment()
-  for (let i = 0; i < words.length; i++) {
-    const word = words[i]
-    const raw = rawPinyin[i]
-    const hasPinyin = word !== raw
-    const displayPinyin = hasPinyin
-      ? isZhuyin
-        ? pinyinToZhuyin(raw)
-        : raw
-      : null
-    const element = createAnnotationElement(word, displayPinyin, dictLink)
-    frag.appendChild(element)
+  const fragment = document.createDocumentFragment()
+  for (const segment of segmentText(text, htmlOptions)) {
+    fragment.appendChild(
+      segment.type === "annotated"
+        ? createAnnotatedElement(segment.char, segment.pinyin, dictLink)
+        : createPlainElement(segment.text)
+    )
   }
 
-  return frag
+  return fragment
 }
 
 export function clearAnnotation(root: Element) {
-  const tagResultList = root.querySelectorAll(`${TAG_NAME}.${RESULT_CLASS}`)
+  const affectedParents = new Set<Node>()
 
-  tagResultList.forEach((tagResult) => {
-    const tagChinese = tagResult.querySelector(`${TAG_NAME}.${CHINESE_CLASS}`)
-    const tagChineseText = tagChinese.textContent
-    const parent = tagResult.parentElement
-    tagResult.replaceWith(tagChineseText)
-    parent.normalize()
+  const replaceWithText = (element: Element, text: string) => {
+    const parent = element.parentNode
+    element.replaceWith(text)
+    if (parent) {
+      affectedParents.add(parent)
+    }
+  }
+
+  root.querySelectorAll(`${TAG_NAME}.${RESULT_CLASS}`).forEach((result) => {
+    const chinese = result.querySelector(`${TAG_NAME}.${CHINESE_CLASS}`)
+    // Fall back to the wrapper's own text if the inner element is missing —
+    // page scripts are free to rewrite our markup while it is on screen.
+    replaceWithText(result, chinese?.textContent ?? result.textContent ?? "")
   })
+
   root
     .querySelectorAll(`${TAG_NAME}.${NON_CHINESE_CLASS}`)
     .forEach((element) => {
-      const parent = element.parentElement
-      element.replaceWith(element?.textContent)
-      parent.normalize()
+      replaceWithText(element, element.textContent ?? "")
     })
+
+  // normalize() walks the whole subtree, so it must run once per parent rather
+  // than once per removed element.
+  affectedParents.forEach((parent) => parent.normalize())
 }
 
 export function isAnnotated(root: Element) {

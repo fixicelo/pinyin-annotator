@@ -45,7 +45,6 @@ export class Annotator {
   private isProcessing = false
 
   private htmlOptions: HtmlOptions = {
-    wrapNonChinese: true,
     toneType: ToneType.Symbol
   }
   private observerOptions: MutationObserverInit = {
@@ -267,9 +266,6 @@ export class Annotator {
         }
         .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}] ruby {
           display: contents;
-        }
-        .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}] rp {
-          display: none;
         }
         .${RESULT_CLASS}[${IS_ANNOTATED_ATTR}] rt {
           display: inline-block;

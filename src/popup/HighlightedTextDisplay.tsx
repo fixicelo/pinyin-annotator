@@ -214,9 +214,6 @@ const HighlightedTextDisplay = ({
             .highlighted-text-preview .py-result-item[data-pya-is-annotated] ruby {
               display: contents;
             }
-            .highlighted-text-preview .py-result-item[data-pya-is-annotated] rp {
-              display: none;
-            }
             .highlighted-text-preview .py-result-item[data-pya-is-annotated] rt {
               display: inline-block;
               writing-mode: vertical-lr;
