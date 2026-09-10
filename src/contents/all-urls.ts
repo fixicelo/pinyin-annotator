@@ -294,6 +294,34 @@ export class Annotator {
     `
   }
 
+  /**
+   * Yields to the main thread so the page can paint between chunks of work.
+   *
+   * requestAnimationFrame is the natural choice while the document is visible,
+   * but it never fires while it is hidden. Waiting on it there stalls
+   * annotation partway through a large page, leaves the action without a
+   * response, and keeps the mutation observer detached, so a timer backs it up.
+   */
+  private yieldToMainThread(): Promise<void> {
+    return new Promise((resolve) => {
+      let settled = false
+      const finish = () => {
+        if (settled) return
+        settled = true
+        resolve()
+      }
+
+      if (!document.hidden && typeof requestAnimationFrame === "function") {
+        requestAnimationFrame(finish)
+        // Also covers rAF being throttled for an occluded window.
+        setTimeout(finish, 250)
+        return
+      }
+
+      setTimeout(finish, 0)
+    })
+  }
+
   private async processNodes(
     root: Node,
     htmlOptions: HtmlOptions,
@@ -303,7 +331,7 @@ export class Annotator {
 
     for (let i = 0; i < nodes.length; i++) {
       if (i > 0 && i % 80 === 0) {
-        await new Promise((resolve) => requestAnimationFrame(resolve))
+        await this.yieldToMainThread()
       }
 
       if (version !== this.annotationVersion) {
