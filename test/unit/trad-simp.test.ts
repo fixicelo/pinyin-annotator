@@ -2,7 +2,7 @@ import cnchar from "cnchar"
 import trad from "cnchar-trad"
 import { describe, expect, it } from "vitest"
 
-import { tradToSimplified, TRAD_SIMP_ENTRIES } from "~lib/trad-simp"
+import { TRAD_SIMP_ENTRIES, tradToSimplified } from "~lib/trad-simp"
 
 cnchar.use(trad)
 
@@ -48,7 +48,9 @@ describe("tradToSimplified", () => {
         const expected = cnchar.convert.tradToSimple(char)
         const actual = tradToSimplified(char)
         if (expected !== actual && mismatches.length < 10) {
-          mismatches.push(`U+${cp.toString(16)} ${char}: ${expected} != ${actual}`)
+          mismatches.push(
+            `U+${cp.toString(16)} ${char}: ${expected} != ${actual}`
+          )
         }
       }
     }

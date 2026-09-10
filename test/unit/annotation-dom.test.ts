@@ -1,0 +1,260 @@
+// @vitest-environment happy-dom
+import { describe, expect, it } from "vitest"
+
+import {
+  CHINESE_CLASS,
+  DEFAULT_IGNORED_NODES,
+  NON_CHINESE_CLASS,
+  PronunciationSystem,
+  RESULT_CLASS,
+  TAG_NAME,
+  ToneType
+} from "~constants"
+import {
+  buildAnnotatedFragment,
+  clearAnnotation,
+  findTextNodesWithContent,
+  isAnnotated,
+  segmentText
+} from "~util"
+
+const SYMBOL = { toneType: ToneType.Symbol }
+
+/** Renders `text` into a detached container the way the content script does. */
+function annotate(text: string, options = SYMBOL) {
+  const container = document.createElement("div")
+  container.textContent = text
+  container.replaceChildren(buildAnnotatedFragment(text, options))
+  return container
+}
+
+describe("segmentText", () => {
+  it("separates annotated characters from plain runs", () => {
+    expect(segmentText("你好abc世界", SYMBOL)).toEqual([
+      { type: "annotated", char: "你", pinyin: "nǐ" },
+      { type: "annotated", char: "好", pinyin: "hǎo" },
+      { type: "plain", text: "abc" },
+      { type: "annotated", char: "世", pinyin: "shì" },
+      { type: "annotated", char: "界", pinyin: "jiè" }
+    ])
+  })
+
+  it("keeps a whole non-Chinese input as one plain segment", () => {
+    expect(segmentText("Hello world", SYMBOL)).toEqual([
+      { type: "plain", text: "Hello world" }
+    ])
+  })
+
+  it("returns nothing for empty input", () => {
+    expect(segmentText("", SYMBOL)).toEqual([])
+  })
+
+  it("converts traditional text before reading it", () => {
+    // 為 on its own resolves to "wéi"; the phrase dictionary used after
+    // traditional-to-simplified conversion resolves 因為 to "wèi".
+    const [first, second] = segmentText("因為", SYMBOL)
+    expect(first).toEqual({ type: "annotated", char: "因", pinyin: "yīn" })
+    expect(second).toEqual({ type: "annotated", char: "為", pinyin: "wèi" })
+  })
+
+  it("produces zhuyin when that system is selected", () => {
+    expect(
+      segmentText("你好", { pronunciationSystem: PronunciationSystem.Zhuyin })
+    ).toEqual([
+      { type: "annotated", char: "你", pinyin: "ㄋㄧˇ" },
+      { type: "annotated", char: "好", pinyin: "ㄏㄠˇ" }
+    ])
+  })
+})
+
+describe("buildAnnotatedFragment", () => {
+  it("builds ruby markup with a reading per Chinese character", () => {
+    const container = annotate("你")
+
+    const result = container.firstElementChild
+    expect(result.tagName.toLowerCase()).toBe(TAG_NAME)
+    expect(result.classList.contains(RESULT_CLASS)).toBe(true)
+    expect(result.innerHTML).toBe(
+      '<ruby><pya class="py-chinese-item">你</pya>' +
+        '<rt class="py-pinyin-item">nǐ</rt></ruby>'
+    )
+  })
+
+  it("does not emit legacy <rp> fallback elements", () => {
+    expect(annotate("你好").querySelectorAll("rp")).toHaveLength(0)
+  })
+
+  it("merges adjacent non-Chinese characters into one wrapper", () => {
+    const container = annotate("Hello world")
+
+    expect(container.children).toHaveLength(1)
+    const wrapper = container.firstElementChild
+    expect(wrapper.classList.contains(NON_CHINESE_CLASS)).toBe(true)
+    expect(wrapper.textContent).toBe("Hello world")
+  })
+
+  it("keeps plain runs on both sides of an annotated character", () => {
+    const container = annotate("hi 你 ok")
+    const wrappers = container.children
+
+    expect(wrappers).toHaveLength(3)
+    expect(wrappers[0].textContent).toBe("hi ")
+    expect(wrappers[0].classList.contains(NON_CHINESE_CLASS)).toBe(true)
+    expect(wrappers[1].classList.contains(RESULT_CLASS)).toBe(true)
+    expect(wrappers[2].textContent).toBe(" ok")
+  })
+
+  it("keeps a grapheme cluster inside a single wrapper", () => {
+    // 👨‍👩‍👧 is one grapheme built from five code points. Wrapping each code
+    // point separately used to split it into five siblings, which stops the
+    // sequence rendering as a single glyph.
+    const family = "\u{1F468}\u200D\u{1F469}\u200D\u{1F467}"
+    const container = annotate(family + "家庭")
+
+    const graphemes = [
+      ...new Intl.Segmenter("en", { granularity: "grapheme" }).segment(family)
+    ]
+    expect(graphemes).toHaveLength(1)
+
+    const plain = container.firstElementChild
+    expect(plain.textContent).toBe(family)
+    expect(container.children).toHaveLength(3)
+  })
+
+  it("links annotated characters when a dictionary url is configured", () => {
+    const container = annotate("你", {
+      ...SYMBOL,
+      dictLink: "https://dict.example/{word}"
+    })
+
+    const link = container.querySelector(`.${CHINESE_CLASS} a`)
+    expect(link.getAttribute("href")).toBe("https://dict.example/你")
+    expect(link.getAttribute("target")).toBe("_blank")
+  })
+
+  it("reports the item as annotated", () => {
+    expect(isAnnotated(annotate("你好"))).toBe(true)
+    expect(isAnnotated(document.createElement("div"))).toBe(false)
+  })
+})
+
+describe("clearAnnotation", () => {
+  const cases = [
+    "你好世界",
+    "Hello world",
+    "你好，世界！Hello, 世界 123。",
+    "漢語拼音與繁體字",
+    "\u{1F468}\u200D\u{1F469}\u200D\u{1F467}家庭",
+    "a < b & c \"d\" 'e'",
+    "   leading and trailing   ",
+    "中文\n換行\t定位",
+    ""
+  ]
+
+  it.each(cases)("restores %j exactly", (text) => {
+    for (const options of [
+      SYMBOL,
+      { ...SYMBOL, dictLink: "https://dict.example/{word}" }
+    ]) {
+      const container = annotate(text, options)
+      clearAnnotation(container)
+      expect(container.textContent).toBe(text)
+    }
+  })
+
+  it("removes all annotation markup", () => {
+    const container = annotate("你好abc")
+    clearAnnotation(container)
+
+    expect(container.querySelectorAll(TAG_NAME)).toHaveLength(0)
+    expect(isAnnotated(container)).toBe(false)
+  })
+
+  it("does not throw when the inner Chinese element is missing", () => {
+    // Page scripts are free to rewrite our markup while it is on screen.
+    const container = document.createElement("div")
+    const orphan = document.createElement(TAG_NAME)
+    orphan.className = RESULT_CLASS
+    orphan.textContent = "你"
+    container.appendChild(orphan)
+
+    expect(() => clearAnnotation(container)).not.toThrow()
+    expect(container.textContent).toBe("你")
+  })
+
+  it("leaves unrelated siblings untouched", () => {
+    const container = document.createElement("div")
+    const before = document.createElement("b")
+    before.textContent = "keep"
+    container.appendChild(before)
+    container.appendChild(buildAnnotatedFragment("你好", SYMBOL))
+    const after = document.createElement("i")
+    after.textContent = "also keep"
+    container.appendChild(after)
+
+    clearAnnotation(container)
+
+    expect(container.firstElementChild).toBe(before)
+    expect(container.lastElementChild).toBe(after)
+    expect(container.textContent).toBe("keep你好also keep")
+  })
+
+  it("is a no-op on a tree without annotations", () => {
+    const container = document.createElement("div")
+    container.textContent = "plain"
+    expect(() => clearAnnotation(container)).not.toThrow()
+    expect(container.textContent).toBe("plain")
+  })
+})
+
+describe("findTextNodesWithContent", () => {
+  it("finds only text nodes containing Chinese", async () => {
+    const container = document.createElement("div")
+    const chinese = document.createTextNode("你好")
+    container.append(
+      chinese,
+      document.createTextNode("plain"),
+      document.createTextNode("")
+    )
+
+    const found = await findTextNodesWithContent(
+      container,
+      DEFAULT_IGNORED_NODES
+    )
+
+    expect(found).toEqual([chinese])
+  })
+
+  it("skips ignored elements", async () => {
+    const container = document.createElement("div")
+    for (const tag of ["script", "style", "code", "pre"]) {
+      const element = document.createElement(tag)
+      element.textContent = "中文"
+      container.appendChild(element)
+    }
+
+    expect(
+      await findTextNodesWithContent(container, DEFAULT_IGNORED_NODES)
+    ).toEqual([])
+  })
+
+  it("skips its own annotation markup so it is not reprocessed", async () => {
+    const container = annotate("你好")
+
+    expect(
+      await findTextNodesWithContent(container, DEFAULT_IGNORED_NODES)
+    ).toEqual([])
+  })
+
+  it("does not throw when a text node has no element parent", async () => {
+    // parentElement is null inside a DocumentFragment, which used to make the
+    // TreeWalker filter throw on node.parentElement.nodeName.
+    const fragment = document.createDocumentFragment()
+    const node = document.createTextNode("孤立中文")
+    fragment.appendChild(node)
+
+    await expect(
+      findTextNodesWithContent(fragment, DEFAULT_IGNORED_NODES)
+    ).resolves.toEqual([node])
+  })
+})
