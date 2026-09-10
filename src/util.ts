@@ -1,6 +1,3 @@
-import cnchar from "cnchar"
-import poly from "cnchar-poly"
-import trad from "cnchar-trad"
 import { pinyin as pinyinConverter } from "pinyin-pro"
 
 import { Storage } from "@plasmohq/storage"
@@ -17,8 +14,7 @@ import {
   TAG_NAME,
   type HtmlOptions
 } from "~constants"
-
-cnchar.use(poly, trad)
+import { tradToSimplified } from "~lib/trad-simp"
 
 export function debounce<T extends (...args: never[]) => unknown>(
   func: T,
@@ -98,7 +94,7 @@ export function convertTextContentToHtml(
   text: string,
   htmlOptions: HtmlOptions
 ): string {
-  const simplifiedText = cnchar.convert.tradToSimple(text)
+  const simplifiedText = tradToSimplified(text)
   const isZhuyin =
     htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
   const toneType = isZhuyin ? "num" : htmlOptions.toneType
@@ -350,7 +346,7 @@ export function buildAnnotatedFragment(
   text: string,
   htmlOptions: HtmlOptions
 ): DocumentFragment {
-  const simplifiedText = cnchar.convert.tradToSimple(text)
+  const simplifiedText = tradToSimplified(text)
   const isZhuyin =
     htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
   const toneType = isZhuyin ? "num" : htmlOptions.toneType

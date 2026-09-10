@@ -17,15 +17,6 @@ importers:
       '@plasmohq/storage':
         specifier: ^1.15.0
         version: 1.15.0(react@19.2.8)
-      cnchar:
-        specifier: ^3.2.6
-        version: 3.2.6
-      cnchar-poly:
-        specifier: ^3.2.6
-        version: 3.2.6
-      cnchar-trad:
-        specifier: ^3.2.6
-        version: 3.2.6
       pinyin-pro:
         specifier: ^3.28.2
         version: 3.28.2
@@ -57,6 +48,12 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.4
         version: 19.2.4(@types/react@19.2.18)
+      cnchar:
+        specifier: ^3.2.6
+        version: 3.2.6
+      cnchar-trad:
+        specifier: ^3.2.6
+        version: 3.2.6
       eslint:
         specifier: ^10.8.0
         version: 10.8.0
@@ -2107,9 +2104,6 @@ packages:
   clone@2.1.2:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
-
-  cnchar-poly@3.2.6:
-    resolution: {integrity: sha512-CF0WA5S/OTvuY2gBPTgnMPCfte/Hk5od22zK9J3B7VzMZfzdH01Bs0+9xl2xLsObEE6UUg3dvqwDR5ozkFZM7A==}
 
   cnchar-trad@3.2.6:
     resolution: {integrity: sha512-xdQUwd+W7j4i4vD1c6ykgwuzNExBZrakrmi/5c6ODclyGgEb7QcBKGta7v9WewNhauLHUkTpeMR4AERoBhs3NQ==}
@@ -6051,10 +6045,6 @@ snapshots:
   cli-width@4.1.0: {}
 
   clone@2.1.2: {}
-
-  cnchar-poly@3.2.6:
-    dependencies:
-      cnchar-types: 3.2.6
 
   cnchar-trad@3.2.6:
     dependencies:
