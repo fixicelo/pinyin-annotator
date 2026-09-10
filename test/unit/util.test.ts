@@ -13,9 +13,19 @@ describe("containsChinese", () => {
     expect(containsChinese("中文abc")).toBe(true)
   })
 
+  it("detects Han characters outside the BMP range", () => {
+    // Extension A, compatibility ideographs and Extension B were previously
+    // missed, so text made only of those characters was never annotated.
+    expect(containsChinese("\u3400")).toBe(true) // 㐀 Extension A
+    expect(containsChinese("\uF900")).toBe(true) // 豈 compatibility
+    expect(containsChinese("\u{2000B}")).toBe(true) // 𠀋 Extension B
+    expect(containsChinese("\u{20CC1}")).toBe(true) // 𡃁 Extension B
+  })
+
   it("rejects non-Chinese text", () => {
     expect(containsChinese("hello")).toBe(false)
     expect(containsChinese("")).toBe(false)
+    expect(containsChinese("\u{1F468}\u200D\u{1F469}")).toBe(false)
   })
 })
 

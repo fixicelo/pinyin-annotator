@@ -33,8 +33,11 @@ export function debounce<T extends (...args: never[]) => unknown>(
   //   }
 }
 
+/** Matches any Han character, including extensions outside the BMP. */
+const HAN_CHARACTER = /\p{Script=Han}/u
+
 export function containsChinese(text: string): boolean {
-  return /[\u4e00-\u9fff]/.test(text)
+  return HAN_CHARACTER.test(text)
 }
 
 export async function getIgnoredNodes(): Promise<string[]> {
