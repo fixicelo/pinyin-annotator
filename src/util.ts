@@ -410,33 +410,66 @@ export function buildAnnotatedFragment(
   return fragment
 }
 
-export function clearAnnotation(root: Element) {
-  const affectedParents = new Set<Node>()
+/** The original text a wrapper was built from. */
+function annotationText(wrapper: Element): string {
+  if (wrapper.classList.contains(RESULT_CLASS)) {
+    const chinese = wrapper.querySelector(`${TAG_NAME}.${CHINESE_CLASS}`)
+    // Fall back to the wrapper's own text if the inner element is missing —
+    // page scripts are free to rewrite our markup while it is on screen.
+    return chinese?.textContent ?? wrapper.textContent ?? ""
+  }
+  return wrapper.textContent ?? ""
+}
 
-  const replaceWithText = (element: Element, text: string) => {
-    const parent = element.parentNode
-    element.replaceWith(text)
-    if (parent) {
-      affectedParents.add(parent)
+export function clearAnnotation(root: Element) {
+  const wrappers = Array.from(
+    root.querySelectorAll(
+      `${TAG_NAME}.${RESULT_CLASS}, ${TAG_NAME}.${NON_CHINESE_CLASS}`
+    )
+  )
+  if (wrappers.length === 0) {
+    return
+  }
+
+  const own = new Set<Node>(wrappers)
+  const parents = new Set<Node>()
+  for (const wrapper of wrappers) {
+    if (wrapper.parentNode) {
+      parents.add(wrapper.parentNode)
     }
   }
 
-  root.querySelectorAll(`${TAG_NAME}.${RESULT_CLASS}`).forEach((result) => {
-    const chinese = result.querySelector(`${TAG_NAME}.${CHINESE_CLASS}`)
-    // Fall back to the wrapper's own text if the inner element is missing —
-    // page scripts are free to rewrite our markup while it is on screen.
-    replaceWithText(result, chinese?.textContent ?? result.textContent ?? "")
-  })
+  // Collapse every run of adjacent wrappers into a single text node before
+  // removing anything. Unwrapping one element at a time with replaceWith()
+  // shifts the sibling list on each call, which makes clearing quadratic in the
+  // number of annotated characters; inserting the text first and removing the
+  // wrappers afterwards keeps it linear.
+  for (const parent of parents) {
+    const children = Array.from(parent.childNodes)
+    for (let i = 0; i < children.length; i++) {
+      if (!own.has(children[i])) {
+        continue
+      }
+      let text = ""
+      let end = i
+      while (end < children.length && own.has(children[end])) {
+        text += annotationText(children[end] as Element)
+        end++
+      }
+      parent.insertBefore(document.createTextNode(text), children[i])
+      i = end - 1
+    }
+  }
 
-  root
-    .querySelectorAll(`${TAG_NAME}.${NON_CHINESE_CLASS}`)
-    .forEach((element) => {
-      replaceWithText(element, element.textContent ?? "")
-    })
+  for (const wrapper of wrappers) {
+    wrapper.remove()
+  }
 
   // normalize() walks the whole subtree, so it must run once per parent rather
   // than once per removed element.
-  affectedParents.forEach((parent) => parent.normalize())
+  for (const parent of parents) {
+    parent.normalize()
+  }
 }
 
 export function isAnnotated(root: Element) {
