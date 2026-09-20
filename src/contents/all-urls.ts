@@ -3,7 +3,6 @@ import type { PlasmoCSConfig } from "plasmo"
 import { Storage } from "@plasmohq/storage"
 
 import {
-  BACKDROP_ATTR,
   DEFAULT_IGNORED_NODES,
   IS_ANNOTATED_ATTR,
   NON_CHINESE_CLASS,
@@ -26,7 +25,9 @@ import {
   getScaledTextLineHeight,
   SCALE_TEXT_TOGETHER_DEFAULT
 } from "~lib/annotation-scale"
+import { buildCaptionBackdropCss } from "~lib/caption-styles"
 import { reportFrameStatus } from "~lib/frame-status"
+import { createMutationBatcher } from "~lib/mutation-batcher"
 import { loadUserPreferences, saveUserPreferences } from "~lib/user-preferences"
 import {
   buildAnnotatedFragment,
@@ -70,13 +71,14 @@ export class Annotator {
     subtree: true
   }
   private observationTargetSelector: string = "body"
-  private pendingMutations: MutationRecord[] = []
-  private isFlushScheduled = false
+  private mutationBatcher = createMutationBatcher((mutations, version) =>
+    this.processDOMMutations(mutations, version)
+  )
   private lastAppliedStyleKey = ""
 
   constructor() {
     this.mutationObserver = new MutationObserver((mutations) =>
-      this.enqueueMutations(mutations)
+      this.mutationBatcher.push(mutations, this.annotationVersion)
     )
     chrome.runtime.onMessage.addListener(this.handleUserAction.bind(this))
     this.styleTag = document.createElement("style")
@@ -153,31 +155,6 @@ export class Annotator {
         this.observerOptions
       )
     }
-  }
-
-  /**
-   * Flushes on a microtask rather than on a timer. Player caption renderers
-   * rewrite their cue elements whenever the cue changes, and a timer would let
-   * that rewritten, still unannotated text reach a paint before the reading is
-   * restored — which is the flicker captions show on streaming sites.
-   * Microtasks run before the next paint, so the reading comes back in the same
-   * frame the player removed it.
-   */
-  private enqueueMutations(mutations: MutationRecord[]) {
-    this.pendingMutations.push(...mutations)
-    if (this.isFlushScheduled) {
-      return
-    }
-    this.isFlushScheduled = true
-    // The version is captured now so a flush that lands after a clear is
-    // discarded instead of re-annotating what was just removed.
-    const version = this.annotationVersion
-    queueMicrotask(() => {
-      this.isFlushScheduled = false
-      const merged = this.pendingMutations
-      this.pendingMutations = []
-      this.processDOMMutations(merged, version)
-    })
   }
 
   private processDOMMutations(
@@ -347,39 +324,10 @@ export class Annotator {
       }
     `
         : ""
-    // A caption paints its backdrop on the element that holds its text, but an
-    // inline box paints that backdrop behind the glyphs only — a reading above
-    // them lands outside it. The element marked by the annotator is given room
-    // above the text, so its own backdrop covers the reading instead of the
-    // reading needing a second backdrop of its own. Vertical padding on an
-    // inline box paints without moving anything around it.
-    //
-    // The reading is then lifted into the positioned layer. A ruby annotation
-    // is otherwise painted before the backdrop of the boxes around it, so a
-    // caption whose backdrop covers the reading leaves it grey — on JW Player
-    // an opaque backdrop hides the reading outright. Relative positioning
-    // leaves the reading exactly where ruby put it.
-    //
-    // Both declarations are !important because players style these elements
-    // themselves and load their stylesheet after this one: JW Player ships
-    // `.jw-text-track-cue { padding: .1em 0 }`, which has the same specificity
-    // as the padding rule below and would otherwise win.
-    const backdropSide =
-      rubyPosition === RubyPosition.OVER
-        ? "padding-top"
-        : rubyPosition === RubyPosition.UNDER
-          ? "padding-bottom"
-          : ""
-    const captionBackdrop = backdropSide
-      ? `
-      [${BACKDROP_ATTR}] {
-        ${backdropSide}: calc(${annotationFontSize} * 1.2) !important;
-      }
-      [${BACKDROP_ATTR}] rt {
-        position: relative !important;
-      }
-    `
-      : ""
+    const captionBackdrop = buildCaptionBackdropCss(
+      rubyPosition,
+      annotationFontSize
+    )
     this.styleTag.innerHTML = `
       ${TAG_NAME} {
         ruby-position: ${rubyPosition};
@@ -485,7 +433,7 @@ export class Annotator {
     [UserAction.Clear]: () => {
       this.annotationVersion++
       this.isProcessing = false
-      this.pendingMutations = []
+      this.mutationBatcher.cancel()
       if (this.isObserverEnabled) {
         this.mutationObserver.disconnect()
       }
