@@ -10,10 +10,12 @@ interface MonitorModeOptionProps {
     action: UserAction,
     data?: UserPreferences
   ) => void
+  disabled?: boolean
 }
 
 const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
-  communicateWithContentScript
+  communicateWithContentScript,
+  disabled = false
 }) => {
   useI18n()
 
@@ -34,11 +36,7 @@ const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
 
   return (
     <div
-      className="flex items-center justify-between"
-      style={{
-        padding: "12px 0",
-        borderBottom: "1px solid var(--border-color)"
-      }}
+      className={`option-row${disabled ? " is-disabled" : ""}`}
       title={t("monitorModeTooltip")}>
       <span className="text-strong" style={{ fontSize: "13px" }}>
         {t("monitorModeTitle")}
@@ -46,6 +44,7 @@ const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
       <label className="switch">
         <input
           type="checkbox"
+          disabled={disabled}
           checked={observerEnabled}
           onChange={handleObserverEnabledChange}
         />

@@ -10,10 +10,12 @@ interface AutoAnnotateOptionProps {
     action: UserAction,
     data?: UserPreferences
   ) => void
+  disabled?: boolean
 }
 
 const AutoAnnotateOption: React.FC<AutoAnnotateOptionProps> = ({
-  communicateWithContentScript
+  communicateWithContentScript,
+  disabled = false
 }) => {
   useI18n()
 
@@ -32,8 +34,7 @@ const AutoAnnotateOption: React.FC<AutoAnnotateOptionProps> = ({
 
   return (
     <div
-      className="flex items-center justify-between"
-      style={{ padding: "12px 0" }}
+      className={`option-row option-row-last${disabled ? " is-disabled" : ""}`}
       title={t("autoAnnotateTooltip")}>
       <span className="text-strong" style={{ fontSize: "13px" }}>
         {t("autoAnnotateTitle")}
@@ -41,6 +42,7 @@ const AutoAnnotateOption: React.FC<AutoAnnotateOptionProps> = ({
       <label className="switch">
         <input
           type="checkbox"
+          disabled={disabled}
           checked={autoAnnotate}
           onChange={handleAutoAnnotateChange}
         />

@@ -295,6 +295,18 @@
     "message": "Автоматически аннотировать пиньинь при каждой загрузке страницы.",
     "description": "Popup: tooltip on an option row."
   },
+  "firstRunTitle": {
+    "message": "Автоаннотация включена",
+    "description": "Popup: first-run notice title."
+  },
+  "firstRunDesc": {
+    "message": "Пиньинь добавляется автоматически при загрузке страниц. Отключить можно переключателем ниже.",
+    "description": "Popup: first-run notice description."
+  },
+  "firstRunDismiss": {
+    "message": "Понятно",
+    "description": "Popup: first-run notice dismiss button."
+  },
   "optionsLanguage": {
     "message": "Язык",
     "description": "Options: optionsLanguage label."

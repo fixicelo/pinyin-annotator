@@ -60,3 +60,139 @@
   cursor: pointer;
   font-weight: 500;
 }
+
+/* The primary action spans the row while Clear stays a quiet outlined button. */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-primary-wide {
+  flex: 1;
+}
+
+.behavior-card {
+  margin-bottom: 0;
+  padding: 0 16px;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.option-row-last {
+  border-bottom: none;
+}
+
+.option-row.is-disabled {
+  opacity: 0.55;
+}
+
+/* One-time word about Auto-Annotate being on for a fresh install. */
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: var(--border-radius-base);
+  background-color: var(--info-bg);
+  border: 1px solid var(--info-border);
+}
+
+.notice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.notice-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--info-text);
+}
+
+.notice-desc {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.notice-dismiss {
+  font-size: 12px;
+  padding: 2px 8px;
+  color: var(--info-text);
+}
+
+/* Appearance folds away: it matters after the first annotation, not before. */
+.appearance {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.appearance > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.appearance > summary::-webkit-details-marker {
+  display: none;
+}
+
+.appearance > summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--text-secondary);
+  border-bottom: 1.5px solid var(--text-secondary);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: var(--transition);
+}
+
+.appearance[open] > summary::after {
+  transform: rotate(225deg) translate(-2px, -2px);
+}
+
+.appearance-value {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.appearance-body {
+  padding: 4px 16px 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.popup-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.shortcut-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}

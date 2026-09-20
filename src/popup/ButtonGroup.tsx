@@ -28,35 +28,8 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
     [communicateWithContentScript]
   )
 
-  const openOptionsPage = async () => {
-    let opened = false
-    try {
-      const url = chrome.runtime.getURL("options.html")
-      const existingTabs = await chrome.tabs.query({ url })
-      const existingTab = existingTabs.find((tab) => tab.id != null)
-      const tab =
-        existingTab ?? (await chrome.tabs.create({ url, active: true }))
-      if (tab?.id) {
-        await chrome.tabs.update(tab.id, { active: true })
-        opened = true
-      }
-      if (opened && tab.windowId && chrome.windows?.update) {
-        await chrome.windows.update(tab.windowId, { focused: true })
-      }
-    } catch {
-      if (!opened) {
-        chrome.runtime.openOptionsPage()
-      }
-    } finally {
-      if (opened) window.close()
-    }
-  }
-
   return (
-    <div className="flex gap-md justify-end">
-      <button className="btn btn-text" onClick={openOptionsPage}>
-        {t("buttonOptions")}
-      </button>
+    <div className="actions">
       <button
         className="btn btn-outlined"
         onClick={removeAnnotations}
@@ -64,7 +37,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         {t("buttonClear")}
       </button>
       <button
-        className="btn btn-primary"
+        className="btn btn-primary btn-primary-wide"
         onClick={performAnnotation}
         disabled={disabled}>
         {t("buttonAnnotate")}

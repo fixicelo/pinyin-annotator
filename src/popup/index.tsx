@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -9,15 +9,18 @@ import {
   UserAction,
   type Response
 } from "~constants"
-import { applyLanguage, useI18n } from "~lib/i18n"
+import { applyLanguage, t, useI18n } from "~lib/i18n"
 
-import AnnotationScaleControl from "./AnnotationScaleControl"
 import AnnotationStatus from "./AnnotationStatus"
+import AppearanceSection from "./AppearanceSection"
 import AppTitle from "./AppTitle"
 import AutoAnnotateOption from "./AutoAnnotateOption"
 import ButtonGroup from "./ButtonGroup"
+import FirstRunNotice from "./FirstRunNotice"
 import HighlightedTextDisplay from "./HighlightedTextDisplay"
 import MonitorModeOption from "./MonitorModeOption"
+import { openOptionsPage } from "./openOptionsPage"
+import { useCommandShortcut } from "./useCommandShortcut"
 import { useTheme } from "./useTheme"
 
 import "./popup.css"
@@ -56,6 +59,7 @@ function Popup() {
   )
 
   const isAvailable = tabStatus === TabStatus.Available
+  const shortcut = useCommandShortcut()
 
   const checkStatus = useCallback(() => {
     communicateWithContentScript(UserAction.Check, {})
@@ -93,39 +97,54 @@ function Popup() {
   return (
     <div className="popup">
       <AppTitle />
+      <FirstRunNotice />
       <AnnotationStatus
         isAnnotated={isAnnotated}
         tabStatus={tabStatus}
         onRefresh={handleRefresh}
       />
-      <AnnotationScaleControl
-        communicateWithContentScript={communicateWithContentScript}
-        onPreviewChange={handlePreviewChange}
-        syncWithCurrentTab={isAvailable}
-      />
-
-      {isAvailable && (
-        <div
-          className="card"
-          style={{ marginBottom: "8px", padding: "0 16px" }}>
-          <MonitorModeOption
-            communicateWithContentScript={communicateWithContentScript}
-          />
-          <AutoAnnotateOption
-            communicateWithContentScript={communicateWithContentScript}
-          />
-        </div>
-      )}
 
       <ButtonGroup
         isAnnotated={isAnnotated}
         communicateWithContentScript={communicateWithContentScript}
         disabled={!isAvailable}
       />
+
+      <div className="card behavior-card">
+        <MonitorModeOption
+          communicateWithContentScript={communicateWithContentScript}
+          disabled={!isAvailable}
+        />
+        <AutoAnnotateOption
+          communicateWithContentScript={communicateWithContentScript}
+          disabled={!isAvailable}
+        />
+      </div>
+
+      <AppearanceSection
+        communicateWithContentScript={communicateWithContentScript}
+        onPreviewChange={handlePreviewChange}
+        syncWithCurrentTab={isAvailable}
+      />
+
       <HighlightedTextDisplay
         annotationScaleOverride={previewAnnotationScale}
         scaleTextTogetherOverride={previewScaleTextTogether}
       />
+
+      <footer className="popup-footer">
+        {shortcut ? (
+          <span className="shortcut-hint">
+            {t("optionsShortcutTitle")}
+            <kbd className="keyboard">{shortcut}</kbd>
+          </span>
+        ) : (
+          <span />
+        )}
+        <button className="btn btn-text" onClick={openOptionsPage}>
+          {t("buttonOptions")}
+        </button>
+      </footer>
     </div>
   )
 }

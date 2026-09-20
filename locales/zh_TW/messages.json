@@ -295,6 +295,18 @@
     "message": "每次載入頁面時自動標註拼音。",
     "description": "Popup: tooltip on an option row."
   },
+  "firstRunTitle": {
+    "message": "已為你開啟自動標註",
+    "description": "Popup: first-run notice title."
+  },
+  "firstRunDesc": {
+    "message": "網頁載入時會自動加上拼音，可用下方的開關關掉。",
+    "description": "Popup: first-run notice description."
+  },
+  "firstRunDismiss": {
+    "message": "知道了",
+    "description": "Popup: first-run notice dismiss button."
+  },
   "optionsLanguage": {
     "message": "語言",
     "description": "Options: optionsLanguage label."

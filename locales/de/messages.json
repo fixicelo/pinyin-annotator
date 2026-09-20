@@ -295,6 +295,18 @@
     "message": "Bei jedem Seitenaufruf automatisch Pinyin annotieren.",
     "description": "Popup: tooltip on an option row."
   },
+  "firstRunTitle": {
+    "message": "Auto-Annotate ist aktiviert",
+    "description": "Popup: first-run notice title."
+  },
+  "firstRunDesc": {
+    "message": "Pinyin wird beim Laden von Seiten automatisch ergänzt. Mit dem Schalter unten lässt es sich abschalten.",
+    "description": "Popup: first-run notice description."
+  },
+  "firstRunDismiss": {
+    "message": "Verstanden",
+    "description": "Popup: first-run notice dismiss button."
+  },
   "optionsLanguage": {
     "message": "Sprache",
     "description": "Options: optionsLanguage label."

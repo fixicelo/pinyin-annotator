@@ -86,6 +86,10 @@ export const i18nFallback: Record<string, string> = {
   monitorModeTooltip:
     "Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.",
   autoAnnotateTooltip: "Automatically annotate pinyin on every page load.",
+  firstRunTitle: "Auto-Annotate is on",
+  firstRunDesc:
+    "Pinyin is added automatically as pages load. Turn it off with the switch below.",
+  firstRunDismiss: "Got it",
   optionsLanguage: "Language",
   optionsLanguageDesc: "Choose the language for the extension interface.",
   optionsFollowSystem: "Use browser language"

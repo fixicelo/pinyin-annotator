@@ -295,6 +295,18 @@
     "message": "ページを読み込むたびにピンインを自動的に注釈します。",
     "description": "Popup: tooltip on an option row."
   },
+  "firstRunTitle": {
+    "message": "自動注釈をオンにしました",
+    "description": "Popup: first-run notice title."
+  },
+  "firstRunDesc": {
+    "message": "ページを読み込むと自動でピンインが付きます。下のスイッチでオフにできます。",
+    "description": "Popup: first-run notice description."
+  },
+  "firstRunDismiss": {
+    "message": "了解",
+    "description": "Popup: first-run notice dismiss button."
+  },
   "optionsLanguage": {
     "message": "言語",
     "description": "Options: optionsLanguage label."

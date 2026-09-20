@@ -1,10 +1,20 @@
-import { RESTRICTED_URL_PATTERNS, StorageKey, UserAction } from "~constants"
-import { collectFrameStatus } from "~lib/frame-status"
+import { Storage } from "@plasmohq/storage"
+
+import {
+  ResponseStatus,
+  RESTRICTED_URL_PATTERNS,
+  StorageKey,
+  UserAction,
+  type AnnotatorActionMessage
+} from "~constants"
+import { markFirstRunNotice } from "~lib/first-run"
+import { collectFrameStatus, isFrameStatusReport } from "~lib/frame-status"
 import { applyLanguage, t } from "~lib/i18n"
 import {
   isTabAnnotationMessage,
   TabAnnotationRegistry
 } from "~lib/tab-annotation"
+import { saveUserPreferences } from "~lib/user-preferences"
 
 const CONTEXT_MENU_ID = "toggle-annotation-context-menu"
 
@@ -20,6 +30,34 @@ const tabAnnotations = new TabAnnotationRegistry(chrome.storage?.session)
 function isRestrictedUrl(url: string): boolean {
   if (!url) return true
   return RESTRICTED_URL_PATTERNS.some((pattern) => pattern.test(url))
+}
+
+/**
+ * Puts the state of the tab on the toolbar icon. Without it the only way to
+ * tell whether a page is annotated is to open the popup, which leaves a user
+ * who just switched tabs guessing.
+ */
+function updateBadge(tabId: number, annotating: boolean) {
+  void chrome.action?.setBadgeText({ tabId, text: annotating ? "拼" : "" })
+  if (annotating) {
+    void chrome.action?.setBadgeBackgroundColor({ tabId, color: "#2563eb" })
+  }
+}
+
+/**
+ * A fresh install annotates pages from the start rather than waiting to be
+ * discovered in the popup, which is where an install that appears to do nothing
+ * ends. A profile that already stored a choice keeps it.
+ */
+async function enableAnnotationsOnFirstRun() {
+  const storage = new Storage()
+  const stored = await storage.get<boolean>(StorageKey.autoAnnotate)
+  if (stored !== undefined) {
+    return
+  }
+
+  await saveUserPreferences(storage, { autoAnnotate: true })
+  await markFirstRunNotice()
 }
 
 /**
@@ -39,10 +77,11 @@ async function sendToggleToTab(tabId: number, tabUrl?: string) {
     const requestId = ++nextRequestId
     const frameStatus = collectFrameStatus(tabId, requestId)
     try {
-      await chrome.tabs.sendMessage(tabId, {
+      const check: AnnotatorActionMessage = {
         action: UserAction.Check,
         requestId
-      })
+      }
+      await chrome.tabs.sendMessage(tabId, check)
     } catch {
       // Content script not injected — tab needs refresh; popup will show the message
       frameStatus.dispose()
@@ -52,15 +91,28 @@ async function sendToggleToTab(tabId: number, tabUrl?: string) {
     const isAnnotated = await frameStatus.resolve()
     frameStatus.dispose()
     await tabAnnotations.set(tabId, !isAnnotated)
-    await chrome.tabs.sendMessage(tabId, {
+    updateBadge(tabId, !isAnnotated)
+    const action: AnnotatorActionMessage = {
       action: isAnnotated ? UserAction.Clear : UserAction.Annotate
-    })
+    }
+    await chrome.tabs.sendMessage(tabId, action)
   } catch {
     // The tab navigated away or closed between the two messages.
   }
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  // A frame that ended up annotated says so on its own, whatever asked for it —
+  // an action, Monitor mode following a page, or Auto-Annotate. Only the
+  // positive report moves the badge: a frame with no Chinese in it reports the
+  // opposite and would otherwise fight the frame that has the captions.
+  if (isFrameStatusReport(message) && sender.tab?.id !== undefined) {
+    if (message.status === ResponseStatus.Annotated) {
+      updateBadge(sender.tab.id, true)
+    }
+    return false
+  }
+
   if (!isTabAnnotationMessage(message)) {
     return false
   }
@@ -83,7 +135,14 @@ chrome.tabs.onUpdated?.addListener((tabId, changeInfo) => {
   // other first visit. Frames created inside it keep answering to this tab.
   if (changeInfo.status === "loading") {
     void tabAnnotations.forget(tabId)
+    updateBadge(tabId, false)
   }
+})
+
+chrome.tabs.onActivated?.addListener(({ tabId }) => {
+  void tabAnnotations.isAnnotating(tabId).then((annotating) => {
+    updateBadge(tabId, annotating)
+  })
 })
 
 function deserializeLanguage(raw: unknown): string {
@@ -133,9 +192,12 @@ chrome.commands?.onCommand?.addListener((command) => {
   }
 })
 
-chrome.runtime.onInstalled.addListener(async () => {
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
   const lang = await readUILanguage()
   await applyLanguage(lang)
+  if (reason === "install") {
+    await enableAnnotationsOnFirstRun()
+  }
   chrome.contextMenus?.create({
     id: CONTEXT_MENU_ID,
     title: t("contextMenuToggle"),
