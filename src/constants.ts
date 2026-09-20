@@ -87,6 +87,39 @@ export interface Response {
   status: ResponseStatus
 }
 
+/**
+ * Every frame that handled an action broadcasts how it ended up, because
+ * tabs.sendMessage only resolves with the first frame's response. Captions
+ * usually live in a player iframe the top frame cannot read, so without these
+ * reports a page whose subtitles are annotated still looks untouched.
+ */
+export const FRAME_STATUS_MESSAGE = "pya-frame-status"
+
+export interface FrameStatusReport {
+  type: typeof FRAME_STATUS_MESSAGE
+  requestId: number
+  status: ResponseStatus
+}
+
+/**
+ * Remembering that a tab was asked to annotate lets frames that appear later
+ * join in — a streaming site creates its player iframe, and navigates it,
+ * long after the click that asked for annotations.
+ */
+export const TAB_ANNOTATION_MESSAGE = "pya-tab-annotation"
+export const TAB_ANNOTATION_QUERY = "pya-tab-annotation-query"
+
+export interface TabAnnotationReport {
+  type: typeof TAB_ANNOTATION_MESSAGE
+  annotating: boolean
+  /** Set by extension pages, which do not carry a tab of their own. */
+  tabId?: number
+}
+
+export interface TabAnnotationQuery {
+  type: typeof TAB_ANNOTATION_QUERY
+}
+
 export type HtmlOptions = {
   toneType?: ToneType
   dictLink?: string

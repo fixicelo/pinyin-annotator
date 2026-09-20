@@ -1,3 +1,5 @@
+import type { PlasmoCSConfig } from "plasmo"
+
 import { Storage } from "@plasmohq/storage"
 
 import {
@@ -8,6 +10,7 @@ import {
   ResponseStatus,
   RESULT_CLASS,
   RubyPosition,
+  TAB_ANNOTATION_QUERY,
   TAG_NAME,
   ToneType,
   UserAction,
@@ -22,13 +25,24 @@ import {
   getScaledTextLineHeight,
   SCALE_TEXT_TOGETHER_DEFAULT
 } from "~lib/annotation-scale"
+import { reportFrameStatus } from "~lib/frame-status"
 import { loadUserPreferences, saveUserPreferences } from "~lib/user-preferences"
 import {
   buildAnnotatedFragment,
   clearAnnotation,
   findTextNodesWithContent,
-  isAnnotated
+  isAnnotated,
 } from "~util"
+
+/**
+ * Video captions normally live in a cross-origin player iframe — a separate
+ * document the top frame can neither read nor annotate — so the annotator has
+ * to be injected into every frame instead of the top document alone.
+ */
+export const config: PlasmoCSConfig = {
+  matches: ["<all_urls>"],
+  all_frames: true
+}
 
 type ActionHandlers = {
   [action in UserAction]?: (data?: UserPreferences) => void
@@ -70,9 +84,48 @@ export class Annotator {
 
   private async init() {
     await this.syncUserPreferences()
-    if (this.autoAnnotate) {
+    if (this.autoAnnotate || (await this.isTabAnnotating())) {
       this.actionHandlers[UserAction.Annotate]()
     }
+  }
+
+  /**
+   * A frame that appears after the user asked for annotations — the player
+   * iframe of a streaming site — never received that click, so it asks the
+   * background whether its tab is annotating and joins in.
+   */
+  private async isTabAnnotating(): Promise<boolean> {
+    try {
+      const response = await chrome.runtime.sendMessage({
+        type: TAB_ANNOTATION_QUERY
+      })
+      return Boolean(response?.annotating)
+    } catch {
+      // No background to answer, which is not worth failing startup over.
+      return false
+    }
+  }
+
+  /**
+   * A frame can be asked to annotate before it has a body. Waiting for one
+   * costs nothing and keeps the frame from starting idle.
+   */
+  private retryWhenDocumentReady() {
+    if (document.readyState !== "loading") {
+      return
+    }
+
+    const version = this.annotationVersion
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        if (version !== this.annotationVersion) {
+          return
+        }
+        void this.actionHandlers[UserAction.Annotate]()
+      },
+      { once: true }
+    )
   }
 
   private getObservationTarget(): HTMLElement {
@@ -360,6 +413,7 @@ export class Annotator {
 
       const target = this.getObservationTarget()
       if (!target) {
+        this.retryWhenDocumentReady()
         return
       }
 
@@ -404,12 +458,18 @@ export class Annotator {
   }
 
   public handleUserAction(message, sender, sendResponse) {
+    const actionHandler = message?.action
+      ? this.actionHandlers[message.action]
+      : undefined
+    if (!actionHandler) {
+      // Not an action this version sends — a frame status report from another
+      // frame, or a message from a newer version. Leave it unanswered.
+      return false
+    }
+
     ;(async () => {
       try {
-        const actionHandler = this.actionHandlers[message.action]
-        if (actionHandler) {
-          await actionHandler(message.data)
-        }
+        await actionHandler(message.data)
 
         const target = this.getObservationTarget()
         const response = {
@@ -419,9 +479,13 @@ export class Annotator {
               : ResponseStatus.NotAnnotated
         }
         sendResponse(response)
+        // tabs.sendMessage only delivers the first frame's response, so every
+        // frame also reports itself for the popup and background to merge.
+        reportFrameStatus(message.requestId, response.status)
       } catch (error) {
         console.debug("Error handling user action:", error)
         sendResponse({ status: ResponseStatus.NotAnnotated })
+        reportFrameStatus(message.requestId, ResponseStatus.NotAnnotated)
       }
     })()
     return true
