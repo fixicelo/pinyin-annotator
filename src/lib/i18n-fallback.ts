@@ -24,7 +24,7 @@ export const i18nFallback: Record<string, string> = {
   buttonOptions: "Options",
   buttonClear: "Clear",
   buttonAnnotate: "Annotate",
-  monitorModeTitle: "Monitor mode",
+  followChangesTitle: "Follow page changes",
   autoAnnotateTitle: "Auto-Annotate",
   selectedTextLabel: "Selected Text",
   optionsAppearanceTitle: "Appearance",
@@ -45,10 +45,9 @@ export const i18nFallback: Record<string, string> = {
   optionsAutoAnnotateTitle: "Auto-annotate: On every page",
   optionsAutoAnnotateDesc:
     "Automatically annotate whenever you open a new page.",
-  optionsMonitorTitle:
-    "Monitor Mode: Keep annotating, especially on video subtitles",
-  optionsMonitorDesc:
-    "Netflix, Disney+, YouTube, Bilibili — CC subtitles update live.",
+  optionsFollowChangesTitle: "Follow page changes",
+  optionsFollowChangesDesc:
+    "Update annotations when the page or the captions change. Turn it off only if a site misbehaves.",
   optionsWordLookup: "Word lookup",
   optionsWordLookupDesc: "Click a word in the popup to open a dictionary.",
   optionsWhichDict: "Which dictionary",
@@ -83,21 +82,17 @@ export const i18nFallback: Record<string, string> = {
   statusLabel: "Status",
   shortcutChangeInstructions:
     "Open about:addons → Gear → Manage Extension Shortcuts",
-  monitorModeTooltip:
-    "Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.",
+  followChangesTooltip:
+    "Keeps annotations up to date when a page — or a video's captions — changes. It is what makes subtitles follow along.",
   autoAnnotateTooltip: "Automatically annotate pinyin on every page load.",
-  firstRunTitle: "Auto-Annotate is on",
-  firstRunDesc:
-    "Pinyin is added automatically as pages load. Turn it off with the switch below.",
-  firstRunDismiss: "Got it",
   welcomeIntro:
     "Chinese characters get their reading above them, on web pages and in video captions.",
   welcomeDemoPage: "Web page",
   welcomeDemoCaption: "Video captions",
-  welcomeDemoReplay: "Replay",
+  welcomeDemoHint: "Press Annotate above to see it here.",
   welcomeHowTitle: "How to use it",
   welcomeTipAuto:
-    "Auto-Annotate is already on, so pages are annotated as they load.",
+    "Nothing is annotated until you ask for it: press Annotate, or turn on Auto-Annotate to have every page done as it loads.",
   welcomeStep1Title: "Open the extensions menu",
   welcomeStep1Desc:
     "Click the puzzle-piece icon at the right end of the address bar.",

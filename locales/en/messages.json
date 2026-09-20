@@ -75,8 +75,8 @@
     "message": "Annotate",
     "description": "Popup: annotate button."
   },
-  "monitorModeTitle": {
-    "message": "Monitor mode",
+  "followChangesTitle": {
+    "message": "Follow page changes",
     "description": "Popup: monitor mode option label."
   },
   "autoAnnotateTitle": {
@@ -151,12 +151,12 @@
     "message": "Automatically annotate whenever you open a new page.",
     "description": "Options: auto-annotate setting description."
   },
-  "optionsMonitorTitle": {
-    "message": "Monitor Mode: Keep annotating, especially on video subtitles",
+  "optionsFollowChangesTitle": {
+    "message": "Follow page changes",
     "description": "Options: monitor mode setting name."
   },
-  "optionsMonitorDesc": {
-    "message": "Netflix, Disney+, YouTube, Bilibili — CC subtitles update live.",
+  "optionsFollowChangesDesc": {
+    "message": "Update annotations when the page or the captions change. Turn it off only if a site misbehaves.",
     "description": "Options: monitor mode setting description."
   },
   "optionsWordLookup": {
@@ -287,25 +287,13 @@
     "message": "Open about:addons → Gear → Manage Extension Shortcuts",
     "description": "Options: alert instructions when shortcut settings cannot be opened."
   },
-  "monitorModeTooltip": {
-    "message": "Monitor mode works with CC (subtitles) on video streaming platforms such as Netflix, Disney+, YouTube, and Bilibili.",
+  "followChangesTooltip": {
+    "message": "Keeps annotations up to date when a page — or a video's captions — changes. It is what makes subtitles follow along.",
     "description": "Popup: tooltip on an option row."
   },
   "autoAnnotateTooltip": {
     "message": "Automatically annotate pinyin on every page load.",
     "description": "Popup: tooltip on an option row."
-  },
-  "firstRunTitle": {
-    "message": "Auto-Annotate is on",
-    "description": "Popup: first-run notice title."
-  },
-  "firstRunDesc": {
-    "message": "Pinyin is added automatically as pages load. Turn it off with the switch below.",
-    "description": "Popup: first-run notice description."
-  },
-  "firstRunDismiss": {
-    "message": "Got it",
-    "description": "Popup: first-run notice dismiss button."
   },
   "welcomeIntro": {
     "message": "Chinese characters get their reading above them, on web pages and in video captions.",
@@ -319,8 +307,8 @@
     "message": "Video captions",
     "description": "Welcome page: video caption demo label."
   },
-  "welcomeDemoReplay": {
-    "message": "Replay",
+  "welcomeDemoHint": {
+    "message": "Press Annotate above to see it here.",
     "description": "Welcome page: button that replays the demo animation."
   },
   "welcomeHowTitle": {
@@ -328,7 +316,7 @@
     "description": "Welcome page: how-to section title."
   },
   "welcomeTipAuto": {
-    "message": "Auto-Annotate is already on, so pages are annotated as they load.",
+    "message": "Nothing is annotated until you ask for it: press Annotate, or turn on Auto-Annotate to have every page done as it loads.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
   "welcomeStep1Title": {

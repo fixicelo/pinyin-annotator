@@ -327,27 +327,19 @@ body {
   gap: 8px;
 }
 
-.demo-replay {
+.demo-hint {
   font-size: 12px;
-  padding: 2px 8px;
+  color: var(--text-secondary);
 }
 
+/* The readings appear when the popup above says to annotate. */
 .demo-sample rt {
   opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
-.demo-sample.is-animated rt {
-  animation: reading-in 0.45s ease forwards;
-  animation-delay: 1.4s;
-}
-
-@keyframes reading-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.demo-sample.is-revealed rt {
+  opacity: 1;
 }
 
 .caption-cue {
@@ -367,7 +359,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .demo-sample rt {
-    opacity: 1;
+    transition: none;
   }
 
   .caption-cue {
@@ -375,7 +367,7 @@ body {
   }
 }
 
-/* Step 3: the pinned button, with the popup it opens drawn beneath it. */
+/* Step 3: the pinned button, with the popup it opens hanging under it. */
 .illus-opened {
   display: flex;
   flex-direction: column;
@@ -383,15 +375,40 @@ body {
 }
 
 .illus-popup-frame {
-  zoom: 0.82;
-  pointer-events: none;
+  position: relative;
+  width: 420px;
+  max-width: 100%;
+  margin-left: auto;
+}
+
+/* The little pointer from the popup up to the toolbar button. */
+.illus-popup-frame::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  background: var(--bg-base);
+  border-left: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
 }
 
 .illus-popup-card {
-  width: 420px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-lg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+}
+
+.demo-area {
+  margin-top: 4px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-color);
+}
+
+.caption-stage.is-idle {
+  opacity: 0.75;
 }
 
 .illus-option-name {

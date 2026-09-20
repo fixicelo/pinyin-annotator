@@ -5,7 +5,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { StorageKey, UserAction, type UserPreferences } from "~constants"
 import { t, useI18n } from "~lib/i18n"
 
-interface MonitorModeOptionProps {
+interface FollowChangesOptionProps {
   communicateWithContentScript: (
     action: UserAction,
     data?: UserPreferences
@@ -13,7 +13,7 @@ interface MonitorModeOptionProps {
   disabled?: boolean
 }
 
-const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
+const FollowChangesOption: React.FC<FollowChangesOptionProps> = ({
   communicateWithContentScript,
   disabled = false
 }) => {
@@ -37,9 +37,9 @@ const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
   return (
     <div
       className={`option-row${disabled ? " is-disabled" : ""}`}
-      title={t("monitorModeTooltip")}>
+      title={t("followChangesTooltip")}>
       <span className="text-strong" style={{ fontSize: "13px" }}>
-        {t("monitorModeTitle")}
+        {t("followChangesTitle")}
       </span>
       <label className="switch">
         <input
@@ -54,4 +54,4 @@ const MonitorModeOption: React.FC<MonitorModeOptionProps> = ({
   )
 }
 
-export default MonitorModeOption
+export default FollowChangesOption

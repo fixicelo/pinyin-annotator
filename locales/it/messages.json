@@ -75,8 +75,8 @@
     "message": "Annota",
     "description": "Popup: pulsante per annotare."
   },
-  "monitorModeTitle": {
-    "message": "Modalità monitor",
+  "followChangesTitle": {
+    "message": "Segui i cambiamenti della pagina",
     "description": "Popup: etichetta dell'opzione modalità monitor."
   },
   "autoAnnotateTitle": {
@@ -151,12 +151,12 @@
     "message": "Annota automaticamente ogni volta che apri una nuova pagina.",
     "description": "Opzioni: descrizione dell'impostazione di auto-annotazione."
   },
-  "optionsMonitorTitle": {
-    "message": "Modalità monitor: continua ad annotare, soprattutto sui sottotitoli dei video",
+  "optionsFollowChangesTitle": {
+    "message": "Segui i cambiamenti della pagina",
     "description": "Opzioni: nome dell'impostazione della modalità monitor."
   },
-  "optionsMonitorDesc": {
-    "message": "Netflix, Disney+, YouTube, Bilibili — i sottotitoli CC si aggiornano in tempo reale.",
+  "optionsFollowChangesDesc": {
+    "message": "Aggiorna le annotazioni quando pagina o sottotitoli cambiano. Disattiva solo se un sito dà problemi.",
     "description": "Opzioni: descrizione dell'impostazione della modalità monitor."
   },
   "optionsWordLookup": {
@@ -287,25 +287,13 @@
     "message": "Aprire about:addons → Ingranaggio → Gestisci scorciatoie dell'estensione",
     "description": "Options: alert instructions when shortcut settings cannot be opened."
   },
-  "monitorModeTooltip": {
-    "message": "La modalità monitor funziona con i sottotitoli CC sulle piattaforme di streaming come Netflix, Disney+, YouTube e Bilibili.",
+  "followChangesTooltip": {
+    "message": "Aggiorna le annotazioni quando la pagina o i sottotitoli cambiano: è ciò che fa seguire i sottotitoli.",
     "description": "Popup: tooltip on an option row."
   },
   "autoAnnotateTooltip": {
     "message": "Annota automaticamente il pinyin a ogni caricamento della pagina.",
     "description": "Popup: tooltip on an option row."
-  },
-  "firstRunTitle": {
-    "message": "L'annotazione automatica è attiva",
-    "description": "Popup: first-run notice title."
-  },
-  "firstRunDesc": {
-    "message": "Il pinyin viene aggiunto automaticamente al caricamento delle pagine. Puoi disattivarlo con l'interruttore qui sotto.",
-    "description": "Popup: first-run notice description."
-  },
-  "firstRunDismiss": {
-    "message": "Ho capito",
-    "description": "Popup: first-run notice dismiss button."
   },
   "welcomeIntro": {
     "message": "I caratteri cinesi mostrano la lettura sopra, nelle pagine web e nei sottotitoli dei video.",
@@ -319,8 +307,8 @@
     "message": "Sottotitoli video",
     "description": "Welcome page: video caption demo label."
   },
-  "welcomeDemoReplay": {
-    "message": "Ripeti",
+  "welcomeDemoHint": {
+    "message": "Premi Annotate qui sopra per vederlo qui.",
     "description": "Welcome page: button that replays the demo animation."
   },
   "welcomeHowTitle": {
@@ -328,7 +316,7 @@
     "description": "Welcome page: how-to section title."
   },
   "welcomeTipAuto": {
-    "message": "L'annotazione automatica è già attiva: le pagine vengono annotate al caricamento.",
+    "message": "Nulla viene annotato finché non lo chiedi: premi Annotate o attiva Auto-Annotate per annotare ogni pagina al caricamento.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
   "welcomeStep1Title": {

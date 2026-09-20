@@ -17,9 +17,8 @@ import AppearanceSection from "./AppearanceSection"
 import AppTitle from "./AppTitle"
 import AutoAnnotateOption from "./AutoAnnotateOption"
 import ButtonGroup from "./ButtonGroup"
-import FirstRunNotice from "./FirstRunNotice"
+import FollowChangesOption from "./FollowChangesOption"
 import HighlightedTextDisplay from "./HighlightedTextDisplay"
-import MonitorModeOption from "./MonitorModeOption"
 import { openOptionsPage } from "./openOptionsPage"
 import { useTheme } from "./useTheme"
 
@@ -97,7 +96,6 @@ function Popup() {
   return (
     <div className="popup">
       <AppTitle />
-      <FirstRunNotice />
       <AnnotationStatus
         isAnnotated={isAnnotated}
         tabStatus={tabStatus}
@@ -111,7 +109,7 @@ function Popup() {
       />
 
       <div className="card behavior-card">
-        <MonitorModeOption
+        <FollowChangesOption
           communicateWithContentScript={communicateWithContentScript}
           disabled={!isAvailable}
         />

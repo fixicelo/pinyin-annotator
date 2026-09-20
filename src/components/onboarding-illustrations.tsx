@@ -1,6 +1,8 @@
 import React from "react"
 import iconUrl from "url:~/assets/icon.png"
 
+import { t } from "~lib/i18n"
+
 const Cursor: React.FC = () => (
   <svg className="illus-cursor" viewBox="0 0 16 16" aria-hidden="true">
     <path
@@ -69,19 +71,79 @@ export const PinStep: React.FC = () => (
   </div>
 )
 
+interface PopupStepProps {
+  annotated: boolean
+  annotationScale: number
+  onAnnotate: () => void
+  onClear: () => void
+}
+
 /**
- * The pinned button once more, with the popup it opens drawn underneath — the
- * real one, so what the page promises is what the toolbar gives.
+ * The pinned button with the popup it opens hanging under it. The popup is the
+ * real one — same markup and stylesheet as the panel — and it works: pressing
+ * its buttons drives the demonstration below.
  */
-export const PopupStep: React.FC<{ popup: React.ReactNode }> = ({ popup }) => (
+export const PopupStep: React.FC<PopupStepProps> = ({
+  annotated,
+  annotationScale,
+  onAnnotate,
+  onClear
+}) => (
   <div className="illus illus-opened">
     <Toolbar>
       <img className="illus-app-icon" src={iconUrl} alt="" />
       <span className="illus-ring" />
       <Cursor />
     </Toolbar>
-    <div className="illus-popup-frame" aria-hidden="true">
-      {popup}
+
+    <div className="illus-popup-frame">
+      <div className="popup illus-popup-card">
+        <p className={`status ${annotated ? "annotated" : "not-annotated"}`}>
+          {t("statusLabel")}:{" "}
+          {t(annotated ? "statusAnnotated" : "statusNotAnnotated")}
+        </p>
+
+        <div className="actions">
+          <button
+            className="btn btn-outlined"
+            onClick={onClear}
+            disabled={!annotated}>
+            {t("buttonClear")}
+          </button>
+          <button
+            className="btn btn-primary btn-primary-wide"
+            onClick={onAnnotate}>
+            {t("buttonAnnotate")}
+          </button>
+        </div>
+
+        <div className="card behavior-card">
+          <div className="option-row">
+            <span className="illus-option-name">{t("followChangesTitle")}</span>
+            <span className="switch">
+              <input type="checkbox" checked disabled readOnly />
+              <span className="switch-slider"></span>
+            </span>
+          </div>
+          <div className="option-row option-row-last">
+            <span className="illus-option-name">{t("autoAnnotateTitle")}</span>
+            <span className="switch">
+              <input type="checkbox" disabled readOnly />
+              <span className="switch-slider"></span>
+            </span>
+          </div>
+        </div>
+
+        <div className="appearance illus-appearance">
+          <span>{t("optionsAppearanceTitle")}</span>
+          <span className="appearance-value">{annotationScale}%</span>
+        </div>
+
+        <div className="popup-footer">
+          <span />
+          <span className="illus-option-name">{t("buttonOptions")}</span>
+        </div>
+      </div>
     </div>
   </div>
 )

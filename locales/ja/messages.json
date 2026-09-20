@@ -75,8 +75,8 @@
     "message": "注釈",
     "description": "ポップアップ：注釈ボタン。"
   },
-  "monitorModeTitle": {
-    "message": "モニターモード",
+  "followChangesTitle": {
+    "message": "ページの変化を追う",
     "description": "ポップアップ：モニターモードオプションのラベル。"
   },
   "autoAnnotateTitle": {
@@ -151,12 +151,12 @@
     "message": "新しいページを開くたびに自動的に注釈します。",
     "description": "オプション：自動注釈設定の説明。"
   },
-  "optionsMonitorTitle": {
-    "message": "モニターモード：注釈を継続、特に動画字幕で",
+  "optionsFollowChangesTitle": {
+    "message": "ページの変化を追う",
     "description": "オプション：モニターモード設定の名前。"
   },
-  "optionsMonitorDesc": {
-    "message": "Netflix、Disney+、YouTube、Bilibili — CC 字幕がライブ更新されます。",
+  "optionsFollowChangesDesc": {
+    "message": "ページや字幕の変化に合わせて注釈を更新します。サイトの表示が乱れる場合のみオフにしてください。",
     "description": "オプション：モニターモード設定の説明。"
   },
   "optionsWordLookup": {
@@ -287,25 +287,13 @@
     "message": "about:addons → 歯車 → 拡張機能のショートカットを管理 を開いてください",
     "description": "Options: alert instructions when shortcut settings cannot be opened."
   },
-  "monitorModeTooltip": {
-    "message": "モニターモードは、Netflix、Disney+、YouTube、Bilibili などの動画配信プラットフォームの CC（字幕）で動作します。",
+  "followChangesTooltip": {
+    "message": "ページや字幕が変わったときに注釈を更新します。字幕が1行ずつ付いてくるのはこの機能によるものです。",
     "description": "Popup: tooltip on an option row."
   },
   "autoAnnotateTooltip": {
     "message": "ページを読み込むたびにピンインを自動的に注釈します。",
     "description": "Popup: tooltip on an option row."
-  },
-  "firstRunTitle": {
-    "message": "自動注釈をオンにしました",
-    "description": "Popup: first-run notice title."
-  },
-  "firstRunDesc": {
-    "message": "ページを読み込むと自動でピンインが付きます。下のスイッチでオフにできます。",
-    "description": "Popup: first-run notice description."
-  },
-  "firstRunDismiss": {
-    "message": "了解",
-    "description": "Popup: first-run notice dismiss button."
   },
   "welcomeIntro": {
     "message": "ウェブページと動画字幕の漢字の上に読み方が表示されます。",
@@ -319,8 +307,8 @@
     "message": "動画字幕",
     "description": "Welcome page: video caption demo label."
   },
-  "welcomeDemoReplay": {
-    "message": "もう一度",
+  "welcomeDemoHint": {
+    "message": "上の Annotate を押すとここに反映されます。",
     "description": "Welcome page: button that replays the demo animation."
   },
   "welcomeHowTitle": {
@@ -328,7 +316,7 @@
     "description": "Welcome page: how-to section title."
   },
   "welcomeTipAuto": {
-    "message": "自動注釈はすでにオンで、ページを読み込むと自動で付きます。",
+    "message": "押すまで何も注釈されません。「Annotate」を押すか、Auto-Annotate をオンにすると毎回自動で付きます。",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
   "welcomeStep1Title": {

@@ -75,8 +75,8 @@
     "message": "Annotieren",
     "description": "Popup: Schaltfläche zum Annotieren."
   },
-  "monitorModeTitle": {
-    "message": "Überwachungsmodus",
+  "followChangesTitle": {
+    "message": "Seitenänderungen folgen",
     "description": "Popup: Bezeichnung der Option Überwachungsmodus."
   },
   "autoAnnotateTitle": {
@@ -151,12 +151,12 @@
     "message": "Automatisch annotieren, sobald Sie eine neue Seite öffnen.",
     "description": "Optionen: Beschreibung der Einstellung Auto-Annotieren."
   },
-  "optionsMonitorTitle": {
-    "message": "Überwachungsmodus: Weiter annotieren, besonders bei Video-Untertiteln",
+  "optionsFollowChangesTitle": {
+    "message": "Seitenänderungen folgen",
     "description": "Optionen: Name der Einstellung Überwachungsmodus."
   },
-  "optionsMonitorDesc": {
-    "message": "Netflix, Disney+, YouTube, Bilibili – CC-Untertitel werden live aktualisiert.",
+  "optionsFollowChangesDesc": {
+    "message": "Annotationen aktualisieren, wenn sich Seite oder Untertitel ändern. Nur abschalten, wenn eine Seite Probleme macht.",
     "description": "Optionen: Beschreibung der Einstellung Überwachungsmodus."
   },
   "optionsWordLookup": {
@@ -287,25 +287,13 @@
     "message": "Öffnen Sie about:addons → Zahnrad → Erweiterungsverknüpfungen verwalten",
     "description": "Options: alert instructions when shortcut settings cannot be opened."
   },
-  "monitorModeTooltip": {
-    "message": "Der Überwachungsmodus funktioniert mit CC-Untertiteln auf Video-Streaming-Plattformen wie Netflix, Disney+, YouTube und Bilibili.",
+  "followChangesTooltip": {
+    "message": "Hält Annotationen aktuell, wenn sich eine Seite oder Untertitel ändern — davon profitieren mitlaufende Untertitel.",
     "description": "Popup: tooltip on an option row."
   },
   "autoAnnotateTooltip": {
     "message": "Bei jedem Seitenaufruf automatisch Pinyin annotieren.",
     "description": "Popup: tooltip on an option row."
-  },
-  "firstRunTitle": {
-    "message": "Auto-Annotate ist aktiviert",
-    "description": "Popup: first-run notice title."
-  },
-  "firstRunDesc": {
-    "message": "Pinyin wird beim Laden von Seiten automatisch ergänzt. Mit dem Schalter unten lässt es sich abschalten.",
-    "description": "Popup: first-run notice description."
-  },
-  "firstRunDismiss": {
-    "message": "Verstanden",
-    "description": "Popup: first-run notice dismiss button."
   },
   "welcomeIntro": {
     "message": "Chinesische Zeichen bekommen ihre Lesung darüber — auf Webseiten und in Untertiteln.",
@@ -319,8 +307,8 @@
     "message": "Video-Untertitel",
     "description": "Welcome page: video caption demo label."
   },
-  "welcomeDemoReplay": {
-    "message": "Nochmal",
+  "welcomeDemoHint": {
+    "message": "Drücke oben auf Annotate, um es hier zu sehen.",
     "description": "Welcome page: button that replays the demo animation."
   },
   "welcomeHowTitle": {
@@ -328,7 +316,7 @@
     "description": "Welcome page: how-to section title."
   },
   "welcomeTipAuto": {
-    "message": "Auto-Annotate ist bereits aktiv, Seiten werden beim Laden annotiert.",
+    "message": "Nichts wird annotiert, bis du es verlangst: Annotate drücken oder Auto-Annotate einschalten, um jede Seite beim Laden zu annotieren.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
   "welcomeStep1Title": {

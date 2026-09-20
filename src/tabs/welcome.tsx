@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useSyncExternalStore
-} from "react"
+import { useEffect, useMemo, useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -25,7 +19,6 @@ import {
   getScaledTextLineHeight,
   SCALE_TEXT_TOGETHER_DEFAULT
 } from "~lib/annotation-scale"
-import { clearFirstRunNotice } from "~lib/first-run"
 import { applyLanguage, t, useI18n } from "~lib/i18n"
 import { useCommandShortcut } from "~lib/use-command-shortcut"
 import { convertTextContentToHtml } from "~util"
@@ -50,37 +43,14 @@ const CAPTION_SAMPLES = [
 
 const CAPTION_INTERVAL_MS = 4200
 
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)"
-
-function subscribeToReducedMotion(onChange: () => void) {
-  const query = window.matchMedia?.(REDUCED_MOTION_QUERY)
-  if (!query) {
-    return () => {}
-  }
-  query.addEventListener?.("change", onChange)
-  return () => query.removeEventListener?.("change", onChange)
-}
-
-function getPrefersReducedMotion(): boolean {
-  return window.matchMedia?.(REDUCED_MOTION_QUERY).matches ?? false
-}
-
-function usePrefersReducedMotion(): boolean {
-  return useSyncExternalStore(
-    subscribeToReducedMotion,
-    getPrefersReducedMotion,
-    () => false
-  )
-}
-
 /**
  * The one screen a fresh install opens.
  *
  * The popup can only describe the page the user happens to be looking at, and a
- * page without Chinese shows nothing at all — so the effect is shown here
- * instead, with the reader's own tone and reading settings: readings appear
- * over a sentence, and a subtitle swaps to the next line while its readings
- * follow, the way they do while a video plays.
+ * page without Chinese shows nothing at all, so the effect is demonstrated
+ * here: the popup drawn in step 3 is the real thing and works, and the samples
+ * below it answer to it. Nothing is annotated until the reader presses
+ * Annotate, which is how the extension behaves too.
  */
 function Welcome() {
   useI18n()
@@ -107,11 +77,7 @@ function Welcome() {
     false
   )
   const shortcut = useCommandShortcut()
-  const prefersReducedMotion = usePrefersReducedMotion()
-
-  // Bumped to replay the reveal: the sample remounts and the CSS animation in
-  // welcome.css runs again, so no timer has to be kept in step with it.
-  const [revealRun, setRevealRun] = useState(0)
+  const [isAnnotated, setIsAnnotated] = useState(false)
   const [captionIndex, setCaptionIndex] = useState(0)
 
   useEffect(() => {
@@ -119,17 +85,15 @@ function Welcome() {
   }, [uiLanguage])
 
   useEffect(() => {
-    // The page itself is the onboarding; the popup does not need to repeat it.
-    void clearFirstRunNotice()
-  }, [])
-
-  useEffect(() => {
+    if (!isAnnotated) {
+      return
+    }
     const timer = setInterval(
       () => setCaptionIndex((index) => (index + 1) % CAPTION_SAMPLES.length),
       CAPTION_INTERVAL_MS
     )
     return () => clearInterval(timer)
-  }, [])
+  }, [isAnnotated])
 
   const scale = clampAnnotationScale(annotationScale)
   const resolvedScaleTextTogether = scaleTextTogetherTouched
@@ -166,8 +130,6 @@ function Welcome() {
     [toneType, pronunciationSystem]
   )
 
-  const replay = useCallback(() => setRevealRun((run) => run + 1), [])
-
   return (
     <div className="welcome">
       <style>{`
@@ -191,29 +153,6 @@ function Welcome() {
         <AppTitle />
         <p className="welcome-intro">{t("welcomeIntro")}</p>
       </header>
-
-      <section className="welcome-card">
-        <div className="demo-head">
-          <span className="demo-label">{t("welcomeDemoPage")}</span>
-          <button className="btn btn-text demo-replay" onClick={replay}>
-            {t("welcomeDemoReplay")}
-          </button>
-        </div>
-        <p
-          key={revealRun}
-          className={`demo-sample${prefersReducedMotion ? "" : " is-animated"}`}
-          dangerouslySetInnerHTML={{ __html: pageHtml }}
-        />
-
-        <div className="demo-label">{t("welcomeDemoCaption")}</div>
-        <div className="caption-stage">
-          <span
-            key={captionIndex}
-            className="caption-cue"
-            dangerouslySetInnerHTML={{ __html: captionHtml[captionIndex] }}
-          />
-        </div>
-      </section>
 
       <section className="welcome-card">
         <h2 className="welcome-section-title">{t("welcomeHowTitle")}</h2>
@@ -241,52 +180,37 @@ function Welcome() {
             </div>
             <p className="step-desc">{t("welcomeStep3Desc")}</p>
             <PopupStep
-              popup={
-                <div className="popup illus-popup-card">
-                  <p className="status annotated">
-                    {t("statusLabel")}: {t("statusAnnotated")}
-                  </p>
-                  <div className="actions">
-                    <span className="btn btn-outlined">{t("buttonClear")}</span>
-                    <span className="btn btn-primary btn-primary-wide">
-                      {t("buttonAnnotate")}
-                    </span>
-                  </div>
-                  <div className="card behavior-card">
-                    <div className="option-row">
-                      <span className="illus-option-name">
-                        {t("monitorModeTitle")}
-                      </span>
-                      <span className="switch">
-                        <input type="checkbox" checked disabled readOnly />
-                        <span className="switch-slider"></span>
-                      </span>
-                    </div>
-                    <div className="option-row option-row-last">
-                      <span className="illus-option-name">
-                        {t("autoAnnotateTitle")}
-                      </span>
-                      <span className="switch">
-                        <input type="checkbox" checked disabled readOnly />
-                        <span className="switch-slider"></span>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="appearance illus-appearance">
-                    <span>{t("optionsAppearanceTitle")}</span>
-                    <span className="appearance-value">
-                      {clampAnnotationScale(scale)}%
-                    </span>
-                  </div>
-                  <div className="popup-footer">
-                    <span />
-                    <span className="btn btn-text">{t("buttonOptions")}</span>
-                  </div>
-                </div>
-              }
+              annotated={isAnnotated}
+              annotationScale={scale}
+              onAnnotate={() => setIsAnnotated(true)}
+              onClear={() => setIsAnnotated(false)}
             />
           </li>
         </ol>
+
+        <div className="demo-area">
+          <div className="demo-head">
+            <span className="demo-label">{t("welcomeDemoPage")}</span>
+            {!isAnnotated && (
+              <span className="demo-hint">{t("welcomeDemoHint")}</span>
+            )}
+          </div>
+          <p
+            className={`demo-sample${isAnnotated ? " is-revealed" : ""}`}
+            dangerouslySetInnerHTML={{ __html: pageHtml }}
+          />
+
+          <div className="demo-label">{t("welcomeDemoCaption")}</div>
+          <div className={`caption-stage${isAnnotated ? "" : " is-idle"}`}>
+            {isAnnotated && (
+              <span
+                key={captionIndex}
+                className="caption-cue"
+                dangerouslySetInnerHTML={{ __html: captionHtml[captionIndex] }}
+              />
+            )}
+          </div>
+        </div>
 
         <ul className="welcome-tips">
           <li>{t("welcomeTipAuto")}</li>

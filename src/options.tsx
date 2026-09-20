@@ -501,10 +501,10 @@ function Options() {
                 <div className="settings-row">
                   <div className="settings-row-content">
                     <span className="settings-row-title">
-                      {t("optionsMonitorTitle")}
+                      {t("optionsFollowChangesTitle")}
                     </span>
                     <span className="settings-row-desc">
-                      {t("optionsMonitorDesc")}
+                      {t("optionsFollowChangesDesc")}
                     </span>
                   </div>
                   <div className="settings-row-action">

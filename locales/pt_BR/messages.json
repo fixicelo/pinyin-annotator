@@ -75,8 +75,8 @@
     "message": "Anotar",
     "description": "Janela pop-up: botão para anotar."
   },
-  "monitorModeTitle": {
-    "message": "Modo monitor",
+  "followChangesTitle": {
+    "message": "Acompanhar mudanças da página",
     "description": "Janela pop-up: rótulo da opção de modo monitor."
   },
   "autoAnnotateTitle": {
@@ -151,12 +151,12 @@
     "message": "Anota automaticamente sempre que você abre uma nova página.",
     "description": "Opções: descrição da configuração de auto-anotação."
   },
-  "optionsMonitorTitle": {
-    "message": "Modo monitor: continuar anotando, especialmente em legendas de vídeo",
+  "optionsFollowChangesTitle": {
+    "message": "Acompanhar mudanças da página",
     "description": "Opções: nome da configuração de modo monitor."
   },
-  "optionsMonitorDesc": {
-    "message": "Netflix, Disney+, YouTube, Bilibili — as legendas CC são atualizadas ao vivo.",
+  "optionsFollowChangesDesc": {
+    "message": "Atualiza as anotações quando a página ou as legendas mudam. Desative apenas se um site falhar.",
     "description": "Opções: descrição da configuração de modo monitor."
   },
   "optionsWordLookup": {
@@ -287,25 +287,13 @@
     "message": "Abrir about:addons → Engrenagem → Gerenciar atalhos da extensão",
     "description": "Options: alert instructions when shortcut settings cannot be opened."
   },
-  "monitorModeTooltip": {
-    "message": "O modo monitor funciona com legendas CC em plataformas de streaming como Netflix, Disney+, YouTube e Bilibili.",
+  "followChangesTooltip": {
+    "message": "Atualiza as anotações quando a página ou as legendas mudam: é o que faz as legendas acompanharem.",
     "description": "Popup: tooltip on an option row."
   },
   "autoAnnotateTooltip": {
     "message": "Anota pinyin automaticamente em cada carregamento de página.",
     "description": "Popup: tooltip on an option row."
-  },
-  "firstRunTitle": {
-    "message": "O Auto-Annotate está ativado",
-    "description": "Popup: first-run notice title."
-  },
-  "firstRunDesc": {
-    "message": "O pinyin é adicionado automaticamente ao carregar as páginas. Desative com o interruptor abaixo.",
-    "description": "Popup: first-run notice description."
-  },
-  "firstRunDismiss": {
-    "message": "Entendi",
-    "description": "Popup: first-run notice dismiss button."
   },
   "welcomeIntro": {
     "message": "Os caracteres chineses mostram a leitura acima, em páginas e legendas de vídeo.",
@@ -319,8 +307,8 @@
     "message": "Legendas de vídeo",
     "description": "Welcome page: video caption demo label."
   },
-  "welcomeDemoReplay": {
-    "message": "Repetir",
+  "welcomeDemoHint": {
+    "message": "Pressione Annotate acima para ver aqui.",
     "description": "Welcome page: button that replays the demo animation."
   },
   "welcomeHowTitle": {
@@ -328,7 +316,7 @@
     "description": "Welcome page: how-to section title."
   },
   "welcomeTipAuto": {
-    "message": "O Auto-Annotate já está ativado, então as páginas são anotadas ao carregar.",
+    "message": "Nada é anotado até você pedir: pressione Annotate ou ative o Auto-Annotate para anotar cada página ao carregar.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
   "welcomeStep1Title": {

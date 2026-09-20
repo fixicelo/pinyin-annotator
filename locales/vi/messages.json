@@ -75,8 +75,8 @@
     "message": "Chú thích",
     "description": "Popup: nút chú thích."
   },
-  "monitorModeTitle": {
-    "message": "Chế độ theo dõi",
+  "followChangesTitle": {
+    "message": "Theo dõi thay đổi trang",
     "description": "Popup: nhãn tùy chọn chế độ theo dõi."
   },
   "autoAnnotateTitle": {
@@ -151,12 +151,12 @@
     "message": "Tự động chú thích mỗi khi bạn mở trang mới.",
     "description": "Tùy chọn: mô tả cài đặt tự động chú thích."
   },
-  "optionsMonitorTitle": {
-    "message": "Chế độ theo dõi: tiếp tục chú thích, đặc biệt là phụ đề video",
+  "optionsFollowChangesTitle": {
+    "message": "Theo dõi thay đổi trang",
     "description": "Tùy chọn: tên cài đặt chế độ theo dõi."
   },
-  "optionsMonitorDesc": {
-    "message": "Netflix, Disney+, YouTube, Bilibili — phụ đề CC cập nhật theo thời gian thực.",
+  "optionsFollowChangesDesc": {
+    "message": "Cập nhật chú thích khi trang hoặc phụ đề thay đổi. Chỉ tắt khi một trang bị lỗi.",
     "description": "Tùy chọn: mô tả cài đặt chế độ theo dõi."
   },
   "optionsWordLookup": {
@@ -287,25 +287,13 @@
     "message": "Mở about:addons → Cài đặt → Quản lý phím tắt của tiện ích",
     "description": "Options: alert instructions when shortcut settings cannot be opened."
   },
-  "monitorModeTooltip": {
-    "message": "Chế độ theo dõi hoạt động với phụ đề CC trên các nền tảng phát video như Netflix, Disney+, YouTube và Bilibili.",
+  "followChangesTooltip": {
+    "message": "Cập nhật chú thích khi trang hoặc phụ đề thay đổi — nhờ đó phụ đề chạy theo từng câu.",
     "description": "Popup: tooltip on an option row."
   },
   "autoAnnotateTooltip": {
     "message": "Tự động chú thích pinyin mỗi khi tải trang.",
     "description": "Popup: tooltip on an option row."
-  },
-  "firstRunTitle": {
-    "message": "Đã bật tự động chú thích",
-    "description": "Popup: first-run notice title."
-  },
-  "firstRunDesc": {
-    "message": "Pinyin được thêm tự động khi tải trang. Tắt bằng công tắc bên dưới.",
-    "description": "Popup: first-run notice description."
-  },
-  "firstRunDismiss": {
-    "message": "Đã hiểu",
-    "description": "Popup: first-run notice dismiss button."
   },
   "welcomeIntro": {
     "message": "Chữ Hán được thêm phiên âm phía trên, trên trang web và phụ đề video.",
@@ -319,8 +307,8 @@
     "message": "Phụ đề video",
     "description": "Welcome page: video caption demo label."
   },
-  "welcomeDemoReplay": {
-    "message": "Xem lại",
+  "welcomeDemoHint": {
+    "message": "Nhấn Annotate ở trên để xem tại đây.",
     "description": "Welcome page: button that replays the demo animation."
   },
   "welcomeHowTitle": {
@@ -328,7 +316,7 @@
     "description": "Welcome page: how-to section title."
   },
   "welcomeTipAuto": {
-    "message": "Tự động chú thích đã bật, trang sẽ được chú thích khi tải.",
+    "message": "Không có gì được chú thích cho đến khi bạn yêu cầu: nhấn Annotate hoặc bật Auto-Annotate để mỗi trang tự động được chú thích.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
   "welcomeStep1Title": {

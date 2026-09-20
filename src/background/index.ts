@@ -1,5 +1,3 @@
-import { Storage } from "@plasmohq/storage"
-
 import {
   ResponseStatus,
   RESTRICTED_URL_PATTERNS,
@@ -7,14 +5,12 @@ import {
   UserAction,
   type AnnotatorActionMessage
 } from "~constants"
-import { markFirstRunNotice } from "~lib/first-run"
 import { collectFrameStatus, isFrameStatusReport } from "~lib/frame-status"
 import { applyLanguage, t } from "~lib/i18n"
 import {
   isTabAnnotationMessage,
   TabAnnotationRegistry
 } from "~lib/tab-annotation"
-import { saveUserPreferences } from "~lib/user-preferences"
 
 const CONTEXT_MENU_ID = "toggle-annotation-context-menu"
 
@@ -45,26 +41,10 @@ function updateBadge(tabId: number, annotating: boolean) {
 }
 
 /**
- * A fresh install annotates pages from the start rather than waiting to be
- * discovered in the popup, which is where an install that appears to do nothing
- * ends. A profile that already stored a choice keeps it.
- */
-async function enableAnnotationsOnFirstRun() {
-  const storage = new Storage()
-  const stored = await storage.get<boolean>(StorageKey.autoAnnotate)
-  if (stored !== undefined) {
-    return
-  }
-
-  await saveUserPreferences(storage, { autoAnnotate: true })
-  await markFirstRunNotice()
-}
-
-/**
  * The popup can only describe the page the user happens to be looking at, and a
  * page without Chinese shows nothing at all, so a fresh install opens one short
- * screen that demonstrates the effect and says how to turn it on and off. The
- * page itself clears the notice flag; if it never loads, the popup shows it.
+ * screen that demonstrates the effect and says how to turn it on. Annotations
+ * themselves stay opt-in.
  */
 async function openWelcomePage() {
   try {
@@ -212,7 +192,6 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
   const lang = await readUILanguage()
   await applyLanguage(lang)
   if (reason === "install") {
-    await enableAnnotationsOnFirstRun()
     await openWelcomePage()
   }
   chrome.contextMenus?.create({
