@@ -71,7 +71,7 @@ export class Annotator {
   }
   private observationTargetSelector: string = "body"
   private pendingMutations: MutationRecord[] = []
-  private mutationFlushTimer: ReturnType<typeof setTimeout> | null = null
+  private isFlushScheduled = false
   private lastAppliedStyleKey = ""
 
   constructor() {
@@ -155,25 +155,39 @@ export class Annotator {
     }
   }
 
+  /**
+   * Flushes on a microtask rather than on a timer. Player caption renderers
+   * rewrite their cue elements whenever the cue changes, and a timer would let
+   * that rewritten, still unannotated text reach a paint before the reading is
+   * restored — which is the flicker captions show on streaming sites.
+   * Microtasks run before the next paint, so the reading comes back in the same
+   * frame the player removed it.
+   */
   private enqueueMutations(mutations: MutationRecord[]) {
     this.pendingMutations.push(...mutations)
-    if (this.mutationFlushTimer !== null) {
-      clearTimeout(this.mutationFlushTimer)
+    if (this.isFlushScheduled) {
+      return
     }
-    this.mutationFlushTimer = setTimeout(() => {
-      this.mutationFlushTimer = null
+    this.isFlushScheduled = true
+    // The version is captured now so a flush that lands after a clear is
+    // discarded instead of re-annotating what was just removed.
+    const version = this.annotationVersion
+    queueMicrotask(() => {
+      this.isFlushScheduled = false
       const merged = this.pendingMutations
       this.pendingMutations = []
-      this.processDOMMutations(merged)
-    }, 30)
+      this.processDOMMutations(merged, version)
+    })
   }
 
-  private processDOMMutations(mutationsList: MutationRecord[]) {
+  private processDOMMutations(
+    mutationsList: MutationRecord[],
+    version: number
+  ) {
     if (!this.isObserverEnabled) {
       return
     }
 
-    const version = this.annotationVersion
     for (const mutation of mutationsList) {
       switch (mutation.type) {
         case "childList":
@@ -472,10 +486,6 @@ export class Annotator {
       this.annotationVersion++
       this.isProcessing = false
       this.pendingMutations = []
-      if (this.mutationFlushTimer !== null) {
-        clearTimeout(this.mutationFlushTimer)
-        this.mutationFlushTimer = null
-      }
       if (this.isObserverEnabled) {
         this.mutationObserver.disconnect()
       }
