@@ -6,6 +6,7 @@ import {
   TAB_ANNOTATION_MESSAGE,
   TabStatus,
   UserAction,
+  type AnnotatorActionMessage,
   type Response,
   type UserPreferences
 } from "~constants"
@@ -107,13 +108,14 @@ const useCommunicateWithContentScript = (
             .catch(() => {})
         }
 
+        const actionMessage: AnnotatorActionMessage = {
+          action,
+          data,
+          requestId
+        }
         let response: Response | undefined
         try {
-          response = await chrome.tabs.sendMessage(tab.id, {
-            action,
-            data,
-            requestId
-          })
+          response = await chrome.tabs.sendMessage(tab.id, actionMessage)
         } catch (error) {
           frameStatus.dispose()
           if (activeFrameStatus.current === frameStatus) {

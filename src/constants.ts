@@ -25,8 +25,7 @@ export enum UserAction {
   Annotate = "annotate",
   Clear = "clear",
   Check = "check",
-  UpdateOptions = "update_options",
-  Toggle = "toggle"
+  UpdateOptions = "update_options"
 }
 
 export enum ResponseStatus {
@@ -88,6 +87,17 @@ export interface Response {
 }
 
 /**
+ * An action sent to every content script of a tab. Each frame that handles it
+ * reports the status it ended up in, and `requestId` ties those reports back to
+ * the action that asked for them.
+ */
+export interface AnnotatorActionMessage {
+  action: UserAction
+  data?: UserPreferences
+  requestId?: number
+}
+
+/**
  * Every frame that handled an action broadcasts how it ended up, because
  * tabs.sendMessage only resolves with the first frame's response. Captions
  * usually live in a player iframe the top frame cannot read, so without these
@@ -97,7 +107,8 @@ export const FRAME_STATUS_MESSAGE = "pya-frame-status"
 
 export interface FrameStatusReport {
   type: typeof FRAME_STATUS_MESSAGE
-  requestId: number
+  /** The action being answered, or absent for a frame that reported itself. */
+  requestId?: number
   status: ResponseStatus
 }
 

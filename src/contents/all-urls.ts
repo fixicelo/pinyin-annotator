@@ -14,7 +14,9 @@ import {
   TAG_NAME,
   ToneType,
   UserAction,
+  type AnnotatorActionMessage,
   type HtmlOptions,
+  type Response,
   type UserPreferences
 } from "~constants"
 import {
@@ -32,6 +34,8 @@ import { loadUserPreferences, saveUserPreferences } from "~lib/user-preferences"
 import {
   buildAnnotatedFragment,
   clearAnnotation,
+  createReadingContextCache,
+  findReadingContext,
   findTextNodesWithContent,
   isAnnotated,
   markBackdropHost
@@ -59,18 +63,15 @@ export class Annotator {
   private cachedIgnoredNodes: string[] = DEFAULT_IGNORED_NODES
   private styleTag: HTMLStyleElement
   private annotationVersion = 0
-  private isProcessing = false
 
   private htmlOptions: HtmlOptions = {
     toneType: ToneType.Symbol
   }
   private observerOptions: MutationObserverInit = {
-    attributes: false,
     characterData: true,
     childList: true,
     subtree: true
   }
-  private observationTargetSelector: string = "body"
   private mutationBatcher = createMutationBatcher((mutations, version) =>
     this.processDOMMutations(mutations, version)
   )
@@ -89,8 +90,22 @@ export class Annotator {
   private async init() {
     await this.syncUserPreferences()
     if (this.autoAnnotate || (await this.isTabAnnotating())) {
-      this.actionHandlers[UserAction.Annotate]()
+      await this.actionHandlers[UserAction.Annotate]()
+      // Nothing asked this document for an answer, but the toolbar icon follows
+      // whatever ends up annotated, including a page annotated as it loads.
+      this.reportStatus()
     }
+  }
+
+  /** Tells the background and the popup which state this frame ended up in. */
+  private reportStatus(requestId?: number) {
+    const target = this.getObservationTarget()
+    reportFrameStatus(
+      requestId,
+      target && isAnnotated(target)
+        ? ResponseStatus.Annotated
+        : ResponseStatus.NotAnnotated
+    )
   }
 
   /**
@@ -133,28 +148,7 @@ export class Annotator {
   }
 
   private getObservationTarget(): HTMLElement {
-    return document.querySelector(this.observationTargetSelector)
-  }
-
-  public setObservationTarget(selector: string) {
-    this.observationTargetSelector = selector
-  }
-
-  public setObserverOptions(options: MutationObserverInit) {
-    if (JSON.stringify(this.observerOptions) === JSON.stringify(options)) {
-      return
-    }
-
-    if (this.isObserverEnabled) {
-      this.mutationObserver.disconnect()
-    }
-    this.observerOptions = options
-    if (this.isObserverEnabled) {
-      this.mutationObserver.observe(
-        this.getObservationTarget(),
-        this.observerOptions
-      )
-    }
+    return document.querySelector("body")
   }
 
   private processDOMMutations(
@@ -181,9 +175,6 @@ export class Annotator {
             this.htmlOptions,
             version
           )
-          break
-        case "attributes":
-          this.processNodes(mutation.target, this.htmlOptions, version)
           break
       }
     }
@@ -378,7 +369,10 @@ export class Annotator {
     htmlOptions: HtmlOptions,
     version: number
   ) {
-    const nodes = await findTextNodesWithContent(root, this.cachedIgnoredNodes)
+    const nodes = findTextNodesWithContent(root, this.cachedIgnoredNodes)
+    // Readings are chosen from the block around each node, and the offsets are
+    // shared between the nodes of one sweep instead of rebuilt for each.
+    const readingContexts = createReadingContextCache()
 
     for (let i = 0; i < nodes.length; i++) {
       if (i > 0 && i % 80 === 0) {
@@ -398,7 +392,11 @@ export class Annotator {
       // while it still holds nothing but text.
       markBackdropHost(node.parentElement)
 
-      const frag = buildAnnotatedFragment(node.textContent, htmlOptions)
+      const frag = buildAnnotatedFragment(
+        node.textContent,
+        htmlOptions,
+        findReadingContext(node, readingContexts)
+      )
       if (node.parentNode) {
         node.parentNode.replaceChild(frag, node)
       }
@@ -420,11 +418,7 @@ export class Annotator {
       }
 
       const version = ++this.annotationVersion
-      this.isProcessing = true
       await this.processNodes(target, this.htmlOptions, version)
-      if (version === this.annotationVersion) {
-        this.isProcessing = false
-      }
 
       if (this.isObserverEnabled && version === this.annotationVersion) {
         this.mutationObserver.observe(target, this.observerOptions)
@@ -432,7 +426,6 @@ export class Annotator {
     },
     [UserAction.Clear]: () => {
       this.annotationVersion++
-      this.isProcessing = false
       this.mutationBatcher.cancel()
       if (this.isObserverEnabled) {
         this.mutationObserver.disconnect()
@@ -441,21 +434,14 @@ export class Annotator {
       if (target) {
         clearAnnotation(target)
       }
-    },
-    [UserAction.Toggle]: async () => {
-      const root = this.getObservationTarget()
-      if (!root) {
-        return
-      }
-      const action =
-        isAnnotated(root) || this.isProcessing
-          ? UserAction.Clear
-          : UserAction.Annotate
-      await this.actionHandlers[action]()
     }
   }
 
-  public handleUserAction(message, sender, sendResponse) {
+  public handleUserAction(
+    message: AnnotatorActionMessage,
+    _sender: chrome.runtime.MessageSender,
+    sendResponse: (response: Response) => void
+  ) {
     const actionHandler = message?.action
       ? this.actionHandlers[message.action]
       : undefined
@@ -479,11 +465,11 @@ export class Annotator {
         sendResponse(response)
         // tabs.sendMessage only delivers the first frame's response, so every
         // frame also reports itself for the popup and background to merge.
-        reportFrameStatus(message.requestId, response.status)
+        this.reportStatus(message.requestId)
       } catch (error) {
         console.debug("Error handling user action:", error)
         sendResponse({ status: ResponseStatus.NotAnnotated })
-        reportFrameStatus(message.requestId, ResponseStatus.NotAnnotated)
+        this.reportStatus(message.requestId)
       }
     })()
     return true

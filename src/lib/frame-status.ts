@@ -4,7 +4,15 @@ import {
   type FrameStatusReport
 } from "~constants"
 
-/** How long frames are given to answer before `resolve` settles. */
+/**
+ * How long frames are given to answer before `resolve` settles.
+ *
+ * Only the background's toggle waits on this. It first asks every frame for its
+ * state, and that question — `Check` — only reads preferences and answers
+ * rather than annotating the page, so a frame reports within a few
+ * milliseconds. The popup never waits: it keeps listening and lets a frame that
+ * answers late upgrade the status through `onAnnotated`.
+ */
 export const FRAME_STATUS_TIMEOUT_MS = 150
 
 export interface FrameStatusOptions {
@@ -28,7 +36,9 @@ export interface FrameStatusCollector {
   dispose(): void
 }
 
-function isFrameStatusReport(value: unknown): value is FrameStatusReport {
+export function isFrameStatusReport(
+  value: unknown
+): value is FrameStatusReport {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -97,12 +107,18 @@ export function collectFrameStatus(
   }
 }
 
-/** Tells whoever is listening how this frame ended up. */
+/**
+ * Tells whoever is listening how this frame ended up.
+ *
+ * `requestId` is left out when no action asked for this report — a page
+ * annotated on load still has to reach the toolbar icon. Collectors ignore
+ * reports that do not match the request they are waiting on.
+ */
 export function reportFrameStatus(
   requestId: number | undefined,
   status: ResponseStatus
 ) {
-  if (requestId === undefined || !chrome.runtime?.sendMessage) {
+  if (!chrome.runtime?.sendMessage) {
     return
   }
   try {

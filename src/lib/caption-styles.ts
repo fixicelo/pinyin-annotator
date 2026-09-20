@@ -2,7 +2,14 @@ import { BACKDROP_ATTR, RubyPosition } from "~constants"
 
 /**
  * How much room the reading needs above the text, relative to the reading's own
- * font size: a ruby annotation's line box is a little taller than its glyphs.
+ * font size.
+ *
+ * Measured over base sizes of 16–72px, a ruby annotation's top sits 0.81–0.88
+ * of its own font size above the text's content box, so the rest is slack for
+ * the font metric differences between platforms. It is deliberately not
+ * measured at runtime: that would mean reading layout for every annotation —
+ * and again whenever the page resizes or the scale changes — to save a few
+ * pixels of backdrop.
  */
 const READING_SPACE_RATIO = 1.2
 

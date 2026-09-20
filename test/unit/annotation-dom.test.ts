@@ -14,6 +14,8 @@ import {
 import {
   buildAnnotatedFragment,
   clearAnnotation,
+  createReadingContextCache,
+  findReadingContext,
   findTextNodesWithContent,
   isAnnotated,
   isTransparentColor,
@@ -211,7 +213,7 @@ describe("clearAnnotation", () => {
 })
 
 describe("findTextNodesWithContent", () => {
-  it("finds only text nodes containing Chinese", async () => {
+  it("finds only text nodes containing Chinese", () => {
     const container = document.createElement("div")
     const chinese = document.createTextNode("你好")
     container.append(
@@ -220,15 +222,12 @@ describe("findTextNodesWithContent", () => {
       document.createTextNode("")
     )
 
-    const found = await findTextNodesWithContent(
-      container,
-      DEFAULT_IGNORED_NODES
-    )
+    const found = findTextNodesWithContent(container, DEFAULT_IGNORED_NODES)
 
     expect(found).toEqual([chinese])
   })
 
-  it("skips ignored elements", async () => {
+  it("skips ignored elements", () => {
     const container = document.createElement("div")
     for (const tag of ["script", "style", "code", "pre"]) {
       const element = document.createElement(tag)
@@ -236,20 +235,20 @@ describe("findTextNodesWithContent", () => {
       container.appendChild(element)
     }
 
-    expect(
-      await findTextNodesWithContent(container, DEFAULT_IGNORED_NODES)
-    ).toEqual([])
+    expect(findTextNodesWithContent(container, DEFAULT_IGNORED_NODES)).toEqual(
+      []
+    )
   })
 
-  it("skips its own annotation markup so it is not reprocessed", async () => {
+  it("skips its own annotation markup so it is not reprocessed", () => {
     const container = annotate("你好")
 
-    expect(
-      await findTextNodesWithContent(container, DEFAULT_IGNORED_NODES)
-    ).toEqual([])
+    expect(findTextNodesWithContent(container, DEFAULT_IGNORED_NODES)).toEqual(
+      []
+    )
   })
 
-  it("skips text the page itself owns", async () => {
+  it("skips text the page itself owns", () => {
     const container = document.createElement("div")
 
     const menu = document.createElement("select")
@@ -267,25 +266,78 @@ describe("findTextNodesWithContent", () => {
 
     container.append(menu, editor, frozen)
 
-    const found = await findTextNodesWithContent(
-      container,
-      DEFAULT_IGNORED_NODES
-    )
+    const found = findTextNodesWithContent(container, DEFAULT_IGNORED_NODES)
 
     // Only the element that opts out of editing stays annotatable.
     expect(found.map((node) => node.parentElement?.tagName)).toEqual(["SPAN"])
   })
 
-  it("does not throw when a text node has no element parent", async () => {
+  it("does not throw when a text node has no element parent", () => {
     // parentElement is null inside a DocumentFragment, which used to make the
     // TreeWalker filter throw on node.parentElement.nodeName.
     const fragment = document.createDocumentFragment()
     const node = document.createTextNode("孤立中文")
     fragment.appendChild(node)
 
-    await expect(
-      findTextNodesWithContent(fragment, DEFAULT_IGNORED_NODES)
-    ).resolves.toEqual([node])
+    expect(findTextNodesWithContent(fragment, DEFAULT_IGNORED_NODES)).toEqual([
+      node
+    ])
+  })
+})
+
+describe("reading context", () => {
+  /** Annotates in place the way the content script does, and returns readings. */
+  function annotateInPlace(root: Element) {
+    const contexts = createReadingContextCache()
+    for (const node of findTextNodesWithContent(root, DEFAULT_IGNORED_NODES)) {
+      const fragment = buildAnnotatedFragment(
+        node.textContent ?? "",
+        SYMBOL,
+        findReadingContext(node, contexts)
+      )
+      node.parentNode?.replaceChild(fragment, node)
+    }
+    return [...root.querySelectorAll("rt")].map((rt) => rt.textContent)
+  }
+
+  it("reaches out of inline markup to the block holding the phrase", () => {
+    // happy-dom has no default stylesheet, so the inline display a browser
+    // gives <b> is spelled out here.
+    const container = document.createElement("div")
+    container.innerHTML = '我<b style="display: inline">银</b>行卡'
+    document.body.appendChild(container)
+
+    const bold = container.querySelector("b")?.firstChild ?? null
+
+    expect(findReadingContext(bold as Node)).toEqual({
+      text: "我银行卡",
+      offset: 1
+    })
+  })
+
+  it("has no context for a node without an element parent", () => {
+    const fragment = document.createDocumentFragment()
+    const node = document.createTextNode("孤立")
+    fragment.appendChild(node)
+
+    expect(findReadingContext(node)).toBeUndefined()
+  })
+
+  it("reads a word the markup split as the phrase it belongs to", () => {
+    // 行 on its own is xíng; inside 银行卡 it is háng.
+    const container = document.createElement("div")
+    container.innerHTML = '我<b style="display: inline">银</b>行卡'
+    document.body.appendChild(container)
+
+    expect(annotateInPlace(container)).toEqual(["wǒ", "yín", "háng", "kǎ"])
+  })
+
+  it("keeps readings on their own when a node stands alone", () => {
+    const container = document.createElement("div")
+    container.textContent = "音乐"
+    document.body.appendChild(container)
+
+    expect(annotateInPlace(container)).toEqual(["yīn", "yuè"])
   })
 })
 

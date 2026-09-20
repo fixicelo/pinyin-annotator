@@ -137,12 +137,18 @@ describe("reportFrameStatus", () => {
     })
   })
 
-  it("stays quiet when the action carried no request id", () => {
+  it("reports without a request id when no action asked", async () => {
+    // A page annotated as it loads still has to reach the toolbar icon.
     const fake = installFakeChrome()
 
     reportFrameStatus(undefined, ResponseStatus.Annotated)
+    await Promise.resolve()
 
-    expect(fake.sendMessage).not.toHaveBeenCalled()
+    expect(fake.sendMessage).toHaveBeenCalledWith({
+      type: FRAME_STATUS_MESSAGE,
+      requestId: undefined,
+      status: ResponseStatus.Annotated
+    })
   })
 
   it("survives a send with no receiver", async () => {

@@ -1,17 +1,13 @@
 import { pinyin as pinyinConverter } from "pinyin-pro"
 
-import { Storage } from "@plasmohq/storage"
-
 import {
   BACKDROP_ATTR,
   CHINESE_CLASS,
-  DEFAULT_IGNORED_NODES,
   IS_ANNOTATED_ATTR,
   NON_CHINESE_CLASS,
   PINYIN_CLASS,
   PronunciationSystem,
   RESULT_CLASS,
-  StorageKey,
   TAG_NAME,
   type HtmlOptions
 } from "~constants"
@@ -26,12 +22,6 @@ export function debounce<T extends (...args: never[]) => unknown>(
     clearTimeout(timeout)
     timeout = setTimeout(() => func(...args), wait)
   }
-
-  //   let frameId: number
-  //   return (...args: Parameters<T>) => {
-  //     cancelAnimationFrame(frameId)
-  //     frameId = requestAnimationFrame(() => func.apply(null, args))
-  //   }
 }
 
 /** Matches any Han character, including extensions outside the BMP. */
@@ -50,25 +40,20 @@ export function containsChinese(text: string): boolean {
   return HAN_CHARACTER.test(text)
 }
 
-export async function getIgnoredNodes(): Promise<string[]> {
-  const storage = new Storage()
-  const userDefinedIgnoredNodes =
-    (await storage.get<string[]>(StorageKey.ignoredNodes)) || []
-
-  return userDefinedIgnoredNodes.length === 0
-    ? DEFAULT_IGNORED_NODES
-    : [...userDefinedIgnoredNodes, TAG_NAME.toUpperCase()]
-}
-
-export const findTextNodesWithContent = async (
+/**
+ * Collects the text nodes under `root` that hold Han characters and belong to
+ * the annotator. The ignored node names come from the caller, which merges the
+ * user's preferences with the extension's own defaults.
+ */
+export const findTextNodesWithContent = (
   root: Node,
-  ignoredNodes?: string[]
-): Promise<Node[]> => {
+  ignoredNodes: string[]
+): Node[] => {
   if (!root) {
     return []
   }
 
-  const resolvedIgnoredNodes = ignoredNodes ?? (await getIgnoredNodes())
+  const resolvedIgnoredNodes = ignoredNodes
 
   const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) => {
@@ -115,6 +100,9 @@ export const findTextNodesWithContent = async (
  * its reading. Adjacent unannotated characters are merged into one segment so
  * that the DOM keeps scripts, grapheme clusters (emoji ZWJ sequences, combining
  * marks) and word boundaries intact instead of boxing up every code point.
+ *
+ * Readings come from `readingContext` when the caller has one, which is what
+ * lets a word split by inline markup keep its phrase reading.
  */
 export type AnnotationSegment =
   | { type: "annotated"; char: string; pinyin: string }
@@ -122,7 +110,8 @@ export type AnnotationSegment =
 
 export function segmentText(
   text: string,
-  htmlOptions: HtmlOptions
+  htmlOptions: HtmlOptions,
+  readingContext?: ReadingContext
 ): AnnotationSegment[] {
   if (!text) {
     return []
@@ -130,10 +119,14 @@ export function segmentText(
 
   const isZhuyin =
     htmlOptions.pronunciationSystem === PronunciationSystem.Zhuyin
-  const rawPinyin = pinyinConverter(tradToSimplified(text), {
-    type: "array",
-    toneType: isZhuyin ? "num" : htmlOptions.toneType
-  })
+  const rawPinyin = pinyinConverter(
+    tradToSimplified(readingContext?.text ?? text),
+    {
+      type: "array",
+      toneType: isZhuyin ? "num" : htmlOptions.toneType
+    }
+  )
+  const readingOffset = readingContext?.offset ?? 0
 
   const segments: AnnotationSegment[] = []
   let plain = ""
@@ -148,7 +141,7 @@ export function segmentText(
   const chars = [...text]
   for (let i = 0; i < chars.length; i++) {
     const char = chars[i]
-    const raw = rawPinyin[i]
+    const raw = rawPinyin[readingOffset + i]
     // pinyin-pro echoes a character back when it has no reading for it, which
     // is how non-Chinese text is recognised.
     if (raw === undefined || char === raw) {
@@ -411,7 +404,8 @@ function createPlainElement(text: string): HTMLElement {
 
 export function buildAnnotatedFragment(
   text: string,
-  htmlOptions: HtmlOptions
+  htmlOptions: HtmlOptions,
+  readingContext?: ReadingContext
 ): DocumentFragment {
   const dictLink =
     htmlOptions.dictLink && htmlOptions.dictLink !== ""
@@ -419,7 +413,7 @@ export function buildAnnotatedFragment(
       : undefined
 
   const fragment = document.createDocumentFragment()
-  for (const segment of segmentText(text, htmlOptions)) {
+  for (const segment of segmentText(text, htmlOptions, readingContext)) {
     fragment.appendChild(
       segment.type === "annotated"
         ? createAnnotatedElement(segment.char, segment.pinyin, dictLink)
@@ -439,6 +433,98 @@ function annotationText(wrapper: Element): string {
     return chinese?.textContent ?? wrapper.textContent ?? ""
   }
   return wrapper.textContent ?? ""
+}
+
+/**
+ * The text a reading is chosen from, and where the annotated text starts in it.
+ *
+ * pinyin depends on word boundaries, and markup splits words: reading a text
+ * node on its own turns the 银 of `<b>银</b>行` into yín xíng instead of the
+ * yín háng the phrase calls for.
+ */
+export interface ReadingContext {
+  text: string
+  /** Offset of the annotated text in `text`, counted in code points. */
+  offset: number
+}
+
+export interface ReadingContextCache {
+  /** Offsets of every text node of a context element, built once each. */
+  indexes: Map<Element, { text: string; offsets: Map<Node, number> }>
+  /** The element a reading is chosen from, resolved once per parent. */
+  owners: Map<Element, Element>
+}
+
+export function createReadingContextCache(): ReadingContextCache {
+  return { indexes: new Map(), owners: new Map() }
+}
+
+function isInlineLevel(element: Element): boolean {
+  const { display } = getComputedStyle(element)
+  return display.startsWith("inline") || display === "contents"
+}
+
+function resolveReadingOwner(
+  element: Element,
+  cache: ReadingContextCache
+): Element {
+  const cached = cache.owners.get(element)
+  if (cached) {
+    return cached
+  }
+
+  let owner = element
+  while (isInlineLevel(owner) && owner.parentElement) {
+    owner = owner.parentElement
+  }
+  cache.owners.set(element, owner)
+  return owner
+}
+
+function resolveReadingIndex(
+  owner: Element,
+  cache: ReadingContextCache
+): { text: string; offsets: Map<Node, number> } {
+  const cached = cache.indexes.get(owner)
+  if (cached) {
+    return cached
+  }
+
+  const offsets = new Map<Node, number>()
+  const walker = document.createTreeWalker(owner, NodeFilter.SHOW_TEXT)
+  let offset = 0
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    offsets.set(node, offset)
+    offset += [...(node.textContent ?? "")].length
+  }
+
+  const index = { text: owner.textContent ?? "", offsets }
+  cache.indexes.set(owner, index)
+  return index
+}
+
+/**
+ * Finds the text a node's characters should be read in, by walking out of the
+ * inline elements that split a phrase from the block that holds it. A node
+ * without an element parent has no context and is read on its own.
+ */
+export function findReadingContext(
+  node: Node,
+  cache: ReadingContextCache = createReadingContextCache()
+): ReadingContext | undefined {
+  const parent = node.parentElement
+  if (!parent) {
+    return undefined
+  }
+
+  const owner = resolveReadingOwner(parent, cache)
+  const index = resolveReadingIndex(owner, cache)
+  const offset = index.offsets.get(node)
+  if (offset === undefined) {
+    return undefined
+  }
+
+  return { text: index.text, offset }
 }
 
 /** True for a computed colour that paints nothing. */
