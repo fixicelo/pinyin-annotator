@@ -82,8 +82,8 @@ interface PopupStepProps {
  * real one — same markup and stylesheet as the panel — and it works: pressing
  * its buttons drives the demonstration below.
  *
- * Only what the step is about is drawn: nothing is annotated yet, and the
- * button that changes that keeps asking to be pressed.
+ * Only what the step is about is drawn: nothing is annotated yet, and a ring
+ * keeps closing in on the button that changes that.
  */
 export const PopupStep: React.FC<PopupStepProps> = ({
   annotated,
@@ -111,11 +111,10 @@ export const PopupStep: React.FC<PopupStepProps> = ({
             disabled={!annotated}>
             {t("buttonClear")}
           </button>
-          <span className="illus-annotate-wrap">
+          <span
+            className={`illus-annotate-wrap${annotated ? "" : " is-inviting"}`}>
             <button
-              className={`btn btn-primary btn-primary-wide${
-                annotated ? "" : " is-inviting"
-              }`}
+              className="btn btn-primary btn-primary-wide"
               onClick={onAnnotate}>
               {t("buttonAnnotate")}
             </button>

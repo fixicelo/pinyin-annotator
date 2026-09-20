@@ -19,7 +19,13 @@ import {
   getScaledTextLineHeight,
   SCALE_TEXT_TOGETHER_DEFAULT
 } from "~lib/annotation-scale"
-import { applyLanguage, t, useI18n } from "~lib/i18n"
+import {
+  applyLanguage,
+  LOCALE_NAMES,
+  SUPPORTED_LOCALES,
+  t,
+  useI18n
+} from "~lib/i18n"
 import { useCommandShortcut } from "~lib/use-command-shortcut"
 import { convertTextContentToHtml } from "~util"
 
@@ -33,12 +39,12 @@ import { openOptionsPage } from "../popup/openOptionsPage"
 
 import "./welcome.css"
 
-const PAGE_SAMPLE = "你好，世界！这是一段网页文字。"
-/** Short enough to read like a cue, and different enough to notice the swap. */
+const PAGE_SAMPLE = "讀音落在字上，一頁書就有了聲音。"
+/** A short line of subtitles, and the next ones a video would cut to. */
 const CAPTION_SAMPLES = [
-  "字幕一句一句地出现，拼音也一起出现。",
-  "换到下一句时，上面的拼音会跟着更新。",
-  "影片里的中文，都看得懂读音。"
+  "影片開始了，字幕會一句一句出現。",
+  "每個漢字的上方，都標好了讀音。",
+  "換到下一句時，讀音也跟著更新。"
 ]
 
 const CAPTION_INTERVAL_MS = 4200
@@ -54,7 +60,10 @@ const CAPTION_INTERVAL_MS = 4200
  */
 function Welcome() {
   useI18n()
-  const [uiLanguage] = useStorage<string>(StorageKey.uiLanguage, "")
+  const [uiLanguage, setUiLanguage] = useStorage<string>(
+    StorageKey.uiLanguage,
+    ""
+  )
   const [toneType] = useStorage<ToneType>(StorageKey.toneType, ToneType.Symbol)
   const [pronunciationSystem] = useStorage<PronunciationSystem>(
     StorageKey.pronunciationSystem,
@@ -85,15 +94,14 @@ function Welcome() {
   }, [uiLanguage])
 
   useEffect(() => {
-    if (!isAnnotated) {
-      return
-    }
+    // The captions run from the moment the page opens, the way a video that is
+    // already playing would.
     const timer = setInterval(
       () => setCaptionIndex((index) => (index + 1) % CAPTION_SAMPLES.length),
       CAPTION_INTERVAL_MS
     )
     return () => clearInterval(timer)
-  }, [isAnnotated])
+  }, [])
 
   const scale = clampAnnotationScale(annotationScale)
   const resolvedScaleTextTogether = scaleTextTogetherTouched
@@ -150,6 +158,20 @@ function Welcome() {
       `}</style>
 
       <header className="welcome-header">
+        <div className="welcome-lang-row">
+          <select
+            className="select welcome-language-select"
+            aria-label={t("optionsLanguage")}
+            value={uiLanguage}
+            onChange={(event) => setUiLanguage(event.target.value)}>
+            <option value="">{t("optionsFollowSystem")}</option>
+            {SUPPORTED_LOCALES.map((locale) => (
+              <option key={locale} value={locale}>
+                {LOCALE_NAMES[locale]}
+              </option>
+            ))}
+          </select>
+        </div>
         <AppTitle />
         <p className="welcome-intro">{t("welcomeIntro")}</p>
       </header>
@@ -200,14 +222,12 @@ function Welcome() {
           />
 
           <div className="demo-label">{t("welcomeDemoCaption")}</div>
-          <div className={`caption-stage${isAnnotated ? "" : " is-idle"}`}>
-            {isAnnotated && (
-              <span
-                key={captionIndex}
-                className="caption-cue"
-                dangerouslySetInnerHTML={{ __html: captionHtml[captionIndex] }}
-              />
-            )}
+          <div className="caption-stage">
+            <span
+              key={captionIndex}
+              className="caption-cue"
+              dangerouslySetInnerHTML={{ __html: captionHtml[captionIndex] }}
+            />
           </div>
         </div>
 
