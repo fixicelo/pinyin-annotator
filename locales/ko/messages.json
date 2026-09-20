@@ -319,6 +319,10 @@
     "message": "동영상 자막",
     "description": "Welcome page: video caption demo label."
   },
+  "welcomeDemoReplay": {
+    "message": "다시 보기",
+    "description": "Welcome page: button that replays the demo animation."
+  },
   "welcomeHowTitle": {
     "message": "사용 방법",
     "description": "Welcome page: how-to section title."

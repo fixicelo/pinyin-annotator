@@ -13,10 +13,11 @@ const Cursor: React.FC = () => (
   </svg>
 )
 
-const Puzzle: React.FC = () => (
-  <svg className="illus-glyph" viewBox="0 0 20 20" aria-hidden="true">
+/** The puzzle piece a browser uses for its extensions menu. */
+const ExtensionsGlyph: React.FC = () => (
+  <svg className="illus-glyph" viewBox="0 0 24 24" aria-hidden="true">
     <path
-      d="M8 3.2a1.8 1.8 0 0 1 3.6 0v.6h1.9c.5 0 .9.4.9.9v2h.6a1.8 1.8 0 0 1 0 3.6h-.6v2.9c0 .5-.4.9-.9.9h-2.9v-.6a1.8 1.8 0 0 0-3.6 0v.6H4.1a.9.9 0 0 1-.9-.9v-2.9h.6a1.8 1.8 0 0 0 0-3.6h-.6V4.7c0-.5.4-.9.9-.9H8z"
+      d="M20.5 11H19V7a2 2 0 0 0-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4a2 2 0 0 0-2 2v3.8h1.5a2.7 2.7 0 0 1 0 5.4H2V20a2 2 0 0 0 2 2h3.8v-1.5a2.7 2.7 0 0 1 5.4 0V22H17a2 2 0 0 0 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z"
       fill="currentColor"
     />
   </svg>
@@ -31,19 +32,23 @@ const Pin: React.FC = () => (
   </svg>
 )
 
-/**
- * Drawings of the browser chrome a new user has to navigate: the extensions
- * menu is where the toolbar button lives, and nothing on the popup says so.
- */
-export const ExtensionsMenuStep: React.FC = () => (
+const Toolbar: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="illus illus-toolbar" aria-hidden="true">
     <span className="illus-address">example.com</span>
-    <span className="illus-target">
-      <Puzzle />
-      <span className="illus-ring" />
-      <Cursor />
-    </span>
+    <span className="illus-target">{children}</span>
   </div>
+)
+
+/**
+ * Drawings of the browser chrome a new user has to navigate: the extensions
+ * menu hides the toolbar button, and nothing in the popup says so.
+ */
+export const ExtensionsMenuStep: React.FC = () => (
+  <Toolbar>
+    <ExtensionsGlyph />
+    <span className="illus-ring" />
+    <Cursor />
+  </Toolbar>
 )
 
 export const PinStep: React.FC = () => (
@@ -64,13 +69,19 @@ export const PinStep: React.FC = () => (
   </div>
 )
 
-export const PopupStep: React.FC = () => (
-  <div className="illus illus-popup-wrap" aria-hidden="true">
-    <div className="illus-popup">
-      <span className="illus-pill" />
-      <span className="illus-button" />
-      <span className="illus-switch" />
+/**
+ * The pinned button once more, with the popup it opens drawn underneath — the
+ * real one, so what the page promises is what the toolbar gives.
+ */
+export const PopupStep: React.FC<{ popup: React.ReactNode }> = ({ popup }) => (
+  <div className="illus illus-opened">
+    <Toolbar>
+      <img className="illus-app-icon" src={iconUrl} alt="" />
+      <span className="illus-ring" />
+      <Cursor />
+    </Toolbar>
+    <div className="illus-popup-frame" aria-hidden="true">
+      {popup}
     </div>
-    <Cursor />
   </div>
 )

@@ -94,6 +94,7 @@ export const i18nFallback: Record<string, string> = {
     "Chinese characters get their reading above them, on web pages and in video captions.",
   welcomeDemoPage: "Web page",
   welcomeDemoCaption: "Video captions",
+  welcomeDemoReplay: "Replay",
   welcomeHowTitle: "How to use it",
   welcomeTipAuto:
     "Auto-Annotate is already on, so pages are annotated as they load.",

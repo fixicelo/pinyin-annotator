@@ -319,6 +319,10 @@
     "message": "Video captions",
     "description": "Welcome page: video caption demo label."
   },
+  "welcomeDemoReplay": {
+    "message": "Replay",
+    "description": "Welcome page: button that replays the demo animation."
+  },
   "welcomeHowTitle": {
     "message": "How to use it",
     "description": "Welcome page: how-to section title."

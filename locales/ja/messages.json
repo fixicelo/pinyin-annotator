@@ -319,6 +319,10 @@
     "message": "動画字幕",
     "description": "Welcome page: video caption demo label."
   },
+  "welcomeDemoReplay": {
+    "message": "もう一度",
+    "description": "Welcome page: button that replays the demo animation."
+  },
   "welcomeHowTitle": {
     "message": "使い方",
     "description": "Welcome page: how-to section title."

@@ -319,6 +319,10 @@
     "message": "影片字幕",
     "description": "Welcome page: video caption demo label."
   },
+  "welcomeDemoReplay": {
+    "message": "重播",
+    "description": "Welcome page: button that replays the demo animation."
+  },
   "welcomeHowTitle": {
     "message": "怎麼用",
     "description": "Welcome page: how-to section title."

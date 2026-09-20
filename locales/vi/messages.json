@@ -319,6 +319,10 @@
     "message": "Phụ đề video",
     "description": "Welcome page: video caption demo label."
   },
+  "welcomeDemoReplay": {
+    "message": "Xem lại",
+    "description": "Welcome page: button that replays the demo animation."
+  },
   "welcomeHowTitle": {
     "message": "Cách dùng",
     "description": "Welcome page: how-to section title."

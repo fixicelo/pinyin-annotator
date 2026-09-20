@@ -1,4 +1,6 @@
-@import "../popup/design-system.css";
+/* The popup is drawn further down this page, so its real stylesheet comes
+   along rather than a second copy that could drift out of step. */
+@import "../popup/popup.css";
 
 body {
   margin: 0;
@@ -314,4 +316,96 @@ body {
 .welcome-tips {
   border-top: 1px solid var(--border-color);
   padding-top: 14px;
+}
+
+/* The page sample starts without readings and they fade in, the way they
+   appear on a page. */
+.demo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.demo-replay {
+  font-size: 12px;
+  padding: 2px 8px;
+}
+
+.demo-sample rt {
+  opacity: 0;
+}
+
+.demo-sample.is-animated rt {
+  animation: reading-in 0.45s ease forwards;
+  animation-delay: 1.4s;
+}
+
+@keyframes reading-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.caption-cue {
+  animation: cue-in 0.45s ease;
+}
+
+@keyframes cue-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-sample rt {
+    opacity: 1;
+  }
+
+  .caption-cue {
+    animation: none;
+  }
+}
+
+/* Step 3: the pinned button, with the popup it opens drawn beneath it. */
+.illus-opened {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.illus-popup-frame {
+  zoom: 0.82;
+  pointer-events: none;
+}
+
+.illus-popup-card {
+  width: 420px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.illus-option-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.illus-appearance {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
 }
