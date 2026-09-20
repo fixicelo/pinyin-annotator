@@ -37,6 +37,15 @@ export function debounce<T extends (...args: never[]) => unknown>(
 /** Matches any Han character, including extensions outside the BMP. */
 const HAN_CHARACTER = /\p{Script=Han}/u
 
+/**
+ * Elements whose text the page itself owns. A live editor's text nodes hold
+ * the caret and feed the editor's own model, and a select's options are not
+ * content to wrap in markup: rewriting either breaks the page rather than the
+ * text. An explicitly non-editable element inside an editor stays annotatable.
+ */
+const UNTOUCHABLE_CONTENT_SELECTOR =
+  'select, option, [contenteditable]:not([contenteditable="false"])'
+
 export function containsChinese(text: string): boolean {
   return HAN_CHARACTER.test(text)
 }
@@ -68,6 +77,10 @@ export const findTextNodesWithContent = async (
       // parentElement.
       const parent = node.parentNode
       if (parent && resolvedIgnoredNodes.includes(parent.nodeName)) {
+        return NodeFilter.FILTER_REJECT
+      }
+
+      if (node.parentElement?.closest(UNTOUCHABLE_CONTENT_SELECTOR)) {
         return NodeFilter.FILTER_REJECT
       }
 

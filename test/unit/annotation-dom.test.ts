@@ -249,6 +249,33 @@ describe("findTextNodesWithContent", () => {
     ).toEqual([])
   })
 
+  it("skips text the page itself owns", async () => {
+    const container = document.createElement("div")
+
+    const menu = document.createElement("select")
+    const option = document.createElement("option")
+    option.textContent = "菜單"
+    menu.appendChild(option)
+
+    const editor = document.createElement("div")
+    editor.setAttribute("contenteditable", "true")
+    editor.textContent = "編輯器內容"
+
+    const frozen = document.createElement("span")
+    frozen.setAttribute("contenteditable", "false")
+    frozen.textContent = "不可編輯"
+
+    container.append(menu, editor, frozen)
+
+    const found = await findTextNodesWithContent(
+      container,
+      DEFAULT_IGNORED_NODES
+    )
+
+    // Only the element that opts out of editing stays annotatable.
+    expect(found.map((node) => node.parentElement?.tagName)).toEqual(["SPAN"])
+  })
+
   it("does not throw when a text node has no element parent", async () => {
     // parentElement is null inside a DocumentFragment, which used to make the
     // TreeWalker filter throw on node.parentElement.nodeName.
