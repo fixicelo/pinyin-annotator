@@ -1,15 +1,21 @@
 import { RESTRICTED_URL_PATTERNS, StorageKey, UserAction } from "~constants"
 import { collectFrameStatus } from "~lib/frame-status"
 import { applyLanguage, t } from "~lib/i18n"
-import { TabAnnotationRegistry } from "~lib/tab-annotation"
+import {
+  isTabAnnotationMessage,
+  TabAnnotationRegistry
+} from "~lib/tab-annotation"
 
 const CONTEXT_MENU_ID = "toggle-annotation-context-menu"
 
 /** Request ids only need to be unique among the actions this context starts. */
 let nextRequestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
 
-/** Which tabs were asked to annotate, so their later frames can join in. */
-const tabAnnotations = new TabAnnotationRegistry()
+/**
+ * Which tabs were asked to annotate, so their later frames can join in. The
+ * record outlives this worker in session storage; the browser clears it.
+ */
+const tabAnnotations = new TabAnnotationRegistry(chrome.storage?.session)
 
 function isRestrictedUrl(url: string): boolean {
   if (!url) return true
@@ -45,7 +51,7 @@ async function sendToggleToTab(tabId: number, tabUrl?: string) {
 
     const isAnnotated = await frameStatus.resolve()
     frameStatus.dispose()
-    tabAnnotations.set(tabId, !isAnnotated)
+    await tabAnnotations.set(tabId, !isAnnotated)
     await chrome.tabs.sendMessage(tabId, {
       action: isAnnotated ? UserAction.Clear : UserAction.Annotate
     })
@@ -55,21 +61,28 @@ async function sendToggleToTab(tabId: number, tabUrl?: string) {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  // Extension pages have no tab of their own and pass one along instead.
-  const tabId = sender.tab?.id ?? message?.tabId
-  const response = tabAnnotations.handleMessage(message, tabId)
-  if (response) {
-    sendResponse(response)
+  if (!isTabAnnotationMessage(message)) {
+    return false
   }
+
+  // Reading the record is asynchronous, so the channel stays open for the
+  // answer. Reports resolve without one, which closes it just as well.
+  void tabAnnotations
+    .handleMessage(message, sender.tab?.id)
+    .then((response) => sendResponse(response))
+    .catch(() => sendResponse(undefined))
+  return true
 })
 
-chrome.tabs.onRemoved?.addListener((tabId) => tabAnnotations.forget(tabId))
+chrome.tabs.onRemoved?.addListener((tabId) => {
+  void tabAnnotations.forget(tabId)
+})
 
 chrome.tabs.onUpdated?.addListener((tabId, changeInfo) => {
   // A top-level navigation is a new page, which starts unannotated like any
   // other first visit. Frames created inside it keep answering to this tab.
   if (changeInfo.status === "loading") {
-    tabAnnotations.forget(tabId)
+    void tabAnnotations.forget(tabId)
   }
 })
 
