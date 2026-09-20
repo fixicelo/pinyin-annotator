@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import chineseFindIconUrl from "url:~/assets/chinese-find.png"
 import iconUrl from "url:~/assets/icon.png"
 
@@ -63,20 +63,14 @@ function chineseFindUrl(): string {
 }
 
 const PAGE_SAMPLE = "讀音落在字上，一頁書就有了聲音。"
+const PAGE_SAMPLE_SECOND_LINE = "看得懂讀音，陌生的字不再停頓。"
+/** Short enough to sit on one line of a cue, as a subtitle would. */
 const CAPTION_SAMPLES = [
-  "影片開始了，字幕會一句一句出現。",
-  "每個漢字的上方，都標好了讀音。",
-  "換到下一句時，讀音也跟著更新。"
+  "字幕一句一句地出現。",
+  "每個字上方都有讀音。",
+  "換句時，讀音也跟著換。"
 ]
 const CAPTION_INTERVAL_MS = 4200
-
-const PIN_FILLED = (
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <g transform="rotate(45 12 12)">
-      <path d="M16 9V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z" />
-    </g>
-  </svg>
-)
 
 const PIN_OUTLINE = (
   <svg
@@ -193,6 +187,11 @@ function Welcome() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [toneType, pronunciationSystem]
   )
+  const pageSecondLineHtml = useMemo(
+    () => convertTextContentToHtml(PAGE_SAMPLE_SECOND_LINE, htmlOptions),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [toneType, pronunciationSystem]
+  )
   const captionHtml = useMemo(
     () =>
       CAPTION_SAMPLES.map((line) =>
@@ -211,6 +210,14 @@ function Welcome() {
   )
   const chineseFindHref = useMemo(() => chineseFindUrl(), [])
   const shortcutParts = shortcut ? shortcut.split("+") : []
+
+  // Clicking a window moves on to the step below it.
+  const stepRefs = useRef<Array<HTMLElement | null>>([])
+  const advanceFrom = (index: number) =>
+    stepRefs.current[index + 1]?.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    })
 
   return (
     <main className="onboarding-shell">
@@ -237,10 +244,7 @@ function Welcome() {
         <img src={iconUrl} alt="" />
         <div>
           <h1>拼音標註工具</h1>
-          <p>
-            漢字上方自動加上讀音，網頁與影片字幕都看得懂。預設不會自動標註，按下
-            Annotate 才會生效。
-          </p>
+          <p>漢字上方自動加上讀音，網頁與影片字幕都看得懂。</p>
           <p className="hero-tags">網頁標註 · 影片字幕 · 拼音與注音 · 快捷鍵</p>
         </div>
         <div className="onboarding-lang">
@@ -260,7 +264,11 @@ function Welcome() {
       </header>
 
       <section className="steps">
-        <article className="step">
+        <article
+          className="step"
+          ref={(element) => {
+            stepRefs.current[0] = element
+          }}>
           <header className="step-head">
             <span className="step-number">1</span>
             <h2>開啟擴充功能選單</h2>
@@ -269,14 +277,19 @@ function Welcome() {
             mode="puzzle"
             tab="新手指南"
             url="github.com/fixicelo/pinyin-annotator"
-            href={REPO_URL}>
+            href={REPO_URL}
+            onAdvance={() => advanceFrom(0)}>
             <div className="mock-page-text">
               <p>擴充功能收在網址列右邊的拼圖選單裡，點一下拼圖就會展開。</p>
             </div>
           </BrowserMock>
         </article>
 
-        <article className="step">
+        <article
+          className="step"
+          ref={(element) => {
+            stepRefs.current[1] = element
+          }}>
           <header className="step-head">
             <span className="step-number">2</span>
             <h2>把「拼音標註工具」釘選起來</h2>
@@ -285,7 +298,8 @@ function Welcome() {
             mode="menu"
             tab="新手指南"
             url="github.com/fixicelo/pinyin-annotator"
-            href={REPO_URL}>
+            href={REPO_URL}
+            onAdvance={() => advanceFrom(1)}>
             <div className="mock-page-text">
               <p>
                 在清單裡找到「拼音標註工具」，按下右邊的釘選圖示，它就會固定在工具列上。
@@ -301,7 +315,7 @@ function Welcome() {
                 <img className="ext-icon" src={chineseFindIconUrl} alt="" />
                 <span className="ext-name">繁簡易搜</span>
                 <span className="ext-pin" aria-hidden="true">
-                  {PIN_FILLED}
+                  {PIN_OUTLINE}
                 </span>
               </a>
               <div className="ext-row is-active" aria-hidden="true">
@@ -321,7 +335,11 @@ function Welcome() {
           </BrowserMock>
         </article>
 
-        <article className="step">
+        <article
+          className="step"
+          ref={(element) => {
+            stepRefs.current[2] = element
+          }}>
           <header className="step-head">
             <span className="step-number">3</span>
             <h2>按 Annotate，頁面就有了讀音</h2>
@@ -334,10 +352,18 @@ function Welcome() {
             <div className="mock-page-text">
               <p>這個 popup 是真的，可以直接按。按一下 Annotate。</p>
             </div>
-            <p
-              className={`demo-sample${isAnnotated ? " is-revealed" : ""}`}
-              dangerouslySetInnerHTML={{ __html: pageHtml }}
-            />
+            <article className="mock-article">
+              <h3 className="mock-article-title">讀一頁書</h3>
+              <div className="mock-article-rule" aria-hidden="true"></div>
+              <div
+                className={`demo-sample${isAnnotated ? " is-revealed" : ""}`}
+                dangerouslySetInnerHTML={{ __html: pageHtml }}
+              />
+              <div
+                className={`demo-sample${isAnnotated ? " is-revealed" : ""}`}
+                dangerouslySetInnerHTML={{ __html: pageSecondLineHtml }}
+              />
+            </article>
             <div className="caption-stage">
               <span
                 key={captionIndex}

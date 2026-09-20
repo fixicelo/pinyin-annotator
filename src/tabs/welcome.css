@@ -497,13 +497,40 @@ a.address-text:hover {
   background: var(--c-surface);
 }
 
+/* A page inside the window: a heading, a rule, and the paragraph the readings
+   appear over. */
+.mock-article-title {
+  margin: 0 0 10px;
+  color: var(--c-text);
+  font-family: Georgia, "Times New Roman", "Songti TC", serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.mock-article-rule {
+  height: 1px;
+  margin-bottom: 12px;
+  background: var(--c-line);
+}
+
+.mock-article p {
+  margin: 0 0 12px;
+  color: var(--c-text);
+  font-size: 16.5px;
+  line-height: 2;
+}
+
 /* Keep the page text clear of the floating UI: the popup on the right of step
    3, the extensions menu on the right of step 2. */
 @media (min-width: 621px) {
   .browser-mock[data-browser="popup"] .mock-page-text,
-  .browser-mock[data-browser="popup"] .demo-sample,
+  .browser-mock[data-browser="popup"] .mock-article,
   .browser-mock[data-browser="popup"] .caption-stage {
     max-width: calc(100% - 430px);
+  }
+
+  .browser-mock[data-browser="menu"] .mock-page-text {
+    max-width: calc(100% - 330px);
   }
 
   .browser-mock[data-browser="menu"] .mock-page-text {
@@ -1036,11 +1063,17 @@ a.address-text:hover {
    keep cutting to the next line, inside the browser window of step 3.
    ========================================================================== */
 
+/* Body copy of the page in the window: the size an article would use, with the
+   room above each line that the readings need. */
 .demo-sample {
-  margin: 18px 0 20px;
-  color: var(--text);
-  font-size: 24px;
-  line-height: 50px;
+  margin: 0 0 10px;
+  color: var(--c-text);
+  font-size: 16.5px;
+  line-height: 2.5;
+}
+
+.demo-sample:last-child {
+  margin-bottom: 0;
 }
 
 .demo-sample rt {
@@ -1053,7 +1086,8 @@ a.address-text:hover {
 }
 
 .caption-stage {
-  padding: 22px 18px;
+  margin-top: 16px;
+  padding: 18px 16px;
   border-radius: 10px;
   background: linear-gradient(140deg, #2b3440 0%, #4a5568 45%, #1f2733 100%);
   text-align: center;
@@ -1069,8 +1103,8 @@ a.address-text:hover {
   padding-top: 0.6em;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 17px;
+  line-height: 17px;
   animation: cue-in 0.45s ease;
 }
 
