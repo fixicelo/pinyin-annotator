@@ -97,8 +97,16 @@ export const i18nFallback: Record<string, string> = {
   welcomeHowTitle: "How to use it",
   welcomeTipAuto:
     "Auto-Annotate is already on, so pages are annotated as they load.",
-  welcomeTipToggle:
-    "Use the toolbar button to turn annotations on or off for a page, or press",
+  welcomeStep1Title: "Open the extensions menu",
+  welcomeStep1Desc:
+    "Click the puzzle-piece icon at the right end of the address bar.",
+  welcomeStep2Title: "Pin Pinyin Annotator",
+  welcomeStep2Desc:
+    "Pick it from the list and pin it, so its icon stays on the toolbar.",
+  welcomeStep3Title: "Annotate or change settings",
+  welcomeStep3Desc:
+    "The popup holds the annotate button, the switches and Options.",
+  welcomeShortcutNote: "toggles annotations for the page you are on.",
   welcomeTipRefresh: "Pages that were already open need a refresh.",
   welcomeStart: "Start browsing",
   optionsLanguage: "Language",

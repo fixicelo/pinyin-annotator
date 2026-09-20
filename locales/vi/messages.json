@@ -327,9 +327,33 @@
     "message": "Tự động chú thích đã bật, trang sẽ được chú thích khi tải.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
-  "welcomeTipToggle": {
-    "message": "Dùng nút trên thanh công cụ để bật/tắt chú thích cho một trang, hoặc nhấn",
-    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  "welcomeStep1Title": {
+    "message": "Mở menu tiện ích",
+    "description": "Welcome page: step 1 title (find the extensions menu)."
+  },
+  "welcomeStep1Desc": {
+    "message": "Nhấn biểu tượng mảnh ghép ở cuối thanh địa chỉ.",
+    "description": "Welcome page: step 1 description."
+  },
+  "welcomeStep2Title": {
+    "message": "Ghim Pinyin Annotator",
+    "description": "Welcome page: step 2 title (pin the extension)."
+  },
+  "welcomeStep2Desc": {
+    "message": "Chọn tiện ích trong danh sách và ghim để biểu tượng luôn ở thanh công cụ.",
+    "description": "Welcome page: step 2 description."
+  },
+  "welcomeStep3Title": {
+    "message": "Chú thích hoặc đổi cài đặt",
+    "description": "Welcome page: step 3 title (use the popup)."
+  },
+  "welcomeStep3Desc": {
+    "message": "Popup có nút chú thích, các công tắc và Options.",
+    "description": "Welcome page: step 3 description."
+  },
+  "welcomeShortcutNote": {
+    "message": "bật/tắt chú thích cho trang hiện tại.",
+    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
   },
   "welcomeTipRefresh": {
     "message": "Các trang đang mở cần tải lại.",

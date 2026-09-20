@@ -327,9 +327,33 @@
     "message": "Auto-Annotate is already on, so pages are annotated as they load.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
-  "welcomeTipToggle": {
-    "message": "Use the toolbar button to turn annotations on or off for a page, or press",
-    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  "welcomeStep1Title": {
+    "message": "Open the extensions menu",
+    "description": "Welcome page: step 1 title (find the extensions menu)."
+  },
+  "welcomeStep1Desc": {
+    "message": "Click the puzzle-piece icon at the right end of the address bar.",
+    "description": "Welcome page: step 1 description."
+  },
+  "welcomeStep2Title": {
+    "message": "Pin Pinyin Annotator",
+    "description": "Welcome page: step 2 title (pin the extension)."
+  },
+  "welcomeStep2Desc": {
+    "message": "Pick it from the list and pin it, so its icon stays on the toolbar.",
+    "description": "Welcome page: step 2 description."
+  },
+  "welcomeStep3Title": {
+    "message": "Annotate or change settings",
+    "description": "Welcome page: step 3 title (use the popup)."
+  },
+  "welcomeStep3Desc": {
+    "message": "The popup holds the annotate button, the switches and Options.",
+    "description": "Welcome page: step 3 description."
+  },
+  "welcomeShortcutNote": {
+    "message": "toggles annotations for the page you are on.",
+    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
   },
   "welcomeTipRefresh": {
     "message": "Pages that were already open need a refresh.",

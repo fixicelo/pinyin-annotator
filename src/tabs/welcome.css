@@ -105,3 +105,213 @@ body {
   justify-content: center;
   gap: 12px;
 }
+
+/* Numbered walk-through of finding the toolbar button. */
+.steps {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.step-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-number {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.step-desc {
+  margin: 6px 0 10px 28px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Drawings of the browser chrome, built from the same tokens as the UI. */
+.illus {
+  margin-left: 28px;
+  position: relative;
+}
+
+.illus-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-base);
+  background: var(--bg-hover);
+}
+
+.illus-address {
+  flex: 1;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  font-size: 11px;
+  color: var(--text-disabled);
+}
+
+.illus-target {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  color: var(--text-secondary);
+}
+
+.illus-ring {
+  position: absolute;
+  inset: -3px;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+}
+
+.illus-glyph {
+  width: 17px;
+  height: 17px;
+}
+
+.illus-cursor {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  right: -8px;
+  bottom: -8px;
+}
+
+.illus-menu {
+  width: 240px;
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-base);
+  background: var(--bg-card);
+  box-shadow: var(--box-shadow);
+}
+
+.illus-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: var(--border-radius-sm);
+}
+
+.illus-row-target {
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
+}
+
+.illus-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+}
+
+.illus-bar {
+  flex: 1;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--bg-hover);
+}
+
+.illus-bar-short {
+  max-width: 90px;
+}
+
+.illus-app-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.illus-app-name {
+  flex: 1;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.illus-pin {
+  width: 14px;
+  height: 14px;
+  color: var(--primary-color);
+}
+
+.illus-popup-wrap {
+  display: flex;
+  align-items: flex-start;
+}
+
+.illus-popup {
+  width: 200px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-base);
+  background: var(--bg-card);
+  box-shadow: var(--box-shadow);
+}
+
+.illus-pill {
+  width: 92px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
+}
+
+.illus-button {
+  height: 22px;
+  border-radius: var(--border-radius-sm);
+  background: var(--primary-color);
+}
+
+.illus-switch {
+  width: 36px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--switch-off-bg);
+  align-self: flex-end;
+}
+
+.illus-popup-wrap .illus-cursor {
+  right: auto;
+  left: 120px;
+  bottom: -10px;
+}
+
+.welcome-tips {
+  border-top: 1px solid var(--border-color);
+  padding-top: 14px;
+}

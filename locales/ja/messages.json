@@ -327,9 +327,33 @@
     "message": "自動注釈はすでにオンで、ページを読み込むと自動で付きます。",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
-  "welcomeTipToggle": {
-    "message": "ツールバーのボタンでページごとに切り替えられます。または",
-    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  "welcomeStep1Title": {
+    "message": "拡張機能メニューを開く",
+    "description": "Welcome page: step 1 title (find the extensions menu)."
+  },
+  "welcomeStep1Desc": {
+    "message": "アドレスバー右端のパズルピースのアイコンをクリックします。",
+    "description": "Welcome page: step 1 description."
+  },
+  "welcomeStep2Title": {
+    "message": "Pinyin Annotator をピン留めする",
+    "description": "Welcome page: step 2 title (pin the extension)."
+  },
+  "welcomeStep2Desc": {
+    "message": "一覧から選んでピン留めすると、アイコンがツールバーに残ります。",
+    "description": "Welcome page: step 2 description."
+  },
+  "welcomeStep3Title": {
+    "message": "注釈の実行や設定の変更",
+    "description": "Welcome page: step 3 title (use the popup)."
+  },
+  "welcomeStep3Desc": {
+    "message": "ポップアップに注釈ボタン、スイッチ、Options があります。",
+    "description": "Welcome page: step 3 description."
+  },
+  "welcomeShortcutNote": {
+    "message": "で表示中のページの注釈を切り替えられます。",
+    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
   },
   "welcomeTipRefresh": {
     "message": "すでに開いているページは再読み込みが必要です。",

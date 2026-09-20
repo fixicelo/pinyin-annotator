@@ -327,9 +327,33 @@
     "message": "La anotación automática ya está activada: las páginas se anotan al cargarse.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
-  "welcomeTipToggle": {
-    "message": "Usa el botón de la barra para activar o desactivar la anotación de una página, o pulsa",
-    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  "welcomeStep1Title": {
+    "message": "Abre el menú de extensiones",
+    "description": "Welcome page: step 1 title (find the extensions menu)."
+  },
+  "welcomeStep1Desc": {
+    "message": "Haz clic en el icono de pieza de puzle al final de la barra de direcciones.",
+    "description": "Welcome page: step 1 description."
+  },
+  "welcomeStep2Title": {
+    "message": "Fija Pinyin Annotator",
+    "description": "Welcome page: step 2 title (pin the extension)."
+  },
+  "welcomeStep2Desc": {
+    "message": "Elige la extensión en la lista y fíjala para que su icono quede en la barra.",
+    "description": "Welcome page: step 2 description."
+  },
+  "welcomeStep3Title": {
+    "message": "Anota o cambia los ajustes",
+    "description": "Welcome page: step 3 title (use the popup)."
+  },
+  "welcomeStep3Desc": {
+    "message": "La ventana emergente tiene el botón de anotar, los interruptores y Options.",
+    "description": "Welcome page: step 3 description."
+  },
+  "welcomeShortcutNote": {
+    "message": "activa o desactiva la anotación de la página actual.",
+    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
   },
   "welcomeTipRefresh": {
     "message": "Las páginas que ya estaban abiertas necesitan recargarse.",

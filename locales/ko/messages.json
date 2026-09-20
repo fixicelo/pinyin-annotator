@@ -327,9 +327,33 @@
     "message": "자동 주석이 이미 켜져 있어 페이지를 불러오면 자동으로 표시됩니다.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
-  "welcomeTipToggle": {
-    "message": "도구 모음 버튼으로 페이지마다 켜고 끌 수 있습니다. 또는",
-    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  "welcomeStep1Title": {
+    "message": "확장 프로그램 메뉴 열기",
+    "description": "Welcome page: step 1 title (find the extensions menu)."
+  },
+  "welcomeStep1Desc": {
+    "message": "주소 표시줄 오른쪽 끝의 퍼즐 아이콘을 클릭하세요.",
+    "description": "Welcome page: step 1 description."
+  },
+  "welcomeStep2Title": {
+    "message": "Pinyin Annotator 고정하기",
+    "description": "Welcome page: step 2 title (pin the extension)."
+  },
+  "welcomeStep2Desc": {
+    "message": "목록에서 선택해 고정하면 아이콘이 도구 모음에 남습니다.",
+    "description": "Welcome page: step 2 description."
+  },
+  "welcomeStep3Title": {
+    "message": "주석 실행 및 설정 변경",
+    "description": "Welcome page: step 3 title (use the popup)."
+  },
+  "welcomeStep3Desc": {
+    "message": "팝업에 주석 버튼, 스위치, Options가 있습니다.",
+    "description": "Welcome page: step 3 description."
+  },
+  "welcomeShortcutNote": {
+    "message": "키로 현재 페이지의 주석을 전환할 수 있습니다.",
+    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
   },
   "welcomeTipRefresh": {
     "message": "이미 열려 있던 페이지는 새로 고침이 필요합니다.",

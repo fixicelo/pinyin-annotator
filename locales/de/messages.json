@@ -327,9 +327,33 @@
     "message": "Auto-Annotate ist bereits aktiv, Seiten werden beim Laden annotiert.",
     "description": "Welcome page: tip about Auto-Annotate being on."
   },
-  "welcomeTipToggle": {
-    "message": "Mit dem Symbol in der Symbolleiste schaltest du die Annotation einer Seite um, oder drücke",
-    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  "welcomeStep1Title": {
+    "message": "Erweiterungsmenü öffnen",
+    "description": "Welcome page: step 1 title (find the extensions menu)."
+  },
+  "welcomeStep1Desc": {
+    "message": "Klicke auf das Puzzle-Symbol am rechten Ende der Adressleiste.",
+    "description": "Welcome page: step 1 description."
+  },
+  "welcomeStep2Title": {
+    "message": "Pinyin Annotator anheften",
+    "description": "Welcome page: step 2 title (pin the extension)."
+  },
+  "welcomeStep2Desc": {
+    "message": "Wähle die Erweiterung in der Liste und hefte sie an, damit ihr Symbol in der Leiste bleibt.",
+    "description": "Welcome page: step 2 description."
+  },
+  "welcomeStep3Title": {
+    "message": "Annotieren oder Einstellungen ändern",
+    "description": "Welcome page: step 3 title (use the popup)."
+  },
+  "welcomeStep3Desc": {
+    "message": "Im Popup findest du die Schaltfläche, die Schalter und Options.",
+    "description": "Welcome page: step 3 description."
+  },
+  "welcomeShortcutNote": {
+    "message": "schaltet die Annotation der aktuellen Seite um.",
+    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
   },
   "welcomeTipRefresh": {
     "message": "Bereits geöffnete Seiten müssen neu geladen werden.",

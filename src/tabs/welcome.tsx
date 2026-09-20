@@ -26,6 +26,11 @@ import { convertTextContentToHtml } from "~util"
 
 import AppTitle from "../popup/AppTitle"
 import { openOptionsPage } from "../popup/openOptionsPage"
+import {
+  ExtensionsMenuStep,
+  PinStep,
+  PopupStep
+} from "../components/onboarding-illustrations"
 
 import "./welcome.css"
 
@@ -141,11 +146,38 @@ function Welcome() {
 
       <section className="welcome-card">
         <h2 className="welcome-section-title">{t("welcomeHowTitle")}</h2>
+        <ol className="steps">
+          <li className="step">
+            <div className="step-head">
+              <span className="step-number">1</span>
+              <span className="step-title">{t("welcomeStep1Title")}</span>
+            </div>
+            <p className="step-desc">{t("welcomeStep1Desc")}</p>
+            <ExtensionsMenuStep />
+          </li>
+          <li className="step">
+            <div className="step-head">
+              <span className="step-number">2</span>
+              <span className="step-title">{t("welcomeStep2Title")}</span>
+            </div>
+            <p className="step-desc">{t("welcomeStep2Desc")}</p>
+            <PinStep />
+          </li>
+          <li className="step">
+            <div className="step-head">
+              <span className="step-number">3</span>
+              <span className="step-title">{t("welcomeStep3Title")}</span>
+            </div>
+            <p className="step-desc">{t("welcomeStep3Desc")}</p>
+            <PopupStep />
+          </li>
+        </ol>
+
         <ul className="welcome-tips">
           <li>{t("welcomeTipAuto")}</li>
           <li>
-            {t("welcomeTipToggle")}
             {shortcut ? <kbd className="keyboard">{shortcut}</kbd> : null}
+            {t("welcomeShortcutNote")}
           </li>
           <li>{t("welcomeTipRefresh")}</li>
         </ul>

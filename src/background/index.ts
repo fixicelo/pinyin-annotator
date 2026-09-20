@@ -68,7 +68,9 @@ async function enableAnnotationsOnFirstRun() {
  */
 async function openWelcomePage() {
   try {
-    await chrome.tabs.create({ url: chrome.runtime.getURL("tabs/welcome.html") })
+    await chrome.tabs.create({
+      url: chrome.runtime.getURL("tabs/welcome.html")
+    })
   } catch {
     // Failing to open it must not fail the install.
   }
