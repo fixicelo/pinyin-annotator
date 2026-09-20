@@ -73,7 +73,6 @@ export const PinStep: React.FC = () => (
 
 interface PopupStepProps {
   annotated: boolean
-  annotationScale: number
   onAnnotate: () => void
   onClear: () => void
 }
@@ -82,10 +81,12 @@ interface PopupStepProps {
  * The pinned button with the popup it opens hanging under it. The popup is the
  * real one — same markup and stylesheet as the panel — and it works: pressing
  * its buttons drives the demonstration below.
+ *
+ * Only what the step is about is drawn: nothing is annotated yet, and the
+ * button that changes that keeps asking to be pressed.
  */
 export const PopupStep: React.FC<PopupStepProps> = ({
   annotated,
-  annotationScale,
   onAnnotate,
   onClear
 }) => (
@@ -110,33 +111,16 @@ export const PopupStep: React.FC<PopupStepProps> = ({
             disabled={!annotated}>
             {t("buttonClear")}
           </button>
-          <button
-            className="btn btn-primary btn-primary-wide"
-            onClick={onAnnotate}>
-            {t("buttonAnnotate")}
-          </button>
-        </div>
-
-        <div className="card behavior-card">
-          <div className="option-row">
-            <span className="illus-option-name">{t("followChangesTitle")}</span>
-            <span className="switch">
-              <input type="checkbox" checked disabled readOnly />
-              <span className="switch-slider"></span>
-            </span>
-          </div>
-          <div className="option-row option-row-last">
-            <span className="illus-option-name">{t("autoAnnotateTitle")}</span>
-            <span className="switch">
-              <input type="checkbox" disabled readOnly />
-              <span className="switch-slider"></span>
-            </span>
-          </div>
-        </div>
-
-        <div className="appearance illus-appearance">
-          <span>{t("optionsAppearanceTitle")}</span>
-          <span className="appearance-value">{annotationScale}%</span>
+          <span className="illus-annotate-wrap">
+            <button
+              className={`btn btn-primary btn-primary-wide${
+                annotated ? "" : " is-inviting"
+              }`}
+              onClick={onAnnotate}>
+              {t("buttonAnnotate")}
+            </button>
+            {!annotated && <Cursor />}
+          </span>
         </div>
 
         <div className="popup-footer">

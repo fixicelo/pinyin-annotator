@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "ポップアップに注釈ボタン、スイッチ、Options があります。",
+    "message": "ポップアップの Annotate を押してください。このポップアップは本物で、下の見本が反応します。",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "La fenêtre contient le bouton d'annotation, les interrupteurs et Options.",
+    "message": "Appuyez sur Annotate dans la fenêtre : c'est la vraie, et les exemples ci-dessous y réagissent.",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

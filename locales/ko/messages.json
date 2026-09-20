@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "팝업에 주석 버튼, 스위치, Options가 있습니다.",
+    "message": "팝업의 Annotate를 누르세요. 이 팝업은 실제이며 아래 예시가 반응합니다.",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

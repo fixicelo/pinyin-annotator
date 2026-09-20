@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "Il popup contiene il pulsante di annotazione, gli interruttori e Options.",
+    "message": "Premi Annotate nel popup: è quello vero e gli esempi sotto rispondono.",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

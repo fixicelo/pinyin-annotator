@@ -365,6 +365,11 @@ body {
   .caption-cue {
     animation: none;
   }
+
+  .btn.is-inviting {
+    animation: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+  }
 }
 
 /* Step 3: the pinned button, with the popup it opens hanging under it. */
@@ -417,12 +422,29 @@ body {
   color: var(--text-primary);
 }
 
-.illus-appearance {
+/* The one control this step is about: it keeps asking to be pressed until the
+   demonstration below has been started once. */
+.illus-annotate-wrap {
+  position: relative;
+  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-primary);
+}
+
+.illus-annotate-wrap .illus-cursor {
+  right: -6px;
+  bottom: -8px;
+}
+
+.btn.is-inviting {
+  animation: invite 1.9s ease-in-out infinite;
+}
+
+@keyframes invite {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5);
+  }
+  60% {
+    box-shadow: 0 0 0 7px rgba(37, 99, 235, 0);
+  }
 }

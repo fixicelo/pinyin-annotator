@@ -101,7 +101,7 @@ export const i18nFallback: Record<string, string> = {
     "Pick it from the list and pin it, so its icon stays on the toolbar.",
   welcomeStep3Title: "Annotate or change settings",
   welcomeStep3Desc:
-    "The popup holds the annotate button, the switches and Options.",
+    "Press Annotate in the popup: the popup is real, and the samples below answer to it.",
   welcomeShortcutNote: "toggles annotations for the page you are on.",
   welcomeTipRefresh: "Pages that were already open need a refresh.",
   welcomeStart: "Start browsing",

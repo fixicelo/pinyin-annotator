@@ -181,7 +181,6 @@ function Welcome() {
             <p className="step-desc">{t("welcomeStep3Desc")}</p>
             <PopupStep
               annotated={isAnnotated}
-              annotationScale={scale}
               onAnnotate={() => setIsAnnotated(true)}
               onClear={() => setIsAnnotated(false)}
             />

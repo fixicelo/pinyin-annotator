@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "popup 里有标注按钮、开关与 Options。",
+    "message": "按 popup 里的 Annotate：這個 popup 是真的，下面的示範會跟著反應。",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

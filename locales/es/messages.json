@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "La ventana emergente tiene el botón de anotar, los interruptores y Options.",
+    "message": "Pulsa Annotate en la ventana: es la de verdad y los ejemplos de abajo responden a ella.",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

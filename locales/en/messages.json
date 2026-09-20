@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "The popup holds the annotate button, the switches and Options.",
+    "message": "Press Annotate in the popup: the popup is real, and the samples below answer to it.",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

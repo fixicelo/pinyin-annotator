@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "В окне есть кнопка разметки, переключатели и Options.",
+    "message": "Нажмите Annotate в окне: оно настоящее, и примеры ниже реагируют на него.",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

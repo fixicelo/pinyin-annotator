@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "Popup có nút chú thích, các công tắc và Options.",
+    "message": "Nhấn Annotate trong popup: đây là popup thật và các ví dụ bên dưới sẽ phản hồi.",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {

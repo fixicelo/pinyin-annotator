@@ -340,7 +340,7 @@
     "description": "Welcome page: step 3 title (use the popup)."
   },
   "welcomeStep3Desc": {
-    "message": "Im Popup findest du die Schaltfläche, die Schalter und Options.",
+    "message": "Drücke im Popup auf Annotate: Es ist das echte, und die Beispiele darunter reagieren darauf.",
     "description": "Welcome page: step 3 description."
   },
   "welcomeShortcutNote": {
