@@ -307,6 +307,38 @@
     "message": "Entendido",
     "description": "Popup: first-run notice dismiss button."
   },
+  "welcomeIntro": {
+    "message": "Los caracteres chinos muestran su lectura encima, en páginas web y subtítulos de vídeo.",
+    "description": "Welcome page: one-line description of the effect."
+  },
+  "welcomeDemoPage": {
+    "message": "Página web",
+    "description": "Welcome page: web page demo label."
+  },
+  "welcomeDemoCaption": {
+    "message": "Subtítulos de vídeo",
+    "description": "Welcome page: video caption demo label."
+  },
+  "welcomeHowTitle": {
+    "message": "Cómo usarlo",
+    "description": "Welcome page: how-to section title."
+  },
+  "welcomeTipAuto": {
+    "message": "La anotación automática ya está activada: las páginas se anotan al cargarse.",
+    "description": "Welcome page: tip about Auto-Annotate being on."
+  },
+  "welcomeTipToggle": {
+    "message": "Usa el botón de la barra para activar o desactivar la anotación de una página, o pulsa",
+    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  },
+  "welcomeTipRefresh": {
+    "message": "Las páginas que ya estaban abiertas necesitan recargarse.",
+    "description": "Welcome page: tip about refreshing open pages."
+  },
+  "welcomeStart": {
+    "message": "Empezar a navegar",
+    "description": "Welcome page: button that closes the page."
+  },
   "optionsLanguage": {
     "message": "Idioma",
     "description": "Options: optionsLanguage label."

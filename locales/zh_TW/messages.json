@@ -307,6 +307,38 @@
     "message": "知道了",
     "description": "Popup: first-run notice dismiss button."
   },
+  "welcomeIntro": {
+    "message": "網頁與影片字幕中的漢字，上方會自動顯示拼音。",
+    "description": "Welcome page: one-line description of the effect."
+  },
+  "welcomeDemoPage": {
+    "message": "網頁文字",
+    "description": "Welcome page: web page demo label."
+  },
+  "welcomeDemoCaption": {
+    "message": "影片字幕",
+    "description": "Welcome page: video caption demo label."
+  },
+  "welcomeHowTitle": {
+    "message": "怎麼用",
+    "description": "Welcome page: how-to section title."
+  },
+  "welcomeTipAuto": {
+    "message": "已為你開啟自動標註，開啟網頁時會自動加上拼音。",
+    "description": "Welcome page: tip about Auto-Annotate being on."
+  },
+  "welcomeTipToggle": {
+    "message": "用工具列按鈕可以開關目前頁面的標註，或按",
+    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  },
+  "welcomeTipRefresh": {
+    "message": "已經開啟的分頁需要重新整理。",
+    "description": "Welcome page: tip about refreshing open pages."
+  },
+  "welcomeStart": {
+    "message": "開始瀏覽",
+    "description": "Welcome page: button that closes the page."
+  },
   "optionsLanguage": {
     "message": "語言",
     "description": "Options: optionsLanguage label."

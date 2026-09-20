@@ -307,6 +307,38 @@
     "message": "Понятно",
     "description": "Popup: first-run notice dismiss button."
   },
+  "welcomeIntro": {
+    "message": "Над иероглифами появляется чтение — на веб-страницах и в субтитрах видео.",
+    "description": "Welcome page: one-line description of the effect."
+  },
+  "welcomeDemoPage": {
+    "message": "Веб-страница",
+    "description": "Welcome page: web page demo label."
+  },
+  "welcomeDemoCaption": {
+    "message": "Субтитры видео",
+    "description": "Welcome page: video caption demo label."
+  },
+  "welcomeHowTitle": {
+    "message": "Как пользоваться",
+    "description": "Welcome page: how-to section title."
+  },
+  "welcomeTipAuto": {
+    "message": "Автоаннотация уже включена, страницы размечаются при загрузке.",
+    "description": "Welcome page: tip about Auto-Annotate being on."
+  },
+  "welcomeTipToggle": {
+    "message": "Кнопка на панели включает и выключает разметку страницы, или нажмите",
+    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  },
+  "welcomeTipRefresh": {
+    "message": "Уже открытые страницы нужно обновить.",
+    "description": "Welcome page: tip about refreshing open pages."
+  },
+  "welcomeStart": {
+    "message": "Начать",
+    "description": "Welcome page: button that closes the page."
+  },
   "optionsLanguage": {
     "message": "Язык",
     "description": "Options: optionsLanguage label."

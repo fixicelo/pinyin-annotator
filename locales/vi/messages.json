@@ -307,6 +307,38 @@
     "message": "Đã hiểu",
     "description": "Popup: first-run notice dismiss button."
   },
+  "welcomeIntro": {
+    "message": "Chữ Hán được thêm phiên âm phía trên, trên trang web và phụ đề video.",
+    "description": "Welcome page: one-line description of the effect."
+  },
+  "welcomeDemoPage": {
+    "message": "Trang web",
+    "description": "Welcome page: web page demo label."
+  },
+  "welcomeDemoCaption": {
+    "message": "Phụ đề video",
+    "description": "Welcome page: video caption demo label."
+  },
+  "welcomeHowTitle": {
+    "message": "Cách dùng",
+    "description": "Welcome page: how-to section title."
+  },
+  "welcomeTipAuto": {
+    "message": "Tự động chú thích đã bật, trang sẽ được chú thích khi tải.",
+    "description": "Welcome page: tip about Auto-Annotate being on."
+  },
+  "welcomeTipToggle": {
+    "message": "Dùng nút trên thanh công cụ để bật/tắt chú thích cho một trang, hoặc nhấn",
+    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  },
+  "welcomeTipRefresh": {
+    "message": "Các trang đang mở cần tải lại.",
+    "description": "Welcome page: tip about refreshing open pages."
+  },
+  "welcomeStart": {
+    "message": "Bắt đầu",
+    "description": "Welcome page: button that closes the page."
+  },
   "optionsLanguage": {
     "message": "Ngôn ngữ",
     "description": "Options: optionsLanguage label."

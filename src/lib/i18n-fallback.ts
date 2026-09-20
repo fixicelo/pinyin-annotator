@@ -90,6 +90,17 @@ export const i18nFallback: Record<string, string> = {
   firstRunDesc:
     "Pinyin is added automatically as pages load. Turn it off with the switch below.",
   firstRunDismiss: "Got it",
+  welcomeIntro:
+    "Chinese characters get their reading above them, on web pages and in video captions.",
+  welcomeDemoPage: "Web page",
+  welcomeDemoCaption: "Video captions",
+  welcomeHowTitle: "How to use it",
+  welcomeTipAuto:
+    "Auto-Annotate is already on, so pages are annotated as they load.",
+  welcomeTipToggle:
+    "Use the toolbar button to turn annotations on or off for a page, or press",
+  welcomeTipRefresh: "Pages that were already open need a refresh.",
+  welcomeStart: "Start browsing",
   optionsLanguage: "Language",
   optionsLanguageDesc: "Choose the language for the extension interface.",
   optionsFollowSystem: "Use browser language"

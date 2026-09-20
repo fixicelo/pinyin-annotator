@@ -307,6 +307,38 @@
     "message": "확인",
     "description": "Popup: first-run notice dismiss button."
   },
+  "welcomeIntro": {
+    "message": "웹 페이지와 동영상 자막의 한자 위에 독음이 표시됩니다.",
+    "description": "Welcome page: one-line description of the effect."
+  },
+  "welcomeDemoPage": {
+    "message": "웹 페이지",
+    "description": "Welcome page: web page demo label."
+  },
+  "welcomeDemoCaption": {
+    "message": "동영상 자막",
+    "description": "Welcome page: video caption demo label."
+  },
+  "welcomeHowTitle": {
+    "message": "사용 방법",
+    "description": "Welcome page: how-to section title."
+  },
+  "welcomeTipAuto": {
+    "message": "자동 주석이 이미 켜져 있어 페이지를 불러오면 자동으로 표시됩니다.",
+    "description": "Welcome page: tip about Auto-Annotate being on."
+  },
+  "welcomeTipToggle": {
+    "message": "도구 모음 버튼으로 페이지마다 켜고 끌 수 있습니다. 또는",
+    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  },
+  "welcomeTipRefresh": {
+    "message": "이미 열려 있던 페이지는 새로 고침이 필요합니다.",
+    "description": "Welcome page: tip about refreshing open pages."
+  },
+  "welcomeStart": {
+    "message": "시작하기",
+    "description": "Welcome page: button that closes the page."
+  },
   "optionsLanguage": {
     "message": "언어",
     "description": "Options: optionsLanguage label."

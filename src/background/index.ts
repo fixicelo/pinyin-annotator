@@ -61,6 +61,20 @@ async function enableAnnotationsOnFirstRun() {
 }
 
 /**
+ * The popup can only describe the page the user happens to be looking at, and a
+ * page without Chinese shows nothing at all, so a fresh install opens one short
+ * screen that demonstrates the effect and says how to turn it on and off. The
+ * page itself clears the notice flag; if it never loads, the popup shows it.
+ */
+async function openWelcomePage() {
+  try {
+    await chrome.tabs.create({ url: chrome.runtime.getURL("tabs/welcome.html") })
+  } catch {
+    // Failing to open it must not fail the install.
+  }
+}
+
+/**
  * Toggles every frame of the tab together.
  *
  * A bare "toggle" is decided by each frame on its own, which leaves the page in
@@ -197,6 +211,7 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
   await applyLanguage(lang)
   if (reason === "install") {
     await enableAnnotationsOnFirstRun()
+    await openWelcomePage()
   }
   chrome.contextMenus?.create({
     id: CONTEXT_MENU_ID,

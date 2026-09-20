@@ -307,6 +307,38 @@
     "message": "Got it",
     "description": "Popup: first-run notice dismiss button."
   },
+  "welcomeIntro": {
+    "message": "Chinese characters get their reading above them, on web pages and in video captions.",
+    "description": "Welcome page: one-line description of the effect."
+  },
+  "welcomeDemoPage": {
+    "message": "Web page",
+    "description": "Welcome page: web page demo label."
+  },
+  "welcomeDemoCaption": {
+    "message": "Video captions",
+    "description": "Welcome page: video caption demo label."
+  },
+  "welcomeHowTitle": {
+    "message": "How to use it",
+    "description": "Welcome page: how-to section title."
+  },
+  "welcomeTipAuto": {
+    "message": "Auto-Annotate is already on, so pages are annotated as they load.",
+    "description": "Welcome page: tip about Auto-Annotate being on."
+  },
+  "welcomeTipToggle": {
+    "message": "Use the toolbar button to turn annotations on or off for a page, or press",
+    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  },
+  "welcomeTipRefresh": {
+    "message": "Pages that were already open need a refresh.",
+    "description": "Welcome page: tip about refreshing open pages."
+  },
+  "welcomeStart": {
+    "message": "Start browsing",
+    "description": "Welcome page: button that closes the page."
+  },
   "optionsLanguage": {
     "message": "Language",
     "description": "Options: optionsLanguage label."

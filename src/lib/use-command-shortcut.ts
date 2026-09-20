@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 
-/** The shortcut the browser has bound to the toggle command, if any. */
+/**
+ * The shortcut the browser has bound to the toggle command, if any. Shown in the
+ * popup and on the welcome page so the keyboard route is discoverable.
+ */
 export function useCommandShortcut(): string {
   const [shortcut, setShortcut] = useState("")
 

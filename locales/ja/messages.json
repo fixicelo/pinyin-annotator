@@ -307,6 +307,38 @@
     "message": "了解",
     "description": "Popup: first-run notice dismiss button."
   },
+  "welcomeIntro": {
+    "message": "ウェブページと動画字幕の漢字の上に読み方が表示されます。",
+    "description": "Welcome page: one-line description of the effect."
+  },
+  "welcomeDemoPage": {
+    "message": "ウェブページ",
+    "description": "Welcome page: web page demo label."
+  },
+  "welcomeDemoCaption": {
+    "message": "動画字幕",
+    "description": "Welcome page: video caption demo label."
+  },
+  "welcomeHowTitle": {
+    "message": "使い方",
+    "description": "Welcome page: how-to section title."
+  },
+  "welcomeTipAuto": {
+    "message": "自動注釈はすでにオンで、ページを読み込むと自動で付きます。",
+    "description": "Welcome page: tip about Auto-Annotate being on."
+  },
+  "welcomeTipToggle": {
+    "message": "ツールバーのボタンでページごとに切り替えられます。または",
+    "description": "Welcome page: tip about toggling with the toolbar or shortcut."
+  },
+  "welcomeTipRefresh": {
+    "message": "すでに開いているページは再読み込みが必要です。",
+    "description": "Welcome page: tip about refreshing open pages."
+  },
+  "welcomeStart": {
+    "message": "はじめる",
+    "description": "Welcome page: button that closes the page."
+  },
   "optionsLanguage": {
     "message": "言語",
     "description": "Options: optionsLanguage label."

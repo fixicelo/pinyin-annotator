@@ -1,0 +1,107 @@
+@import "../popup/design-system.css";
+
+body {
+  margin: 0;
+  background: var(--bg-layout);
+  font-family: var(--font-family);
+}
+
+.welcome {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.welcome-header {
+  text-align: center;
+}
+
+.welcome-header .title {
+  font-size: 30px;
+  margin: 0 0 10px;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.welcome-intro {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.welcome-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+}
+
+.demo-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.demo-sample {
+  margin: 10px 0 20px;
+  font-size: 22px;
+  line-height: 46px;
+  color: var(--text-primary);
+}
+
+/* Stands in for a player: the caption's own backdrop, with the reading above
+   the characters covered by it. */
+.caption-stage {
+  margin-top: 10px;
+  padding: 28px 20px;
+  border-radius: var(--border-radius-base);
+  background: linear-gradient(140deg, #2b3440 0%, #4a5568 45%, #1f2733 100%);
+  text-align: center;
+}
+
+.caption-cue {
+  display: inline;
+  color: #fff;
+  font-size: 22px;
+  line-height: 22px;
+  padding: 2px 0;
+  padding-top: 0.6em;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.welcome-section-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.welcome-tips {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.welcome-tips .keyboard {
+  margin-left: 6px;
+}
+
+.welcome-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}

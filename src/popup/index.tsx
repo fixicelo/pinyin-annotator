@@ -10,6 +10,7 @@ import {
   type Response
 } from "~constants"
 import { applyLanguage, t, useI18n } from "~lib/i18n"
+import { useCommandShortcut } from "~lib/use-command-shortcut"
 
 import AnnotationStatus from "./AnnotationStatus"
 import AppearanceSection from "./AppearanceSection"
@@ -20,7 +21,6 @@ import FirstRunNotice from "./FirstRunNotice"
 import HighlightedTextDisplay from "./HighlightedTextDisplay"
 import MonitorModeOption from "./MonitorModeOption"
 import { openOptionsPage } from "./openOptionsPage"
-import { useCommandShortcut } from "./useCommandShortcut"
 import { useTheme } from "./useTheme"
 
 import "./popup.css"
