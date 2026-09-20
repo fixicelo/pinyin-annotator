@@ -295,66 +295,6 @@
     "message": "ページを読み込むたびにピンインを自動的に注釈します。",
     "description": "Popup: tooltip on an option row."
   },
-  "welcomeIntro": {
-    "message": "ウェブページと動画字幕の漢字の上に読み方が表示されます。",
-    "description": "Welcome page: one-line description of the effect."
-  },
-  "welcomeDemoPage": {
-    "message": "ウェブページ",
-    "description": "Welcome page: web page demo label."
-  },
-  "welcomeDemoCaption": {
-    "message": "動画字幕",
-    "description": "Welcome page: video caption demo label."
-  },
-  "welcomeDemoHint": {
-    "message": "上の Annotate を押すとここに反映されます。",
-    "description": "Welcome page: button that replays the demo animation."
-  },
-  "welcomeHowTitle": {
-    "message": "使い方",
-    "description": "Welcome page: how-to section title."
-  },
-  "welcomeTipAuto": {
-    "message": "押すまで何も注釈されません。「Annotate」を押すか、Auto-Annotate をオンにすると毎回自動で付きます。",
-    "description": "Welcome page: tip about Auto-Annotate being on."
-  },
-  "welcomeStep1Title": {
-    "message": "拡張機能メニューを開く",
-    "description": "Welcome page: step 1 title (find the extensions menu)."
-  },
-  "welcomeStep1Desc": {
-    "message": "アドレスバー右端のパズルピースのアイコンをクリックします。",
-    "description": "Welcome page: step 1 description."
-  },
-  "welcomeStep2Title": {
-    "message": "Pinyin Annotator をピン留めする",
-    "description": "Welcome page: step 2 title (pin the extension)."
-  },
-  "welcomeStep2Desc": {
-    "message": "一覧から選んでピン留めすると、アイコンがツールバーに残ります。",
-    "description": "Welcome page: step 2 description."
-  },
-  "welcomeStep3Title": {
-    "message": "注釈の実行や設定の変更",
-    "description": "Welcome page: step 3 title (use the popup)."
-  },
-  "welcomeStep3Desc": {
-    "message": "ポップアップの Annotate を押してください。このポップアップは本物で、下の見本が反応します。",
-    "description": "Welcome page: step 3 description."
-  },
-  "welcomeShortcutNote": {
-    "message": "で表示中のページの注釈を切り替えられます。",
-    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
-  },
-  "welcomeTipRefresh": {
-    "message": "すでに開いているページは再読み込みが必要です。",
-    "description": "Welcome page: tip about refreshing open pages."
-  },
-  "welcomeStart": {
-    "message": "はじめる",
-    "description": "Welcome page: button that closes the page."
-  },
   "optionsLanguage": {
     "message": "言語",
     "description": "Options: optionsLanguage label."

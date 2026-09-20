@@ -295,66 +295,6 @@
     "message": "每次加载页面时自动标注拼音。",
     "description": "Popup: tooltip on an option row."
   },
-  "welcomeIntro": {
-    "message": "网页与影片字幕中的汉字，上方会自动显示拼音。",
-    "description": "Welcome page: one-line description of the effect."
-  },
-  "welcomeDemoPage": {
-    "message": "网页文字",
-    "description": "Welcome page: web page demo label."
-  },
-  "welcomeDemoCaption": {
-    "message": "影片字幕",
-    "description": "Welcome page: video caption demo label."
-  },
-  "welcomeDemoHint": {
-    "message": "按上面的 Annotate 看看效果。",
-    "description": "Welcome page: button that replays the demo animation."
-  },
-  "welcomeHowTitle": {
-    "message": "怎么用",
-    "description": "Welcome page: how-to section title."
-  },
-  "welcomeTipAuto": {
-    "message": "在你按下标注之前不会标任何东西；想每次开页都自动标注，可打开 Auto-Annotate。",
-    "description": "Welcome page: tip about Auto-Annotate being on."
-  },
-  "welcomeStep1Title": {
-    "message": "打开扩充功能选单",
-    "description": "Welcome page: step 1 title (find the extensions menu)."
-  },
-  "welcomeStep1Desc": {
-    "message": "点击网址列右端的拼图图示。",
-    "description": "Welcome page: step 1 description."
-  },
-  "welcomeStep2Title": {
-    "message": "把 Pinyin Annotator 钉选起来",
-    "description": "Welcome page: step 2 title (pin the extension)."
-  },
-  "welcomeStep2Desc": {
-    "message": "在清单中选它并钉选，图示就会留在工具列上。",
-    "description": "Welcome page: step 2 description."
-  },
-  "welcomeStep3Title": {
-    "message": "标注或调整设定",
-    "description": "Welcome page: step 3 title (use the popup)."
-  },
-  "welcomeStep3Desc": {
-    "message": "按 popup 里的 Annotate：這個 popup 是真的，下面的示範會跟著反應。",
-    "description": "Welcome page: step 3 description."
-  },
-  "welcomeShortcutNote": {
-    "message": "可以切换当前页面的标注。",
-    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
-  },
-  "welcomeTipRefresh": {
-    "message": "已经打开的分页需要重新整理。",
-    "description": "Welcome page: tip about refreshing open pages."
-  },
-  "welcomeStart": {
-    "message": "开始浏览",
-    "description": "Welcome page: button that closes the page."
-  },
   "optionsLanguage": {
     "message": "语言",
     "description": "Options: optionsLanguage label."

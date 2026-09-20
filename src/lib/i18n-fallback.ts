@@ -85,26 +85,6 @@ export const i18nFallback: Record<string, string> = {
   followChangesTooltip:
     "Keeps annotations up to date when a page — or a video's captions — changes. It is what makes subtitles follow along.",
   autoAnnotateTooltip: "Automatically annotate pinyin on every page load.",
-  welcomeIntro:
-    "Chinese characters get their reading above them, on web pages and in video captions.",
-  welcomeDemoPage: "Web page",
-  welcomeDemoCaption: "Video captions",
-  welcomeDemoHint: "Press Annotate above to see it here.",
-  welcomeHowTitle: "How to use it",
-  welcomeTipAuto:
-    "Nothing is annotated until you ask for it: press Annotate, or turn on Auto-Annotate to have every page done as it loads.",
-  welcomeStep1Title: "Open the extensions menu",
-  welcomeStep1Desc:
-    "Click the puzzle-piece icon at the right end of the address bar.",
-  welcomeStep2Title: "Pin Pinyin Annotator",
-  welcomeStep2Desc:
-    "Pick it from the list and pin it, so its icon stays on the toolbar.",
-  welcomeStep3Title: "Annotate or change settings",
-  welcomeStep3Desc:
-    "Press Annotate in the popup: the popup is real, and the samples below answer to it.",
-  welcomeShortcutNote: "toggles annotations for the page you are on.",
-  welcomeTipRefresh: "Pages that were already open need a refresh.",
-  welcomeStart: "Start browsing",
   optionsLanguage: "Language",
   optionsLanguageDesc: "Choose the language for the extension interface.",
   optionsFollowSystem: "Use browser language"

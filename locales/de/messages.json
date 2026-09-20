@@ -295,66 +295,6 @@
     "message": "Bei jedem Seitenaufruf automatisch Pinyin annotieren.",
     "description": "Popup: tooltip on an option row."
   },
-  "welcomeIntro": {
-    "message": "Chinesische Zeichen bekommen ihre Lesung darüber — auf Webseiten und in Untertiteln.",
-    "description": "Welcome page: one-line description of the effect."
-  },
-  "welcomeDemoPage": {
-    "message": "Webseite",
-    "description": "Welcome page: web page demo label."
-  },
-  "welcomeDemoCaption": {
-    "message": "Video-Untertitel",
-    "description": "Welcome page: video caption demo label."
-  },
-  "welcomeDemoHint": {
-    "message": "Drücke oben auf Annotate, um es hier zu sehen.",
-    "description": "Welcome page: button that replays the demo animation."
-  },
-  "welcomeHowTitle": {
-    "message": "So funktioniert es",
-    "description": "Welcome page: how-to section title."
-  },
-  "welcomeTipAuto": {
-    "message": "Nichts wird annotiert, bis du es verlangst: Annotate drücken oder Auto-Annotate einschalten, um jede Seite beim Laden zu annotieren.",
-    "description": "Welcome page: tip about Auto-Annotate being on."
-  },
-  "welcomeStep1Title": {
-    "message": "Erweiterungsmenü öffnen",
-    "description": "Welcome page: step 1 title (find the extensions menu)."
-  },
-  "welcomeStep1Desc": {
-    "message": "Klicke auf das Puzzle-Symbol am rechten Ende der Adressleiste.",
-    "description": "Welcome page: step 1 description."
-  },
-  "welcomeStep2Title": {
-    "message": "Pinyin Annotator anheften",
-    "description": "Welcome page: step 2 title (pin the extension)."
-  },
-  "welcomeStep2Desc": {
-    "message": "Wähle die Erweiterung in der Liste und hefte sie an, damit ihr Symbol in der Leiste bleibt.",
-    "description": "Welcome page: step 2 description."
-  },
-  "welcomeStep3Title": {
-    "message": "Annotieren oder Einstellungen ändern",
-    "description": "Welcome page: step 3 title (use the popup)."
-  },
-  "welcomeStep3Desc": {
-    "message": "Drücke im Popup auf Annotate: Es ist das echte, und die Beispiele darunter reagieren darauf.",
-    "description": "Welcome page: step 3 description."
-  },
-  "welcomeShortcutNote": {
-    "message": "schaltet die Annotation der aktuellen Seite um.",
-    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
-  },
-  "welcomeTipRefresh": {
-    "message": "Bereits geöffnete Seiten müssen neu geladen werden.",
-    "description": "Welcome page: tip about refreshing open pages."
-  },
-  "welcomeStart": {
-    "message": "Loslegen",
-    "description": "Welcome page: button that closes the page."
-  },
   "optionsLanguage": {
     "message": "Sprache",
     "description": "Options: optionsLanguage label."

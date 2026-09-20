@@ -295,66 +295,6 @@
     "message": "Автоматически аннотировать пиньинь при каждой загрузке страницы.",
     "description": "Popup: tooltip on an option row."
   },
-  "welcomeIntro": {
-    "message": "Над иероглифами появляется чтение — на веб-страницах и в субтитрах видео.",
-    "description": "Welcome page: one-line description of the effect."
-  },
-  "welcomeDemoPage": {
-    "message": "Веб-страница",
-    "description": "Welcome page: web page demo label."
-  },
-  "welcomeDemoCaption": {
-    "message": "Субтитры видео",
-    "description": "Welcome page: video caption demo label."
-  },
-  "welcomeDemoHint": {
-    "message": "Нажмите Annotate выше, чтобы увидеть это здесь.",
-    "description": "Welcome page: button that replays the demo animation."
-  },
-  "welcomeHowTitle": {
-    "message": "Как пользоваться",
-    "description": "Welcome page: how-to section title."
-  },
-  "welcomeTipAuto": {
-    "message": "Ничего не размечается, пока вы не попросите: нажмите Annotate или включите Auto-Annotate, чтобы размечать каждую страницу при загрузке.",
-    "description": "Welcome page: tip about Auto-Annotate being on."
-  },
-  "welcomeStep1Title": {
-    "message": "Откройте меню расширений",
-    "description": "Welcome page: step 1 title (find the extensions menu)."
-  },
-  "welcomeStep1Desc": {
-    "message": "Нажмите значок пазла справа от адресной строки.",
-    "description": "Welcome page: step 1 description."
-  },
-  "welcomeStep2Title": {
-    "message": "Закрепите Pinyin Annotator",
-    "description": "Welcome page: step 2 title (pin the extension)."
-  },
-  "welcomeStep2Desc": {
-    "message": "Выберите расширение в списке и закрепите его, чтобы значок остался на панели.",
-    "description": "Welcome page: step 2 description."
-  },
-  "welcomeStep3Title": {
-    "message": "Запустите разметку или измените настройки",
-    "description": "Welcome page: step 3 title (use the popup)."
-  },
-  "welcomeStep3Desc": {
-    "message": "Нажмите Annotate в окне: оно настоящее, и примеры ниже реагируют на него.",
-    "description": "Welcome page: step 3 description."
-  },
-  "welcomeShortcutNote": {
-    "message": "включает и выключает разметку текущей страницы.",
-    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
-  },
-  "welcomeTipRefresh": {
-    "message": "Уже открытые страницы нужно обновить.",
-    "description": "Welcome page: tip about refreshing open pages."
-  },
-  "welcomeStart": {
-    "message": "Начать",
-    "description": "Welcome page: button that closes the page."
-  },
   "optionsLanguage": {
     "message": "Язык",
     "description": "Options: optionsLanguage label."

@@ -295,66 +295,6 @@
     "message": "Automatically annotate pinyin on every page load.",
     "description": "Popup: tooltip on an option row."
   },
-  "welcomeIntro": {
-    "message": "Chinese characters get their reading above them, on web pages and in video captions.",
-    "description": "Welcome page: one-line description of the effect."
-  },
-  "welcomeDemoPage": {
-    "message": "Web page",
-    "description": "Welcome page: web page demo label."
-  },
-  "welcomeDemoCaption": {
-    "message": "Video captions",
-    "description": "Welcome page: video caption demo label."
-  },
-  "welcomeDemoHint": {
-    "message": "Press Annotate above to see it here.",
-    "description": "Welcome page: button that replays the demo animation."
-  },
-  "welcomeHowTitle": {
-    "message": "How to use it",
-    "description": "Welcome page: how-to section title."
-  },
-  "welcomeTipAuto": {
-    "message": "Nothing is annotated until you ask for it: press Annotate, or turn on Auto-Annotate to have every page done as it loads.",
-    "description": "Welcome page: tip about Auto-Annotate being on."
-  },
-  "welcomeStep1Title": {
-    "message": "Open the extensions menu",
-    "description": "Welcome page: step 1 title (find the extensions menu)."
-  },
-  "welcomeStep1Desc": {
-    "message": "Click the puzzle-piece icon at the right end of the address bar.",
-    "description": "Welcome page: step 1 description."
-  },
-  "welcomeStep2Title": {
-    "message": "Pin Pinyin Annotator",
-    "description": "Welcome page: step 2 title (pin the extension)."
-  },
-  "welcomeStep2Desc": {
-    "message": "Pick it from the list and pin it, so its icon stays on the toolbar.",
-    "description": "Welcome page: step 2 description."
-  },
-  "welcomeStep3Title": {
-    "message": "Annotate or change settings",
-    "description": "Welcome page: step 3 title (use the popup)."
-  },
-  "welcomeStep3Desc": {
-    "message": "Press Annotate in the popup: the popup is real, and the samples below answer to it.",
-    "description": "Welcome page: step 3 description."
-  },
-  "welcomeShortcutNote": {
-    "message": "toggles annotations for the page you are on.",
-    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
-  },
-  "welcomeTipRefresh": {
-    "message": "Pages that were already open need a refresh.",
-    "description": "Welcome page: tip about refreshing open pages."
-  },
-  "welcomeStart": {
-    "message": "Start browsing",
-    "description": "Welcome page: button that closes the page."
-  },
   "optionsLanguage": {
     "message": "Language",
     "description": "Options: optionsLanguage label."

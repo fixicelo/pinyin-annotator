@@ -295,66 +295,6 @@
     "message": "Tự động chú thích pinyin mỗi khi tải trang.",
     "description": "Popup: tooltip on an option row."
   },
-  "welcomeIntro": {
-    "message": "Chữ Hán được thêm phiên âm phía trên, trên trang web và phụ đề video.",
-    "description": "Welcome page: one-line description of the effect."
-  },
-  "welcomeDemoPage": {
-    "message": "Trang web",
-    "description": "Welcome page: web page demo label."
-  },
-  "welcomeDemoCaption": {
-    "message": "Phụ đề video",
-    "description": "Welcome page: video caption demo label."
-  },
-  "welcomeDemoHint": {
-    "message": "Nhấn Annotate ở trên để xem tại đây.",
-    "description": "Welcome page: button that replays the demo animation."
-  },
-  "welcomeHowTitle": {
-    "message": "Cách dùng",
-    "description": "Welcome page: how-to section title."
-  },
-  "welcomeTipAuto": {
-    "message": "Không có gì được chú thích cho đến khi bạn yêu cầu: nhấn Annotate hoặc bật Auto-Annotate để mỗi trang tự động được chú thích.",
-    "description": "Welcome page: tip about Auto-Annotate being on."
-  },
-  "welcomeStep1Title": {
-    "message": "Mở menu tiện ích",
-    "description": "Welcome page: step 1 title (find the extensions menu)."
-  },
-  "welcomeStep1Desc": {
-    "message": "Nhấn biểu tượng mảnh ghép ở cuối thanh địa chỉ.",
-    "description": "Welcome page: step 1 description."
-  },
-  "welcomeStep2Title": {
-    "message": "Ghim Pinyin Annotator",
-    "description": "Welcome page: step 2 title (pin the extension)."
-  },
-  "welcomeStep2Desc": {
-    "message": "Chọn tiện ích trong danh sách và ghim để biểu tượng luôn ở thanh công cụ.",
-    "description": "Welcome page: step 2 description."
-  },
-  "welcomeStep3Title": {
-    "message": "Chú thích hoặc đổi cài đặt",
-    "description": "Welcome page: step 3 title (use the popup)."
-  },
-  "welcomeStep3Desc": {
-    "message": "Nhấn Annotate trong popup: đây là popup thật và các ví dụ bên dưới sẽ phản hồi.",
-    "description": "Welcome page: step 3 description."
-  },
-  "welcomeShortcutNote": {
-    "message": "bật/tắt chú thích cho trang hiện tại.",
-    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
-  },
-  "welcomeTipRefresh": {
-    "message": "Các trang đang mở cần tải lại.",
-    "description": "Welcome page: tip about refreshing open pages."
-  },
-  "welcomeStart": {
-    "message": "Bắt đầu",
-    "description": "Welcome page: button that closes the page."
-  },
   "optionsLanguage": {
     "message": "Ngôn ngữ",
     "description": "Options: optionsLanguage label."

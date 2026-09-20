@@ -295,66 +295,6 @@
     "message": "Anota pinyin automaticamente em cada carregamento de página.",
     "description": "Popup: tooltip on an option row."
   },
-  "welcomeIntro": {
-    "message": "Os caracteres chineses mostram a leitura acima, em páginas e legendas de vídeo.",
-    "description": "Welcome page: one-line description of the effect."
-  },
-  "welcomeDemoPage": {
-    "message": "Página web",
-    "description": "Welcome page: web page demo label."
-  },
-  "welcomeDemoCaption": {
-    "message": "Legendas de vídeo",
-    "description": "Welcome page: video caption demo label."
-  },
-  "welcomeDemoHint": {
-    "message": "Pressione Annotate acima para ver aqui.",
-    "description": "Welcome page: button that replays the demo animation."
-  },
-  "welcomeHowTitle": {
-    "message": "Como usar",
-    "description": "Welcome page: how-to section title."
-  },
-  "welcomeTipAuto": {
-    "message": "Nada é anotado até você pedir: pressione Annotate ou ative o Auto-Annotate para anotar cada página ao carregar.",
-    "description": "Welcome page: tip about Auto-Annotate being on."
-  },
-  "welcomeStep1Title": {
-    "message": "Abra o menu de extensões",
-    "description": "Welcome page: step 1 title (find the extensions menu)."
-  },
-  "welcomeStep1Desc": {
-    "message": "Clique no ícone de peça de quebra-cabeça no fim da barra de endereços.",
-    "description": "Welcome page: step 1 description."
-  },
-  "welcomeStep2Title": {
-    "message": "Fixe o Pinyin Annotator",
-    "description": "Welcome page: step 2 title (pin the extension)."
-  },
-  "welcomeStep2Desc": {
-    "message": "Escolha na lista e fixe para manter o ícone na barra.",
-    "description": "Welcome page: step 2 description."
-  },
-  "welcomeStep3Title": {
-    "message": "Anote ou mude as configurações",
-    "description": "Welcome page: step 3 title (use the popup)."
-  },
-  "welcomeStep3Desc": {
-    "message": "Pressione Annotate no popup: é o de verdade e os exemplos abaixo respondem a ele.",
-    "description": "Welcome page: step 3 description."
-  },
-  "welcomeShortcutNote": {
-    "message": "ativa ou desativa a anotação da página atual.",
-    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
-  },
-  "welcomeTipRefresh": {
-    "message": "As páginas que já estavam abertas precisam ser recarregadas.",
-    "description": "Welcome page: tip about refreshing open pages."
-  },
-  "welcomeStart": {
-    "message": "Começar a navegar",
-    "description": "Welcome page: button that closes the page."
-  },
   "optionsLanguage": {
     "message": "Idioma",
     "description": "Options: optionsLanguage label."

@@ -295,66 +295,6 @@
     "message": "Annoter automatiquement le pinyin à chaque chargement de page.",
     "description": "Popup: tooltip on an option row."
   },
-  "welcomeIntro": {
-    "message": "Les caractères chinois affichent leur lecture au-dessus, sur les pages web et les sous-titres vidéo.",
-    "description": "Welcome page: one-line description of the effect."
-  },
-  "welcomeDemoPage": {
-    "message": "Page web",
-    "description": "Welcome page: web page demo label."
-  },
-  "welcomeDemoCaption": {
-    "message": "Sous-titres vidéo",
-    "description": "Welcome page: video caption demo label."
-  },
-  "welcomeDemoHint": {
-    "message": "Appuyez sur Annotate ci-dessus pour le voir ici.",
-    "description": "Welcome page: button that replays the demo animation."
-  },
-  "welcomeHowTitle": {
-    "message": "Comment l'utiliser",
-    "description": "Welcome page: how-to section title."
-  },
-  "welcomeTipAuto": {
-    "message": "Rien n'est annoté tant que vous ne le demandez pas : appuyez sur Annotate, ou activez Auto-Annotate pour annoter chaque page au chargement.",
-    "description": "Welcome page: tip about Auto-Annotate being on."
-  },
-  "welcomeStep1Title": {
-    "message": "Ouvrez le menu des extensions",
-    "description": "Welcome page: step 1 title (find the extensions menu)."
-  },
-  "welcomeStep1Desc": {
-    "message": "Cliquez sur l'icône en forme de pièce de puzzle à droite de la barre d'adresse.",
-    "description": "Welcome page: step 1 description."
-  },
-  "welcomeStep2Title": {
-    "message": "Épinglez Pinyin Annotator",
-    "description": "Welcome page: step 2 title (pin the extension)."
-  },
-  "welcomeStep2Desc": {
-    "message": "Choisissez-la dans la liste et épinglez-la pour garder son icône dans la barre.",
-    "description": "Welcome page: step 2 description."
-  },
-  "welcomeStep3Title": {
-    "message": "Annotez ou modifiez les réglages",
-    "description": "Welcome page: step 3 title (use the popup)."
-  },
-  "welcomeStep3Desc": {
-    "message": "Appuyez sur Annotate dans la fenêtre : c'est la vraie, et les exemples ci-dessous y réagissent.",
-    "description": "Welcome page: step 3 description."
-  },
-  "welcomeShortcutNote": {
-    "message": "active ou désactive l'annotation de la page affichée.",
-    "description": "Welcome page: note about the keyboard shortcut, shown after the key."
-  },
-  "welcomeTipRefresh": {
-    "message": "Les pages déjà ouvertes doivent être rechargées.",
-    "description": "Welcome page: tip about refreshing open pages."
-  },
-  "welcomeStart": {
-    "message": "Commencer à naviguer",
-    "description": "Welcome page: button that closes the page."
-  },
   "optionsLanguage": {
     "message": "Langue",
     "description": "Options: optionsLanguage label."
