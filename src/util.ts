@@ -3,6 +3,7 @@ import { pinyin as pinyinConverter } from "pinyin-pro"
 import { Storage } from "@plasmohq/storage"
 
 import {
+  BACKDROP_ATTR,
   CHINESE_CLASS,
   DEFAULT_IGNORED_NODES,
   IS_ANNOTATED_ATTR,
@@ -427,7 +428,54 @@ function annotationText(wrapper: Element): string {
   return wrapper.textContent ?? ""
 }
 
+/** True for a computed colour that paints nothing. */
+export function isTransparentColor(color: string): boolean {
+  if (!color || color === "transparent") {
+    return true
+  }
+
+  const match = color.match(/^rgba?\(([^)]+)\)$/)
+  if (!match) {
+    return false
+  }
+
+  const parts = match[1].split(/[\s,/]+/).filter(Boolean)
+  const alpha = parts.length > 3 ? Number(parts[3]) : 1
+  return !(alpha > 0)
+}
+
+/**
+ * Marks the element that paints the backdrop around the text it holds, so the
+ * stylesheet can give it room for the reading above that text.
+ *
+ * Only an inline box needs it: an inline box paints its backdrop behind the
+ * glyphs, so a reading above them falls outside it, while a block box already
+ * paints behind its whole line box.
+ *
+ * Returns whether the element was marked.
+ */
+export function markBackdropHost(element: Element | null): boolean {
+  if (!element || element.hasAttribute(BACKDROP_ATTR)) {
+    return false
+  }
+
+  const style = getComputedStyle(element)
+  if (style.display !== "inline" || isTransparentColor(style.backgroundColor)) {
+    return false
+  }
+
+  element.setAttribute(BACKDROP_ATTR, "")
+  return true
+}
+
 export function clearAnnotation(root: Element) {
+  for (const host of root.querySelectorAll(`[${BACKDROP_ATTR}]`)) {
+    host.removeAttribute(BACKDROP_ATTR)
+  }
+  if (root.hasAttribute(BACKDROP_ATTR)) {
+    root.removeAttribute(BACKDROP_ATTR)
+  }
+
   const wrappers = Array.from(
     root.querySelectorAll(
       `${TAG_NAME}.${RESULT_CLASS}, ${TAG_NAME}.${NON_CHINESE_CLASS}`

@@ -132,6 +132,7 @@ export const CHINESE_CLASS = "py-chinese-item"
 export const PINYIN_CLASS = "py-pinyin-item"
 export const NON_CHINESE_CLASS = "py-non-chinese-item"
 export const IS_ANNOTATED_ATTR = "data-pya-is-annotated"
+export const BACKDROP_ATTR = "data-pya-backdrop"
 
 export const DEFAULT_IGNORED_NODES = [
   TAG_NAME.toUpperCase(),

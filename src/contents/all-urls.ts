@@ -3,6 +3,7 @@ import type { PlasmoCSConfig } from "plasmo"
 import { Storage } from "@plasmohq/storage"
 
 import {
+  BACKDROP_ATTR,
   DEFAULT_IGNORED_NODES,
   IS_ANNOTATED_ATTR,
   NON_CHINESE_CLASS,
@@ -32,6 +33,7 @@ import {
   clearAnnotation,
   findTextNodesWithContent,
   isAnnotated,
+  markBackdropHost
 } from "~util"
 
 /**
@@ -331,6 +333,39 @@ export class Annotator {
       }
     `
         : ""
+    // A caption paints its backdrop on the element that holds its text, but an
+    // inline box paints that backdrop behind the glyphs only — a reading above
+    // them lands outside it. The element marked by the annotator is given room
+    // above the text, so its own backdrop covers the reading instead of the
+    // reading needing a second backdrop of its own. Vertical padding on an
+    // inline box paints without moving anything around it.
+    //
+    // The reading is then lifted into the positioned layer. A ruby annotation
+    // is otherwise painted before the backdrop of the boxes around it, so a
+    // caption whose backdrop covers the reading leaves it grey — on JW Player
+    // an opaque backdrop hides the reading outright. Relative positioning
+    // leaves the reading exactly where ruby put it.
+    //
+    // Both declarations are !important because players style these elements
+    // themselves and load their stylesheet after this one: JW Player ships
+    // `.jw-text-track-cue { padding: .1em 0 }`, which has the same specificity
+    // as the padding rule below and would otherwise win.
+    const backdropSide =
+      rubyPosition === RubyPosition.OVER
+        ? "padding-top"
+        : rubyPosition === RubyPosition.UNDER
+          ? "padding-bottom"
+          : ""
+    const captionBackdrop = backdropSide
+      ? `
+      [${BACKDROP_ATTR}] {
+        ${backdropSide}: calc(${annotationFontSize} * 1.2) !important;
+      }
+      [${BACKDROP_ATTR}] rt {
+        position: relative !important;
+      }
+    `
+      : ""
     this.styleTag.innerHTML = `
       ${TAG_NAME} {
         ruby-position: ${rubyPosition};
@@ -344,6 +379,7 @@ export class Annotator {
         font-size: ${annotationFontSize};
       }
       ${flexboxFallback}
+      ${captionBackdrop}
     `
   }
 
@@ -395,6 +431,10 @@ export class Annotator {
       if (!node.isConnected) {
         continue
       }
+
+      // Done before the text node is replaced: the host is only recognisable
+      // while it still holds nothing but text.
+      markBackdropHost(node.parentElement)
 
       const frag = buildAnnotatedFragment(node.textContent, htmlOptions)
       if (node.parentNode) {

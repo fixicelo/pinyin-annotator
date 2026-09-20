@@ -2,6 +2,7 @@
 import { describe, expect, it } from "vitest"
 
 import {
+  BACKDROP_ATTR,
   CHINESE_CLASS,
   DEFAULT_IGNORED_NODES,
   NON_CHINESE_CLASS,
@@ -15,6 +16,8 @@ import {
   clearAnnotation,
   findTextNodesWithContent,
   isAnnotated,
+  isTransparentColor,
+  markBackdropHost,
   segmentText
 } from "~util"
 
@@ -256,5 +259,72 @@ describe("findTextNodesWithContent", () => {
     await expect(
       findTextNodesWithContent(fragment, DEFAULT_IGNORED_NODES)
     ).resolves.toEqual([node])
+  })
+})
+
+describe("isTransparentColor", () => {
+  it("recognises colours that paint nothing", () => {
+    expect(isTransparentColor("")).toBe(true)
+    expect(isTransparentColor("transparent")).toBe(true)
+    expect(isTransparentColor("rgba(0, 0, 0, 0)")).toBe(true)
+    expect(isTransparentColor("rgb(0 0 0 / 0)")).toBe(true)
+  })
+
+  it("keeps colours that paint something", () => {
+    expect(isTransparentColor("rgb(0, 0, 0)")).toBe(false)
+    expect(isTransparentColor("rgba(0, 0, 0, 0.5)")).toBe(false)
+    expect(isTransparentColor("rgb(0 0 0 / 0.5)")).toBe(false)
+    expect(isTransparentColor("rgb(255, 255, 255)")).toBe(false)
+  })
+})
+
+describe("markBackdropHost", () => {
+  /** A caption cue: text only, inline, painting its own backdrop. */
+  function createCue(styles: Partial<CSSStyleDeclaration> = {}) {
+    const cue = document.createElement("div")
+    cue.textContent = "一切都是为了提高存活率"
+    cue.style.display = "inline"
+    cue.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+    Object.assign(cue.style, styles)
+    document.body.appendChild(cue)
+    return cue
+  }
+
+  it("marks an inline element that paints a backdrop", () => {
+    const cue = createCue()
+
+    expect(markBackdropHost(cue)).toBe(true)
+    expect(cue.hasAttribute(BACKDROP_ATTR)).toBe(true)
+  })
+
+  it("ignores text on a block box, which already paints behind its line box", () => {
+    const block = createCue({ display: "block" })
+
+    expect(markBackdropHost(block)).toBe(false)
+    expect(block.hasAttribute(BACKDROP_ATTR)).toBe(false)
+  })
+
+  it("ignores text whose backdrop is transparent", () => {
+    const plain = createCue({ backgroundColor: "transparent" })
+
+    expect(markBackdropHost(plain)).toBe(false)
+  })
+
+  it("does not mark the same host twice", () => {
+    const cue = createCue()
+
+    expect(markBackdropHost(cue)).toBe(true)
+    expect(markBackdropHost(cue)).toBe(false)
+  })
+
+  it("is unmarked again once the annotation is cleared", () => {
+    const cue = createCue()
+    markBackdropHost(cue)
+    cue.replaceChildren(buildAnnotatedFragment("你好", SYMBOL))
+
+    clearAnnotation(cue)
+
+    expect(cue.hasAttribute(BACKDROP_ATTR)).toBe(false)
+    expect(cue.textContent).toBe("你好")
   })
 })
