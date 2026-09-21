@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react"
-import chineseFindIconUrl from "url:~/assets/chinese-find.png"
+import designSystemCss from "data-text:~/popup/design-system.css"
+import popupCss from "data-text:~/popup/popup.css"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import iconUrl from "url:~/assets/icon.png"
 
 import { useStorage } from "@plasmohq/storage/hook"
@@ -10,8 +12,11 @@ import {
   RESULT_CLASS,
   RubyPosition,
   StorageKey,
+  TabStatus,
   ToneType,
-  type HtmlOptions
+  UserAction,
+  type HtmlOptions,
+  type UserPreferences
 } from "~constants"
 import {
   ANNOTATION_SCALE_DEFAULT,
@@ -33,6 +38,7 @@ import { convertTextContentToHtml } from "~util"
 
 import { BrowserMock, Pointer } from "../components/browser-mock"
 import { openOptionsPage } from "../popup/openOptionsPage"
+import PopupView from "../popup/PopupView"
 
 import "./welcome.css"
 
@@ -51,6 +57,9 @@ const CHINESE_FIND_STORES = {
   firefox: "https://addons.mozilla.org/addon/chinese-find/"
 } as const
 const CHINESE_FIND_UTM = "?utm_source=pinyin-annotator&utm_medium=onboarding"
+/** Their store icon, as the sibling guide does for this extension. */
+const CHINESE_FIND_ICON =
+  "https://addons.mozilla.org/user-media/addon_icons/2960/2960520-64.png?modified=ca10d066"
 
 function chineseFindUrl(): string {
   const ua = navigator.userAgent
@@ -71,6 +80,14 @@ const CAPTION_SAMPLES = [
   "換句時，讀音也跟著換。"
 ]
 const CAPTION_INTERVAL_MS = 4200
+
+const PIN_FILLED = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <g transform="rotate(45 12 12)">
+      <path d="M16 9V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z" />
+    </g>
+  </svg>
+)
 
 const PIN_OUTLINE = (
   <svg
@@ -136,6 +153,31 @@ function Welcome() {
   const shortcut = useCommandShortcut()
   const [isAnnotated, setIsAnnotated] = useState(false)
   const [captionIndex, setCaptionIndex] = useState(0)
+  const [chineseFindIconReady, setChineseFindIconReady] = useState(false)
+  const popupHostRef = useRef<HTMLDivElement>(null)
+  const [popupRoot, setPopupRoot] = useState<ShadowRoot | null>(null)
+
+  // The popup brings its own stylesheet and its own idea of a paragraph; this
+  // page has both. A shadow root keeps them from meeting.
+  useEffect(() => {
+    const host = popupHostRef.current
+    if (host && !host.shadowRoot) {
+      setPopupRoot(host.attachShadow({ mode: "open" }))
+    }
+  }, [])
+
+  /** The demonstration's buttons: annotate the page in the window, nothing else. */
+  const driveDemo = useCallback(
+    (action: UserAction, _data?: UserPreferences) => {
+      if (action === UserAction.Annotate) {
+        setIsAnnotated(true)
+      }
+      if (action === UserAction.Clear) {
+        setIsAnnotated(false)
+      }
+    },
+    []
+  )
 
   useEffect(() => {
     applyLanguage(uiLanguage)
@@ -209,6 +251,24 @@ function Welcome() {
     [toneType, pronunciationSystem]
   )
   const chineseFindHref = useMemo(() => chineseFindUrl(), [])
+
+  useEffect(() => {
+    // The sibling's icon comes from the store, as this guide's own icon does on
+    // their page; until it arrives the row shows a letter instead.
+    const image = new Image()
+    const showIcon = () => setChineseFindIconReady(true)
+    image.addEventListener("load", showIcon)
+    image.src = CHINESE_FIND_ICON
+    return () => image.removeEventListener("load", showIcon)
+  }, [])
+
+  const popupPromoIcon = chineseFindIconReady ? (
+    <img src={CHINESE_FIND_ICON} alt="" />
+  ) : (
+    <span className="tool-btn-tile" aria-hidden="true">
+      繁
+    </span>
+  )
   const shortcutParts = shortcut ? shortcut.split("+") : []
 
   // Clicking a window moves on to the step below it.
@@ -278,7 +338,8 @@ function Welcome() {
             tab="新手指南"
             url="github.com/fixicelo/pinyin-annotator"
             href={REPO_URL}
-            onAdvance={() => advanceFrom(0)}>
+            onAdvance={() => advanceFrom(0)}
+            pinnedPromo={popupPromoIcon}>
             <div className="mock-page-text">
               <p>擴充功能收在網址列右邊的拼圖選單裡，點一下拼圖就會展開。</p>
             </div>
@@ -299,7 +360,8 @@ function Welcome() {
             tab="新手指南"
             url="github.com/fixicelo/pinyin-annotator"
             href={REPO_URL}
-            onAdvance={() => advanceFrom(1)}>
+            onAdvance={() => advanceFrom(1)}
+            pinnedPromo={popupPromoIcon}>
             <div className="mock-page-text">
               <p>
                 在清單裡找到「拼音標註工具」，按下右邊的釘選圖示，它就會固定在工具列上。
@@ -312,10 +374,18 @@ function Welcome() {
                 target="_blank"
                 rel="noopener"
                 aria-label="繁簡易搜（在擴充功能商店開啟，另開新分頁）">
-                <img className="ext-icon" src={chineseFindIconUrl} alt="" />
+                {chineseFindIconReady ? (
+                  <img className="ext-icon" src={CHINESE_FIND_ICON} alt="" />
+                ) : (
+                  <span
+                    className="ext-icon tile chinese-find"
+                    aria-hidden="true">
+                    繁
+                  </span>
+                )}
                 <span className="ext-name">繁簡易搜</span>
-                <span className="ext-pin" aria-hidden="true">
-                  {PIN_OUTLINE}
+                <span className="ext-pin is-pinned" aria-hidden="true">
+                  {PIN_FILLED}
                 </span>
               </a>
               <div className="ext-row is-active" aria-hidden="true">
@@ -348,7 +418,8 @@ function Welcome() {
             mode="popup"
             tab="新手指南"
             url="github.com/fixicelo/pinyin-annotator"
-            href={REPO_URL}>
+            href={REPO_URL}
+            pinnedPromo={popupPromoIcon}>
             <div className="mock-page-text">
               <p>這個 popup 是真的，可以直接按。按一下 Annotate。</p>
             </div>
@@ -371,43 +442,55 @@ function Welcome() {
                 dangerouslySetInnerHTML={{ __html: captionHtml[captionIndex] }}
               />
             </div>
-            <div className="popup-mock">
-              <div className="popup">
-                <p
-                  className={`status ${
-                    isAnnotated ? "annotated" : "not-annotated"
-                  }`}>
-                  {t("statusLabel")}:{" "}
-                  {t(isAnnotated ? "statusAnnotated" : "statusNotAnnotated")}
-                </p>
-                <div className="actions">
-                  <button
-                    className="btn btn-outlined"
-                    onClick={() => setIsAnnotated(false)}
-                    disabled={!isAnnotated}>
-                    {t("buttonClear")}
-                  </button>
-                  <span
-                    className={`illus-annotate-wrap${
-                      isAnnotated ? "" : " is-inviting"
-                    }`}>
-                    <button
-                      className="btn btn-primary btn-primary-wide"
-                      onClick={() => setIsAnnotated(true)}>
-                      {t("buttonAnnotate")}
-                    </button>
-                    {!isAnnotated && <Pointer />}
-                  </span>
-                </div>
-                <div className="popup-footer">
-                  <span />
-                  <button
-                    className="btn btn-text"
-                    onClick={() => void openOptionsPage()}>
-                    {t("buttonOptions")}
-                  </button>
-                </div>
-              </div>
+            <div className="popup-mock" ref={popupHostRef}>
+              {popupRoot &&
+                createPortal(
+                  <>
+                    {/* The popup's own tokens and styles, scoped to the host:
+                        :root matches nothing inside a shadow root. */}
+                    {/* The popup's design system as written: its `:root` token
+                        blocks match nothing inside a shadow root, so the tokens
+                        inherit from the page and the popup follows the theme
+                        this page is already in. */}
+                    <style>{designSystemCss}</style>
+                    <style>{popupCss.replace(/@import[^;]+;/g, "")}</style>
+                    <style>{`
+                      .actions .btn-primary {
+                        position: relative;
+                      }
+                      .is-inviting .actions .btn-primary::after {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        border-radius: var(--border-radius-base);
+                        border: 2px solid var(--primary-color);
+                        pointer-events: none;
+                        animation: converge 1.8s ease-out infinite;
+                      }
+                      @keyframes converge {
+                        0% { transform: scale(1.18); opacity: 0; }
+                        30% { opacity: 1; }
+                        100% { transform: scale(1); opacity: 0; }
+                      }
+                      @media (prefers-reduced-motion: reduce) {
+                        .is-inviting .actions .btn-primary::after {
+                          animation: none;
+                        }
+                      }
+                    `}</style>
+                    <div className={isAnnotated ? "" : "is-inviting"}>
+                      <PopupView
+                        isAnnotated={isAnnotated}
+                        tabStatus={TabStatus.Available}
+                        shortcut={shortcut}
+                        onRefresh={() => {}}
+                        onOpenOptions={() => void openOptionsPage()}
+                        communicateWithContentScript={driveDemo}
+                      />
+                    </div>
+                  </>,
+                  popupRoot
+                )}
             </div>
           </BrowserMock>
           <p className="privacy">

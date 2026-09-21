@@ -84,6 +84,8 @@ interface BrowserMockProps {
   href: string
   /** Clicking the window moves on to the next step. */
   onAdvance?: () => void
+  /** A pinned extension in the toolbar, drawn as already there. */
+  pinnedPromo?: React.ReactNode
   children: React.ReactNode
 }
 
@@ -97,6 +99,7 @@ export const BrowserMock: React.FC<BrowserMockProps> = ({
   url,
   href,
   onAdvance,
+  pinnedPromo,
   children
 }) => {
   const mockRef = useRef<HTMLDivElement>(null)
@@ -180,6 +183,9 @@ export const BrowserMock: React.FC<BrowserMockProps> = ({
               />
             </svg>
           </span>
+          {pinnedPromo && (
+            <span className="tool-btn pinned-btn">{pinnedPromo}</span>
+          )}
           {mode === "popup" && (
             <span className="tool-btn pinned-btn is-target">
               <img src={iconUrl} alt="" />

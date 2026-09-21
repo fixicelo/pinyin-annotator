@@ -9,17 +9,11 @@ import {
   UserAction,
   type Response
 } from "~constants"
-import { applyLanguage, t, useI18n } from "~lib/i18n"
+import { applyLanguage, useI18n } from "~lib/i18n"
 import { useCommandShortcut } from "~lib/use-command-shortcut"
 
-import AnnotationStatus from "./AnnotationStatus"
-import AppearanceSection from "./AppearanceSection"
-import AppTitle from "./AppTitle"
-import AutoAnnotateOption from "./AutoAnnotateOption"
-import ButtonGroup from "./ButtonGroup"
-import FollowChangesOption from "./FollowChangesOption"
-import HighlightedTextDisplay from "./HighlightedTextDisplay"
 import { openOptionsPage } from "./openOptionsPage"
+import PopupView from "./PopupView"
 import { useTheme } from "./useTheme"
 
 import "./popup.css"
@@ -57,7 +51,6 @@ function Popup() {
     setTabStatus
   )
 
-  const isAvailable = tabStatus === TabStatus.Available
   const shortcut = useCommandShortcut()
 
   const checkStatus = useCallback(() => {
@@ -94,56 +87,17 @@ function Popup() {
   }, [])
 
   return (
-    <div className="popup">
-      <AppTitle />
-      <AnnotationStatus
-        isAnnotated={isAnnotated}
-        tabStatus={tabStatus}
-        onRefresh={handleRefresh}
-      />
-
-      <ButtonGroup
-        isAnnotated={isAnnotated}
-        communicateWithContentScript={communicateWithContentScript}
-        disabled={!isAvailable}
-      />
-
-      <div className="card behavior-card">
-        <FollowChangesOption
-          communicateWithContentScript={communicateWithContentScript}
-          disabled={!isAvailable}
-        />
-        <AutoAnnotateOption
-          communicateWithContentScript={communicateWithContentScript}
-          disabled={!isAvailable}
-        />
-      </div>
-
-      <AppearanceSection
-        communicateWithContentScript={communicateWithContentScript}
-        onPreviewChange={handlePreviewChange}
-        syncWithCurrentTab={isAvailable}
-      />
-
-      <HighlightedTextDisplay
-        annotationScaleOverride={previewAnnotationScale}
-        scaleTextTogetherOverride={previewScaleTextTogether}
-      />
-
-      <footer className="popup-footer">
-        {shortcut ? (
-          <span className="shortcut-hint">
-            {t("optionsShortcutTitle")}
-            <kbd className="keyboard">{shortcut}</kbd>
-          </span>
-        ) : (
-          <span />
-        )}
-        <button className="btn btn-text" onClick={openOptionsPage}>
-          {t("buttonOptions")}
-        </button>
-      </footer>
-    </div>
+    <PopupView
+      isAnnotated={isAnnotated}
+      tabStatus={tabStatus}
+      shortcut={shortcut}
+      onRefresh={handleRefresh}
+      onOpenOptions={openOptionsPage}
+      communicateWithContentScript={communicateWithContentScript}
+      onPreviewChange={handlePreviewChange}
+      previewAnnotationScale={previewAnnotationScale}
+      previewScaleTextTogether={previewScaleTextTogether}
+    />
   )
 }
 

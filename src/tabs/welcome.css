@@ -1123,6 +1123,19 @@ a.address-text:hover {
   }
 }
 
+.ext-icon.tile {
+  background: var(--c-field);
+  color: var(--c-muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ext-icon.tile.chinese-find {
+  background: linear-gradient(140deg, #51939c, #3f7d86);
+  color: #ffffff;
+}
+
 /* The popup in step 3 is the shipped one; only its anchor is new. */
 .popup-mock {
   width: 420px;
@@ -1130,42 +1143,6 @@ a.address-text:hover {
 
 .popup-mock .popup {
   max-width: 100%;
-}
-
-/* A ring that closes in on Annotate while nothing is annotated yet. */
-.illus-annotate-wrap {
-  position: relative;
-  display: flex;
-  flex: 1;
-}
-
-.illus-annotate-wrap .cursor {
-  right: -6px;
-  bottom: -8px;
-}
-
-.illus-annotate-wrap.is-inviting::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: var(--border-radius-base);
-  border: 2px solid var(--primary-color);
-  pointer-events: none;
-  animation: converge 1.8s ease-out infinite;
-}
-
-@keyframes converge {
-  0% {
-    transform: scale(1.18);
-    opacity: 0;
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0;
-  }
 }
 
 /* Language picker, footer actions, and the small feature-card pieces. */
@@ -1212,10 +1189,6 @@ a.address-text:hover {
   }
 
   .caption-cue {
-    animation: none;
-  }
-
-  .illus-annotate-wrap.is-inviting::after {
     animation: none;
   }
 }
